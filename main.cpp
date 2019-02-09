@@ -66,6 +66,7 @@ class MyApp : public App
 		int initiative;
 		vector <Price> price;
 		Enum type;
+		string icon_name;
 	};
 
 	vector<unitType> allTypes = {
@@ -77,7 +78,8 @@ class MyApp : public App
 			4,
 			8,
 			{{Price::gold, 85}},
-			unitType::myaso
+			unitType::myaso,
+			"myaso_icon.png"
 		},
 		{
 			7,
@@ -87,7 +89,8 @@ class MyApp : public App
 			4,
 			9,
 			{{Price::gold, 50}},
-			unitType::archer
+			unitType::archer,
+			"archer_icon.png"
 		},
 		{
 			30,
@@ -97,7 +100,8 @@ class MyApp : public App
 			7,
 			15,
 			{{Price::gold, 260}},
-			unitType::grifon
+			unitType::grifon,
+			"griffin_icon.png"
 		},
 		{
 			54,
@@ -107,7 +111,8 @@ class MyApp : public App
 			5,
 			10,
 			{{Price::gold, 600}},
-			unitType::chuvak
+			unitType::chuvak,
+			"chuvak_icon.png"
 		},
 		{
 			90,
@@ -117,7 +122,8 @@ class MyApp : public App
 			7,
 			11,
 			{{Price::gold, 1300}},
-			unitType::horserider
+			unitType::horserider,
+			"horserider_icon.png"
 		},
 		{
 			16,
@@ -127,7 +133,8 @@ class MyApp : public App
 			4,
 			8,
 			{{Price::gold, 2800}, {Price::crystal, 1}},
-			unitType::myaso
+			unitType::myaso,
+			"Angel_icon.png"
 		},
 	};
 
@@ -146,6 +153,7 @@ class MyApp : public App
 	struct playerData
 	{
 		Army army;
+		int exp;
 	};
 
 	enum grass
@@ -155,8 +163,6 @@ class MyApp : public App
 		Chest,
 		Gold
 	};
-
-
 
 	Army createArmy(vector<pair<unitType::Enum, int>> newArmy)
 	{
@@ -170,6 +176,33 @@ class MyApp : public App
 		}
 		return army;
 	}
+
+	void loadArmy(Army army)
+	{
+		for (int i = 0; i < 6; i++)
+		{
+			auto unitstats = design.child<Layout>("unitstats" + toString(i + 1));
+			auto icon = unitstats.child<Texture>("icon");
+			auto label = unitstats.child<Label>("label");
+			icon.setImageName(army.units[i].type.icon_name);
+			label << army.units[i].n;
+		}
+	}
+
+	void loadMainArmy(Army army)
+	{
+		for (int i = 0; i < 6; i++)
+		{
+			auto unitstats = design.child<Layout>("unitstatsmain" + toString(i + 1));
+			auto icon = unitstats.child<Texture>("icon");
+			auto label = unitstats.child<Label>("label");
+			icon.setImageName(army.units[i].type.icon_name);
+			label << army.units[i].n;
+		}
+		design.update();
+	}
+
+	//void chestMenu
 
 	void load()
 	{
@@ -297,6 +330,10 @@ class MyApp : public App
 			}
 		}
 		field.setView(groundmap.w / 2 * 150 - 75, groundmap.h / 2 * 150 - 75);
+
+		loadMainArmy(playerLayer.data(playerLayer.get(0)).army);
+		playerLayer.data(playerLayer.get(0)).exp = 0;
+		loadTextBank("textBank.json");
 	}
 
 	void hideLabel()
@@ -340,6 +377,7 @@ class MyApp : public App
 		}
 		if (type == army)
 		{
+			loadArmy(playerLayer.data(playerLayer.get(0)).army);
 			heroMenuSelector.select(2);
 		}
 	}
@@ -368,7 +406,7 @@ class MyApp : public App
 			close();
 		}
 
-		if (input.justPressed(MouseLeft) && playerLayer.get(0).anim.isEmpty() && !impl::isMouseOn(Relog.getImpl().get()) && !impl::isMouseOn(newDirection.getImpl().get()) && !impl::isMouseOn(heroMenu.getImpl().get()) && !heroMenuOpen)
+		if (input.justPressed(MouseLeft) && playerLayer.get(0).anim.isEmpty() && !impl::isMouseOn(Relog.getImpl().get()) && !impl::isMouseOn(newDirection.getImpl().get()) && !impl::isMouseOn(heroMenu.getImpl().get()) && !heroMenuOpen && !isChestVisible)
 		{
 			if (stepPoints <= 0)
 			{
@@ -496,6 +534,54 @@ class MyApp : public App
 		}
 	}
 
+	enum Babosiki
+	{
+		g, e
+	};
+	bool isChestVisible = false;
+	void getBabosiki(Babosiki b, int n)
+	{
+		if (b == g)
+		{
+			gold += n;
+			forWindow.remove(1);
+			isChestVisible = false;
+		}
+		else
+		{
+			playerLayer.data(playerLayer.get(0)).exp += n;
+			skill += n;
+			forWindow.remove(1);
+			isChestVisible = false;
+		}
+	}
+
+	void showChestMenu()
+	{
+		randomize();
+		forWindow.load(1,"ChestMenu.json");
+		auto getExp = forWindow.child<Button>("getExp");
+		auto getGold = forWindow.child<Button>("getGold");
+		auto expN = forWindow.child<Label>("expN");
+		auto goldN = forWindow.child<Label>("goldN");
+		int a = randomInt(1, 5);
+		if (a >= 1 && a < 4)
+		{
+			connect(getExp, getBabosiki, e, 800);
+			connect(getGold, getBabosiki, g, 800);
+			expN << tr("get800exp");
+			goldN << tr("get800gold");
+		}
+		if (a >= 4)
+		{	
+			connect(getGold, getBabosiki, g, 2000);
+			connect(getExp, getBabosiki, e, 2000);
+			expN << tr("get2000exp");
+			goldN << tr("get2000gold");
+		}
+		design.update();
+	}
+
     void move()
     {
 		GOld << "gold: " << gold;
@@ -507,11 +593,22 @@ class MyApp : public App
 			{
 				if (nishtyaki.data(n).type == golda)
 				{
-					gold += 100;
+					randomize();
+					int a = randomInt(1, 5);
+					if (a >= 1 && a < 4)
+					{
+						gold += 200;
+					}
+					if (a >= 4)
+					{
+						gold += 400;
+					}
+					
 				}
 				else
 				{
-					skill += 100;
+					showChestMenu();
+					isChestVisible = true;
 				}
 				n.kill();
 			}
@@ -560,12 +657,14 @@ class MyApp : public App
 	FromDesign(Label, test_);
 	FromDesign(Selector, selector);
 
+	FromDesign(Layout, forWindow);
+
 	FromDesign(Selector, heroMenuSelector);
 	FromDesign(Button, select0);
 	FromDesign(Button, select1);
 	FromDesign(Button, select2);
 	FromDesign(Button, heroMenu);
-
+	
 	FromDesign(GameView, field);
 	FromDesign(Label, GOld);
 	FromDesign(Label, SKill);

@@ -1,0 +1,22 @@
+{
+   "_typeName" : "TextBank",
+   "_version" : "VER3",
+   "database" : [
+      {
+         "_key" : "get2000exp",
+         "_value" : "Вы получите 2000 опыта"
+      },
+      {
+         "_key" : "get2000gold",
+         "_value" : "Вы получите 2000 золота"
+      },
+      {
+         "_key" : "get800exp",
+         "_value" : "Вы получите 800 опыта"
+      },
+      {
+         "_key" : "get800gold",
+         "_value" : "Вы получите 800 золота"
+      }
+   ]
+}
