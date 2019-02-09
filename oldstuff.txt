@@ -1,0 +1,22 @@
+
+					/*IntVec2 NowPPos = cell(playerLayer.get(0).pos());
+					for (auto dir : direction)
+					{
+						if (dir.x > NowPPos.x)
+						{
+							playerLayer.get(0).anim.play("right", 0);
+						}
+						else if (dir.x < NowPPos.x)
+						{
+							playerLayer.get(0).anim.play("left", 0);
+						}
+						else if (dir.y > NowPPos.y)
+						{
+							playerLayer.get(0).anim.play("up", 0);
+						}
+						else if (dir.y < NowPPos.y)
+						{
+							playerLayer.get(0).anim.play("down", 0);
+						}
+						NowPPos = dir;
+					}*/

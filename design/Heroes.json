@@ -1,0 +1,115 @@
+{
+   "_name" : "Player",
+   "_typeName" : "ObjectConstruct",
+   "_version" : "VER3",
+   "animations" : [
+      {
+         "_key" : "right",
+         "_value" : {
+            "_typeName" : "AdvancedMove",
+            "changeFunc" : 0,
+            "coordType" : 0,
+            "objName" : "",
+            "parentHeightRelativeCoord" : 0,
+            "parentWidthRelativeCoord" : 0,
+            "period" : 500,
+            "pixelCoord" : 150,
+            "relativeMove" : true,
+            "selfHeightRelativeCoord" : 0,
+            "selfWidthRelativeCoord" : 0
+         }
+      },
+      {
+         "_key" : "down",
+         "_value" : {
+            "_typeName" : "AdvancedMove",
+            "changeFunc" : 0,
+            "coordType" : 1,
+            "objName" : "",
+            "parentHeightRelativeCoord" : 0,
+            "parentWidthRelativeCoord" : 0,
+            "period" : 500,
+            "pixelCoord" : -150,
+            "relativeMove" : true,
+            "selfHeightRelativeCoord" : 0,
+            "selfWidthRelativeCoord" : 0
+         }
+      },
+      {
+         "_key" : "up",
+         "_value" : {
+            "_typeName" : "AdvancedMove",
+            "changeFunc" : 0,
+            "coordType" : 1,
+            "objName" : "",
+            "parentHeightRelativeCoord" : 0,
+            "parentWidthRelativeCoord" : 0,
+            "period" : 500,
+            "pixelCoord" : 150,
+            "relativeMove" : true,
+            "selfHeightRelativeCoord" : 0,
+            "selfWidthRelativeCoord" : 0
+         }
+      },
+      {
+         "_key" : "left",
+         "_value" : {
+            "_typeName" : "AdvancedMove",
+            "changeFunc" : 0,
+            "coordType" : 0,
+            "objName" : "",
+            "parentHeightRelativeCoord" : 0,
+            "parentWidthRelativeCoord" : 0,
+            "period" : 500,
+            "pixelCoord" : -150,
+            "relativeMove" : true,
+            "selfHeightRelativeCoord" : 0,
+            "selfWidthRelativeCoord" : 0
+         }
+      }
+   ],
+   "finder" : {
+      "_typeName" : "FindableGeometryElement",
+      "geom" : {
+         "_typeName" : "IdenticGeometry"
+      }
+   },
+   "id" : 0,
+   "position" : {
+      "_typeName" : "PositionElement",
+      "angle" : 0,
+      "offset" : [ 0, 0 ],
+      "scaleX" : 1,
+      "scaleY" : 1
+   },
+   "selector" : {
+      "_typeName" : "PressableAndClickableElement",
+      "clickTime" : 500
+   },
+   "skin" : {
+      "_typeName" : "StaticTextureRect",
+      "box" : {
+         "_typeName" : "PixelBox",
+         "height" : 150,
+         "width" : 150
+      },
+      "color" : [ 1, 1, 1, 1 ],
+      "imageName" : ".\\Player.png",
+      "position" : {
+         "_typeName" : "AligningOffset",
+         "horAlign" : 1,
+         "horOffset" : {
+            "_typeName" : "RelativeValue",
+            "type" : 1,
+            "value" : 0
+         },
+         "vertAlign" : 1,
+         "vertOffset" : {
+            "_typeName" : "RelativeValue",
+            "type" : 1,
+            "value" : 0
+         }
+      }
+   },
+   "transitionAnimations" : []
+}

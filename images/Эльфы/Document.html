@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <meta charset="UTF-8">
+    <script src="Document_files/jquery.js"></script>
+</head>
+<body>
+    <input id="id_" placeholder="id">
+    <input id="title" placeholder="title">
+    <input id="tags" placeholder="tags">
+    <input id="text" placeholder="text">
+    <button onclick="editPost()" id="qq">Сохранить</button>
+    <input id="Ntitle" placeholder="title" value="Новый пост1">
+    <input id="tags__" placeholder="tags" value="первый, саша">
+    <input id="Ntext" placeholder="text" value="Мой первый пост">
+    <button onclick="createPost()" id="qq">Создать</button>
+    <script>
+        $(document).ready(function ()
+        {
+            getAllPost();
+        });
+        var getAllPost = function () 
+        {
+            var r = new XMLHttpRequest;
+            r.onreadystatechange = function ()
+            {
+                if (r.readyState == 4)
+                {
+                    $(".response").html(r.responseText);
+                }
+            }
+            r.open("GET", "post.php?getAllPost=true");
+            r.send();
+        } 
+        var editPost = function ()
+        {
+            var t = $('#title').val();
+            var m = $('#text').val();
+            var tag = $('#tags').val();
+            var id = $('#id_').val();
+            var params = "?edit=true&message=" + m + "&title=" + t + "&id=" + id + "&tags=" + tag;
+            var request = new XMLHttpRequest;
+            request.onreadystatechange = function ()
+            {
+
+                if (request.readyState == 4)
+                {
+                    console.log(JSON.parse(request.responseText));
+                    encode = JSON.parse(request.responseText);
+                    if (encode.response == true)
+                    {
+                        getAllPost();
+                    }
+                }
+            }
+            request.open("GET", "post.php" + params);
+            request.send();
+        }
+        var createPost = function ()
+        {
+            var t = $('#Ntitle').val();
+            var m = $('#Ntext').val();
+            var tag = $('#tags__').val();
+            var params = "?create=true&message=" + m + "&title=" + t + "&tags=" + tag;
+            var request = new XMLHttpRequest;
+            request.onreadystatechange = function ()
+            {
+                if (request.readyState == 4)
+                {
+                    if (request.responseText == "success")
+                    {
+                        getAllPost();
+                    }
+                }
+            }
+            request.open("GET", "post.php" + params);
+            request.send();
+        }
+        var deletePost = function (obj)
+        {
+            var id = obj.id;
+            var params = "?delete=true&id=" + id;
+            var request = new XMLHttpRequest;
+            request.onreadystatechange = function ()
+            {
+
+                if (request.readyState == 4)
+                {
+                    if (request.responseText == "success")
+                    {
+                        getAllPost();
+                    }
+                }
+            }
+            request.open("GET", "post.php" + params);
+            request.send();
+        }
+    </script>
+    <div class="response">id: 2<br> title: 1<br> text: 3<br> <button onclick="deletePost(this)" id="2">Удалить пост</button> <br><br></div>
+
+<div id="SL_balloon_obj" alt="0" style="display: block;"><div id="SL_button" class="SL_ImTranslatorLogo" style="background: rgba(0, 0, 0, 0) url(&quot;moz-extension://0385e4a8-b1ec-4a74-bfd1-8e508e1f4c99/content/img/util/imtranslator-s.png&quot;) repeat scroll 0% 0%; display: none; opacity: 0; left: 1059px; top: -4px; transition: visibility 2s ease 0s, opacity 2s linear 0s;"></div><div id="SL_shadow_translation_result2" style="display: none;"></div><div id="SL_shadow_translator" style="display: none;"><div id="SL_planshet"><div id="SL_arrow_up" style="background: rgba(0, 0, 0, 0) url(&quot;moz-extension://0385e4a8-b1ec-4a74-bfd1-8e508e1f4c99/content/img/util/up.png&quot;) repeat scroll 0% 0%;"></div><div id="SL_Bproviders"></div><div id="SL_alert_bbl" style="display: none;"><div id="SLHKclose" style="background: rgba(0, 0, 0, 0) url(&quot;moz-extension://0385e4a8-b1ec-4a74-bfd1-8e508e1f4c99/content/img/util/delete.png&quot;) repeat scroll 0% 0%;"></div><div id="SL_alert_cont"></div></div><div id="SL_TB"><table id="SL_tables" cellspacing="1"><tr><td class="SL_td" width="10%" align="right"><input id="SL_locer" type="checkbox" title="Зафиксировать язык"></td><td class="SL_td" width="20%" align="left"><select id="SL_lng_from" style="background: rgb(255, 255, 255) url(&quot;moz-extension://0385e4a8-b1ec-4a74-bfd1-8e508e1f4c99/content/img/util/select.png&quot;) no-repeat scroll 100% 0px;"><option value="auto" selected="selected">Определить язык</option><option value="az">Азербайджанский</option><option value="sq">Албанский</option><option value="am">Амхарский</option><option value="en">Английский</option><option value="ar">Арабский</option><option value="hy">Армянский</option><option value="af">Африкаанс</option><option value="eu">Баскский</option><option value="be">Белорусский</option><option value="bn">Бенгальский</option><option value="my">Бирманский</option><option value="bg">Болгарский</option><option value="bs">Боснийский</option><option value="cy">Валлийский</option><option value="hu">Венгерский</option><option value="vi">Вьетнамский</option><option value="haw">Гавайский</option><option value="ht">Гаитянский</option><option value="gl">Галисийский</option><option value="nl">Голландский</option><option value="el">Греческий</option><option value="ka">Грузинский</option><option value="gu">Гуджарати</option><option value="da">Датский</option><option value="zu">Зулу</option><option value="iw">Иврит</option><option value="ig">Игбо</option><option value="yi">Идиш</option><option value="id">Индонезийский</option><option value="ga">Ирландский</option><option value="is">Исландский</option><option value="es">Испанский</option><option value="it">Итальянский</option><option value="yo">Йоруба</option><option value="kk">Казахский</option><option value="kn">Каннада</option><option value="ca">Каталанский</option><option value="ky">Киргизский</option><option value="zh-TW">Китайский Трад</option><option value="zh-CN">Китайский Упр</option><option value="ko">Корейский</option><option value="co">Корсиканский</option><option value="ku">Курманджи</option><option value="km">Кхмерский</option><option value="xh">Кхоса</option><option value="lo">Лаосский</option><option value="la">Латинский</option><option value="lv">Латышский</option><option value="lt">Литовский</option><option value="lb">Люксембургский</option><option value="mk">Македонский</option><option value="mg">Малагасийский</option><option value="ms">Малайский</option><option value="ml">Малаялам</option><option value="mt">Мальтийский</option><option value="mi">Маори</option><option value="mr">Маратхи</option><option value="mn">Монгольский</option><option value="de">Немецкий</option><option value="ne">Непальский</option><option value="no">Норвежский</option><option value="pa">Панджаби</option><option value="fa">Персидский</option><option value="pl">Польский</option><option value="pt">Португальский</option><option value="ps">Пушту</option><option value="ro">Румынский</option><option value="ru">Русский</option><option value="sm">Самоанский</option><option value="ceb">Себуанский</option><option value="sr">Сербский</option><option value="st">Сесото</option><option value="si">Сингальский</option><option value="sd">Синдхи</option><option value="sk">Словацкий</option><option value="sl">Словенский</option><option value="so">Сомалийский</option><option value="sw">Суахили</option><option value="su">Сунданский</option><option value="tg">Таджикский</option><option value="th">Тайский</option><option value="ta">Тамильский</option><option value="te">Телугу</option><option value="tr">Турецкий</option><option value="uz">Узбекский</option><option value="uk">Украинский</option><option value="ur">Урду</option><option value="tl">Филиппинский</option><option value="fi">Финский</option><option value="fr">Французский</option><option value="fy">Фризский</option><option value="ha">Хауса</option><option value="hi">Хинди</option><option value="hmn">Хмонг</option><option value="hr">Хорватский</option><option value="ny">Чева</option><option value="cs">Чешский</option><option value="sv">Шведский</option><option value="sn">Шона</option><option value="gd">Шотландский (гэльский)</option><option value="eo">Эсперанто</option><option value="et">Эстонский</option><option value="jw">Яванский</option><option value="ja">Японский</option></select></td><td class="SL_td" width="3" align="center"><div id="SL_switch_b" title="Переключить направление" style="background: rgba(0, 0, 0, 0) url(&quot;moz-extension://0385e4a8-b1ec-4a74-bfd1-8e508e1f4c99/content/img/util/switchb.png&quot;) repeat scroll 0% 0%;"></div></td><td class="SL_td" width="20%" align="left"><select id="SL_lng_to" style="background: rgb(255, 255, 255) url(&quot;moz-extension://0385e4a8-b1ec-4a74-bfd1-8e508e1f4c99/content/img/util/select.png&quot;) no-repeat scroll 100% 0px;"><option value="az">Азербайджанский</option><option value="sq">Албанский</option><option value="am">Амхарский</option><option value="en">Английский</option><option value="ar">Арабский</option><option value="hy">Армянский</option><option value="af">Африкаанс</option><option value="eu">Баскский</option><option value="be">Белорусский</option><option value="bn">Бенгальский</option><option value="my">Бирманский</option><option value="bg">Болгарский</option><option value="bs">Боснийский</option><option value="cy">Валлийский</option><option value="hu">Венгерский</option><option value="vi">Вьетнамский</option><option value="haw">Гавайский</option><option value="ht">Гаитянский</option><option value="gl">Галисийский</option><option value="nl">Голландский</option><option value="el">Греческий</option><option value="ka">Грузинский</option><option value="gu">Гуджарати</option><option value="da">Датский</option><option value="zu">Зулу</option><option value="iw">Иврит</option><option value="ig">Игбо</option><option value="yi">Идиш</option><option value="id">Индонезийский</option><option value="ga">Ирландский</option><option value="is">Исландский</option><option value="es">Испанский</option><option value="it">Итальянский</option><option value="yo">Йоруба</option><option value="kk">Казахский</option><option value="kn">Каннада</option><option value="ca">Каталанский</option><option value="ky">Киргизский</option><option value="zh-TW">Китайский Трад</option><option value="zh-CN">Китайский Упр</option><option value="ko">Корейский</option><option value="co">Корсиканский</option><option value="ku">Курманджи</option><option value="km">Кхмерский</option><option value="xh">Кхоса</option><option value="lo">Лаосский</option><option value="la">Латинский</option><option value="lv">Латышский</option><option value="lt">Литовский</option><option value="lb">Люксембургский</option><option value="mk">Македонский</option><option value="mg">Малагасийский</option><option value="ms">Малайский</option><option value="ml">Малаялам</option><option value="mt">Мальтийский</option><option value="mi">Маори</option><option value="mr">Маратхи</option><option value="mn">Монгольский</option><option value="de">Немецкий</option><option value="ne">Непальский</option><option value="no">Норвежский</option><option value="pa">Панджаби</option><option value="fa">Персидский</option><option value="pl">Польский</option><option value="pt">Португальский</option><option value="ps">Пушту</option><option value="ro">Румынский</option><option selected="selected" value="ru">Русский</option><option value="sm">Самоанский</option><option value="ceb">Себуанский</option><option value="sr">Сербский</option><option value="st">Сесото</option><option value="si">Сингальский</option><option value="sd">Синдхи</option><option value="sk">Словацкий</option><option value="sl">Словенский</option><option value="so">Сомалийский</option><option value="sw">Суахили</option><option value="su">Сунданский</option><option value="tg">Таджикский</option><option value="th">Тайский</option><option value="ta">Тамильский</option><option value="te">Телугу</option><option value="tr">Турецкий</option><option value="uz">Узбекский</option><option value="uk">Украинский</option><option value="ur">Урду</option><option value="tl">Филиппинский</option><option value="fi">Финский</option><option value="fr">Французский</option><option value="fy">Фризский</option><option value="ha">Хауса</option><option value="hi">Хинди</option><option value="hmn">Хмонг</option><option value="hr">Хорватский</option><option value="ny">Чева</option><option value="cs">Чешский</option><option value="sv">Шведский</option><option value="sn">Шона</option><option value="gd">Шотландский (гэльский)</option><option value="eo">Эсперанто</option><option value="et">Эстонский</option><option value="jw">Яванский</option><option value="ja">Японский</option></select></td><td class="SL_td" width="8%" align="center"><div id="SL_TTS_voice" title="undefined" style="background: rgba(0, 0, 0, 0) url(&quot;moz-extension://0385e4a8-b1ec-4a74-bfd1-8e508e1f4c99/content/img/util/ttsvoice.png&quot;) repeat scroll 0% 0%;"></div></td><td class="SL_td" width="8%" align="center"><div id="SL_copy" title="Скопировать" class="SL_copy" style="background: rgba(0, 0, 0, 0) url(&quot;moz-extension://0385e4a8-b1ec-4a74-bfd1-8e508e1f4c99/content/img/util/copy.png&quot;) repeat scroll 0% 0%;"></div></td><td class="SL_td" width="8%" align="center"><div id="SL_bbl_font_patch"></div><div id="SL_bbl_font" title="Размер шрифта" class="SL_bbl_font" style="background: rgba(0, 0, 0, 0) url(&quot;moz-extension://0385e4a8-b1ec-4a74-bfd1-8e508e1f4c99/content/img/util/font.png&quot;) repeat scroll 0% 0%;"></div></td><td class="SL_td" width="8%" align="center"><div id="SL_bbl_help" title="Справка" style="background: rgba(0, 0, 0, 0) url(&quot;moz-extension://0385e4a8-b1ec-4a74-bfd1-8e508e1f4c99/content/img/util/bhelp.png&quot;) repeat scroll 0% 0%;"></div></td><td class="SL_td" width="15%" align="right"><div id="SL_pin" class="SL_pin_off" title="Закрепить всплывающее окно" style="background: rgba(0, 0, 0, 0) url(&quot;moz-extension://0385e4a8-b1ec-4a74-bfd1-8e508e1f4c99/content/img/util/pin-on.png&quot;) repeat scroll 0% 0%;"></div></td></tr></table></div></div><div id="SL_shadow_translation_result" style="visibility: visible;"></div><div id="SL_loading" class="SL_loading" style="background: rgba(0, 0, 0, 0) url(&quot;moz-extension://0385e4a8-b1ec-4a74-bfd1-8e508e1f4c99/content/img/util/loading.gif&quot;) repeat scroll 0% 0%;"></div><div id="SL_player2"></div><div id="SL_alert100">Звуковая функция ограничена 200 символами</div><div id="SL_Balloon_options" style="background: rgb(255, 255, 255) url(&quot;moz-extension://0385e4a8-b1ec-4a74-bfd1-8e508e1f4c99/content/img/util/bg3.png&quot;) repeat scroll 0% 0%;"><div id="SL_arrow_down" style="background: rgba(0, 0, 0, 0) url(&quot;moz-extension://0385e4a8-b1ec-4a74-bfd1-8e508e1f4c99/content/img/util/down.png&quot;) repeat scroll 0% 0%;"></div><table id="SL_tbl_opt" width="100%"><tr><td width="5%" align="center"><input id="SL_BBL_locer" type="checkbox" checked="checked" title="Показывать кнопку ImTranslator Bubble 3 секунд"></td><td width="5%" align="left"><div id="SL_BBL_IMG" title="Показывать кнопку ImTranslator Bubble 3 секунд" style="background: rgba(0, 0, 0, 0) url(&quot;moz-extension://0385e4a8-b1ec-4a74-bfd1-8e508e1f4c99/content/img/util/bbl-logo.png&quot;) repeat scroll 0% 0%;"></div></td><td width="70%" align="center"><a href="moz-extension://0385e4a8-b1ec-4a74-bfd1-8e508e1f4c99/content/html/options/options.html?bbl" target="_blank" class="SL_options" title="Показать настройки">Настройки</a> : <a href="moz-extension://0385e4a8-b1ec-4a74-bfd1-8e508e1f4c99/content/html/options/options.html?hist" target="_blank" class="SL_options" title="История переводов">История</a> : <a href="moz-extension://0385e4a8-b1ec-4a74-bfd1-8e508e1f4c99/content/html/options/options.html?feed" target="_blank" class="SL_options" title="Обратная связь">Обратная связь</a> : <a href="https://www.paypal.com/cgi-bin/webscr?cmd=_s-xclick&amp;hosted_button_id=GD9D8CPW8HFA2" target="_blank" class="SL_options" title="Сделать пожертвование">Donate</a></td><td width="15%" align="right"><span id="SL_Balloon_Close" title="Закрыть">Закрыть</span></td></tr></table></div></div></div></body></html>
