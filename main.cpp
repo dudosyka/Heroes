@@ -5,10 +5,10 @@ using namespace std;
 
 class MyApp : public App
 {
-	int gold, skill;
+	int gold, skill, ore;
 
 	deque <IntVec2> direction;
-
+	
 	bool heroMenuOpen = false;
 
 	Timer timer;
@@ -35,6 +35,7 @@ class MyApp : public App
 	{
 		recType type;
 		ownerType owner;
+		IntVec2 cords;
 	};
 
 	struct nishData
@@ -154,6 +155,7 @@ class MyApp : public App
 	{
 		Army army;
 		int exp;
+		ownerType owner;
 	};
 
 	enum grass
@@ -207,6 +209,7 @@ class MyApp : public App
 	void load()
 	{
 		stepPoints = 4;
+		ore = 0;
 		connect(Relog, nextStep);
 
 		connect(heroMenu, openHeroMenu);
@@ -253,6 +256,7 @@ class MyApp : public App
 					playerLayer.load("Heroes.json", x * 150, y * 150);
 					auto& player = playerLayer.data(playerLayer.get(0));
 					player.army.owner = humanplayer;
+					player.owner = humanplayer;
 					player.army = createArmy({
 						{ unitType::myaso, 20 },
 						{ unitType::archer, 5 },
@@ -312,12 +316,16 @@ class MyApp : public App
 				{
 					auto Rec = rec.load("Rec.json", x * 150, y * 150);
 					Rec.skin<Texture>().setImageName("mine.png");
+					rec.data(Rec).owner = neutral;
 					rec.data(Rec).type = mine;
+					rec.data(Rec).cords = { x,y };
 				}
 				if (recmap[x][y] == goldMine)
 				{
 					auto Rec = rec.load("Rec.json", x * 150, y * 150);
 					rec.data(Rec).type = goldMine;
+					rec.data(Rec).owner = neutral;
+					rec.data(Rec).cords = { x,y };
 				}
 				if (recmap[x][y] == castle)
 				{
@@ -338,6 +346,7 @@ class MyApp : public App
 					Rec.setScaleX(1.5);
 					Rec.setScaleY(1.5);
 					rec.data(Rec).type = castle;
+					rec.data(Rec).cords = { x - 1, y - 1 };
 				}
 			}
 		}
@@ -356,6 +365,20 @@ class MyApp : public App
 	void nextStep()
 	{
 		stepPoints = 4;
+		for (auto Rec : rec.all())
+		{
+			if (rec.data(Rec).owner == playerLayer.data(playerLayer.get(0)).owner)
+			{
+				if (rec.data(Rec).type == goldMine)
+				{
+					gold += 1000;
+				}
+				else if (rec.data(Rec).type == mine)
+				{
+					ore += 2;
+				}
+			}
+		}
 	}
 	
 	void openHeroMenu()
@@ -457,12 +480,12 @@ class MyApp : public App
 		return Vec2(v.x, v.y);
 	}
 
+	bool isGoToRec = false;
 	deque <IntVec2> route(IntVec2 start, IntVec2 finish)
 	{
 		GameMap dmap;
 		deque <IntVec2> queue;
 		dmap = createMap(groundmap.w, groundmap.h);
-		bool isGoToRec = false;
 		if (realrecmap[finish] != noneRec)
 		{
 			if (realrecmap[finish] != castle)
@@ -607,7 +630,9 @@ class MyApp : public App
 	{
 		g, e
 	};
+
 	bool isChestVisible = false;
+
 	void getBabosiki(Babosiki b, int n)
 	{
 		if (b == g)
@@ -655,6 +680,7 @@ class MyApp : public App
     {
 		GOld << "gold: " << gold;
 		SKill << "skill: " << skill;
+		Ore << "Ore: " << ore;
 		field.setView(playerLayer.get(0).pos());
 		if (empty(direction) && playerLayer.get(0).anim.isEmpty())
 		{
@@ -715,6 +741,25 @@ class MyApp : public App
 		{
 			egg.kill();
 		}
+		if (isGoToRec && playerLayer.get(0).anim.isEmpty())
+		{
+			for (auto Rec : rec.all())
+			{
+				//if (realrecmap[cell(playerLayer.get(0).pos()).x + 1][cell(playerLayer.get(0).pos()).y] || realrecmap[cell(playerLayer.get(0).pos()).x - 1][cell(playerLayer.get(0).pos()).y + 1] || realrecmap[cell(playerLayer.get(0).pos()).x - 1][cell(playerLayer.get(0).pos()).y] || realrecmap[cell(playerLayer.get(0).pos()).x - 1][cell(playerLayer.get(0).pos()).y - 1] || realrecmap[cell(playerLayer.get(0).pos()).x][cell(playerLayer.get(0).pos()).y - 1] || realrecmap[cell(playerLayer.get(0).pos()).x + 1][cell(playerLayer.get(0).pos()).y - 1] || realrecmap[cell(playerLayer.get(0).pos()).x][cell(playerLayer.get(0).pos()).y + 1] || realrecmap[cell(playerLayer.get(0).pos()).x + 1][cell(playerLayer.get(0).pos()).y + 1])
+				auto& rpos = rec.data(Rec).cords;
+				auto& ppos = playerLayer.get(0).pos();
+				auto cppos = cell(ppos);
+  				if ((rpos.x + 1 == cppos.x && rpos.y == cppos.y) || (rpos.x - 1 == cppos.x  && rpos.y == cppos.y) || (rpos.y + 1 == cppos.y && rpos.x == cppos.x) || (rpos.y - 1 == cppos.y && rpos.x == cppos.x) || (rpos.x + 1 == cppos.x && rpos.y + 1 == cppos.y) || (rpos.x + 1 == cppos.x && rpos.y - 1 == cppos.y) || (rpos.y - 1 == cppos.y && rpos.x - 1 == cppos.x) || (rpos.x - 1 == cppos.x && rpos.y + 1 == cppos.y))
+				{
+					isGoToRec = false;
+					GOld << "allright!!";
+					rec.data(Rec).owner = playerLayer.data(playerLayer.get(0)).owner;
+					forWindow.load(2, "MineInfo.json");
+					auto owner = forWindow.child<Label>("");
+
+				}
+			}
+		}
     }
 
 	GameMap groundmap, GroundObjMap, MobsMap, Nishtyakmap, recmap, realrecmap;
@@ -733,10 +778,10 @@ class MyApp : public App
 	FromDesign(Button, select1);
 	FromDesign(Button, select2);
 	FromDesign(Button, heroMenu);
-	
 	FromDesign(GameView, field);
 	FromDesign(Label, GOld);
 	FromDesign(Label, SKill);
+	FromDesign(Label, Ore);
 	FromDesign(Label, emptyStep);
 	LayerFromDesign(void, mobs);
 	LayerFromDesign(void, ground);

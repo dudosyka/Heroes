@@ -4051,6 +4051,56 @@
                         "vertAlign" : 0
                      },
                      "text" : "Skill: 0"
+                  },
+                  {
+                     "_name" : "Ore",
+                     "_typeName" : "StaticLabel",
+                     "adjustSize" : true,
+                     "box" : {
+                        "_typeName" : "RelativeBox",
+                        "height" : {
+                           "_typeName" : "RelativeValue",
+                           "type" : 0,
+                           "value" : 0
+                        },
+                        "offset" : {
+                           "_empty" : true
+                        },
+                        "width" : {
+                           "_typeName" : "RelativeValue",
+                           "type" : 0,
+                           "value" : 0
+                        }
+                     },
+                     "color" : [ 0, 0, 0, 1 ],
+                     "outlineColor" : [ 1, 1, 1, 1 ],
+                     "position" : {
+                        "_typeName" : "AligningOffset",
+                        "horAlign" : 0,
+                        "horOffset" : {
+                           "_typeName" : "RelativeValue",
+                           "type" : 2,
+                           "value" : 0.2000000029802322
+                        },
+                        "vertAlign" : 1,
+                        "vertOffset" : {
+                           "_typeName" : "RelativeValue",
+                           "type" : 1,
+                           "value" : 0
+                        }
+                     },
+                     "properties" : {
+                        "_typeName" : "AlignProperties",
+                        "enableStacking" : false,
+                        "font" : {
+                           "_typeName" : "FontDesc",
+                           "family" : "Roboto",
+                           "size" : 28
+                        },
+                        "horAlign" : 0,
+                        "vertAlign" : 0
+                     },
+                     "text" : "Ore: 0"
                   }
                ],
                "position" : {

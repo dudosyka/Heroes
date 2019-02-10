@@ -28,7 +28,7 @@
          "width" : 150
       },
       "color" : [ 1, 1, 1, 1 ],
-      "imageName" : ".\\notSimless.png",
+      "imageName" : ".\\grassDark.png",
       "position" : {
          "_typeName" : "AligningOffset",
          "horAlign" : 1,
