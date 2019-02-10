@@ -28,7 +28,7 @@ class MyApp : public App
 
 	enum recType
 	{
-		noneRec, mine, goldMine, castle
+		noneRec, mine, goldMine, castle, castle_entry
 	};
 
 	struct recData
@@ -300,9 +300,10 @@ class MyApp : public App
 			{ Color(0, 0, 0), noneRec},
 			{ Color(255, 238, 0), mine },
 			{ Color(252, 255, 249), castle },
-			{ Color(0, 4, 255), goldMine }
+			{ Color(0, 4, 255), goldMine },
 		};
 		recmap = loadMap("recmap.png", colorToTypeRec);
+		realrecmap = loadMap("recmap.png", colorToTypeRec);
 		for (int x = 0; x < recmap.w; ++x)
 		{
 			for (int y = 0; y < recmap.h; ++y)
@@ -320,6 +321,17 @@ class MyApp : public App
 				}
 				if (recmap[x][y] == castle)
 				{
+					if (realrecmap[x][y] == castle)
+					{
+						realrecmap[x + 1][y] = castle;
+						realrecmap[x][y + 1] = castle;
+						realrecmap[x + 1][y + 1] = castle;
+						realrecmap[x + 1][y - 1] = castle;
+						realrecmap[x][y - 1] = castle;
+						realrecmap[x - 1][y - 1] = castle_entry;
+						realrecmap[x - 1][y] = castle;
+						realrecmap[x - 1][y + 1] = castle;
+					}
 					auto Rec = rec.load("Rec.json", x * 150, y * 150);
 					Rec.skin<Texture>().setImageName("castle.png");
 					rec.data(Rec).owner = humanplayer;
@@ -445,11 +457,19 @@ class MyApp : public App
 		return Vec2(v.x, v.y);
 	}
 
-	deque <IntVec2> route (IntVec2 start, IntVec2 finish)
+	deque <IntVec2> route(IntVec2 start, IntVec2 finish)
 	{
 		GameMap dmap;
 		deque <IntVec2> queue;
 		dmap = createMap(groundmap.w, groundmap.h);
+		bool isGoToRec = false;
+		if (realrecmap[finish] != noneRec)
+		{
+			if (realrecmap[finish] != castle)
+			{
+				isGoToRec = true;
+			}
+		}
 		for (int x = 0; x < dmap.w; x++)
 		{
 			for (int y = 0; y < dmap.h; y++)
@@ -464,22 +484,22 @@ class MyApp : public App
 		while (true)
 		{
 			w = dmap[cur.x][cur.y] + 1;
-			if (dmap.w > cur.x + 1 && dmap[cur.x + 1][cur.y] > w && recmap[cur.x + 1][cur.y] == noneRec)
+			if (dmap.w > cur.x + 1 && dmap[cur.x + 1][cur.y] > w && realrecmap[cur.x + 1][cur.y] == noneRec)
 			{
 				queue.emplace_front(cur.x + 1, cur.y);
 				dmap[cur.x + 1][cur.y] = w;
 			}
-			if (cur.y > 0 && dmap[cur.x][cur.y-1] > dmap[cur.x][cur.y] && recmap[cur.x][cur.y - 1] == noneRec)
+			if (cur.y > 0 && dmap[cur.x][cur.y-1] > dmap[cur.x][cur.y] && realrecmap[cur.x][cur.y - 1] == noneRec)
 			{
 				queue.emplace_front(cur.x, cur.y - 1);
 				dmap[cur.x][cur.y - 1] = w;
-			}			
-			if (cur.x > 0 && dmap[cur.x-1][cur.y] > dmap[cur.x][cur.y] && recmap[cur.x - 1][cur.y] == noneRec)
+			}
+			if (cur.x > 0 && dmap[cur.x-1][cur.y] > dmap[cur.x][cur.y] && realrecmap[cur.x - 1][cur.y] == noneRec)
 			{
 				queue.emplace_front(cur.x - 1, cur.y);
 				dmap[cur.x - 1][cur.y] = w;
 			}			
-			if (cur.y < dmap.h - 1 && dmap[cur.x][cur.y + 1] > dmap[cur.x][cur.y] && recmap[cur.x][cur.y + 1] == noneRec)
+			if (cur.y < dmap.h - 1 && dmap[cur.x][cur.y + 1] > dmap[cur.x][cur.y] && realrecmap[cur.x][cur.y + 1] == noneRec)
 			{
 				queue.emplace_front(cur.x, cur.y + 1);
 				dmap[cur.x][cur.y + 1] = w;
@@ -488,10 +508,55 @@ class MyApp : public App
 			if (queue.empty())
 			{
 				break;
+			}	
+			cur = queue.back();		
+		}
+		if (dmap[finish] == 2000000001)
+		{
+			if (!isGoToRec)
+			{
+				return {};
 			}
-			cur = queue.back();
+			else
+			{
+				while (dmap[finish] == 2000000001)
+				{
+					if (start.x > finish.x)
+					{
+						IntVec2 newFinish;
+						newFinish.x = finish.x + 1;
+						newFinish.y = finish.y;
+						finish = newFinish;
+					}
+					if (start.x < finish.x)
+					{
 
-			
+						IntVec2 newFinish;
+						newFinish.x = finish.x - 1;
+						newFinish.y = finish.y;
+						finish = newFinish;
+						//finish = { finish.x--, finish.y };
+					}
+					if (start.y > finish.y)
+					{
+
+						IntVec2 newFinish;
+						newFinish.x = finish.x;
+						newFinish.y = finish.y + 1;
+						finish = newFinish;
+						//finish = { finish.x, finish.y++ };
+					}
+					if (start.y < finish.y)
+					{
+
+						IntVec2 newFinish;
+						newFinish.x = finish.x;
+						newFinish.y = finish.y - 1;
+						finish = newFinish;
+						//finish = { finish.x, finish.y-- };
+					}
+				}
+			}
 		}
 		w = dmap[finish];
 		cur = finish;
@@ -506,6 +571,10 @@ class MyApp : public App
 			{
 				return direction;
 			}
+			/*if (w == 2000000001)
+			{
+				return direction;
+			}*/
 			direction.push_front(cur);
 			if (cur.x > 0 && w > dmap[cur.x - 1][cur.y])
 			{
@@ -648,7 +717,7 @@ class MyApp : public App
 		}
     }
 
-	GameMap groundmap, GroundObjMap, MobsMap, Nishtyakmap, recmap;
+	GameMap groundmap, GroundObjMap, MobsMap, Nishtyakmap, recmap, realrecmap;
 	FromDesign(Button, start_button);
 	FromDesign(Button, quit_button);
 	FromDesign(Button, load_button);
