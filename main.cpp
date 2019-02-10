@@ -754,8 +754,15 @@ class MyApp : public App
 					isGoToRec = false;
 					GOld << "allright!!";
 					rec.data(Rec).owner = playerLayer.data(playerLayer.get(0)).owner;
-					forWindow.load(2, "MineInfo.json");
-					auto owner = forWindow.child<Label>("");
+					//forWindow.load(2, "MineInfo.json");
+					auto owner = forWindow.child<Label>("rOwner");
+					//if (rec.data(Rec).owner == humanplayer)
+					//{
+						//owner << tr("you");
+					//}
+					//else if (rec.data(Rec).type)
+					auto type = forWindow.child<Label>("rType");
+					auto n = forWindow.child<Label>("rN");
 
 				}
 			}
