@@ -364,6 +364,10 @@ class MyApp : public App
 
 	void nextStep()
 	{
+		if (!playerLayer.get(0).anim.isEmpty() || !empty(direction) && stepPoints > 0)
+		{
+			return;
+		}
 		stepPoints = 4;
 		for (auto Rec : rec.all())
 		{
@@ -372,10 +376,12 @@ class MyApp : public App
 				if (rec.data(Rec).type == goldMine)
 				{
 					gold += 1000;
+					cout << "Gold: " << gold << endl;
 				}
 				else if (rec.data(Rec).type == mine)
 				{
 					ore += 2;
+					cout << "Ore: " << ore << endl;
 				}
 			}
 		}
@@ -441,7 +447,7 @@ class MyApp : public App
 			close();
 		}
 
-		if (input.justPressed(MouseLeft) && playerLayer.get(0).anim.isEmpty() && !impl::isMouseOn(Relog.getImpl().get()) && !impl::isMouseOn(newDirection.getImpl().get()) && !impl::isMouseOn(heroMenu.getImpl().get()) && !heroMenuOpen && !isChestVisible)
+		if (input.justPressed(MouseLeft) && forWindow.empty() && playerLayer.get(0).anim.isEmpty() && !impl::isMouseOn(Relog.getImpl().get()) && !impl::isMouseOn(newDirection.getImpl().get()) && !impl::isMouseOn(heroMenu.getImpl().get()) && !heroMenuOpen)
 		{
 			if (stepPoints <= 0)
 			{
@@ -480,17 +486,24 @@ class MyApp : public App
 		return Vec2(v.x, v.y);
 	}
 
-	bool isGoToRec = false;
+	enum class Target {
+		none, castle, mine
+	};
+
+	Target target;
+
 	deque <IntVec2> route(IntVec2 start, IntVec2 finish)
 	{
 		GameMap dmap;
 		deque <IntVec2> queue;
 		dmap = createMap(groundmap.w, groundmap.h);
+		target = Target::none;
 		if (realrecmap[finish] != noneRec)
 		{
+			target = Target::castle;
 			if (realrecmap[finish] != castle)
 			{
-				isGoToRec = true;
+				target = Target::mine;
 			}
 		}
 		for (int x = 0; x < dmap.w; x++)
@@ -536,7 +549,7 @@ class MyApp : public App
 		}
 		if (dmap[finish] == 2000000001)
 		{
-			if (!isGoToRec)
+			if (target == Target::none)
 			{
 				return {};
 			}
@@ -553,30 +566,15 @@ class MyApp : public App
 					}
 					if (start.x < finish.x)
 					{
-
-						IntVec2 newFinish;
-						newFinish.x = finish.x - 1;
-						newFinish.y = finish.y;
-						finish = newFinish;
-						//finish = { finish.x--, finish.y };
+						finish = { finish.x-1, finish.y };
 					}
 					if (start.y > finish.y)
 					{
-
-						IntVec2 newFinish;
-						newFinish.x = finish.x;
-						newFinish.y = finish.y + 1;
-						finish = newFinish;
-						//finish = { finish.x, finish.y++ };
+						finish = { finish.x, finish.y+1 };
 					}
 					if (start.y < finish.y)
 					{
-
-						IntVec2 newFinish;
-						newFinish.x = finish.x;
-						newFinish.y = finish.y - 1;
-						finish = newFinish;
-						//finish = { finish.x, finish.y-- };
+						finish = { finish.x, finish.y-1 };
 					}
 				}
 			}
@@ -631,22 +629,18 @@ class MyApp : public App
 		g, e
 	};
 
-	bool isChestVisible = false;
-
 	void getBabosiki(Babosiki b, int n)
 	{
 		if (b == g)
 		{
 			gold += n;
 			forWindow.remove(1);
-			isChestVisible = false;
 		}
 		else
 		{
 			playerLayer.data(playerLayer.get(0)).exp += n;
 			skill += n;
 			forWindow.remove(1);
-			isChestVisible = false;
 		}
 	}
 
@@ -676,13 +670,33 @@ class MyApp : public App
 		design.update();
 	}
 
+	bool heroStay(GameObj hero)
+	{
+		if (hero.anim.isEmpty() && empty(direction))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	bool isMineInfoOpen = false;
+
+	void closeMineInfo()
+	{
+		forWindow.remove(2);
+		isMineInfoOpen = false;
+	}
+
     void move()
     {
 		GOld << "gold: " << gold;
 		SKill << "skill: " << skill;
 		Ore << "Ore: " << ore;
 		field.setView(playerLayer.get(0).pos());
-		if (empty(direction) && playerLayer.get(0).anim.isEmpty())
+		if (heroStay(playerLayer.get(0)))
 		{
 			for (auto n : nishtyaki.find(playerLayer.get(0).pos()))
 			{
@@ -703,7 +717,6 @@ class MyApp : public App
 				else
 				{
 					showChestMenu();
-					isChestVisible = true;
 				}
 				n.kill();
 			}
@@ -741,29 +754,48 @@ class MyApp : public App
 		{
 			egg.kill();
 		}
-		if (isGoToRec && playerLayer.get(0).anim.isEmpty())
+		if (target != Target::none && heroStay(playerLayer.get(0)))
 		{
 			for (auto Rec : rec.all())
 			{
-				//if (realrecmap[cell(playerLayer.get(0).pos()).x + 1][cell(playerLayer.get(0).pos()).y] || realrecmap[cell(playerLayer.get(0).pos()).x - 1][cell(playerLayer.get(0).pos()).y + 1] || realrecmap[cell(playerLayer.get(0).pos()).x - 1][cell(playerLayer.get(0).pos()).y] || realrecmap[cell(playerLayer.get(0).pos()).x - 1][cell(playerLayer.get(0).pos()).y - 1] || realrecmap[cell(playerLayer.get(0).pos()).x][cell(playerLayer.get(0).pos()).y - 1] || realrecmap[cell(playerLayer.get(0).pos()).x + 1][cell(playerLayer.get(0).pos()).y - 1] || realrecmap[cell(playerLayer.get(0).pos()).x][cell(playerLayer.get(0).pos()).y + 1] || realrecmap[cell(playerLayer.get(0).pos()).x + 1][cell(playerLayer.get(0).pos()).y + 1])
 				auto& rpos = rec.data(Rec).cords;
 				auto& ppos = playerLayer.get(0).pos();
 				auto cppos = cell(ppos);
   				if ((rpos.x + 1 == cppos.x && rpos.y == cppos.y) || (rpos.x - 1 == cppos.x  && rpos.y == cppos.y) || (rpos.y + 1 == cppos.y && rpos.x == cppos.x) || (rpos.y - 1 == cppos.y && rpos.x == cppos.x) || (rpos.x + 1 == cppos.x && rpos.y + 1 == cppos.y) || (rpos.x + 1 == cppos.x && rpos.y - 1 == cppos.y) || (rpos.y - 1 == cppos.y && rpos.x - 1 == cppos.x) || (rpos.x - 1 == cppos.x && rpos.y + 1 == cppos.y))
 				{
-					isGoToRec = false;
-					GOld << "allright!!";
+					if (rec.data(Rec).type == castle)
+					{
+						continue;
+						target = Target::none;
+					}
+					//GOld << "allright!!";
 					rec.data(Rec).owner = playerLayer.data(playerLayer.get(0)).owner;
-					//forWindow.load(2, "MineInfo.json");
+					forWindow.load(2, "MineInfo.json");
 					auto owner = forWindow.child<Label>("rOwner");
-					//if (rec.data(Rec).owner == humanplayer)
-					//{
-						//owner << tr("you");
-					//}
-					//else if (rec.data(Rec).type)
+					if (rec.data(Rec).owner == humanplayer)
+					{
+						owner << tr("you");
+					}
+					else
+					{
+						owner << tr("neutral");
+					}
 					auto type = forWindow.child<Label>("rType");
+					
 					auto n = forWindow.child<Label>("rN");
-
+					if (rec.data(Rec).type == goldMine)
+					{
+						type << tr("gold");
+						n << "1000";
+					}
+					else
+					{
+						type << tr("ore");
+						n << "2";
+					}
+					auto closeBut = forWindow.child<Button>("closeMineInfoBut");
+					connect(closeBut, closeMineInfo);
+					target = Target::none;
 				}
 			}
 		}

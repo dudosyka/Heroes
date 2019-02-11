@@ -21,14 +21,66 @@
       "clickTime" : 500
    },
    "skin" : {
-      "_typeName" : "StaticTextureRect",
+      "_typeName" : "CanvasLayout",
+      "adjustment" : 0,
       "box" : {
          "_typeName" : "PixelBox",
          "height" : 300,
          "width" : 300
       },
-      "color" : [ 1, 1, 1, 1 ],
-      "imageName" : ".\\goldMine.png",
+      "list" : [
+         {
+            "_typeName" : "StaticTextureRect",
+            "box" : {
+               "_typeName" : "PixelBox",
+               "height" : 300,
+               "width" : 300
+            },
+            "color" : [ 1, 1, 1, 1 ],
+            "imageName" : ".\\goldMine.png",
+            "position" : {
+               "_typeName" : "AligningOffset",
+               "horAlign" : 1,
+               "horOffset" : {
+                  "_typeName" : "RelativeValue",
+                  "type" : 1,
+                  "value" : 0
+               },
+               "vertAlign" : 1,
+               "vertOffset" : {
+                  "_typeName" : "RelativeValue",
+                  "type" : 1,
+                  "value" : 0
+               }
+            }
+         },
+         {
+            "_name" : "flag",
+            "_typeName" : "StaticTextureRect",
+            "box" : {
+               "_typeName" : "PixelBox",
+               "height" : 68,
+               "width" : 50
+            },
+            "color" : [ 1, 1, 1, 1 ],
+            "imageName" : ".\\flag.png",
+            "position" : {
+               "_typeName" : "AligningOffset",
+               "horAlign" : 2,
+               "horOffset" : {
+                  "_typeName" : "RelativeValue",
+                  "type" : 1,
+                  "value" : -50
+               },
+               "vertAlign" : 0,
+               "vertOffset" : {
+                  "_typeName" : "RelativeValue",
+                  "type" : 1,
+                  "value" : -50
+               }
+            }
+         }
+      ],
       "position" : {
          "_typeName" : "AligningOffset",
          "horAlign" : 1,

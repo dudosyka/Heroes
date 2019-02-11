@@ -161,6 +161,7 @@
                               "text" : "Ресурс: "
                            },
                            {
+                              "_name" : "rType",
                               "_typeName" : "StaticLabel",
                               "adjustSize" : true,
                               "box" : {
@@ -306,6 +307,7 @@
                               "text" : "Добыча ед/ход: "
                            },
                            {
+                              "_name" : "rN",
                               "_typeName" : "StaticLabel",
                               "adjustSize" : true,
                               "box" : {
@@ -451,6 +453,7 @@
                               "text" : "Владелец:"
                            },
                            {
+                              "_name" : "rOwner",
                               "_typeName" : "StaticLabel",
                               "adjustSize" : true,
                               "box" : {
@@ -588,6 +591,7 @@
                   "skipInvisibleElements" : false
                },
                {
+                  "_name" : "closeMineInfoBut",
                   "_typeName" : "Button",
                   "position" : {
                      "_typeName" : "AligningOffset",
