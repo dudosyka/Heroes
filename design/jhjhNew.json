@@ -1,0 +1,1701 @@
+{
+   "_typeName" : "LinearLayout",
+   "_version" : "VER3",
+   "list" : [
+      {
+         "_typeName" : "LinearLayout",
+         "list" : [
+            {
+               "_typeName" : "ToggleButton",
+               "position" : {
+                  "_typeName" : "AligningOffset",
+                  "horAlign" : 1,
+                  "horOffset" : {
+                     "_typeName" : "RelativeValue",
+                     "type" : 1,
+                     "value" : 0
+                  },
+                  "vertAlign" : 0,
+                  "vertOffset" : {
+                     "_typeName" : "RelativeValue",
+                     "type" : 1,
+                     "value" : 0
+                  }
+               },
+               "pressed" : false,
+               "skin" : {
+                  "_typeName" : "AnimatedButtonSkin",
+                  "animations" : [
+                     {
+                        "_key" : 0,
+                        "_value" : {
+                           "_typeName" : "ParallelAnimation",
+                           "animations" : [
+                              {
+                                 "_typeName" : "ColorChange",
+                                 "changeFunc" : 0,
+                                 "color" : [ 1, 1, 1, 0 ],
+                                 "objName" : "not_gray",
+                                 "period" : 150,
+                                 "relativeChange" : false
+                              },
+                              {
+                                 "_typeName" : "ColorChange",
+                                 "changeFunc" : 0,
+                                 "color" : [ 0.8823529481887817, 0.8823529481887817, 0.8823529481887817, 1 ],
+                                 "objName" : "fill",
+                                 "period" : 150,
+                                 "relativeChange" : false
+                              }
+                           ]
+                        }
+                     },
+                     {
+                        "_key" : 2,
+                        "_value" : {
+                           "_typeName" : "ParallelAnimation",
+                           "animations" : [
+                              {
+                                 "_typeName" : "ColorChange",
+                                 "changeFunc" : 0,
+                                 "color" : [ 1, 1, 1, 1 ],
+                                 "objName" : "not_gray",
+                                 "period" : 150,
+                                 "relativeChange" : false
+                              },
+                              {
+                                 "_typeName" : "ColorChange",
+                                 "changeFunc" : 0,
+                                 "color" : [ 0.8823529481887817, 0.8823529481887817, 0.8823529481887817, 1 ],
+                                 "objName" : "fill",
+                                 "period" : 150,
+                                 "relativeChange" : false
+                              }
+                           ]
+                        }
+                     },
+                     {
+                        "_key" : 3,
+                        "_value" : {
+                           "_typeName" : "ParallelAnimation",
+                           "animations" : [
+                              {
+                                 "_typeName" : "ColorChange",
+                                 "changeFunc" : 0,
+                                 "color" : [ 1.200000047683716, 1.200000047683716, 1.200000047683716, 1 ],
+                                 "objName" : "not_gray",
+                                 "period" : 150,
+                                 "relativeChange" : false
+                              },
+                              {
+                                 "_typeName" : "ColorChange",
+                                 "changeFunc" : 0,
+                                 "color" : [ 1, 1, 1, 1 ],
+                                 "objName" : "fill",
+                                 "period" : 150,
+                                 "relativeChange" : false
+                              }
+                           ]
+                        }
+                     }
+                  ],
+                  "box" : {
+                     "_typeName" : "PixelBox",
+                     "height" : 200,
+                     "width" : 200
+                  },
+                  "elements" : [
+                     {
+                        "_typeName" : "StaticFilledRect",
+                        "box" : {
+                           "_typeName" : "RelativeBox",
+                           "height" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 0,
+                              "value" : 0
+                           },
+                           "offset" : {
+                              "_empty" : true
+                           },
+                           "width" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 0,
+                              "value" : 0
+                           }
+                        },
+                        "color" : [ 0, 0, 0, 1 ],
+                        "position" : {
+                           "_typeName" : "AligningOffset",
+                           "horAlign" : 1,
+                           "horOffset" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 1,
+                              "value" : 0
+                           },
+                           "vertAlign" : 1,
+                           "vertOffset" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 1,
+                              "value" : 0
+                           }
+                        }
+                     },
+                     {
+                        "_name" : "fill",
+                        "_typeName" : "StaticFilledRect",
+                        "box" : {
+                           "_typeName" : "RelativeBox",
+                           "height" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 3,
+                              "value" : 2
+                           },
+                           "offset" : {
+                              "_empty" : true
+                           },
+                           "width" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 3,
+                              "value" : 2
+                           }
+                        },
+                        "color" : [ 0.8823529481887817, 0.8823529481887817, 0.8823529481887817, 1 ],
+                        "position" : {
+                           "_typeName" : "AligningOffset",
+                           "horAlign" : 1,
+                           "horOffset" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 1,
+                              "value" : 0
+                           },
+                           "vertAlign" : 1,
+                           "vertOffset" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 1,
+                              "value" : 0
+                           }
+                        }
+                     },
+                     {
+                        "_name" : "gray",
+                        "_typeName" : "StaticTextureRect",
+                        "box" : {
+                           "_typeName" : "RelativeBox",
+                           "height" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 3,
+                              "value" : 2
+                           },
+                           "offset" : {
+                              "_empty" : true
+                           },
+                           "width" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 3,
+                              "value" : 2
+                           }
+                        },
+                        "color" : [ 1, 1, 1, 1 ],
+                        "imageName" : ".\\myaso_icon_gray.png",
+                        "position" : {
+                           "_typeName" : "AligningOffset",
+                           "horAlign" : 1,
+                           "horOffset" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 1,
+                              "value" : 0
+                           },
+                           "vertAlign" : 1,
+                           "vertOffset" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 1,
+                              "value" : 0
+                           }
+                        }
+                     },
+                     {
+                        "_name" : "not_gray",
+                        "_typeName" : "StaticTextureRect",
+                        "box" : {
+                           "_typeName" : "RelativeBox",
+                           "height" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 3,
+                              "value" : 2
+                           },
+                           "offset" : {
+                              "_empty" : true
+                           },
+                           "width" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 3,
+                              "value" : 2
+                           }
+                        },
+                        "color" : [ 1, 1, 1, 0 ],
+                        "imageName" : ".\\myaso_icon.png",
+                        "position" : {
+                           "_typeName" : "AligningOffset",
+                           "horAlign" : 1,
+                           "horOffset" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 1,
+                              "value" : 0
+                           },
+                           "vertAlign" : 1,
+                           "vertOffset" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 1,
+                              "value" : 0
+                           }
+                        }
+                     }
+                  ],
+                  "geometry" : {
+                     "_typeName" : "IdenticGeometry"
+                  }
+               },
+               "unpressOnFocusLost" : false
+            },
+            {
+               "_typeName" : "ToggleButton",
+               "position" : {
+                  "_typeName" : "AligningOffset",
+                  "horAlign" : 1,
+                  "horOffset" : {
+                     "_typeName" : "RelativeValue",
+                     "type" : 1,
+                     "value" : 0
+                  },
+                  "vertAlign" : 0,
+                  "vertOffset" : {
+                     "_typeName" : "RelativeValue",
+                     "type" : 1,
+                     "value" : -0
+                  }
+               },
+               "pressed" : false,
+               "skin" : {
+                  "_typeName" : "AnimatedButtonSkin",
+                  "animations" : [
+                     {
+                        "_key" : 0,
+                        "_value" : {
+                           "_typeName" : "ParallelAnimation",
+                           "animations" : [
+                              {
+                                 "_typeName" : "ColorChange",
+                                 "changeFunc" : 0,
+                                 "color" : [ 1, 1, 1, 0 ],
+                                 "objName" : "not_gray",
+                                 "period" : 150,
+                                 "relativeChange" : false
+                              },
+                              {
+                                 "_typeName" : "ColorChange",
+                                 "changeFunc" : 0,
+                                 "color" : [ 0.8823529481887817, 0.8823529481887817, 0.8823529481887817, 1 ],
+                                 "objName" : "fill",
+                                 "period" : 150,
+                                 "relativeChange" : false
+                              }
+                           ]
+                        }
+                     },
+                     {
+                        "_key" : 2,
+                        "_value" : {
+                           "_typeName" : "ParallelAnimation",
+                           "animations" : [
+                              {
+                                 "_typeName" : "ColorChange",
+                                 "changeFunc" : 0,
+                                 "color" : [ 1, 1, 1, 1 ],
+                                 "objName" : "not_gray",
+                                 "period" : 150,
+                                 "relativeChange" : false
+                              },
+                              {
+                                 "_typeName" : "ColorChange",
+                                 "changeFunc" : 0,
+                                 "color" : [ 0.8823529481887817, 0.8823529481887817, 0.8823529481887817, 1 ],
+                                 "objName" : "fill",
+                                 "period" : 150,
+                                 "relativeChange" : false
+                              }
+                           ]
+                        }
+                     },
+                     {
+                        "_key" : 3,
+                        "_value" : {
+                           "_typeName" : "ParallelAnimation",
+                           "animations" : [
+                              {
+                                 "_typeName" : "ColorChange",
+                                 "changeFunc" : 0,
+                                 "color" : [ 1.200000047683716, 1.200000047683716, 1.200000047683716, 1 ],
+                                 "objName" : "not_gray",
+                                 "period" : 150,
+                                 "relativeChange" : false
+                              },
+                              {
+                                 "_typeName" : "ColorChange",
+                                 "changeFunc" : 0,
+                                 "color" : [ 1, 1, 1, 1 ],
+                                 "objName" : "fill",
+                                 "period" : 150,
+                                 "relativeChange" : false
+                              }
+                           ]
+                        }
+                     }
+                  ],
+                  "box" : {
+                     "_typeName" : "PixelBox",
+                     "height" : 200,
+                     "width" : 200
+                  },
+                  "elements" : [
+                     {
+                        "_typeName" : "StaticFilledRect",
+                        "box" : {
+                           "_typeName" : "RelativeBox",
+                           "height" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 0,
+                              "value" : 0
+                           },
+                           "offset" : {
+                              "_empty" : true
+                           },
+                           "width" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 0,
+                              "value" : 0
+                           }
+                        },
+                        "color" : [ 0, 0, 0, 1 ],
+                        "position" : {
+                           "_typeName" : "AligningOffset",
+                           "horAlign" : 1,
+                           "horOffset" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 1,
+                              "value" : 0
+                           },
+                           "vertAlign" : 1,
+                           "vertOffset" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 1,
+                              "value" : 0
+                           }
+                        }
+                     },
+                     {
+                        "_name" : "fill",
+                        "_typeName" : "StaticFilledRect",
+                        "box" : {
+                           "_typeName" : "RelativeBox",
+                           "height" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 3,
+                              "value" : 2
+                           },
+                           "offset" : {
+                              "_empty" : true
+                           },
+                           "width" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 3,
+                              "value" : 2
+                           }
+                        },
+                        "color" : [ 0.8823529481887817, 0.8823529481887817, 0.8823529481887817, 1 ],
+                        "position" : {
+                           "_typeName" : "AligningOffset",
+                           "horAlign" : 1,
+                           "horOffset" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 1,
+                              "value" : 0
+                           },
+                           "vertAlign" : 1,
+                           "vertOffset" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 1,
+                              "value" : 0
+                           }
+                        }
+                     },
+                     {
+                        "_name" : "gray",
+                        "_typeName" : "StaticTextureRect",
+                        "box" : {
+                           "_typeName" : "RelativeBox",
+                           "height" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 3,
+                              "value" : 2
+                           },
+                           "offset" : {
+                              "_empty" : true
+                           },
+                           "width" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 3,
+                              "value" : 2
+                           }
+                        },
+                        "color" : [ 1, 1, 1, 1 ],
+                        "imageName" : ".\\myaso_icon_gray.png",
+                        "position" : {
+                           "_typeName" : "AligningOffset",
+                           "horAlign" : 1,
+                           "horOffset" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 1,
+                              "value" : 0
+                           },
+                           "vertAlign" : 1,
+                           "vertOffset" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 1,
+                              "value" : 0
+                           }
+                        }
+                     },
+                     {
+                        "_name" : "not_gray",
+                        "_typeName" : "StaticTextureRect",
+                        "box" : {
+                           "_typeName" : "RelativeBox",
+                           "height" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 3,
+                              "value" : 2
+                           },
+                           "offset" : {
+                              "_empty" : true
+                           },
+                           "width" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 3,
+                              "value" : 2
+                           }
+                        },
+                        "color" : [ 1, 1, 1, 0 ],
+                        "imageName" : ".\\myaso_icon.png",
+                        "position" : {
+                           "_typeName" : "AligningOffset",
+                           "horAlign" : 1,
+                           "horOffset" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 1,
+                              "value" : 0
+                           },
+                           "vertAlign" : 1,
+                           "vertOffset" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 1,
+                              "value" : 0
+                           }
+                        }
+                     }
+                  ],
+                  "geometry" : {
+                     "_typeName" : "IdenticGeometry"
+                  }
+               },
+               "unpressOnFocusLost" : false
+            }
+         ],
+         "position" : {
+            "_typeName" : "AligningOffset",
+            "horAlign" : 0,
+            "horOffset" : {
+               "_typeName" : "RelativeValue",
+               "type" : 1,
+               "value" : 0
+            },
+            "vertAlign" : 1,
+            "vertOffset" : {
+               "_typeName" : "RelativeValue",
+               "type" : 1,
+               "value" : 0
+            }
+         },
+         "skin" : {
+            "_typeName" : "VerticalLayoutSkin",
+            "adjustment" : 1,
+            "align" : 1,
+            "box" : {
+               "_typeName" : "RelativeBox",
+               "height" : {
+                  "_typeName" : "RelativeValue",
+                  "type" : 0,
+                  "value" : 0
+               },
+               "offset" : {
+                  "_empty" : true
+               },
+               "width" : {
+                  "_typeName" : "RelativeValue",
+                  "type" : 0,
+                  "value" : 0
+               }
+            },
+            "padding" : {
+               "_typeName" : "RelativeValue",
+               "type" : 1,
+               "value" : -0
+            }
+         },
+         "skipInvisibleElements" : false
+      },
+      {
+         "_typeName" : "LinearLayout",
+         "list" : [
+            {
+               "_typeName" : "ToggleButton",
+               "position" : {
+                  "_typeName" : "AligningOffset",
+                  "horAlign" : 1,
+                  "horOffset" : {
+                     "_typeName" : "RelativeValue",
+                     "type" : 1,
+                     "value" : 0
+                  },
+                  "vertAlign" : 0,
+                  "vertOffset" : {
+                     "_typeName" : "RelativeValue",
+                     "type" : 1,
+                     "value" : 0
+                  }
+               },
+               "pressed" : false,
+               "skin" : {
+                  "_typeName" : "AnimatedButtonSkin",
+                  "animations" : [
+                     {
+                        "_key" : 0,
+                        "_value" : {
+                           "_typeName" : "ParallelAnimation",
+                           "animations" : [
+                              {
+                                 "_typeName" : "ColorChange",
+                                 "changeFunc" : 0,
+                                 "color" : [ 1, 1, 1, 0 ],
+                                 "objName" : "not_gray",
+                                 "period" : 150,
+                                 "relativeChange" : false
+                              },
+                              {
+                                 "_typeName" : "ColorChange",
+                                 "changeFunc" : 0,
+                                 "color" : [ 0.8823529481887817, 0.8823529481887817, 0.8823529481887817, 1 ],
+                                 "objName" : "fill",
+                                 "period" : 150,
+                                 "relativeChange" : false
+                              }
+                           ]
+                        }
+                     },
+                     {
+                        "_key" : 2,
+                        "_value" : {
+                           "_typeName" : "ParallelAnimation",
+                           "animations" : [
+                              {
+                                 "_typeName" : "ColorChange",
+                                 "changeFunc" : 0,
+                                 "color" : [ 1, 1, 1, 1 ],
+                                 "objName" : "not_gray",
+                                 "period" : 150,
+                                 "relativeChange" : false
+                              },
+                              {
+                                 "_typeName" : "ColorChange",
+                                 "changeFunc" : 0,
+                                 "color" : [ 0.8823529481887817, 0.8823529481887817, 0.8823529481887817, 1 ],
+                                 "objName" : "fill",
+                                 "period" : 150,
+                                 "relativeChange" : false
+                              }
+                           ]
+                        }
+                     },
+                     {
+                        "_key" : 3,
+                        "_value" : {
+                           "_typeName" : "ParallelAnimation",
+                           "animations" : [
+                              {
+                                 "_typeName" : "ColorChange",
+                                 "changeFunc" : 0,
+                                 "color" : [ 1.200000047683716, 1.200000047683716, 1.200000047683716, 1 ],
+                                 "objName" : "not_gray",
+                                 "period" : 150,
+                                 "relativeChange" : false
+                              },
+                              {
+                                 "_typeName" : "ColorChange",
+                                 "changeFunc" : 0,
+                                 "color" : [ 1, 1, 1, 1 ],
+                                 "objName" : "fill",
+                                 "period" : 150,
+                                 "relativeChange" : false
+                              }
+                           ]
+                        }
+                     }
+                  ],
+                  "box" : {
+                     "_typeName" : "PixelBox",
+                     "height" : 200,
+                     "width" : 200
+                  },
+                  "elements" : [
+                     {
+                        "_typeName" : "StaticFilledRect",
+                        "box" : {
+                           "_typeName" : "RelativeBox",
+                           "height" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 0,
+                              "value" : 0
+                           },
+                           "offset" : {
+                              "_empty" : true
+                           },
+                           "width" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 0,
+                              "value" : 0
+                           }
+                        },
+                        "color" : [ 0, 0, 0, 1 ],
+                        "position" : {
+                           "_typeName" : "AligningOffset",
+                           "horAlign" : 1,
+                           "horOffset" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 1,
+                              "value" : 0
+                           },
+                           "vertAlign" : 1,
+                           "vertOffset" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 1,
+                              "value" : 0
+                           }
+                        }
+                     },
+                     {
+                        "_name" : "fill",
+                        "_typeName" : "StaticFilledRect",
+                        "box" : {
+                           "_typeName" : "RelativeBox",
+                           "height" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 3,
+                              "value" : 2
+                           },
+                           "offset" : {
+                              "_empty" : true
+                           },
+                           "width" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 3,
+                              "value" : 2
+                           }
+                        },
+                        "color" : [ 0.8823529481887817, 0.8823529481887817, 0.8823529481887817, 1 ],
+                        "position" : {
+                           "_typeName" : "AligningOffset",
+                           "horAlign" : 1,
+                           "horOffset" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 1,
+                              "value" : 0
+                           },
+                           "vertAlign" : 1,
+                           "vertOffset" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 1,
+                              "value" : 0
+                           }
+                        }
+                     },
+                     {
+                        "_name" : "gray",
+                        "_typeName" : "StaticTextureRect",
+                        "box" : {
+                           "_typeName" : "RelativeBox",
+                           "height" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 3,
+                              "value" : 2
+                           },
+                           "offset" : {
+                              "_empty" : true
+                           },
+                           "width" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 3,
+                              "value" : 2
+                           }
+                        },
+                        "color" : [ 1, 1, 1, 1 ],
+                        "imageName" : ".\\myaso_icon_gray.png",
+                        "position" : {
+                           "_typeName" : "AligningOffset",
+                           "horAlign" : 1,
+                           "horOffset" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 1,
+                              "value" : 0
+                           },
+                           "vertAlign" : 1,
+                           "vertOffset" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 1,
+                              "value" : 0
+                           }
+                        }
+                     },
+                     {
+                        "_name" : "not_gray",
+                        "_typeName" : "StaticTextureRect",
+                        "box" : {
+                           "_typeName" : "RelativeBox",
+                           "height" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 3,
+                              "value" : 2
+                           },
+                           "offset" : {
+                              "_empty" : true
+                           },
+                           "width" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 3,
+                              "value" : 2
+                           }
+                        },
+                        "color" : [ 1, 1, 1, 0 ],
+                        "imageName" : ".\\myaso_icon.png",
+                        "position" : {
+                           "_typeName" : "AligningOffset",
+                           "horAlign" : 1,
+                           "horOffset" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 1,
+                              "value" : 0
+                           },
+                           "vertAlign" : 1,
+                           "vertOffset" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 1,
+                              "value" : 0
+                           }
+                        }
+                     }
+                  ],
+                  "geometry" : {
+                     "_typeName" : "IdenticGeometry"
+                  }
+               },
+               "unpressOnFocusLost" : false
+            },
+            {
+               "_typeName" : "ToggleButton",
+               "position" : {
+                  "_typeName" : "AligningOffset",
+                  "horAlign" : 1,
+                  "horOffset" : {
+                     "_typeName" : "RelativeValue",
+                     "type" : 1,
+                     "value" : 0
+                  },
+                  "vertAlign" : 0,
+                  "vertOffset" : {
+                     "_typeName" : "RelativeValue",
+                     "type" : 1,
+                     "value" : -0
+                  }
+               },
+               "pressed" : false,
+               "skin" : {
+                  "_typeName" : "AnimatedButtonSkin",
+                  "animations" : [
+                     {
+                        "_key" : 0,
+                        "_value" : {
+                           "_typeName" : "ParallelAnimation",
+                           "animations" : [
+                              {
+                                 "_typeName" : "ColorChange",
+                                 "changeFunc" : 0,
+                                 "color" : [ 1, 1, 1, 0 ],
+                                 "objName" : "not_gray",
+                                 "period" : 150,
+                                 "relativeChange" : false
+                              },
+                              {
+                                 "_typeName" : "ColorChange",
+                                 "changeFunc" : 0,
+                                 "color" : [ 0.8823529481887817, 0.8823529481887817, 0.8823529481887817, 1 ],
+                                 "objName" : "fill",
+                                 "period" : 150,
+                                 "relativeChange" : false
+                              }
+                           ]
+                        }
+                     },
+                     {
+                        "_key" : 2,
+                        "_value" : {
+                           "_typeName" : "ParallelAnimation",
+                           "animations" : [
+                              {
+                                 "_typeName" : "ColorChange",
+                                 "changeFunc" : 0,
+                                 "color" : [ 1, 1, 1, 1 ],
+                                 "objName" : "not_gray",
+                                 "period" : 150,
+                                 "relativeChange" : false
+                              },
+                              {
+                                 "_typeName" : "ColorChange",
+                                 "changeFunc" : 0,
+                                 "color" : [ 0.8823529481887817, 0.8823529481887817, 0.8823529481887817, 1 ],
+                                 "objName" : "fill",
+                                 "period" : 150,
+                                 "relativeChange" : false
+                              }
+                           ]
+                        }
+                     },
+                     {
+                        "_key" : 3,
+                        "_value" : {
+                           "_typeName" : "ParallelAnimation",
+                           "animations" : [
+                              {
+                                 "_typeName" : "ColorChange",
+                                 "changeFunc" : 0,
+                                 "color" : [ 1.200000047683716, 1.200000047683716, 1.200000047683716, 1 ],
+                                 "objName" : "not_gray",
+                                 "period" : 150,
+                                 "relativeChange" : false
+                              },
+                              {
+                                 "_typeName" : "ColorChange",
+                                 "changeFunc" : 0,
+                                 "color" : [ 1, 1, 1, 1 ],
+                                 "objName" : "fill",
+                                 "period" : 150,
+                                 "relativeChange" : false
+                              }
+                           ]
+                        }
+                     }
+                  ],
+                  "box" : {
+                     "_typeName" : "PixelBox",
+                     "height" : 200,
+                     "width" : 200
+                  },
+                  "elements" : [
+                     {
+                        "_typeName" : "StaticFilledRect",
+                        "box" : {
+                           "_typeName" : "RelativeBox",
+                           "height" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 0,
+                              "value" : 0
+                           },
+                           "offset" : {
+                              "_empty" : true
+                           },
+                           "width" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 0,
+                              "value" : 0
+                           }
+                        },
+                        "color" : [ 0, 0, 0, 1 ],
+                        "position" : {
+                           "_typeName" : "AligningOffset",
+                           "horAlign" : 1,
+                           "horOffset" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 1,
+                              "value" : 0
+                           },
+                           "vertAlign" : 1,
+                           "vertOffset" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 1,
+                              "value" : 0
+                           }
+                        }
+                     },
+                     {
+                        "_name" : "fill",
+                        "_typeName" : "StaticFilledRect",
+                        "box" : {
+                           "_typeName" : "RelativeBox",
+                           "height" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 3,
+                              "value" : 2
+                           },
+                           "offset" : {
+                              "_empty" : true
+                           },
+                           "width" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 3,
+                              "value" : 2
+                           }
+                        },
+                        "color" : [ 0.8823529481887817, 0.8823529481887817, 0.8823529481887817, 1 ],
+                        "position" : {
+                           "_typeName" : "AligningOffset",
+                           "horAlign" : 1,
+                           "horOffset" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 1,
+                              "value" : 0
+                           },
+                           "vertAlign" : 1,
+                           "vertOffset" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 1,
+                              "value" : 0
+                           }
+                        }
+                     },
+                     {
+                        "_name" : "gray",
+                        "_typeName" : "StaticTextureRect",
+                        "box" : {
+                           "_typeName" : "RelativeBox",
+                           "height" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 3,
+                              "value" : 2
+                           },
+                           "offset" : {
+                              "_empty" : true
+                           },
+                           "width" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 3,
+                              "value" : 2
+                           }
+                        },
+                        "color" : [ 1, 1, 1, 1 ],
+                        "imageName" : ".\\myaso_icon_gray.png",
+                        "position" : {
+                           "_typeName" : "AligningOffset",
+                           "horAlign" : 1,
+                           "horOffset" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 1,
+                              "value" : 0
+                           },
+                           "vertAlign" : 1,
+                           "vertOffset" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 1,
+                              "value" : 0
+                           }
+                        }
+                     },
+                     {
+                        "_name" : "not_gray",
+                        "_typeName" : "StaticTextureRect",
+                        "box" : {
+                           "_typeName" : "RelativeBox",
+                           "height" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 3,
+                              "value" : 2
+                           },
+                           "offset" : {
+                              "_empty" : true
+                           },
+                           "width" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 3,
+                              "value" : 2
+                           }
+                        },
+                        "color" : [ 1, 1, 1, 0 ],
+                        "imageName" : ".\\myaso_icon.png",
+                        "position" : {
+                           "_typeName" : "AligningOffset",
+                           "horAlign" : 1,
+                           "horOffset" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 1,
+                              "value" : 0
+                           },
+                           "vertAlign" : 1,
+                           "vertOffset" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 1,
+                              "value" : 0
+                           }
+                        }
+                     }
+                  ],
+                  "geometry" : {
+                     "_typeName" : "IdenticGeometry"
+                  }
+               },
+               "unpressOnFocusLost" : false
+            }
+         ],
+         "position" : {
+            "_typeName" : "AligningOffset",
+            "horAlign" : 0,
+            "horOffset" : {
+               "_typeName" : "RelativeValue",
+               "type" : 1,
+               "value" : 0
+            },
+            "vertAlign" : 1,
+            "vertOffset" : {
+               "_typeName" : "RelativeValue",
+               "type" : 1,
+               "value" : 0
+            }
+         },
+         "skin" : {
+            "_typeName" : "VerticalLayoutSkin",
+            "adjustment" : 1,
+            "align" : 1,
+            "box" : {
+               "_typeName" : "RelativeBox",
+               "height" : {
+                  "_typeName" : "RelativeValue",
+                  "type" : 0,
+                  "value" : 0
+               },
+               "offset" : {
+                  "_empty" : true
+               },
+               "width" : {
+                  "_typeName" : "RelativeValue",
+                  "type" : 0,
+                  "value" : 0
+               }
+            },
+            "padding" : {
+               "_typeName" : "RelativeValue",
+               "type" : 1,
+               "value" : -0
+            }
+         },
+         "skipInvisibleElements" : false
+      },
+      {
+         "_typeName" : "LinearLayout",
+         "list" : [
+            {
+               "_typeName" : "ToggleButton",
+               "position" : {
+                  "_typeName" : "AligningOffset",
+                  "horAlign" : 1,
+                  "horOffset" : {
+                     "_typeName" : "RelativeValue",
+                     "type" : 1,
+                     "value" : 0
+                  },
+                  "vertAlign" : 0,
+                  "vertOffset" : {
+                     "_typeName" : "RelativeValue",
+                     "type" : 1,
+                     "value" : 0
+                  }
+               },
+               "pressed" : false,
+               "skin" : {
+                  "_typeName" : "AnimatedButtonSkin",
+                  "animations" : [
+                     {
+                        "_key" : 0,
+                        "_value" : {
+                           "_typeName" : "ParallelAnimation",
+                           "animations" : [
+                              {
+                                 "_typeName" : "ColorChange",
+                                 "changeFunc" : 0,
+                                 "color" : [ 1, 1, 1, 0 ],
+                                 "objName" : "not_gray",
+                                 "period" : 150,
+                                 "relativeChange" : false
+                              },
+                              {
+                                 "_typeName" : "ColorChange",
+                                 "changeFunc" : 0,
+                                 "color" : [ 0.8823529481887817, 0.8823529481887817, 0.8823529481887817, 1 ],
+                                 "objName" : "fill",
+                                 "period" : 150,
+                                 "relativeChange" : false
+                              }
+                           ]
+                        }
+                     },
+                     {
+                        "_key" : 2,
+                        "_value" : {
+                           "_typeName" : "ParallelAnimation",
+                           "animations" : [
+                              {
+                                 "_typeName" : "ColorChange",
+                                 "changeFunc" : 0,
+                                 "color" : [ 1, 1, 1, 1 ],
+                                 "objName" : "not_gray",
+                                 "period" : 150,
+                                 "relativeChange" : false
+                              },
+                              {
+                                 "_typeName" : "ColorChange",
+                                 "changeFunc" : 0,
+                                 "color" : [ 0.8823529481887817, 0.8823529481887817, 0.8823529481887817, 1 ],
+                                 "objName" : "fill",
+                                 "period" : 150,
+                                 "relativeChange" : false
+                              }
+                           ]
+                        }
+                     },
+                     {
+                        "_key" : 3,
+                        "_value" : {
+                           "_typeName" : "ParallelAnimation",
+                           "animations" : [
+                              {
+                                 "_typeName" : "ColorChange",
+                                 "changeFunc" : 0,
+                                 "color" : [ 1.200000047683716, 1.200000047683716, 1.200000047683716, 1 ],
+                                 "objName" : "not_gray",
+                                 "period" : 150,
+                                 "relativeChange" : false
+                              },
+                              {
+                                 "_typeName" : "ColorChange",
+                                 "changeFunc" : 0,
+                                 "color" : [ 1, 1, 1, 1 ],
+                                 "objName" : "fill",
+                                 "period" : 150,
+                                 "relativeChange" : false
+                              }
+                           ]
+                        }
+                     }
+                  ],
+                  "box" : {
+                     "_typeName" : "PixelBox",
+                     "height" : 200,
+                     "width" : 200
+                  },
+                  "elements" : [
+                     {
+                        "_typeName" : "StaticFilledRect",
+                        "box" : {
+                           "_typeName" : "RelativeBox",
+                           "height" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 0,
+                              "value" : 0
+                           },
+                           "offset" : {
+                              "_empty" : true
+                           },
+                           "width" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 0,
+                              "value" : 0
+                           }
+                        },
+                        "color" : [ 0, 0, 0, 1 ],
+                        "position" : {
+                           "_typeName" : "AligningOffset",
+                           "horAlign" : 1,
+                           "horOffset" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 1,
+                              "value" : 0
+                           },
+                           "vertAlign" : 1,
+                           "vertOffset" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 1,
+                              "value" : 0
+                           }
+                        }
+                     },
+                     {
+                        "_name" : "fill",
+                        "_typeName" : "StaticFilledRect",
+                        "box" : {
+                           "_typeName" : "RelativeBox",
+                           "height" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 3,
+                              "value" : 2
+                           },
+                           "offset" : {
+                              "_empty" : true
+                           },
+                           "width" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 3,
+                              "value" : 2
+                           }
+                        },
+                        "color" : [ 0.8823529481887817, 0.8823529481887817, 0.8823529481887817, 1 ],
+                        "position" : {
+                           "_typeName" : "AligningOffset",
+                           "horAlign" : 1,
+                           "horOffset" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 1,
+                              "value" : 0
+                           },
+                           "vertAlign" : 1,
+                           "vertOffset" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 1,
+                              "value" : 0
+                           }
+                        }
+                     },
+                     {
+                        "_name" : "gray",
+                        "_typeName" : "StaticTextureRect",
+                        "box" : {
+                           "_typeName" : "RelativeBox",
+                           "height" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 3,
+                              "value" : 2
+                           },
+                           "offset" : {
+                              "_empty" : true
+                           },
+                           "width" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 3,
+                              "value" : 2
+                           }
+                        },
+                        "color" : [ 1, 1, 1, 1 ],
+                        "imageName" : ".\\myaso_icon_gray.png",
+                        "position" : {
+                           "_typeName" : "AligningOffset",
+                           "horAlign" : 1,
+                           "horOffset" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 1,
+                              "value" : 0
+                           },
+                           "vertAlign" : 1,
+                           "vertOffset" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 1,
+                              "value" : 0
+                           }
+                        }
+                     },
+                     {
+                        "_name" : "not_gray",
+                        "_typeName" : "StaticTextureRect",
+                        "box" : {
+                           "_typeName" : "RelativeBox",
+                           "height" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 3,
+                              "value" : 2
+                           },
+                           "offset" : {
+                              "_empty" : true
+                           },
+                           "width" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 3,
+                              "value" : 2
+                           }
+                        },
+                        "color" : [ 1, 1, 1, 0 ],
+                        "imageName" : ".\\myaso_icon.png",
+                        "position" : {
+                           "_typeName" : "AligningOffset",
+                           "horAlign" : 1,
+                           "horOffset" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 1,
+                              "value" : 0
+                           },
+                           "vertAlign" : 1,
+                           "vertOffset" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 1,
+                              "value" : 0
+                           }
+                        }
+                     }
+                  ],
+                  "geometry" : {
+                     "_typeName" : "IdenticGeometry"
+                  }
+               },
+               "unpressOnFocusLost" : false
+            },
+            {
+               "_typeName" : "ToggleButton",
+               "position" : {
+                  "_typeName" : "AligningOffset",
+                  "horAlign" : 1,
+                  "horOffset" : {
+                     "_typeName" : "RelativeValue",
+                     "type" : 1,
+                     "value" : 0
+                  },
+                  "vertAlign" : 0,
+                  "vertOffset" : {
+                     "_typeName" : "RelativeValue",
+                     "type" : 1,
+                     "value" : -0
+                  }
+               },
+               "pressed" : false,
+               "skin" : {
+                  "_typeName" : "AnimatedButtonSkin",
+                  "animations" : [
+                     {
+                        "_key" : 0,
+                        "_value" : {
+                           "_typeName" : "ParallelAnimation",
+                           "animations" : [
+                              {
+                                 "_typeName" : "ColorChange",
+                                 "changeFunc" : 0,
+                                 "color" : [ 1, 1, 1, 0 ],
+                                 "objName" : "not_gray",
+                                 "period" : 150,
+                                 "relativeChange" : false
+                              },
+                              {
+                                 "_typeName" : "ColorChange",
+                                 "changeFunc" : 0,
+                                 "color" : [ 0.8823529481887817, 0.8823529481887817, 0.8823529481887817, 1 ],
+                                 "objName" : "fill",
+                                 "period" : 150,
+                                 "relativeChange" : false
+                              }
+                           ]
+                        }
+                     },
+                     {
+                        "_key" : 2,
+                        "_value" : {
+                           "_typeName" : "ParallelAnimation",
+                           "animations" : [
+                              {
+                                 "_typeName" : "ColorChange",
+                                 "changeFunc" : 0,
+                                 "color" : [ 1, 1, 1, 1 ],
+                                 "objName" : "not_gray",
+                                 "period" : 150,
+                                 "relativeChange" : false
+                              },
+                              {
+                                 "_typeName" : "ColorChange",
+                                 "changeFunc" : 0,
+                                 "color" : [ 0.8823529481887817, 0.8823529481887817, 0.8823529481887817, 1 ],
+                                 "objName" : "fill",
+                                 "period" : 150,
+                                 "relativeChange" : false
+                              }
+                           ]
+                        }
+                     },
+                     {
+                        "_key" : 3,
+                        "_value" : {
+                           "_typeName" : "ParallelAnimation",
+                           "animations" : [
+                              {
+                                 "_typeName" : "ColorChange",
+                                 "changeFunc" : 0,
+                                 "color" : [ 1.200000047683716, 1.200000047683716, 1.200000047683716, 1 ],
+                                 "objName" : "not_gray",
+                                 "period" : 150,
+                                 "relativeChange" : false
+                              },
+                              {
+                                 "_typeName" : "ColorChange",
+                                 "changeFunc" : 0,
+                                 "color" : [ 1, 1, 1, 1 ],
+                                 "objName" : "fill",
+                                 "period" : 150,
+                                 "relativeChange" : false
+                              }
+                           ]
+                        }
+                     }
+                  ],
+                  "box" : {
+                     "_typeName" : "PixelBox",
+                     "height" : 200,
+                     "width" : 200
+                  },
+                  "elements" : [
+                     {
+                        "_typeName" : "StaticFilledRect",
+                        "box" : {
+                           "_typeName" : "RelativeBox",
+                           "height" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 0,
+                              "value" : 0
+                           },
+                           "offset" : {
+                              "_empty" : true
+                           },
+                           "width" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 0,
+                              "value" : 0
+                           }
+                        },
+                        "color" : [ 0, 0, 0, 1 ],
+                        "position" : {
+                           "_typeName" : "AligningOffset",
+                           "horAlign" : 1,
+                           "horOffset" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 1,
+                              "value" : 0
+                           },
+                           "vertAlign" : 1,
+                           "vertOffset" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 1,
+                              "value" : 0
+                           }
+                        }
+                     },
+                     {
+                        "_name" : "fill",
+                        "_typeName" : "StaticFilledRect",
+                        "box" : {
+                           "_typeName" : "RelativeBox",
+                           "height" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 3,
+                              "value" : 2
+                           },
+                           "offset" : {
+                              "_empty" : true
+                           },
+                           "width" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 3,
+                              "value" : 2
+                           }
+                        },
+                        "color" : [ 0.8823529481887817, 0.8823529481887817, 0.8823529481887817, 1 ],
+                        "position" : {
+                           "_typeName" : "AligningOffset",
+                           "horAlign" : 1,
+                           "horOffset" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 1,
+                              "value" : 0
+                           },
+                           "vertAlign" : 1,
+                           "vertOffset" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 1,
+                              "value" : 0
+                           }
+                        }
+                     },
+                     {
+                        "_name" : "gray",
+                        "_typeName" : "StaticTextureRect",
+                        "box" : {
+                           "_typeName" : "RelativeBox",
+                           "height" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 3,
+                              "value" : 2
+                           },
+                           "offset" : {
+                              "_empty" : true
+                           },
+                           "width" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 3,
+                              "value" : 2
+                           }
+                        },
+                        "color" : [ 1, 1, 1, 1 ],
+                        "imageName" : ".\\myaso_icon_gray.png",
+                        "position" : {
+                           "_typeName" : "AligningOffset",
+                           "horAlign" : 1,
+                           "horOffset" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 1,
+                              "value" : 0
+                           },
+                           "vertAlign" : 1,
+                           "vertOffset" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 1,
+                              "value" : 0
+                           }
+                        }
+                     },
+                     {
+                        "_name" : "not_gray",
+                        "_typeName" : "StaticTextureRect",
+                        "box" : {
+                           "_typeName" : "RelativeBox",
+                           "height" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 3,
+                              "value" : 2
+                           },
+                           "offset" : {
+                              "_empty" : true
+                           },
+                           "width" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 3,
+                              "value" : 2
+                           }
+                        },
+                        "color" : [ 1, 1, 1, 0 ],
+                        "imageName" : ".\\myaso_icon.png",
+                        "position" : {
+                           "_typeName" : "AligningOffset",
+                           "horAlign" : 1,
+                           "horOffset" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 1,
+                              "value" : 0
+                           },
+                           "vertAlign" : 1,
+                           "vertOffset" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 1,
+                              "value" : 0
+                           }
+                        }
+                     }
+                  ],
+                  "geometry" : {
+                     "_typeName" : "IdenticGeometry"
+                  }
+               },
+               "unpressOnFocusLost" : false
+            }
+         ],
+         "position" : {
+            "_typeName" : "AligningOffset",
+            "horAlign" : 0,
+            "horOffset" : {
+               "_typeName" : "RelativeValue",
+               "type" : 1,
+               "value" : 0
+            },
+            "vertAlign" : 1,
+            "vertOffset" : {
+               "_typeName" : "RelativeValue",
+               "type" : 1,
+               "value" : 0
+            }
+         },
+         "skin" : {
+            "_typeName" : "VerticalLayoutSkin",
+            "adjustment" : 1,
+            "align" : 1,
+            "box" : {
+               "_typeName" : "RelativeBox",
+               "height" : {
+                  "_typeName" : "RelativeValue",
+                  "type" : 0,
+                  "value" : 0
+               },
+               "offset" : {
+                  "_empty" : true
+               },
+               "width" : {
+                  "_typeName" : "RelativeValue",
+                  "type" : 0,
+                  "value" : 0
+               }
+            },
+            "padding" : {
+               "_typeName" : "RelativeValue",
+               "type" : 1,
+               "value" : -0
+            }
+         },
+         "skipInvisibleElements" : false
+      }
+   ],
+   "position" : {
+      "_typeName" : "AligningOffset",
+      "horAlign" : 1,
+      "horOffset" : {
+         "_typeName" : "RelativeValue",
+         "type" : 1,
+         "value" : 0
+      },
+      "vertAlign" : 1,
+      "vertOffset" : {
+         "_typeName" : "RelativeValue",
+         "type" : 1,
+         "value" : 0
+      }
+   },
+   "skin" : {
+      "_typeName" : "HorizontalLayoutSkin",
+      "adjustment" : 1,
+      "align" : 1,
+      "box" : {
+         "_typeName" : "RelativeBox",
+         "height" : {
+            "_typeName" : "RelativeValue",
+            "type" : 0,
+            "value" : 0
+         },
+         "offset" : {
+            "_empty" : true
+         },
+         "width" : {
+            "_typeName" : "RelativeValue",
+            "type" : 0,
+            "value" : 0
+         }
+      },
+      "padding" : {
+         "_typeName" : "RelativeValue",
+         "type" : 1,
+         "value" : 0
+      }
+   },
+   "skipInvisibleElements" : false
+}

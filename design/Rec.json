@@ -30,6 +30,7 @@
       },
       "list" : [
          {
+            "_name" : "mineTexture",
             "_typeName" : "StaticTextureRect",
             "box" : {
                "_typeName" : "PixelBox",

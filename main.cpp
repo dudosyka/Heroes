@@ -315,7 +315,7 @@ class MyApp : public App
 				if (recmap[x][y] == mine)
 				{
 					auto Rec = rec.load("Rec.json", x * 150, y * 150);
-					Rec.skin<Texture>().setImageName("mine.png");
+					Rec.child<Texture>("mineTexture").setImageName("mine.png");
 					rec.data(Rec).owner = neutral;
 					rec.data(Rec).type = mine;
 					rec.data(Rec).cords = { x,y };
@@ -341,7 +341,7 @@ class MyApp : public App
 						realrecmap[x - 1][y + 1] = castle;
 					}
 					auto Rec = rec.load("Rec.json", x * 150, y * 150);
-					Rec.skin<Texture>().setImageName("castle.png");
+					Rec.child<Texture>("mineTexture").setImageName("castle.png");
 					rec.data(Rec).owner = humanplayer;
 					Rec.setScaleX(1.5);
 					Rec.setScaleY(1.5);
@@ -386,7 +386,7 @@ class MyApp : public App
 			}
 		}
 	}
-	
+
 	void openHeroMenu()
 	{
 		if (!heroMenuOpen)
@@ -690,11 +690,34 @@ class MyApp : public App
 		isMineInfoOpen = false;
 	}
 
+	void CloseCastleMenu()
+	{
+		forWindow.remove(3);
+	}
+
+	enum Place
+	{
+		main, getArmy
+	};
+
+	void changeCastleMenuSelector(Selector selector, Place place)
+	{
+		if (place == main)
+		{
+			selector.select(0);
+		}
+		else if (place == getArmy)
+		{
+			selector.select(1);
+		}		
+	}
+
     void move()
-    {
-		GOld << "gold: " << gold;
-		SKill << "skill: " << skill;
-		Ore << "Ore: " << ore;
+     {
+		GOld << " : " << gold;
+		SKill << " : " << skill;
+		Ore << " : " << ore;
+		heroStepsLabel << " : " << stepPoints;
 		field.setView(playerLayer.get(0).pos());
 		if (heroStay(playerLayer.get(0)))
 		{
@@ -726,6 +749,7 @@ class MyApp : public App
 		{
 			emptyStep.hide();
 		}
+
 		if (!empty(direction) && playerLayer.get(0).anim.isEmpty() && stepPoints > 0)
 		{
 			IntVec2 NowPPos = cell(playerLayer.get(0).pos());
@@ -750,10 +774,12 @@ class MyApp : public App
 			NowPPos = dir;
 			direction.pop_front();
 		}
+
 		for (auto egg : SuperMegaPuperStepEgg.find(playerLayer.get(0).pos()))
 		{
 			egg.kill();
 		}
+
 		if (target != Target::none && heroStay(playerLayer.get(0)))
 		{
 			for (auto Rec : rec.all())
@@ -765,8 +791,17 @@ class MyApp : public App
 				{
 					if (rec.data(Rec).type == castle)
 					{
-						continue;
 						target = Target::none;
+						Rec.child<Texture>("flag").setColor(255, 0, 0, 255);
+						auto cm = forWindow.load(3, "castleMenu.json");
+						connect(cm.child<Button>("closeCastleMenu"), CloseCastleMenu);
+						auto cmSelector = cm.child<Selector>("castleMenuSelector");
+						connect(cm.child<Button>("backToMain"), changeCastleMenuSelector, cmSelector, main);
+						connect(cm.child<Button>("getArmyButton"), changeCastleMenuSelector, cmSelector, getArmy);
+						heroMenu.hide();
+						//cm.child
+
+						continue;
 					}
 					//GOld << "allright!!";
 					rec.data(Rec).owner = playerLayer.data(playerLayer.get(0)).owner;
@@ -775,6 +810,7 @@ class MyApp : public App
 					if (rec.data(Rec).owner == humanplayer)
 					{
 						owner << tr("you");
+						Rec.child<Texture>("flag").setColor(255, 0, 0, 255);
 					}
 					else
 					{
@@ -787,6 +823,7 @@ class MyApp : public App
 					{
 						type << tr("gold");
 						n << "1000";
+						Rec.child<Texture>("flag").setColor(255, 0, 0, 255);
 					}
 					else
 					{
@@ -810,6 +847,12 @@ class MyApp : public App
 	FromDesign(Label, test_);
 	FromDesign(Selector, selector);
 
+	ToggleButton b;
+
+	//FromDesign(HorizontalLayout, armyMenu);
+
+	FromDesign(Label, heroStepsLabel);
+	
 	FromDesign(Layout, forWindow);
 
 	FromDesign(Selector, heroMenuSelector);
@@ -840,3 +883,162 @@ int main(int argc, char** argv)
     app.run();
     return 0;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
