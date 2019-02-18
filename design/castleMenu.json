@@ -74,7 +74,7 @@
                "value" : 0
             }
          },
-         "currentID" : 0,
+         "currentID" : 1,
          "objects" : [
             {
                "_key" : 0,
@@ -699,6 +699,7 @@
                                     "_typeName" : "LinearLayout",
                                     "list" : [
                                        {
+                                          "_name" : "castleunit1",
                                           "_typeName" : "ToggleButton",
                                           "position" : {
                                              "_typeName" : "AligningOffset",
@@ -951,6 +952,7 @@
                                           "unpressOnFocusLost" : false
                                        },
                                        {
+                                          "_name" : "castleunit2",
                                           "_typeName" : "ToggleButton",
                                           "position" : {
                                              "_typeName" : "AligningOffset",
@@ -1141,7 +1143,7 @@
                                                       }
                                                    },
                                                    "color" : [ 1, 1, 1, 1 ],
-                                                   "imageName" : ".\\myaso_icon_gray.png",
+                                                   "imageName" : ".\\archer_icon_gray.png",
                                                    "position" : {
                                                       "_typeName" : "AligningOffset",
                                                       "horAlign" : 1,
@@ -1178,7 +1180,7 @@
                                                       }
                                                    },
                                                    "color" : [ 1, 1, 1, 0 ],
-                                                   "imageName" : ".\\myaso_icon.png",
+                                                   "imageName" : ".\\archer_icon.png",
                                                    "position" : {
                                                       "_typeName" : "AligningOffset",
                                                       "horAlign" : 1,
@@ -1250,6 +1252,7 @@
                                     "_typeName" : "LinearLayout",
                                     "list" : [
                                        {
+                                          "_name" : "castleunit3",
                                           "_typeName" : "ToggleButton",
                                           "position" : {
                                              "_typeName" : "AligningOffset",
@@ -1440,7 +1443,7 @@
                                                       }
                                                    },
                                                    "color" : [ 1, 1, 1, 1 ],
-                                                   "imageName" : ".\\myaso_icon_gray.png",
+                                                   "imageName" : ".\\griffin_icon_gray.png",
                                                    "position" : {
                                                       "_typeName" : "AligningOffset",
                                                       "horAlign" : 1,
@@ -1477,7 +1480,7 @@
                                                       }
                                                    },
                                                    "color" : [ 1, 1, 1, 0 ],
-                                                   "imageName" : ".\\myaso_icon.png",
+                                                   "imageName" : ".\\griffin_icon.png",
                                                    "position" : {
                                                       "_typeName" : "AligningOffset",
                                                       "horAlign" : 1,
@@ -1502,6 +1505,7 @@
                                           "unpressOnFocusLost" : false
                                        },
                                        {
+                                          "_name" : "castleunit4",
                                           "_typeName" : "ToggleButton",
                                           "position" : {
                                              "_typeName" : "AligningOffset",
@@ -1692,7 +1696,7 @@
                                                       }
                                                    },
                                                    "color" : [ 1, 1, 1, 1 ],
-                                                   "imageName" : ".\\myaso_icon_gray.png",
+                                                   "imageName" : ".\\chuvak_icon_gray.png",
                                                    "position" : {
                                                       "_typeName" : "AligningOffset",
                                                       "horAlign" : 1,
@@ -1729,7 +1733,7 @@
                                                       }
                                                    },
                                                    "color" : [ 1, 1, 1, 0 ],
-                                                   "imageName" : ".\\myaso_icon.png",
+                                                   "imageName" : ".\\chuvak_icon.png",
                                                    "position" : {
                                                       "_typeName" : "AligningOffset",
                                                       "horAlign" : 1,
@@ -1801,6 +1805,7 @@
                                     "_typeName" : "LinearLayout",
                                     "list" : [
                                        {
+                                          "_name" : "castleunit5",
                                           "_typeName" : "ToggleButton",
                                           "position" : {
                                              "_typeName" : "AligningOffset",
@@ -1991,7 +1996,7 @@
                                                       }
                                                    },
                                                    "color" : [ 1, 1, 1, 1 ],
-                                                   "imageName" : ".\\myaso_icon_gray.png",
+                                                   "imageName" : ".\\horserider_icon_gray.png",
                                                    "position" : {
                                                       "_typeName" : "AligningOffset",
                                                       "horAlign" : 1,
@@ -2028,7 +2033,7 @@
                                                       }
                                                    },
                                                    "color" : [ 1, 1, 1, 0 ],
-                                                   "imageName" : ".\\myaso_icon.png",
+                                                   "imageName" : ".\\horserider_icon.png",
                                                    "position" : {
                                                       "_typeName" : "AligningOffset",
                                                       "horAlign" : 1,
@@ -2053,6 +2058,7 @@
                                           "unpressOnFocusLost" : false
                                        },
                                        {
+                                          "_name" : "castleunit6",
                                           "_typeName" : "ToggleButton",
                                           "position" : {
                                              "_typeName" : "AligningOffset",
@@ -2243,7 +2249,7 @@
                                                       }
                                                    },
                                                    "color" : [ 1, 1, 1, 1 ],
-                                                   "imageName" : ".\\myaso_icon_gray.png",
+                                                   "imageName" : ".\\Angel_icon_gray.png",
                                                    "position" : {
                                                       "_typeName" : "AligningOffset",
                                                       "horAlign" : 1,
@@ -2280,7 +2286,7 @@
                                                       }
                                                    },
                                                    "color" : [ 1, 1, 1, 0 ],
-                                                   "imageName" : ".\\myaso_icon.png",
+                                                   "imageName" : ".\\Angel_icon.png",
                                                    "position" : {
                                                       "_typeName" : "AligningOffset",
                                                       "horAlign" : 1,
@@ -2393,8 +2399,8 @@
                               "skipInvisibleElements" : false
                            },
                            {
+                              "_name" : "shopWindow",
                               "_typeName" : "CanvasLayout",
-                              "_visible" : false,
                               "adjustment" : 0,
                               "box" : {
                                  "_typeName" : "RelativeBox",
@@ -2653,6 +2659,7 @@
                                           "skipInvisibleElements" : false
                                        },
                                        {
+                                          "_name" : "costForOne",
                                           "_typeName" : "StaticLabel",
                                           "adjustSize" : true,
                                           "box" : {
@@ -2702,6 +2709,7 @@
                                           "text" : "Цена за 1: 60"
                                        },
                                        {
+                                          "_name" : "allCost",
                                           "_typeName" : "StaticLabel",
                                           "adjustSize" : true,
                                           "box" : {
@@ -2751,6 +2759,7 @@
                                           "text" : "Общая стоимость: 85000000000"
                                        },
                                        {
+                                          "_name" : "buyArmyButton",
                                           "_typeName" : "Button",
                                           "position" : {
                                              "_typeName" : "AligningOffset",

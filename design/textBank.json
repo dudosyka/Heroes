@@ -3,6 +3,10 @@
    "_version" : "VER3",
    "database" : [
       {
+         "_key" : "allCost",
+         "_value" : "Общая стоимость: "
+      },
+      {
          "_key" : "enemy",
          "_value" : "Противник"
       },
@@ -29,6 +33,10 @@
       {
          "_key" : "neutral",
          "_value" : "Нейтральный игрок"
+      },
+      {
+         "_key" : "oneCost",
+         "_value" : "Цена за 1: "
       },
       {
          "_key" : "ore",

@@ -7,6 +7,8 @@ class MyApp : public App
 {
 	int gold, skill, ore;
 
+	int days;
+
 	deque <IntVec2> direction;
 	
 	bool heroMenuOpen = false;
@@ -29,13 +31,6 @@ class MyApp : public App
 	enum recType
 	{
 		noneRec, mine, goldMine, castle, castle_entry
-	};
-
-	struct recData
-	{
-		recType type;
-		ownerType owner;
-		IntVec2 cords;
 	};
 
 	struct nishData
@@ -150,6 +145,14 @@ class MyApp : public App
 		ownerType owner;
 		vector <unit> units;
 	};
+	 
+	struct recData
+	{
+		recType type;
+		Army castleArmy;
+		ownerType owner;
+		IntVec2 cords;
+	};
 
 	struct playerData
 	{
@@ -209,6 +212,7 @@ class MyApp : public App
 	void load()
 	{
 		stepPoints = 4;
+		days = 0;
 		ore = 0;
 		connect(Relog, nextStep);
 
@@ -347,6 +351,14 @@ class MyApp : public App
 					Rec.setScaleY(1.5);
 					rec.data(Rec).type = castle;
 					rec.data(Rec).cords = { x - 1, y - 1 };
+					rec.data(Rec).castleArmy.owner = neutral;
+					rec.data(Rec).castleArmy = createArmy({
+						{ unitType::myaso, 20 },
+						{ unitType::archer, 5 },
+						{ unitType::grifon, 50 },
+						{ unitType::chuvak, 100 },
+						{ unitType::horserider, 1 },
+						{ unitType::angel, 0 } });
 				}
 			}
 		}
@@ -362,8 +374,18 @@ class MyApp : public App
 		emptyStep.hide();
 	}
 
+	void nextWeek()
+	{
+		return;
+	}
+
 	void nextStep()
 	{
+		days++;
+		if (days % 7 == 0)
+		{
+			nextWeek();
+		}
 		if (!playerLayer.get(0).anim.isEmpty() || !empty(direction) && stepPoints > 0)
 		{
 			return;
@@ -700,7 +722,80 @@ class MyApp : public App
 		main, getArmy
 	};
 
-	void changeCastleMenuSelector(Selector selector, Place place)
+	void more(int n, GameObj castle)
+	{
+		int unitN = 0;
+		design.child<TextBox>("unitN") >> unitN;
+		if (rec.data(castle).castleArmy.units[n - 1].n <= unitN)
+		{
+			return;
+		}
+		unitN++;
+		design.child<TextBox>("unitN") << unitN;
+		int unitPrice;
+		if (n != 6)
+		{
+			unitPrice = allTypes[n - 1].price[0].n;
+		}
+		int price = unitPrice * unitN;
+		design.child<Label>("allCost") << tr("allCost") << price;
+			
+	}	
+
+	void min(int n, GameObj castle)
+	{
+		if (unitN < 1)
+		{
+			return;
+		}
+		design.child<TextBox>("unitN") >> unitN;
+		unitN--;
+		design.child<TextBox>("unitN") << unitN;
+		int unitPrice;
+		if (n != 6)
+		{
+			unitPrice = allTypes[n - 1].price[0].n;
+		}
+		int price = unitPrice * unitN;
+		design.child<Label>("allCost") << tr("allCost") << price;
+	}
+
+	void buyUnit(int n)
+	{
+		int price = 0;
+		design.child<Label>("allCost") >> price;
+		if (gold >= price)
+		{
+			gold -= price;
+		}
+	}
+
+	void getUnit(int n, GameObj castle)
+	{
+		if (!design.child<ToggleButton>("castleunit" + toString(n)).isPressed())
+		{
+			return;
+		}
+		auto sw = design.child<Layout>("shopWindow");
+		sw.show();
+		auto oneCost = sw.child<Label>("costForOne");
+		auto allCost = sw.child<Label>("allCost");
+		allCost << "";
+		auto buyBut = sw.child<Button>("buyArmyButton");
+		if (n != 6)
+		{
+			oneCost << tr("oneCost") << allTypes[n - 1].price[0].n;
+			connect(sw.child<Button>("more"), more, n, castle);
+			connect(sw.child<Button>("min"), min, n, castle);
+			connect(buyBut, buyUnit, n);
+		}
+		else 
+		{
+
+		}
+	}
+
+	void changeCastleMenuSelector(Selector selector, Place place, GameObj castle)
 	{
 		if (place == main)
 		{
@@ -709,6 +804,10 @@ class MyApp : public App
 		else if (place == getArmy)
 		{
 			selector.select(1);
+			for (int i = 1; i < 7; i++)
+			{
+				connect(design.child<ToggleButton>("castleunit" + toString(i)), getUnit, i, castle);
+			}			
 		}		
 	}
 
@@ -796,8 +895,8 @@ class MyApp : public App
 						auto cm = forWindow.load(3, "castleMenu.json");
 						connect(cm.child<Button>("closeCastleMenu"), CloseCastleMenu);
 						auto cmSelector = cm.child<Selector>("castleMenuSelector");
-						connect(cm.child<Button>("backToMain"), changeCastleMenuSelector, cmSelector, main);
-						connect(cm.child<Button>("getArmyButton"), changeCastleMenuSelector, cmSelector, getArmy);
+						connect(cm.child<Button>("backToMain"), changeCastleMenuSelector, cmSelector, main, Rec);
+						connect(cm.child<Button>("getArmyButton"), changeCastleMenuSelector, cmSelector, getArmy, Rec);
 						heroMenu.hide();
 						//cm.child
 
