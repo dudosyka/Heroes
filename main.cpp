@@ -7,6 +7,8 @@ class MyApp : public App
 {
 	int gold, skill, ore;
 
+	int days;
+
 	deque <IntVec2> direction;
 	
 	bool heroMenuOpen = false;
@@ -29,13 +31,6 @@ class MyApp : public App
 	enum recType
 	{
 		noneRec, mine, goldMine, castle, castle_entry
-	};
-
-	struct recData
-	{
-		recType type;
-		ownerType owner;
-		IntVec2 cords;
 	};
 
 	struct nishData
@@ -150,6 +145,14 @@ class MyApp : public App
 		ownerType owner;
 		vector <unit> units;
 	};
+	 
+	struct recData
+	{
+		recType type;
+		Army castleArmy;
+		ownerType owner;
+		IntVec2 cords;
+	};
 
 	struct playerData
 	{
@@ -209,6 +212,7 @@ class MyApp : public App
 	void load()
 	{
 		stepPoints = 4;
+		days = 0;
 		ore = 0;
 		connect(Relog, nextStep);
 
@@ -315,7 +319,7 @@ class MyApp : public App
 				if (recmap[x][y] == mine)
 				{
 					auto Rec = rec.load("Rec.json", x * 150, y * 150);
-					Rec.skin<Texture>().setImageName("mine.png");
+					Rec.child<Texture>("mineTexture").setImageName("mine.png");
 					rec.data(Rec).owner = neutral;
 					rec.data(Rec).type = mine;
 					rec.data(Rec).cords = { x,y };
@@ -341,12 +345,20 @@ class MyApp : public App
 						realrecmap[x - 1][y + 1] = castle;
 					}
 					auto Rec = rec.load("Rec.json", x * 150, y * 150);
-					Rec.skin<Texture>().setImageName("castle.png");
+					Rec.child<Texture>("mineTexture").setImageName("castle.png");
 					rec.data(Rec).owner = humanplayer;
 					Rec.setScaleX(1.5);
 					Rec.setScaleY(1.5);
 					rec.data(Rec).type = castle;
 					rec.data(Rec).cords = { x - 1, y - 1 };
+					rec.data(Rec).castleArmy.owner = neutral;
+					rec.data(Rec).castleArmy = createArmy({
+						{ unitType::myaso, 20 },
+						{ unitType::archer, 5 },
+						{ unitType::grifon, 50 },
+						{ unitType::chuvak, 100 },
+						{ unitType::horserider, 1 },
+						{ unitType::angel, 0 } });
 				}
 			}
 		}
@@ -362,8 +374,22 @@ class MyApp : public App
 		emptyStep.hide();
 	}
 
+	void nextWeek()
+	{
+		return;
+	}
+
 	void nextStep()
 	{
+		days++;
+		if (days % 7 == 0)
+		{
+			nextWeek();
+		}
+		if (!playerLayer.get(0).anim.isEmpty() || !empty(direction) && stepPoints > 0)
+		{
+			return;
+		}
 		stepPoints = 4;
 		for (auto Rec : rec.all())
 		{
@@ -372,15 +398,17 @@ class MyApp : public App
 				if (rec.data(Rec).type == goldMine)
 				{
 					gold += 1000;
+					cout << "Gold: " << gold << endl;
 				}
 				else if (rec.data(Rec).type == mine)
 				{
 					ore += 2;
+					cout << "Ore: " << ore << endl;
 				}
 			}
 		}
 	}
-	
+
 	void openHeroMenu()
 	{
 		if (!heroMenuOpen)
@@ -441,7 +469,7 @@ class MyApp : public App
 			close();
 		}
 
-		if (input.justPressed(MouseLeft) && playerLayer.get(0).anim.isEmpty() && !impl::isMouseOn(Relog.getImpl().get()) && !impl::isMouseOn(newDirection.getImpl().get()) && !impl::isMouseOn(heroMenu.getImpl().get()) && !heroMenuOpen && !isChestVisible)
+		if (input.justPressed(MouseLeft) && forWindow.empty() && playerLayer.get(0).anim.isEmpty() && !impl::isMouseOn(Relog.getImpl().get()) && !impl::isMouseOn(newDirection.getImpl().get()) && !impl::isMouseOn(heroMenu.getImpl().get()) && !heroMenuOpen)
 		{
 			if (stepPoints <= 0)
 			{
@@ -480,17 +508,24 @@ class MyApp : public App
 		return Vec2(v.x, v.y);
 	}
 
-	bool isGoToRec = false;
+	enum class Target {
+		none, castle, mine
+	};
+
+	Target target;
+
 	deque <IntVec2> route(IntVec2 start, IntVec2 finish)
 	{
 		GameMap dmap;
 		deque <IntVec2> queue;
 		dmap = createMap(groundmap.w, groundmap.h);
+		target = Target::none;
 		if (realrecmap[finish] != noneRec)
 		{
+			target = Target::castle;
 			if (realrecmap[finish] != castle)
 			{
-				isGoToRec = true;
+				target = Target::mine;
 			}
 		}
 		for (int x = 0; x < dmap.w; x++)
@@ -536,7 +571,7 @@ class MyApp : public App
 		}
 		if (dmap[finish] == 2000000001)
 		{
-			if (!isGoToRec)
+			if (target == Target::none)
 			{
 				return {};
 			}
@@ -553,30 +588,15 @@ class MyApp : public App
 					}
 					if (start.x < finish.x)
 					{
-
-						IntVec2 newFinish;
-						newFinish.x = finish.x - 1;
-						newFinish.y = finish.y;
-						finish = newFinish;
-						//finish = { finish.x--, finish.y };
+						finish = { finish.x-1, finish.y };
 					}
 					if (start.y > finish.y)
 					{
-
-						IntVec2 newFinish;
-						newFinish.x = finish.x;
-						newFinish.y = finish.y + 1;
-						finish = newFinish;
-						//finish = { finish.x, finish.y++ };
+						finish = { finish.x, finish.y+1 };
 					}
 					if (start.y < finish.y)
 					{
-
-						IntVec2 newFinish;
-						newFinish.x = finish.x;
-						newFinish.y = finish.y - 1;
-						finish = newFinish;
-						//finish = { finish.x, finish.y-- };
+						finish = { finish.x, finish.y-1 };
 					}
 				}
 			}
@@ -631,22 +651,18 @@ class MyApp : public App
 		g, e
 	};
 
-	bool isChestVisible = false;
-
 	void getBabosiki(Babosiki b, int n)
 	{
 		if (b == g)
 		{
 			gold += n;
 			forWindow.remove(1);
-			isChestVisible = false;
 		}
 		else
 		{
 			playerLayer.data(playerLayer.get(0)).exp += n;
 			skill += n;
 			forWindow.remove(1);
-			isChestVisible = false;
 		}
 	}
 
@@ -676,13 +692,133 @@ class MyApp : public App
 		design.update();
 	}
 
+	bool heroStay(GameObj hero)
+	{
+		if (hero.anim.isEmpty() && empty(direction))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+	}
+
+	bool isMineInfoOpen = false;
+
+	void closeMineInfo()
+	{
+		forWindow.remove(2);
+		isMineInfoOpen = false;
+	}
+
+	void CloseCastleMenu()
+	{
+		forWindow.remove(3);
+	}
+
+	enum Place
+	{
+		main, getArmy
+	};
+
+	void more(int n, GameObj castle)
+	{
+		int unitN = 0;
+		design.child<TextBox>("unitN") >> unitN;
+		if (rec.data(castle).castleArmy.units[n - 1].n <= unitN)
+		{
+			return;
+		}
+		unitN++;
+		design.child<TextBox>("unitN") << unitN;
+		int unitPrice;
+		if (n != 6)
+		{
+			unitPrice = allTypes[n - 1].price[0].n;
+		}
+		int price = unitPrice * unitN;
+		design.child<Label>("allCost") << tr("allCost") << price;
+			
+	}	
+
+	void min(int n, GameObj castle)
+	{
+		if (unitN < 1)
+		{
+			return;
+		}
+		design.child<TextBox>("unitN") >> unitN;
+		unitN--;
+		design.child<TextBox>("unitN") << unitN;
+		int unitPrice;
+		if (n != 6)
+		{
+			unitPrice = allTypes[n - 1].price[0].n;
+		}
+		int price = unitPrice * unitN;
+		design.child<Label>("allCost") << tr("allCost") << price;
+	}
+
+	void buyUnit(int n)
+	{
+		int price = 0;
+		design.child<Label>("allCost") >> price;
+		if (gold >= price)
+		{
+			gold -= price;
+		}
+	}
+
+	void getUnit(int n, GameObj castle)
+	{
+		if (!design.child<ToggleButton>("castleunit" + toString(n)).isPressed())
+		{
+			return;
+		}
+		auto sw = design.child<Layout>("shopWindow");
+		sw.show();
+		auto oneCost = sw.child<Label>("costForOne");
+		auto allCost = sw.child<Label>("allCost");
+		allCost << "";
+		auto buyBut = sw.child<Button>("buyArmyButton");
+		if (n != 6)
+		{
+			oneCost << tr("oneCost") << allTypes[n - 1].price[0].n;
+			connect(sw.child<Button>("more"), more, n, castle);
+			connect(sw.child<Button>("min"), min, n, castle);
+			connect(buyBut, buyUnit, n);
+		}
+		else 
+		{
+
+		}
+	}
+
+	void changeCastleMenuSelector(Selector selector, Place place, GameObj castle)
+	{
+		if (place == main)
+		{
+			selector.select(0);
+		}
+		else if (place == getArmy)
+		{
+			selector.select(1);
+			for (int i = 1; i < 7; i++)
+			{
+				connect(design.child<ToggleButton>("castleunit" + toString(i)), getUnit, i, castle);
+			}			
+		}		
+	}
+
     void move()
-    {
-		GOld << "gold: " << gold;
-		SKill << "skill: " << skill;
-		Ore << "Ore: " << ore;
+     {
+		GOld << " : " << gold;
+		SKill << " : " << skill;
+		Ore << " : " << ore;
+		heroStepsLabel << " : " << stepPoints;
 		field.setView(playerLayer.get(0).pos());
-		if (empty(direction) && playerLayer.get(0).anim.isEmpty())
+		if (heroStay(playerLayer.get(0)))
 		{
 			for (auto n : nishtyaki.find(playerLayer.get(0).pos()))
 			{
@@ -703,7 +839,6 @@ class MyApp : public App
 				else
 				{
 					showChestMenu();
-					isChestVisible = true;
 				}
 				n.kill();
 			}
@@ -713,6 +848,7 @@ class MyApp : public App
 		{
 			emptyStep.hide();
 		}
+
 		if (!empty(direction) && playerLayer.get(0).anim.isEmpty() && stepPoints > 0)
 		{
 			IntVec2 NowPPos = cell(playerLayer.get(0).pos());
@@ -737,33 +873,65 @@ class MyApp : public App
 			NowPPos = dir;
 			direction.pop_front();
 		}
+
 		for (auto egg : SuperMegaPuperStepEgg.find(playerLayer.get(0).pos()))
 		{
 			egg.kill();
 		}
-		if (isGoToRec && playerLayer.get(0).anim.isEmpty())
+
+		if (target != Target::none && heroStay(playerLayer.get(0)))
 		{
 			for (auto Rec : rec.all())
 			{
-				//if (realrecmap[cell(playerLayer.get(0).pos()).x + 1][cell(playerLayer.get(0).pos()).y] || realrecmap[cell(playerLayer.get(0).pos()).x - 1][cell(playerLayer.get(0).pos()).y + 1] || realrecmap[cell(playerLayer.get(0).pos()).x - 1][cell(playerLayer.get(0).pos()).y] || realrecmap[cell(playerLayer.get(0).pos()).x - 1][cell(playerLayer.get(0).pos()).y - 1] || realrecmap[cell(playerLayer.get(0).pos()).x][cell(playerLayer.get(0).pos()).y - 1] || realrecmap[cell(playerLayer.get(0).pos()).x + 1][cell(playerLayer.get(0).pos()).y - 1] || realrecmap[cell(playerLayer.get(0).pos()).x][cell(playerLayer.get(0).pos()).y + 1] || realrecmap[cell(playerLayer.get(0).pos()).x + 1][cell(playerLayer.get(0).pos()).y + 1])
 				auto& rpos = rec.data(Rec).cords;
 				auto& ppos = playerLayer.get(0).pos();
 				auto cppos = cell(ppos);
   				if ((rpos.x + 1 == cppos.x && rpos.y == cppos.y) || (rpos.x - 1 == cppos.x  && rpos.y == cppos.y) || (rpos.y + 1 == cppos.y && rpos.x == cppos.x) || (rpos.y - 1 == cppos.y && rpos.x == cppos.x) || (rpos.x + 1 == cppos.x && rpos.y + 1 == cppos.y) || (rpos.x + 1 == cppos.x && rpos.y - 1 == cppos.y) || (rpos.y - 1 == cppos.y && rpos.x - 1 == cppos.x) || (rpos.x - 1 == cppos.x && rpos.y + 1 == cppos.y))
 				{
-					isGoToRec = false;
-					GOld << "allright!!";
-					rec.data(Rec).owner = playerLayer.data(playerLayer.get(0)).owner;
-					//forWindow.load(2, "MineInfo.json");
-					auto owner = forWindow.child<Label>("rOwner");
-					//if (rec.data(Rec).owner == humanplayer)
-					//{
-						//owner << tr("you");
-					//}
-					//else if (rec.data(Rec).type)
-					auto type = forWindow.child<Label>("rType");
-					auto n = forWindow.child<Label>("rN");
+					if (rec.data(Rec).type == castle)
+					{
+						target = Target::none;
+						Rec.child<Texture>("flag").setColor(255, 0, 0, 255);
+						auto cm = forWindow.load(3, "castleMenu.json");
+						connect(cm.child<Button>("closeCastleMenu"), CloseCastleMenu);
+						auto cmSelector = cm.child<Selector>("castleMenuSelector");
+						connect(cm.child<Button>("backToMain"), changeCastleMenuSelector, cmSelector, main, Rec);
+						connect(cm.child<Button>("getArmyButton"), changeCastleMenuSelector, cmSelector, getArmy, Rec);
+						heroMenu.hide();
+						//cm.child
 
+						continue;
+					}
+					//GOld << "allright!!";
+					rec.data(Rec).owner = playerLayer.data(playerLayer.get(0)).owner;
+					forWindow.load(2, "MineInfo.json");
+					auto owner = forWindow.child<Label>("rOwner");
+					if (rec.data(Rec).owner == humanplayer)
+					{
+						owner << tr("you");
+						Rec.child<Texture>("flag").setColor(255, 0, 0, 255);
+					}
+					else
+					{
+						owner << tr("neutral");
+					}
+					auto type = forWindow.child<Label>("rType");
+					
+					auto n = forWindow.child<Label>("rN");
+					if (rec.data(Rec).type == goldMine)
+					{
+						type << tr("gold");
+						n << "1000";
+						Rec.child<Texture>("flag").setColor(255, 0, 0, 255);
+					}
+					else
+					{
+						type << tr("ore");
+						n << "2";
+					}
+					auto closeBut = forWindow.child<Button>("closeMineInfoBut");
+					connect(closeBut, closeMineInfo);
+					target = Target::none;
 				}
 			}
 		}
@@ -778,6 +946,12 @@ class MyApp : public App
 	FromDesign(Label, test_);
 	FromDesign(Selector, selector);
 
+	ToggleButton b;
+
+	//FromDesign(HorizontalLayout, armyMenu);
+
+	FromDesign(Label, heroStepsLabel);
+	
 	FromDesign(Layout, forWindow);
 
 	FromDesign(Selector, heroMenuSelector);
@@ -808,3 +982,162 @@ int main(int argc, char** argv)
     app.run();
     return 0;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

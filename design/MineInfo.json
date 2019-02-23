@@ -4,20 +4,9 @@
    "_version" : "VER3",
    "adjustment" : 0,
    "box" : {
-      "_typeName" : "RelativeBox",
-      "height" : {
-         "_typeName" : "RelativeValue",
-         "type" : 0,
-         "value" : 0
-      },
-      "offset" : {
-         "_empty" : true
-      },
-      "width" : {
-         "_typeName" : "RelativeValue",
-         "type" : 0,
-         "value" : 0
-      }
+      "_typeName" : "PixelBox",
+      "height" : 500,
+      "width" : 900
    },
    "list" : [
       {
@@ -161,6 +150,7 @@
                               "text" : "Ресурс: "
                            },
                            {
+                              "_name" : "rType",
                               "_typeName" : "StaticLabel",
                               "adjustSize" : true,
                               "box" : {
@@ -306,6 +296,7 @@
                               "text" : "Добыча ед/ход: "
                            },
                            {
+                              "_name" : "rN",
                               "_typeName" : "StaticLabel",
                               "adjustSize" : true,
                               "box" : {
@@ -451,6 +442,7 @@
                               "text" : "Владелец:"
                            },
                            {
+                              "_name" : "rOwner",
                               "_typeName" : "StaticLabel",
                               "adjustSize" : true,
                               "box" : {
@@ -588,6 +580,7 @@
                   "skipInvisibleElements" : false
                },
                {
+                  "_name" : "closeMineInfoBut",
                   "_typeName" : "Button",
                   "position" : {
                      "_typeName" : "AligningOffset",

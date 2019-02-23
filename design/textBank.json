@@ -3,6 +3,14 @@
    "_version" : "VER3",
    "database" : [
       {
+         "_key" : "allCost",
+         "_value" : "Общая стоимость: "
+      },
+      {
+         "_key" : "enemy",
+         "_value" : "Противник"
+      },
+      {
          "_key" : "get2000exp",
          "_value" : "Вы получите 2000 опыта"
       },
@@ -23,8 +31,24 @@
          "_value" : "Золото"
       },
       {
+         "_key" : "neutral",
+         "_value" : "Нейтральный игрок"
+      },
+      {
+         "_key" : "oneCost",
+         "_value" : "Цена за 1: "
+      },
+      {
          "_key" : "ore",
          "_value" : "Руда"
+      },
+      {
+         "_key" : "steps",
+         "_value" : "Ходы: "
+      },
+      {
+         "_key" : "you",
+         "_value" : "Вы"
       }
    ]
 }
