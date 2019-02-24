@@ -5,7 +5,7 @@ using namespace std;
 
 class MyApp : public App
 {
-	int gold, skill, ore;
+	int gold, skill, ore, gems, sera;
 
 	int days;
 
@@ -30,7 +30,7 @@ class MyApp : public App
 
 	enum recType
 	{
-		noneRec, mine, goldMine, castle, castle_entry
+		noneRec, mine, goldMine, castle, castle_entry, gem_mine, sera_mine
 	};
 
 	struct nishData
@@ -42,7 +42,7 @@ class MyApp : public App
 	{
 		enum Enum
 		{
-			gold, ore, wood, crystal
+			gold, ore, wood, crystal, sera
 		};
 		Enum type;
 		int n;
@@ -145,13 +145,56 @@ class MyApp : public App
 		ownerType owner;
 		vector <unit> units;
 	};
-	 
+	//djsifefhwefhihiwefihwehfhwhefihweuhfwhehfewhfhiewihfiwehfhweuihfwhfwhefhiwehfiwehfheuihfwiuhfewhfhiewhfuhweihfwhefhewfhweifhwehifhewieuwhfefhiwehfifuweiuhfiwhfiuehiewihfwehfheuwhifwhifewhifewh
+	enum class IsBuild
+	{
+		build, not_build
+	};
+
+	struct build
+	{
+		IsBuild isBuild;
+		vector<Price> price;
+		string description;
+		string name;
+	};
+
+	struct cityCenter
+	{
+		vector <build> magicBranch = { 
+
+			{ IsBuild::build, { {Price::gold, 2000}, {Price::ore, 2}, {Price::wood, 2}, {Price::crystal, 2}, {Price::sera, 2} }, "Позволяет вашему герою изучить заклинания первого круга", "Гильдия магии первого уровня" },
+			{ IsBuild::not_build, { {Price::gold, 3000}, {Price::ore, 3}, {Price::wood, 3}, {Price::crystal, 3}, {Price::sera, 3} }, "Позволяет вашему герою изучить заклинания второго круга", "Гильдия магии второго уровня" },
+			{ IsBuild::not_build, { {Price::gold, 4000}, {Price::ore, 4}, {Price::wood, 4}, {Price::crystal, 4}, {Price::sera, 4} }, "Позволяет вашему герою изучить заклинания третьего круга", "Гильдия магии третьего уровня" },
+			{ IsBuild::not_build, { {Price::gold, 5000}, {Price::ore, 5}, {Price::wood, 5}, {Price::crystal, 5}, {Price::sera, 5} }, "Позволяет вашему герою изучить заклинания четвертого круга", "Храм Христа спасителя" }
+		
+		};
+		vector <build> armyBranch = { 
+		
+			{ IsBuild::build, { {Price::gold, 0}, {Price::ore, 0}, {Price::wood, 0}, {Price::sera, 0}, {Price::crystal, 0} }, "Позволяет нанимать в городе копейщиков", "Гарнизон" },
+			{ IsBuild::not_build, { {Price::gold, 2500}, {Price::ore, 10}, {Price::wood, 0}, {Price::sera, 0}, {Price::crystal, 0} }, "Позволяет нанимать в городе лучников", "Башня лучников" },
+			{ IsBuild::not_build, { {Price::gold, 4000}, {Price::ore, 10}, {Price::wood, 10}, {Price::sera, 5}, {Price::crystal, 0} }, "Позволяет нанимать в городе грифонов", "Башня грифонов" },
+			{ IsBuild::not_build, { {Price::gold, 6000}, {Price::ore, 5}, {Price::wood, 5}, {Price::sera, 5}, {Price::crystal, 5} }, "Позволяет нанимать в городе инквизиторов", "Монастырь" },
+			{ IsBuild::not_build, { {Price::gold, 9000}, {Price::ore, 0}, {Price::wood, 15}, {Price::sera, 0}, {Price::crystal, 10} }, "Позволяет нанимать в городе паладинов", "Орден паладинов" },
+			{ IsBuild::not_build, { {Price::gold, 15000}, {Price::ore, 20}, {Price::wood, 0}, {Price::sera, 0}, {Price::crystal, 15} }, "Позволяет нанимать в городе ангелов", "Цитадель" }
+		};
+		vector <build> ecoBranch = {
+			
+			{ IsBuild::build, { {Price::gold, 500}, {Price::ore, 0}, {Price::wood, 5}, {Price::sera, 0}, {Price::crystal, 0} }, "Даёт 250 золота за ход", "Дом старейшин" },
+			{ IsBuild::not_build, { {Price::gold, 4000}, {Price::ore, 10}, {Price::wood, 10}, {Price::sera, 5}, {Price::crystal, 0} }, "Даёт 1000 золота за ход", "Ратуша" },
+			{ IsBuild::not_build, { {Price::gold, 8000}, {Price::ore, 5}, {Price::wood, 5}, {Price::sera, 5}, {Price::crystal, 5} }, "Даёт 2000 золота за ход", "Магистрат" },
+			{ IsBuild::not_build, { {Price::gold, 12000}, {Price::ore, 0}, {Price::wood, 15}, {Price::sera, 0}, {Price::crystal, 10} }, "Даёт 4000 золота за ход", "Капитолий" }
+
+		};
+	};
+
 	struct recData
 	{
 		recType type;
 		Army castleArmy;
 		ownerType owner;
 		IntVec2 cords;
+		cityCenter castleRec;
 	};
 
 	struct playerData
@@ -211,9 +254,6 @@ class MyApp : public App
 
 	void load()
 	{
-		stepPoints = 4;
-		days = 0;
-		ore = 0;
 		connect(Relog, nextStep);
 
 		connect(heroMenu, openHeroMenu);
@@ -223,12 +263,22 @@ class MyApp : public App
 
 		connect(newDirection, clearSteps);
 		connect(timer, hideLabel);
+		
 		timer.repeat(2);
-		gold = 0;
+		
+		gold = 10000;
 		skill = 0;
+		stepPoints = 4;
+		days = 0;
+		ore = 10;
+		sera = 5;
+		gems = 10;
+		
 		GOld << "gold: " << gold;
 		SKill << "skill: " << skill;
+		
 		selector.select(1);
+		
 		connect(start_button, startGame);
 		connect(quit_button, quitGame);
 
@@ -309,6 +359,8 @@ class MyApp : public App
 			{ Color(255, 238, 0), mine },
 			{ Color(252, 255, 249), castle },
 			{ Color(0, 4, 255), goldMine },
+			{ Color(255, 0, 246), gem_mine },
+			{ Color(127, 0, 19), sera_mine },
 		};
 		recmap = loadMap("recmap.png", colorToTypeRec);
 		realrecmap = loadMap("recmap.png", colorToTypeRec);
@@ -322,6 +374,22 @@ class MyApp : public App
 					Rec.child<Texture>("mineTexture").setImageName("mine.png");
 					rec.data(Rec).owner = neutral;
 					rec.data(Rec).type = mine;
+					rec.data(Rec).cords = { x,y };
+				}
+				if (recmap[x][y] == gem_mine)
+				{
+					auto Rec = rec.load("Rec.json", x * 150, y * 150);
+					Rec.child<Texture>("mineTexture").setImageName("gem_mine.png");
+					rec.data(Rec).owner = neutral;
+					rec.data(Rec).type = gem_mine;
+					rec.data(Rec).cords = { x,y };
+				}
+				if (recmap[x][y] == sera_mine)
+				{
+					auto Rec = rec.load("Rec.json", x * 150, y * 150);
+					Rec.child<Texture>("mineTexture").setImageName("mine_sera.png");
+					rec.data(Rec).owner = neutral;
+					rec.data(Rec).type = sera_mine;
 					rec.data(Rec).cords = { x,y };
 				}
 				if (recmap[x][y] == goldMine)
@@ -353,12 +421,12 @@ class MyApp : public App
 					rec.data(Rec).cords = { x - 1, y - 1 };
 					rec.data(Rec).castleArmy.owner = neutral;
 					rec.data(Rec).castleArmy = createArmy({
-						{ unitType::myaso, 20 },
-						{ unitType::archer, 5 },
-						{ unitType::grifon, 50 },
-						{ unitType::chuvak, 100 },
-						{ unitType::horserider, 1 },
-						{ unitType::angel, 0 } });
+						{ unitType::myaso, 1000 },
+						{ unitType::archer, 1000 },
+						{ unitType::grifon, 1000 },
+						{ unitType::chuvak, 1000 },
+						{ unitType::horserider, 1000 },
+						{ unitType::angel, 1000 } });
 				}
 			}
 		}
@@ -404,6 +472,14 @@ class MyApp : public App
 				{
 					ore += 2;
 					cout << "Ore: " << ore << endl;
+				}
+				else if (rec.data(Rec).type == gem_mine)
+				{
+					gems++;
+				}
+				else if (rec.data(Rec).type == sera_mine)
+				{
+					sera++;
 				}
 			}
 		}
@@ -489,6 +565,18 @@ class MyApp : public App
 						SuperMegaPuperStepEgg.load("SuperMegaPuperStepEgg.json", pixels(dir));
 					}
 				}
+			}
+		}
+		if (input.justPressed(MouseRight))
+		{
+			cout << "MouseRight pressed" << endl;
+			if (impl::isMouseOn(design.child<Button>("castleMagicBuild1").getImpl().get()))
+			{
+				auto& but = design.child<Button>("more_info");
+				but.show();
+				connect(but, viewMoreBuildInfo, )
+				but.setPos(field.mousePos());
+				cout << "Mouse on castleMagicBuild1" << endl;
 			}
 		}
     }
@@ -715,59 +803,185 @@ class MyApp : public App
 	void CloseCastleMenu()
 	{
 		forWindow.remove(3);
+		heroMenu.show();
+		loadMainArmy(playerLayer.data(playerLayer.get(0)).army);
+		design.update();
 	}
 
 	enum Place
 	{
-		main, getArmy
+		main, getArmy, build
 	};
 
 	void more(int n, GameObj castle)
 	{
 		int unitN = 0;
 		design.child<TextBox>("unitN") >> unitN;
-		if (rec.data(castle).castleArmy.units[n - 1].n <= unitN)
-		{
-			return;
-		}
-		unitN++;
-		design.child<TextBox>("unitN") << unitN;
-		int unitPrice;
+		//int unitPrice;
+		vector<Price> unitPrice = allTypes[n - 1].price;
 		if (n != 6)
 		{
-			unitPrice = allTypes[n - 1].price[0].n;
+			unitPrice[0].n = allTypes[n - 1].price[0].n;
+			int price = unitPrice[0].n * unitN;
+			int canBuy = gold - price;
+			if (rec.data(castle).castleArmy.units[n - 1].n <= unitN || canBuy < unitPrice[0].n)
+			{
+				return;
+			}
+			unitN++;
+			price += unitPrice[0].n;
+			design.child<TextBox>("unitN") << unitN;
+			design.child<Label>("allCost") << tr("allCost") << price;
 		}
-		int price = unitPrice * unitN;
-		design.child<Label>("allCost") << tr("allCost") << price;
-			
+		else
+		{
+			vector<Price> price = allTypes[n - 1].price;
+			unitPrice[0].n = allTypes[n - 1].price[0].n;
+			unitPrice[1].n = allTypes[n - 1].price[1].n;
+			price[0].n = unitPrice[0].n * unitN;
+			price[1].n = unitPrice[1].n * unitN;
+			int canBuyGold = gold - price[0].n;
+			int canBuyGem = gems - price[1].n;
+			if(rec.data(castle).castleArmy.units[n - 1].n <= unitN || canBuyGold < unitPrice[0].n || canBuyGem < unitPrice[1].n)
+			{
+				return;
+			}
+			unitN++; 
+			price[0].n += unitPrice[0].n;
+			price[1].n += unitPrice[1].n;
+			design.child<TextBox>("unitN") << unitN;
+			design.child<Label>("allCost") << tr("allCost") << tr("goldi") << price[0].n << tr("gemov") << price[1].n;
+		}
+		auto buyBut = design.child<Button>("buyArmyButton");
+		connect(buyBut, buyUnit, n, unitN, castle);
 	}	
 
 	void min(int n, GameObj castle)
 	{
-		if (unitN < 1)
-		{
-			return;
-		}
+		int unitN = 0;
 		design.child<TextBox>("unitN") >> unitN;
-		unitN--;
-		design.child<TextBox>("unitN") << unitN;
-		int unitPrice;
+		//int unitPrice;
+		vector<Price> unitPrice = allTypes[n - 1].price;
 		if (n != 6)
 		{
-			unitPrice = allTypes[n - 1].price[0].n;
+			unitPrice[0].n = allTypes[n - 1].price[0].n;
+			int price = unitPrice[0].n * unitN;
+			int canBuy = gold - price;
+			if (unitN < 1)
+			{
+				return;
+			}
+			unitN--;
+			price -= unitPrice[0].n;
+			design.child<TextBox>("unitN") << unitN;
+			design.child<Label>("allCost") << tr("allCost") << price;
 		}
-		int price = unitPrice * unitN;
-		design.child<Label>("allCost") << tr("allCost") << price;
+		else
+		{
+			vector<Price> price = allTypes[n - 1].price;
+			unitPrice[0].n = allTypes[n - 1].price[0].n;
+			unitPrice[1].n = allTypes[n - 1].price[1].n;
+			price[0].n = unitPrice[0].n * unitN;
+			price[1].n = unitPrice[1].n * unitN;
+			if (unitN < 1)
+			{
+				return;
+			}
+			unitN--;
+			price[0].n -= unitPrice[0].n;
+			price[1].n -= unitPrice[1].n;
+			design.child<TextBox>("unitN") << unitN;
+			design.child<Label>("allCost") << tr("allCost") << tr("goldi") << price[0].n << tr("gemov") << price[1].n;
+		}
+		auto buyBut = design.child<Button>("buyArmyButton");
+		connect(buyBut, buyUnit, n, unitN, castle);
+	}
+	
+	void changeTextBox (GameObj castle, int n)
+	{
+		int unitN = 0;
+		design.child<TextBox>("unitN") >> unitN;
+		if (rec.data(castle).castleArmy.units[n - 1].n <= unitN)
+		{
+			design.child<TextBox>("unitN") << rec.data(castle).castleArmy.units[n - 1].n;
+			design.child<TextBox>("unitN") >> unitN;
+		}
+		
+		if (n != 6)
+		{
+			int unitPrice;
+			unitPrice = allTypes[n - 1].price[0].n;
+			int price = unitPrice * unitN;
+
+			if (gold < price)
+			{
+				unitN = gold / unitPrice;
+			}
+
+			price = unitN * unitPrice;
+			design.child<Label>("allCost") << tr("allCost") << price;
+		}
+		else
+		{
+
+			vector <Price> unitPrice = allTypes[n - 1].price;
+			vector <Price> price = allTypes[n - 1].price;
+			price[0].n = unitPrice[0].n * unitN;
+			price[1].n = unitPrice[1].n * unitN;
+			if (gold < price[0].n || gems < price[1].n)
+			{
+				unitN = gold / unitPrice[0].n;
+				price[1].n = unitPrice[1].n * unitN;
+				if (gems < price[1].n)
+				{
+					unitN = gems / unitPrice[1].n;
+				}
+			}
+			price[0].n = unitPrice[0].n * unitN;
+			price[1].n = unitPrice[1].n * unitN;
+			design.child<Label>("allCost") << tr("allCost") << tr("goldi") << price[0].n << tr("gemov") << price[1].n;
+			design.child<TextBox>("unitN") << unitN;
+		}
+		auto buyBut = design.child<Button>("buyArmyButton");
+		connect(buyBut, buyUnit, n, unitN, castle);
+		//cout << "textBoxChanged" << endl;
 	}
 
-	void buyUnit(int n)
+	void buyUnit(int n, int unitN, GameObj castle)
 	{
-		int price = 0;
-		design.child<Label>("allCost") >> price;
-		if (gold >= price)
+		if (n != 6)
 		{
-			gold -= price;
+			int price = 0;
+			int unitPrice = allTypes[n - 1].price[0].n;
+			price = unitN * unitPrice;
+			if (price > gold)
+			{
+				return;
+			}
+			else
+			{
+				gold -= price;
+			}	
 		}
+		else
+		{
+			vector<Price> price = allTypes[n - 1].price;
+			vector<Price> unitPrice = allTypes[n - 1].price;
+			price[0].n = unitPrice[0].n * unitN;
+			price[1].n = unitPrice[1].n * unitN;
+			if (price[0].n > gold || price[1].n > gems)
+			{
+				return;
+			}
+			else
+			{
+				gold -= price[0].n;
+				gems -= price[1].n;
+			}
+		}
+		rec.data(castle).castleArmy.units[n - 1].n -= unitN;
+		playerLayer.data(playerLayer.get(0)).army.units[n - 1].n += unitN;
+		design.update();
 	}
 
 	void getUnit(int n, GameObj castle)
@@ -776,22 +990,114 @@ class MyApp : public App
 		{
 			return;
 		}
+		for (int i = 1; i < 7; i++)
+		{
+			if (i != n)
+			{
+				design.child<ToggleButton>("castleunit" + toString(i)).unpress();
+			}			
+		}
 		auto sw = design.child<Layout>("shopWindow");
 		sw.show();
 		auto oneCost = sw.child<Label>("costForOne");
 		auto allCost = sw.child<Label>("allCost");
-		allCost << "";
+		allCost << tr("allCost") << "0";
 		auto buyBut = sw.child<Button>("buyArmyButton");
+		design.child<TextBox>("unitN") << "0";
+		sw.child<Label>("canBuyUnitN") << tr("canBuy") << " " << rec.data(castle).castleArmy.units[n - 1].n;
+		connect(sw.child<Button>("more"), more, n, castle);
+		connect(sw.child<Button>("min"), min, n, castle);
+		connect(design.child<TextBox>("unitN"), changeTextBox, castle, n);
 		if (n != 6)
 		{
 			oneCost << tr("oneCost") << allTypes[n - 1].price[0].n;
-			connect(sw.child<Button>("more"), more, n, castle);
-			connect(sw.child<Button>("min"), min, n, castle);
-			connect(buyBut, buyUnit, n);
 		}
 		else 
 		{
+			oneCost << tr("oneCost") << tr("goldi") << allTypes[n - 1].price[0].n << " " << tr("gemov") << allTypes[n - 1].price[1].n;
+		}
+		design.update();
+	}
 
+	void closeBuildInfo()
+	{
+		design.child<Layout>("buildInfo").hide();
+		design.update();
+	}
+
+	void viewMoreBuildInfo(int branch, int stage, GameObj castle) 
+	{
+		auto window = design.child<Layout>("buildInfo");
+		window.show();
+		connect(window.child<Button>("closeBuildInfo"), closeBuildInfo);
+		auto name = window.child<Label>("name");
+		auto cost = window.child<Label>("cost");
+		auto description = window.child<Label>("description");
+		vector <Price> price;
+		switch (branch)
+		{
+		case 0:
+			name << rec.data(castle).castleRec.magicBranch[stage - 1].name;
+			description << rec.data(castle).castleRec.magicBranch[stage - 1].description;
+			price = rec.data(castle).castleRec.magicBranch[stage - 1].price;
+			break;
+		case 1:
+			name << rec.data(castle).castleRec.armyBranch[stage - 1].name;
+			description << rec.data(castle).castleRec.armyBranch[stage - 1].description;
+			price = rec.data(castle).castleRec.armyBranch[stage - 1].price;			
+			break;
+		case 2:
+			name << rec.data(castle).castleRec.ecoBranch[stage - 1].name;
+			description << rec.data(castle).castleRec.ecoBranch[stage - 1].description;
+			price = rec.data(castle).castleRec.ecoBranch[stage - 1].price;
+			break;
+		}
+		for (auto buildprice : price)
+		{
+			if (buildprice.n == 0)
+			{
+				continue;
+			}
+			else
+			{
+				if (buildprice.type == Price::gold)
+				{
+					cost << tr("gold") << buildprice.n;
+				}
+				if (buildprice.type == Price::ore)
+				{
+					cost << tr("ore") << buildprice.n;
+				}
+				if (buildprice.type == Price::wood)
+				{
+					cost << tr("wood") << buildprice.n;
+				}
+				if (buildprice.type == Price::crystal)
+				{
+					cost << tr("gems") << buildprice.n;
+				}
+				if (buildprice.type == Price::sera)
+				{
+					cost << tr("sera") << buildprice.n;
+				}
+			}
+		}
+		design.update();
+	}
+
+	void castleBuild(int stage, int branch, GameObj castle)
+	{
+		if (branch == 0) // magic
+		{
+			//cout << "Stage: " << stage << " branch: " << branch << endl;
+		}
+		else if (branch == 1) // army
+		{
+			//cout << "Stage: " << stage << " branch: " << branch << endl;
+		}
+		else if (branch == 2) // eco
+		{
+			//cout << "Stage: " << stage << " branch: " << branch << endl;
 		}
 	}
 
@@ -800,15 +1106,63 @@ class MyApp : public App
 		if (place == main)
 		{
 			selector.select(0);
+			design.update();
 		}
 		else if (place == getArmy)
 		{
 			selector.select(1);
+			design.update();
 			for (int i = 1; i < 7; i++)
 			{
 				connect(design.child<ToggleButton>("castleunit" + toString(i)), getUnit, i, castle);
 			}			
-		}		
+		}
+		else if (place == build)
+		{
+			auto& magicbranch = rec.data(castle).castleRec.magicBranch;
+			auto& armybranch = rec.data(castle).castleRec.armyBranch;
+			auto& ecobranch = rec.data(castle).castleRec.ecoBranch;
+			selector.select(2);
+			for (int i = 0; i < 3; i++)
+			{
+				for (int j = 1; j < 7; j++)
+				{
+					if (j < 5 && i == 0)
+					{
+						connect(design.child<ToggleButton>("castleMagicBuild" + toString(j)), castleBuild, j, i, castle);
+						auto a = design.child<ToggleButton>("castleMagicBuild" + toString(j));
+						connect(a.child<Button>("more_info" + toString(i) + toString(j)), viewMoreBuildInfo, i, j, castle);
+						if (magicbranch[j - 1].isBuild == IsBuild::build)
+						{
+							a.child<Texture>("gray").hide();
+							a.child<Texture>("not_gray").setColor(255,255,255);
+						}
+					}	
+					if (i == 1)
+					{
+						connect(design.child<ToggleButton>("castleArmyBuild" + toString(j)), castleBuild, j, i, castle);
+						auto a = design.child<ToggleButton>("castleArmyBuild" + toString(j));
+						connect(a.child<Button>("more_info" + toString(i) + toString(j)), viewMoreBuildInfo, i, j, castle);
+						if (armybranch[j - 1].isBuild == IsBuild::build)
+						{
+							a.child<Texture>("gray").hide();
+							a.child<Texture>("not_gray").setColor(255, 255, 255);
+						}
+					}	
+					if (j < 5 && i == 2)
+					{
+						connect(design.child<ToggleButton>("castleEcoBuild" + toString(j)), castleBuild, j, i, castle);
+						auto a = design.child<ToggleButton>("castleEcoBuild" + toString(j));
+						connect(a.child<Button>("more_info" + toString(i) + toString(j)), viewMoreBuildInfo, i, j, castle);
+						if (ecobranch[j - 1].isBuild == IsBuild::build)
+						{
+							a.child<Texture>("gray").hide();
+							a.child<Texture>("not_gray").setColor(255, 255, 255);
+						}
+					}					
+				}
+			}
+		}
 	}
 
     void move()
@@ -816,6 +1170,8 @@ class MyApp : public App
 		GOld << " : " << gold;
 		SKill << " : " << skill;
 		Ore << " : " << ore;
+		Gems << " : " << gems;
+		Sera << " : " << sera;
 		heroStepsLabel << " : " << stepPoints;
 		field.setView(playerLayer.get(0).pos());
 		if (heroStay(playerLayer.get(0)))
@@ -897,6 +1253,7 @@ class MyApp : public App
 						auto cmSelector = cm.child<Selector>("castleMenuSelector");
 						connect(cm.child<Button>("backToMain"), changeCastleMenuSelector, cmSelector, main, Rec);
 						connect(cm.child<Button>("getArmyButton"), changeCastleMenuSelector, cmSelector, getArmy, Rec);
+						connect(cm.child<Button>("castleBuildings"), changeCastleMenuSelector, cmSelector, build, Rec);
 						heroMenu.hide();
 						//cm.child
 
@@ -915,6 +1272,7 @@ class MyApp : public App
 					{
 						owner << tr("neutral");
 					}
+
 					auto type = forWindow.child<Label>("rType");
 					
 					auto n = forWindow.child<Label>("rN");
@@ -924,10 +1282,23 @@ class MyApp : public App
 						n << "1000";
 						Rec.child<Texture>("flag").setColor(255, 0, 0, 255);
 					}
-					else
+					else if (rec.data(Rec).type == mine)
 					{
 						type << tr("ore");
 						n << "2";
+						Rec.child<Texture>("flag").setColor(255, 0, 0, 255);
+					}
+					else if (rec.data(Rec).type == sera_mine)
+					{
+						type << tr("sera");
+						n << "1";
+						Rec.child<Texture>("flag").setColor(255, 0, 0, 255);
+					} 
+					else if (rec.data(Rec).type == gem_mine)
+					{
+						type << tr("gems");
+						n << "1";
+						Rec.child<Texture>("flag").setColor(255, 0, 0, 255);
 					}
 					auto closeBut = forWindow.child<Button>("closeMineInfoBut");
 					connect(closeBut, closeMineInfo);
@@ -963,6 +1334,8 @@ class MyApp : public App
 	FromDesign(Label, GOld);
 	FromDesign(Label, SKill);
 	FromDesign(Label, Ore);
+	FromDesign(Label, Gems);
+	FromDesign(Label, Sera);
 	FromDesign(Label, emptyStep);
 	LayerFromDesign(void, mobs);
 	LayerFromDesign(void, ground);
@@ -982,162 +1355,3 @@ int main(int argc, char** argv)
     app.run();
     return 0;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
