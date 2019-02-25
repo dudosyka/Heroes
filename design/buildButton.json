@@ -1,0 +1,115 @@
+{
+   "_typeName" : "SelectingWidget",
+   "_version" : "VER3",
+   "adjustment" : 1,
+   "box" : {
+      "_typeName" : "RelativeBox",
+      "height" : {
+         "_typeName" : "RelativeValue",
+         "type" : 0,
+         "value" : 0
+      },
+      "offset" : {
+         "_empty" : true
+      },
+      "width" : {
+         "_typeName" : "RelativeValue",
+         "type" : 0,
+         "value" : 0
+      }
+   },
+   "currentID" : 1,
+   "objects" : [
+      {
+         "_key" : 1,
+         "_value" : {
+            "_name" : "gray",
+            "_typeName" : "Button",
+            "position" : {
+               "_typeName" : "AligningOffset",
+               "horAlign" : 1,
+               "horOffset" : {
+                  "_typeName" : "RelativeValue",
+                  "type" : 1,
+                  "value" : 0
+               },
+               "vertAlign" : 1,
+               "vertOffset" : {
+                  "_typeName" : "RelativeValue",
+                  "type" : 1,
+                  "value" : 0
+               }
+            },
+            "skin" : {
+               "_typeName" : "RectangleImageButtonSkin",
+               "borderColor" : [ 0, 0, 0, 1 ],
+               "borderWidth" : 1,
+               "box" : {
+                  "_typeName" : "PixelBox",
+                  "height" : 200,
+                  "width" : 200
+               },
+               "fillColor" : [ 0.7843137383460999, 0.7843137383460999, 0.7843137383460999, 1 ],
+               "imageColor" : [ 1, 1, 1, 1 ],
+               "imageHeight" : 198,
+               "imageName" : "cityBranches\\magic\\magic1_gray.png",
+               "imageWidth" : 198,
+               "useGradient" : false
+            }
+         }
+      },
+      {
+         "_key" : 2,
+         "_value" : {
+            "_name" : "not_gray",
+            "_typeName" : "Button",
+            "position" : {
+               "_typeName" : "AligningOffset",
+               "horAlign" : 1,
+               "horOffset" : {
+                  "_typeName" : "RelativeValue",
+                  "type" : 1,
+                  "value" : 0
+               },
+               "vertAlign" : 1,
+               "vertOffset" : {
+                  "_typeName" : "RelativeValue",
+                  "type" : 1,
+                  "value" : 0
+               }
+            },
+            "skin" : {
+               "_typeName" : "RectangleImageButtonSkin",
+               "borderColor" : [ 0, 0, 0, 1 ],
+               "borderWidth" : 1,
+               "box" : {
+                  "_typeName" : "PixelBox",
+                  "height" : 200,
+                  "width" : 200
+               },
+               "fillColor" : [ 0.7843137383460999, 0.7843137383460999, 0.7843137383460999, 1 ],
+               "imageColor" : [ 1, 1, 1, 1 ],
+               "imageHeight" : 198,
+               "imageName" : "cityBranches\\magic\\magic1.png",
+               "imageWidth" : 198,
+               "useGradient" : false
+            }
+         }
+      }
+   ],
+   "position" : {
+      "_typeName" : "AligningOffset",
+      "horAlign" : 1,
+      "horOffset" : {
+         "_typeName" : "RelativeValue",
+         "type" : 1,
+         "value" : 0
+      },
+      "vertAlign" : 1,
+      "vertOffset" : {
+         "_typeName" : "RelativeValue",
+         "type" : 1,
+         "value" : 0
+      }
+   }
+}

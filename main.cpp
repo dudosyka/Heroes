@@ -157,33 +157,34 @@ class MyApp : public App
 		vector<Price> price;
 		string description;
 		string name;
+		string icon_name;
 	};
 
 	struct cityCenter
 	{
 		vector <build> magicBranch = { 
 
-			{ IsBuild::build, { {Price::gold, 2000}, {Price::ore, 2}, {Price::wood, 2}, {Price::crystal, 2}, {Price::sera, 2} }, "Позволяет вашему герою изучить заклинания первого круга", "Гильдия магии первого уровня" },
-			{ IsBuild::not_build, { {Price::gold, 3000}, {Price::ore, 3}, {Price::wood, 3}, {Price::crystal, 3}, {Price::sera, 3} }, "Позволяет вашему герою изучить заклинания второго круга", "Гильдия магии второго уровня" },
-			{ IsBuild::not_build, { {Price::gold, 4000}, {Price::ore, 4}, {Price::wood, 4}, {Price::crystal, 4}, {Price::sera, 4} }, "Позволяет вашему герою изучить заклинания третьего круга", "Гильдия магии третьего уровня" },
-			{ IsBuild::not_build, { {Price::gold, 5000}, {Price::ore, 5}, {Price::wood, 5}, {Price::crystal, 5}, {Price::sera, 5} }, "Позволяет вашему герою изучить заклинания четвертого круга", "Храм Христа спасителя" }
+			{ IsBuild::build, { {Price::gold, 2000}, {Price::ore, 2}, {Price::wood, 2}, {Price::crystal, 2}, {Price::sera, 2} }, "Позволяет вашему герою изучить заклинания первого круга", "Гильдия магии первого уровня", "cityBranches/magic/magic1" },
+			{ IsBuild::not_build, { {Price::gold, 3000}, {Price::ore, 3}, {Price::wood, 3}, {Price::crystal, 3}, {Price::sera, 3} }, "Позволяет вашему герою изучить заклинания второго круга", "Гильдия магии второго уровня", "cityBranches/magic/magic2" },
+			{ IsBuild::not_build, { {Price::gold, 4000}, {Price::ore, 4}, {Price::wood, 4}, {Price::crystal, 4}, {Price::sera, 4} }, "Позволяет вашему герою изучить заклинания третьего круга", "Гильдия магии третьего уровня", "cityBranches/magic/magic3" },
+			{ IsBuild::not_build, { {Price::gold, 5000}, {Price::ore, 5}, {Price::wood, 5}, {Price::crystal, 5}, {Price::sera, 5} }, "Позволяет вашему герою изучить заклинания четвертого круга", "Храм Христа спасителя", "cityBranches/magic/magic4" }
 		
 		};
 		vector <build> armyBranch = { 
 		
-			{ IsBuild::build, { {Price::gold, 0}, {Price::ore, 0}, {Price::wood, 0}, {Price::sera, 0}, {Price::crystal, 0} }, "Позволяет нанимать в городе копейщиков", "Гарнизон" },
-			{ IsBuild::not_build, { {Price::gold, 2500}, {Price::ore, 10}, {Price::wood, 0}, {Price::sera, 0}, {Price::crystal, 0} }, "Позволяет нанимать в городе лучников", "Башня лучников" },
-			{ IsBuild::not_build, { {Price::gold, 4000}, {Price::ore, 10}, {Price::wood, 10}, {Price::sera, 5}, {Price::crystal, 0} }, "Позволяет нанимать в городе грифонов", "Башня грифонов" },
-			{ IsBuild::not_build, { {Price::gold, 6000}, {Price::ore, 5}, {Price::wood, 5}, {Price::sera, 5}, {Price::crystal, 5} }, "Позволяет нанимать в городе инквизиторов", "Монастырь" },
-			{ IsBuild::not_build, { {Price::gold, 9000}, {Price::ore, 0}, {Price::wood, 15}, {Price::sera, 0}, {Price::crystal, 10} }, "Позволяет нанимать в городе паладинов", "Орден паладинов" },
-			{ IsBuild::not_build, { {Price::gold, 15000}, {Price::ore, 20}, {Price::wood, 0}, {Price::sera, 0}, {Price::crystal, 15} }, "Позволяет нанимать в городе ангелов", "Цитадель" }
+			{ IsBuild::build, { {Price::gold, 0}, {Price::ore, 0}, {Price::wood, 0}, {Price::sera, 0}, {Price::crystal, 0} }, "Позволяет нанимать в городе копейщиков", "Гарнизон", "cityBranches/army/army1" },
+			{ IsBuild::not_build, { {Price::gold, 2500}, {Price::ore, 10}, {Price::wood, 0}, {Price::sera, 0}, {Price::crystal, 0} }, "Позволяет нанимать в городе лучников", "Башня лучников", "cityBranches/army/army2" },
+			{ IsBuild::not_build, { {Price::gold, 4000}, {Price::ore, 10}, {Price::wood, 10}, {Price::sera, 5}, {Price::crystal, 0} }, "Позволяет нанимать в городе грифонов", "Башня грифонов", "cityBranches/army/army3" },
+			{ IsBuild::not_build, { {Price::gold, 6000}, {Price::ore, 5}, {Price::wood, 5}, {Price::sera, 5}, {Price::crystal, 5} }, "Позволяет нанимать в городе инквизиторов", "Монастырь", "cityBranches/army/army4" },
+			{ IsBuild::not_build, { {Price::gold, 9000}, {Price::ore, 0}, {Price::wood, 15}, {Price::sera, 0}, {Price::crystal, 10} }, "Позволяет нанимать в городе паладинов", "Орден паладинов", "cityBranches/army/army5" },
+			{ IsBuild::not_build, { {Price::gold, 15000}, {Price::ore, 20}, {Price::wood, 0}, {Price::sera, 0}, {Price::crystal, 15} }, "Позволяет нанимать в городе ангелов", "Цитадель", "cityBranches/army/army6" }
 		};
 		vector <build> ecoBranch = {
 			
-			{ IsBuild::build, { {Price::gold, 500}, {Price::ore, 0}, {Price::wood, 5}, {Price::sera, 0}, {Price::crystal, 0} }, "Даёт 250 золота за ход", "Дом старейшин" },
-			{ IsBuild::not_build, { {Price::gold, 4000}, {Price::ore, 10}, {Price::wood, 10}, {Price::sera, 5}, {Price::crystal, 0} }, "Даёт 1000 золота за ход", "Ратуша" },
-			{ IsBuild::not_build, { {Price::gold, 8000}, {Price::ore, 5}, {Price::wood, 5}, {Price::sera, 5}, {Price::crystal, 5} }, "Даёт 2000 золота за ход", "Магистрат" },
-			{ IsBuild::not_build, { {Price::gold, 12000}, {Price::ore, 0}, {Price::wood, 15}, {Price::sera, 0}, {Price::crystal, 10} }, "Даёт 4000 золота за ход", "Капитолий" }
+			{ IsBuild::build, { {Price::gold, 500}, {Price::ore, 0}, {Price::wood, 5}, {Price::sera, 0}, {Price::crystal, 0} }, "Даёт 250 золота за ход", "Дом старейшин", "cityBranches/cityHall/eco1" },
+			{ IsBuild::not_build, { {Price::gold, 4000}, {Price::ore, 10}, {Price::wood, 10}, {Price::sera, 5}, {Price::crystal, 0} }, "Даёт 1000 золота за ход", "Ратуша", "cityBranches/cityHall/eco2" },
+			{ IsBuild::not_build, { {Price::gold, 8000}, {Price::ore, 5}, {Price::wood, 5}, {Price::sera, 5}, {Price::crystal, 5} }, "Даёт 2000 золота за ход", "Магистрат", "cityBranches/cityHall/eco3" },
+			{ IsBuild::not_build, { {Price::gold, 12000}, {Price::ore, 0}, {Price::wood, 15}, {Price::sera, 0}, {Price::crystal, 10} }, "Даёт 4000 золота за ход", "Капитолий", "cityBranches/cityHall/eco4" }
 
 		};
 	};
@@ -574,8 +575,7 @@ class MyApp : public App
 			{
 				auto& but = design.child<Button>("more_info");
 				but.show();
-				connect(but, viewMoreBuildInfo, )
-				but.setPos(field.mousePos());
+				but.setPos(input.mousePos());
 				cout << "Mouse on castleMagicBuild1" << endl;
 			}
 		}
@@ -1123,7 +1123,53 @@ class MyApp : public App
 			auto& armybranch = rec.data(castle).castleRec.armyBranch;
 			auto& ecobranch = rec.data(castle).castleRec.ecoBranch;
 			selector.select(2);
-			for (int i = 0; i < 3; i++)
+			int i = 0;
+			for (auto Build : magicbranch)
+			{
+				auto& branch = design.child<Layout>("MagicBranch");
+				auto& build = branch.load<Selector>("buildButton.json");
+				string Icon_gray = Build.icon_name;
+				string Icon_notgray = Build.icon_name;
+				Icon_gray += "_gray.png";
+				Icon_notgray += ".png";
+				build.child<Button>("gray").child<Texture>("icon").setImageName(Icon_gray);
+				build.child<Button>("not_gray").child<Texture>("icon").setImageName(Icon_notgray);
+				connect(build.child<Button>("gray"), castleBuild, 0, i, castle);
+				connect(build.child<Button>("not_gray"), castleBuild, 0, i, castle);
+				i++;
+			}
+			i = 0;
+			for (auto Build : armybranch)
+			{
+				auto& branch = design.child<Layout>("ArmyBranch");
+				auto& build = branch.load<Selector>("buildButton.json");
+				string Icon_gray = Build.icon_name;
+				string Icon_notgray = Build.icon_name;
+				Icon_gray += "_gray.png";
+				Icon_notgray += ".png";
+				build.child<Button>("gray").child<Texture>("icon").setImageName(Icon_gray);
+				build.child<Button>("not_gray").child<Texture>("icon").setImageName(Icon_notgray);
+				connect(build.child<Button>("gray"), castleBuild, 1, i, castle);
+				connect(build.child<Button>("not_gray"), castleBuild, 1, i, castle);
+				i++;
+			}
+			i = 0;
+			for (auto Build : ecobranch)
+			{
+				auto& branch = design.child<Layout>("EcoBranch");
+				auto& build = branch.load<Selector>("buildButton.json");
+				string Icon_gray = Build.icon_name;
+				string Icon_notgray = Build.icon_name;
+				Icon_gray += "_gray.png";
+				Icon_notgray += ".png";
+				build.child<Button>("gray").child<Texture>("icon").setImageName(Icon_gray);
+				build.child<Button>("not_gray").child<Texture>("icon").setImageName(Icon_notgray);
+				connect(build.child<Button>("gray"), castleBuild, 2, i, castle);
+				connect(build.child<Button>("not_gray"), castleBuild, 2, i, castle);
+				i++;
+			}
+			design.update();
+			/*for (int i = 0; i < 3; i++)
 			{
 				for (int j = 1; j < 7; j++)
 				{
@@ -1161,7 +1207,7 @@ class MyApp : public App
 						}
 					}					
 				}
-			}
+			}*/
 		}
 	}
 
