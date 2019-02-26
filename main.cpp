@@ -162,16 +162,15 @@ class MyApp : public App
 
 	struct cityCenter
 	{
-		vector <build> magicBranch = { 
+		vector <build> magicBranch = {
 
 			{ IsBuild::build, { {Price::gold, 2000}, {Price::ore, 2}, {Price::wood, 2}, {Price::crystal, 2}, {Price::sera, 2} }, "Позволяет вашему герою изучить заклинания первого круга", "Гильдия магии первого уровня", "cityBranches/magic/magic1" },
 			{ IsBuild::not_build, { {Price::gold, 3000}, {Price::ore, 3}, {Price::wood, 3}, {Price::crystal, 3}, {Price::sera, 3} }, "Позволяет вашему герою изучить заклинания второго круга", "Гильдия магии второго уровня", "cityBranches/magic/magic2" },
 			{ IsBuild::not_build, { {Price::gold, 4000}, {Price::ore, 4}, {Price::wood, 4}, {Price::crystal, 4}, {Price::sera, 4} }, "Позволяет вашему герою изучить заклинания третьего круга", "Гильдия магии третьего уровня", "cityBranches/magic/magic3" },
 			{ IsBuild::not_build, { {Price::gold, 5000}, {Price::ore, 5}, {Price::wood, 5}, {Price::crystal, 5}, {Price::sera, 5} }, "Позволяет вашему герою изучить заклинания четвертого круга", "Храм Христа спасителя", "cityBranches/magic/magic4" }
-		
 		};
-		vector <build> armyBranch = { 
-		
+		vector <build> armyBranch = {
+
 			{ IsBuild::build, { {Price::gold, 0}, {Price::ore, 0}, {Price::wood, 0}, {Price::sera, 0}, {Price::crystal, 0} }, "Позволяет нанимать в городе копейщиков", "Гарнизон", "cityBranches/army/army1" },
 			{ IsBuild::not_build, { {Price::gold, 2500}, {Price::ore, 10}, {Price::wood, 0}, {Price::sera, 0}, {Price::crystal, 0} }, "Позволяет нанимать в городе лучников", "Башня лучников", "cityBranches/army/army2" },
 			{ IsBuild::not_build, { {Price::gold, 4000}, {Price::ore, 10}, {Price::wood, 10}, {Price::sera, 5}, {Price::crystal, 0} }, "Позволяет нанимать в городе грифонов", "Башня грифонов", "cityBranches/army/army3" },
@@ -180,12 +179,11 @@ class MyApp : public App
 			{ IsBuild::not_build, { {Price::gold, 15000}, {Price::ore, 20}, {Price::wood, 0}, {Price::sera, 0}, {Price::crystal, 15} }, "Позволяет нанимать в городе ангелов", "Цитадель", "cityBranches/army/army6" }
 		};
 		vector <build> ecoBranch = {
-			
+
 			{ IsBuild::build, { {Price::gold, 500}, {Price::ore, 0}, {Price::wood, 5}, {Price::sera, 0}, {Price::crystal, 0} }, "Даёт 250 золота за ход", "Дом старейшин", "cityBranches/cityHall/eco1" },
 			{ IsBuild::not_build, { {Price::gold, 4000}, {Price::ore, 10}, {Price::wood, 10}, {Price::sera, 5}, {Price::crystal, 0} }, "Даёт 1000 золота за ход", "Ратуша", "cityBranches/cityHall/eco2" },
 			{ IsBuild::not_build, { {Price::gold, 8000}, {Price::ore, 5}, {Price::wood, 5}, {Price::sera, 5}, {Price::crystal, 5} }, "Даёт 2000 золота за ход", "Магистрат", "cityBranches/cityHall/eco3" },
 			{ IsBuild::not_build, { {Price::gold, 12000}, {Price::ore, 0}, {Price::wood, 15}, {Price::sera, 0}, {Price::crystal, 10} }, "Даёт 4000 золота за ход", "Капитолий", "cityBranches/cityHall/eco4" }
-
 		};
 	};
 
@@ -1087,18 +1085,162 @@ class MyApp : public App
 
 	void castleBuild(int stage, int branch, GameObj castle)
 	{
+		loadTextBank("textBankBranch.json");
 		if (branch == 0) // magic
 		{
+			cout << "Button was pressed" << endl;
+			auto win = design.child<Layout>("buildInfo");
+			win.show();
+			win.child<Label>("name") << tr(toString(branch) + toString(stage + 1) + "_name");
+			win.child<Label>("description") << tr(toString(branch) + toString(stage + 1));
+			string cost;
+			loadTextBank("textBank.json");
+			if (rec.data(castle).castleRec.magicBranch[stage].isBuild == IsBuild::build)
+			{
+				win.child<Button>("buyBuilding").hide();
+			}
+			else
+			{
+				win.child<Button>("buyBuilding").show();
+			}
+			for (auto Price : rec.data(castle).castleRec.magicBranch[stage].price)
+			{
+				if (Price.n != 0)
+				{
+					if (Price.type == Price::crystal)
+					{
+						cost += tr("gems") + " : " + toString(Price.n) + " , ";
+						win.child<Label>("cost") << tr("gems") << " : " << Price.n;
+					}
+					else if (Price.type == Price::wood)
+					{
+						cost += tr("wood") + " : " + toString(Price.n) + " , ";
+						win.child<Label>("cost") << tr("wood") << " : " << Price.n;
+					}
+					else if (Price.type == Price::ore)
+					{
+						cost += tr("ore") + " : " + toString(Price.n) + " , ";
+						win.child<Label>("cost") << tr("ore") << " : " << Price.n;
+					}
+					else if (Price.type == Price::gold)
+					{
+						cost += tr("gold") + " : " + toString(Price.n) + " , ";
+						win.child<Label>("cost") << tr("gold") << " : " << Price.n;
+					}
+					else if (Price.type == Price::sera)
+					{
+						cost += tr("sera") + " : " + toString(Price.n) + " , ";
+						win.child<Label>("cost") << tr("sera") << " : " << Price.n;
+					}
+				}
+			}
+			win.child<Label>("cost") << cost;
 			//cout << "Stage: " << stage << " branch: " << branch << endl;
 		}
 		else if (branch == 1) // army
 		{
+			cout << "Button was pressed" << endl;
+			auto win = design.child<Layout>("buildInfo");
+			win.show();
+			win.child<Label>("name") << tr(toString(branch) + toString(stage + 1) + "_name");
+			win.child<Label>("description") << tr(toString(branch) + toString(stage + 1));
+			string cost = "";
+			loadTextBank("textBank.json");
+			if (rec.data(castle).castleRec.armyBranch[stage].isBuild == IsBuild::build)
+			{
+				win.child<Button>("buyBuilding").hide();
+			}
+			else
+			{
+				win.child<Button>("buyBuilding").show();
+			}
+			for (auto Price : rec.data(castle).castleRec.armyBranch[stage].price)
+			{
+				if (Price.n != 0)
+				{
+					if (Price.type == Price::crystal)
+					{
+						cost += tr("gems") + " : " + toString(Price.n) + " , ";
+						win.child<Label>("cost") << tr("gems") << " : " << Price.n;
+					}
+					else if (Price.type == Price::wood)
+					{
+						cost += tr("wood") + " : " + toString(Price.n) + " , ";
+						win.child<Label>("cost") << tr("wood") << " : " << Price.n;
+					}
+					else if (Price.type == Price::ore)
+					{
+						cost += tr("ore") + " : " + toString(Price.n) + " , ";
+						win.child<Label>("cost") << tr("ore") << " : " << Price.n;
+					}
+					else if (Price.type == Price::gold)
+					{
+						cost += tr("gold") + " : " + toString(Price.n) + " , ";
+						win.child<Label>("cost") << tr("gold") << " : " << Price.n;
+					}
+					else if (Price.type == Price::sera)
+					{
+						cost += tr("sera") + " : " + toString(Price.n) + " , ";
+						win.child<Label>("cost") << tr("sera") << " : " << Price.n;
+					}
+				}
+			}
+			win.child<Label>("cost") << cost;
 			//cout << "Stage: " << stage << " branch: " << branch << endl;
 		}
 		else if (branch == 2) // eco
 		{
+			cout << "Button was pressed" << endl;
+			auto win = design.child<Layout>("buildInfo");
+			win.show();
+			win.child<Label>("name") << tr(toString(branch) + toString(stage) + "_name");
+			win.child<Label>("description") << tr(toString(branch) + toString(stage));
+			string cost;
+			loadTextBank("textBank.json");
+			if (rec.data(castle).castleRec.ecoBranch[stage].isBuild == IsBuild::build)
+			{
+				win.child<Button>("buyBuilding").hide();
+			}
+			else
+			{
+				win.child<Button>("buyBuilding").show();
+			}
+			for (auto Price : rec.data(castle).castleRec.ecoBranch[stage].price)
+			{
+				if (Price.n != 0)
+				{
+					if (Price.type == Price::crystal)
+					{
+						cost += tr("gems") + " : " + toString(Price.n) + " , ";
+						win.child<Label>("cost") << tr("gems") << " : " << Price.n;
+					}
+					else if (Price.type == Price::wood)
+					{
+						cost += tr("wood") + " : " + toString(Price.n) + " , ";
+						win.child<Label>("cost") << tr("wood") << " : " << Price.n;
+					}
+					else if (Price.type == Price::ore)
+					{
+						cost += tr("ore") + " : " + toString(Price.n) + " , ";
+						win.child<Label>("cost") << tr("ore") << " : " << Price.n;
+					}
+					else if (Price.type == Price::gold)
+					{
+						cost += tr("gold") + " : " + toString(Price.n) + " , ";
+						win.child<Label>("cost") << tr("gold") << " : " << Price.n;
+					}
+					else if (Price.type == Price::sera)
+					{
+						cost += tr("sera") + " : " + toString(Price.n) + " , ";
+						win.child<Label>("cost") << tr("sera") << " : " << Price.n;
+					}
+				}
+			}
+			win.child<Label>("cost") << cost;
 			//cout << "Stage: " << stage << " branch: " << branch << endl;
 		}
+		connect(design.child<Button>("closeBuildInfo"), closeBuildInfo);
+		design.update();
 	}
 
 	void changeCastleMenuSelector(Selector selector, Place place, GameObj castle)
@@ -1130,12 +1272,16 @@ class MyApp : public App
 				auto& build = branch.load<Selector>("buildButton.json");
 				string Icon_gray = Build.icon_name;
 				string Icon_notgray = Build.icon_name;
+				if (Build.isBuild == IsBuild::build)
+				{
+					build.select(2);
+				}
 				Icon_gray += "_gray.png";
 				Icon_notgray += ".png";
 				build.child<Button>("gray").child<Texture>("icon").setImageName(Icon_gray);
 				build.child<Button>("not_gray").child<Texture>("icon").setImageName(Icon_notgray);
-				connect(build.child<Button>("gray"), castleBuild, 0, i, castle);
-				connect(build.child<Button>("not_gray"), castleBuild, 0, i, castle);
+				connect(build.child<Button>("gray"), castleBuild, i, 0, castle);
+				connect(build.child<Button>("not_gray"), castleBuild, i, 0, castle);
 				i++;
 			}
 			i = 0;
@@ -1149,8 +1295,12 @@ class MyApp : public App
 				Icon_notgray += ".png";
 				build.child<Button>("gray").child<Texture>("icon").setImageName(Icon_gray);
 				build.child<Button>("not_gray").child<Texture>("icon").setImageName(Icon_notgray);
-				connect(build.child<Button>("gray"), castleBuild, 1, i, castle);
-				connect(build.child<Button>("not_gray"), castleBuild, 1, i, castle);
+				if (Build.isBuild == IsBuild::build)
+				{
+					build.select(2);
+				}
+				connect(build.child<Button>("gray"), castleBuild, i, 1, castle);
+				connect(build.child<Button>("not_gray"), castleBuild, i, 1, castle);
 				i++;
 			}
 			i = 0;
@@ -1162,52 +1312,17 @@ class MyApp : public App
 				string Icon_notgray = Build.icon_name;
 				Icon_gray += "_gray.png";
 				Icon_notgray += ".png";
+				if (Build.isBuild == IsBuild::build)
+				{
+					build.select(2);
+				}
 				build.child<Button>("gray").child<Texture>("icon").setImageName(Icon_gray);
 				build.child<Button>("not_gray").child<Texture>("icon").setImageName(Icon_notgray);
-				connect(build.child<Button>("gray"), castleBuild, 2, i, castle);
-				connect(build.child<Button>("not_gray"), castleBuild, 2, i, castle);
+				connect(build.child<Button>("gray"), castleBuild, i, 2, castle);
+				connect(build.child<Button>("not_gray"), castleBuild, i, 2, castle);
 				i++;
 			}
 			design.update();
-			/*for (int i = 0; i < 3; i++)
-			{
-				for (int j = 1; j < 7; j++)
-				{
-					if (j < 5 && i == 0)
-					{
-						connect(design.child<ToggleButton>("castleMagicBuild" + toString(j)), castleBuild, j, i, castle);
-						auto a = design.child<ToggleButton>("castleMagicBuild" + toString(j));
-						connect(a.child<Button>("more_info" + toString(i) + toString(j)), viewMoreBuildInfo, i, j, castle);
-						if (magicbranch[j - 1].isBuild == IsBuild::build)
-						{
-							a.child<Texture>("gray").hide();
-							a.child<Texture>("not_gray").setColor(255,255,255);
-						}
-					}	
-					if (i == 1)
-					{
-						connect(design.child<ToggleButton>("castleArmyBuild" + toString(j)), castleBuild, j, i, castle);
-						auto a = design.child<ToggleButton>("castleArmyBuild" + toString(j));
-						connect(a.child<Button>("more_info" + toString(i) + toString(j)), viewMoreBuildInfo, i, j, castle);
-						if (armybranch[j - 1].isBuild == IsBuild::build)
-						{
-							a.child<Texture>("gray").hide();
-							a.child<Texture>("not_gray").setColor(255, 255, 255);
-						}
-					}	
-					if (j < 5 && i == 2)
-					{
-						connect(design.child<ToggleButton>("castleEcoBuild" + toString(j)), castleBuild, j, i, castle);
-						auto a = design.child<ToggleButton>("castleEcoBuild" + toString(j));
-						connect(a.child<Button>("more_info" + toString(i) + toString(j)), viewMoreBuildInfo, i, j, castle);
-						if (ecobranch[j - 1].isBuild == IsBuild::build)
-						{
-							a.child<Texture>("gray").hide();
-							a.child<Texture>("not_gray").setColor(255, 255, 255);
-						}
-					}					
-				}
-			}*/
 		}
 	}
 
@@ -1303,52 +1418,55 @@ class MyApp : public App
 						heroMenu.hide();
 						//cm.child
 
-						continue;
-					}
-					//GOld << "allright!!";
-					rec.data(Rec).owner = playerLayer.data(playerLayer.get(0)).owner;
-					forWindow.load(2, "MineInfo.json");
-					auto owner = forWindow.child<Label>("rOwner");
-					if (rec.data(Rec).owner == humanplayer)
-					{
-						owner << tr("you");
-						Rec.child<Texture>("flag").setColor(255, 0, 0, 255);
+						break;
 					}
 					else
 					{
-						owner << tr("neutral");
-					}
+						//GOld << "allright!!";
+						rec.data(Rec).owner = playerLayer.data(playerLayer.get(0)).owner;
+						forWindow.load(2, "MineInfo.json");
+						auto owner = forWindow.child<Label>("rOwner");
+						if (rec.data(Rec).owner == humanplayer)
+						{
+							owner << tr("you");
+							Rec.child<Texture>("flag").setColor(255, 0, 0, 255);
+						}
+						else
+						{
+							owner << tr("neutral");
+						}
 
-					auto type = forWindow.child<Label>("rType");
-					
-					auto n = forWindow.child<Label>("rN");
-					if (rec.data(Rec).type == goldMine)
-					{
-						type << tr("gold");
-						n << "1000";
-						Rec.child<Texture>("flag").setColor(255, 0, 0, 255);
+						auto type = forWindow.child<Label>("rType");
+
+						auto n = forWindow.child<Label>("rN");
+						if (rec.data(Rec).type == goldMine)
+						{
+							type << tr("gold");
+							n << "1000";
+							Rec.child<Texture>("flag").setColor(255, 0, 0, 255);
+						}
+						else if (rec.data(Rec).type == mine)
+						{
+							type << tr("ore");
+							n << "2";
+							Rec.child<Texture>("flag").setColor(255, 0, 0, 255);
+						}
+						else if (rec.data(Rec).type == sera_mine)
+						{
+							type << tr("sera");
+							n << "1";
+							Rec.child<Texture>("flag").setColor(255, 0, 0, 255);
+						}
+						else if (rec.data(Rec).type == gem_mine)
+						{
+							type << tr("gems");
+							n << "1";
+							Rec.child<Texture>("flag").setColor(255, 0, 0, 255);
+						}
+						auto closeBut = forWindow.child<Button>("closeMineInfoBut");
+						connect(closeBut, closeMineInfo);
+						target = Target::none;
 					}
-					else if (rec.data(Rec).type == mine)
-					{
-						type << tr("ore");
-						n << "2";
-						Rec.child<Texture>("flag").setColor(255, 0, 0, 255);
-					}
-					else if (rec.data(Rec).type == sera_mine)
-					{
-						type << tr("sera");
-						n << "1";
-						Rec.child<Texture>("flag").setColor(255, 0, 0, 255);
-					} 
-					else if (rec.data(Rec).type == gem_mine)
-					{
-						type << tr("gems");
-						n << "1";
-						Rec.child<Texture>("flag").setColor(255, 0, 0, 255);
-					}
-					auto closeBut = forWindow.child<Button>("closeMineInfoBut");
-					connect(closeBut, closeMineInfo);
-					target = Target::none;
 				}
 			}
 		}
