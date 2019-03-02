@@ -5,7 +5,7 @@ using namespace std;
 
 class MyApp : public App
 {
-	int gold, skill, ore, gems, sera;
+	int gold, skill, ore, gems, sera, wood;
 
 	int days;
 
@@ -272,6 +272,7 @@ class MyApp : public App
 		ore = 10;
 		sera = 5;
 		gems = 10;
+		wood = 100;
 		
 		GOld << "gold: " << gold;
 		SKill << "skill: " << skill;
@@ -852,6 +853,7 @@ class MyApp : public App
 		}
 		auto buyBut = design.child<Button>("buyArmyButton");
 		connect(buyBut, buyUnit, n, unitN, castle);
+		design.update();
 	}	
 
 	void min(int n, GameObj castle)
@@ -893,6 +895,7 @@ class MyApp : public App
 		}
 		auto buyBut = design.child<Button>("buyArmyButton");
 		connect(buyBut, buyUnit, n, unitN, castle);
+		design.update();
 	}
 	
 	void changeTextBox (GameObj castle, int n)
@@ -943,6 +946,7 @@ class MyApp : public App
 		auto buyBut = design.child<Button>("buyArmyButton");
 		connect(buyBut, buyUnit, n, unitN, castle);
 		//cout << "textBoxChanged" << endl;
+		design.update();
 	}
 
 	void buyUnit(int n, int unitN, GameObj castle)
@@ -979,6 +983,10 @@ class MyApp : public App
 		}
 		rec.data(castle).castleArmy.units[n - 1].n -= unitN;
 		playerLayer.data(playerLayer.get(0)).army.units[n - 1].n += unitN;
+		auto allCost = design.child<Label>("allCost");
+		design.child<TextBox>("unitN") << "0";
+		allCost << tr("allCost") << "0";
+		design.child<Label>("canBuyUnitN") << tr("canBuy") << " " << rec.data(castle).castleArmy.units[n - 1].n;
 		design.update();
 	}
 
@@ -1083,6 +1091,283 @@ class MyApp : public App
 		design.update();
 	}
 
+	void Build (int stage, int branch, GameObj castle)
+	{
+		auto win = design.child<Layout>("buildInfo");
+		bool canBuy = false;
+		int gold_, ore_, gems_, sera_, wood_;
+		
+		gold_ = gold;
+		ore_ = ore;
+		gems_ = gems;
+		sera_ = sera;
+		wood_ = wood;
+
+		if (branch == 0)
+		{
+			for (auto Price : rec.data(castle).castleRec.magicBranch[stage].price)
+			{
+				if (Price.n != 0)
+				{
+					if (Price.type == Price::crystal)
+					{
+						//cost += tr("gems") + " : " + toString(Price.n) + " , ";
+						if (Price.n < gems)
+						{
+							gems_ -= Price.n;
+							canBuy = true;
+						}
+						else
+						{
+							canBuy = false;
+						}
+						win.child<Label>("cost") << tr("gems") << " : " << Price.n;
+					}
+					else if (Price.type == Price::wood)
+					{
+						//cost += tr("wood") + " : " + toString(Price.n) + " , ";
+						if (Price.n < wood)
+						{
+							wood_ -= Price.n;
+							canBuy = true;
+						}
+						else
+						{
+							canBuy = false;
+						}
+						win.child<Label>("cost") << tr("wood") << " : " << Price.n;
+					}
+					else if (Price.type == Price::ore)
+					{
+						//cost += tr("ore") + " : " + toString(Price.n) + " , ";
+						if (Price.n < ore)
+						{
+							ore_ -= Price.n;
+							canBuy = true;
+						}
+						else
+						{
+							canBuy = false;
+						}
+
+						win.child<Label>("cost") << tr("ore") << " : " << Price.n;
+					}
+					else if (Price.type == Price::gold)
+					{
+						//cost += tr("gold") + " : " + toString(Price.n) + " , ";
+						if (Price.n < gold)
+						{
+							gold_ -= Price.n;
+							canBuy = true;
+						}
+						else
+						{
+							canBuy = false;
+						}
+						win.child<Label>("cost") << tr("gold") << " : " << Price.n;
+					}
+					else if (Price.type == Price::sera)
+					{
+						//cost += tr("sera") + " : " + toString(Price.n) + " , ";
+						if (Price.n < sera)
+						{
+							sera_ -= Price.n;
+							canBuy = true;
+						}
+						else
+						{
+							canBuy = false;
+						}
+						win.child<Label>("cost") << tr("sera") << " : " << Price.n;
+					}
+
+				}
+			}
+		}
+		else if (branch == 1)
+		{
+			for (auto Price : rec.data(castle).castleRec.armyBranch[stage].price)
+			{
+				if (Price.n != 0)
+				{
+					if (Price.type == Price::crystal)
+					{
+						//cost += tr("gems") + " : " + toString(Price.n) + " , ";
+						if (Price.n < gems)
+						{
+							gems_ -= Price.n;
+							canBuy = true;
+						}
+						else
+						{
+							canBuy = false;
+						}
+						win.child<Label>("cost") << tr("gems") << " : " << Price.n;
+					}
+					else if (Price.type == Price::wood)
+					{
+						//cost += tr("wood") + " : " + toString(Price.n) + " , ";
+						if (Price.n < wood)
+						{
+							wood_ -= Price.n;
+							canBuy = true;
+						}
+						else
+						{
+							canBuy = false;
+						}
+						win.child<Label>("cost") << tr("wood") << " : " << Price.n;
+					}
+					else if (Price.type == Price::ore)
+					{
+						//cost += tr("ore") + " : " + toString(Price.n) + " , ";
+						if (Price.n < ore)
+						{
+							ore_ -= Price.n;
+							canBuy = true;
+						}
+						else
+						{
+							canBuy = false;
+						}
+
+						win.child<Label>("cost") << tr("ore") << " : " << Price.n;
+					}
+					else if (Price.type == Price::gold)
+					{
+						//cost += tr("gold") + " : " + toString(Price.n) + " , ";
+						if (Price.n < gold)
+						{
+							gold_ -= Price.n;
+							canBuy = true;
+						}
+						else
+						{
+							canBuy = false;
+						}
+						win.child<Label>("cost") << tr("gold") << " : " << Price.n;
+					}
+					else if (Price.type == Price::sera)
+					{
+						//cost += tr("sera") + " : " + toString(Price.n) + " , ";
+						if (Price.n < sera)
+						{
+							sera_ -= Price.n;
+							canBuy = true;
+						}
+						else
+						{
+							canBuy = false;
+						}
+						win.child<Label>("cost") << tr("sera") << " : " << Price.n;
+					}
+
+				}
+			}
+		}
+		else if (branch == 2)
+		{
+			for (auto Price : rec.data(castle).castleRec.ecoBranch[stage].price)
+			{
+				if (Price.n != 0)
+				{
+					if (Price.type == Price::crystal)
+					{
+						//cost += tr("gems") + " : " + toString(Price.n) + " , ";
+						if (Price.n < gems)
+						{
+							gems_ -= Price.n;
+							canBuy = true;
+						}
+						else
+						{
+							canBuy = false;
+						}
+						win.child<Label>("cost") << tr("gems") << " : " << Price.n;
+					}
+					else if (Price.type == Price::wood)
+					{
+						//cost += tr("wood") + " : " + toString(Price.n) + " , ";
+						if (Price.n < wood)
+						{
+							wood_ -= Price.n;
+							canBuy = true;
+						}
+						else
+						{
+							canBuy = false;
+						}
+						win.child<Label>("cost") << tr("wood") << " : " << Price.n;
+					}
+					else if (Price.type == Price::ore)
+					{
+						//cost += tr("ore") + " : " + toString(Price.n) + " , ";
+						if (Price.n < ore)
+						{
+							ore_ -= Price.n;
+							canBuy = true;
+						}
+						else
+						{
+							canBuy = false;
+						}
+
+						win.child<Label>("cost") << tr("ore") << " : " << Price.n;
+					}
+					else if (Price.type == Price::gold)
+					{
+						//cost += tr("gold") + " : " + toString(Price.n) + " , ";
+						if (Price.n < gold)
+						{
+							gold_ -= Price.n;
+							canBuy = true;
+						}
+						else
+						{
+							canBuy = false;
+						}
+						win.child<Label>("cost") << tr("gold") << " : " << Price.n;
+					}
+					else if (Price.type == Price::sera)
+					{
+						//cost += tr("sera") + " : " + toString(Price.n) + " , ";
+						if (Price.n < sera)
+						{
+							sera_ -= Price.n;
+							canBuy = true;
+						}
+						else
+						{
+							canBuy = false;
+						}
+						win.child<Label>("cost") << tr("sera") << " : " << Price.n;
+					}
+
+				}
+			}
+		}
+		if (canBuy)
+		{
+			gold = gold_;
+			ore = ore_;
+			gems = gems_;
+			sera = sera_;
+			wood = wood_;
+			if (branch == 0)
+			{
+				rec.data(castle).castleRec.magicBranch[stage].isBuild = IsBuild::build;
+			}
+			else if (branch == 1)
+			{
+				rec.data(castle).castleRec.armyBranch[stage].isBuild = IsBuild::build;
+			}
+			else if (branch == 2)
+			{
+				rec.data(castle).castleRec.ecoBranch[stage].isBuild = IsBuild::build;
+			}
+		}
+	}
+
 	void castleBuild(int stage, int branch, GameObj castle)
 	{
 		loadTextBank("textBankBranch.json");
@@ -1102,6 +1387,7 @@ class MyApp : public App
 			else
 			{
 				win.child<Button>("buyBuilding").show();
+				connect(win.child<Button>("buyBuilding"), Build ,stage, branch, castle);
 			}
 			for (auto Price : rec.data(castle).castleRec.magicBranch[stage].price)
 			{
