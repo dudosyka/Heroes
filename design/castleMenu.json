@@ -183,11 +183,11 @@
                                           "outlineColor" : [ 1, 1, 1, 1 ],
                                           "position" : {
                                              "_typeName" : "AligningOffset",
-                                             "horAlign" : 1,
+                                             "horAlign" : 0,
                                              "horOffset" : {
                                                 "_typeName" : "RelativeValue",
                                                 "type" : 1,
-                                                "value" : 0
+                                                "value" : 100
                                              },
                                              "vertAlign" : 1,
                                              "vertOffset" : {
@@ -207,7 +207,1258 @@
                                              "horAlign" : 0,
                                              "vertAlign" : 0
                                           },
-                                          "text" : "СТАТЫ"
+                                          "text" : "Армия замка"
+                                       },
+                                       {
+                                          "_typeName" : "LinearLayout",
+                                          "list" : [
+                                             {
+                                                "_typeName" : "LinearLayout",
+                                                "list" : [
+                                                   {
+                                                      "_name" : "unitstatscastle1",
+                                                      "_typeName" : "CanvasLayout",
+                                                      "adjustment" : 0,
+                                                      "box" : {
+                                                         "_typeName" : "PixelBox",
+                                                         "height" : 150,
+                                                         "width" : 150
+                                                      },
+                                                      "list" : [
+                                                         {
+                                                            "_typeName" : "StaticFilledRect",
+                                                            "box" : {
+                                                               "_typeName" : "RelativeBox",
+                                                               "height" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 0,
+                                                                  "value" : 0
+                                                               },
+                                                               "offset" : {
+                                                                  "_empty" : true
+                                                               },
+                                                               "width" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 0,
+                                                                  "value" : 0
+                                                               }
+                                                            },
+                                                            "color" : [ 0, 0, 0, 1 ],
+                                                            "position" : {
+                                                               "_typeName" : "AligningOffset",
+                                                               "horAlign" : 1,
+                                                               "horOffset" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 1,
+                                                                  "value" : 0
+                                                               },
+                                                               "vertAlign" : 1,
+                                                               "vertOffset" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 1,
+                                                                  "value" : 0
+                                                               }
+                                                            }
+                                                         },
+                                                         {
+                                                            "_typeName" : "StaticFilledRect",
+                                                            "box" : {
+                                                               "_typeName" : "RelativeBox",
+                                                               "height" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 3,
+                                                                  "value" : 2
+                                                               },
+                                                               "offset" : {
+                                                                  "_empty" : true
+                                                               },
+                                                               "width" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 3,
+                                                                  "value" : 2
+                                                               }
+                                                            },
+                                                            "color" : [ 1, 1, 1, 1 ],
+                                                            "position" : {
+                                                               "_typeName" : "AligningOffset",
+                                                               "horAlign" : 1,
+                                                               "horOffset" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 1,
+                                                                  "value" : 0
+                                                               },
+                                                               "vertAlign" : 1,
+                                                               "vertOffset" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 1,
+                                                                  "value" : 0
+                                                               }
+                                                            }
+                                                         },
+                                                         {
+                                                            "_name" : "icon",
+                                                            "_typeName" : "StaticTextureRect",
+                                                            "box" : {
+                                                               "_typeName" : "RelativeBox",
+                                                               "height" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 3,
+                                                                  "value" : 2
+                                                               },
+                                                               "offset" : {
+                                                                  "_empty" : true
+                                                               },
+                                                               "width" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 3,
+                                                                  "value" : 2
+                                                               }
+                                                            },
+                                                            "color" : [ 1, 1, 1, 1 ],
+                                                            "imageName" : ".\\Angel_icon.png",
+                                                            "position" : {
+                                                               "_typeName" : "AligningOffset",
+                                                               "horAlign" : 1,
+                                                               "horOffset" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 1,
+                                                                  "value" : 0
+                                                               },
+                                                               "vertAlign" : 1,
+                                                               "vertOffset" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 1,
+                                                                  "value" : 0
+                                                               }
+                                                            }
+                                                         },
+                                                         {
+                                                            "_name" : "label",
+                                                            "_typeName" : "StaticLabel",
+                                                            "adjustSize" : true,
+                                                            "box" : {
+                                                               "_typeName" : "RelativeBox",
+                                                               "height" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 0,
+                                                                  "value" : 0
+                                                               },
+                                                               "offset" : {
+                                                                  "_empty" : true
+                                                               },
+                                                               "width" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 0,
+                                                                  "value" : 0
+                                                               }
+                                                            },
+                                                            "color" : [ 0, 0, 0, 1 ],
+                                                            "outlineColor" : [ 1, 1, 1, 1 ],
+                                                            "position" : {
+                                                               "_typeName" : "AligningOffset",
+                                                               "horAlign" : 2,
+                                                               "horOffset" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 1,
+                                                                  "value" : -5
+                                                               },
+                                                               "vertAlign" : 2,
+                                                               "vertOffset" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 1,
+                                                                  "value" : 0
+                                                               }
+                                                            },
+                                                            "properties" : {
+                                                               "_typeName" : "AlignProperties",
+                                                               "enableStacking" : false,
+                                                               "font" : {
+                                                                  "_typeName" : "FontDesc",
+                                                                  "family" : "Roboto",
+                                                                  "outlineWidth" : 2,
+                                                                  "size" : 20
+                                                               },
+                                                               "horAlign" : 0,
+                                                               "vertAlign" : 0
+                                                            },
+                                                            "text" : "100"
+                                                         }
+                                                      ],
+                                                      "position" : {
+                                                         "_typeName" : "AligningOffset",
+                                                         "horAlign" : 0,
+                                                         "horOffset" : {
+                                                            "_typeName" : "RelativeValue",
+                                                            "type" : 1,
+                                                            "value" : 0
+                                                         },
+                                                         "vertAlign" : 1,
+                                                         "vertOffset" : {
+                                                            "_typeName" : "RelativeValue",
+                                                            "type" : 1,
+                                                            "value" : 0
+                                                         }
+                                                      }
+                                                   },
+                                                   {
+                                                      "_name" : "unitstatscastle2",
+                                                      "_typeName" : "CanvasLayout",
+                                                      "adjustment" : 0,
+                                                      "box" : {
+                                                         "_typeName" : "PixelBox",
+                                                         "height" : 150,
+                                                         "width" : 150
+                                                      },
+                                                      "list" : [
+                                                         {
+                                                            "_typeName" : "StaticFilledRect",
+                                                            "box" : {
+                                                               "_typeName" : "RelativeBox",
+                                                               "height" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 0,
+                                                                  "value" : 0
+                                                               },
+                                                               "offset" : {
+                                                                  "_empty" : true
+                                                               },
+                                                               "width" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 0,
+                                                                  "value" : 0
+                                                               }
+                                                            },
+                                                            "color" : [ 0, 0, 0, 1 ],
+                                                            "position" : {
+                                                               "_typeName" : "AligningOffset",
+                                                               "horAlign" : 1,
+                                                               "horOffset" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 1,
+                                                                  "value" : 0
+                                                               },
+                                                               "vertAlign" : 1,
+                                                               "vertOffset" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 1,
+                                                                  "value" : 0
+                                                               }
+                                                            }
+                                                         },
+                                                         {
+                                                            "_typeName" : "StaticFilledRect",
+                                                            "box" : {
+                                                               "_typeName" : "RelativeBox",
+                                                               "height" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 3,
+                                                                  "value" : 2
+                                                               },
+                                                               "offset" : {
+                                                                  "_empty" : true
+                                                               },
+                                                               "width" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 3,
+                                                                  "value" : 2
+                                                               }
+                                                            },
+                                                            "color" : [ 1, 1, 1, 1 ],
+                                                            "position" : {
+                                                               "_typeName" : "AligningOffset",
+                                                               "horAlign" : 1,
+                                                               "horOffset" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 1,
+                                                                  "value" : 0
+                                                               },
+                                                               "vertAlign" : 1,
+                                                               "vertOffset" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 1,
+                                                                  "value" : 0
+                                                               }
+                                                            }
+                                                         },
+                                                         {
+                                                            "_name" : "icon",
+                                                            "_typeName" : "StaticTextureRect",
+                                                            "box" : {
+                                                               "_typeName" : "RelativeBox",
+                                                               "height" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 3,
+                                                                  "value" : 2
+                                                               },
+                                                               "offset" : {
+                                                                  "_empty" : true
+                                                               },
+                                                               "width" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 3,
+                                                                  "value" : 2
+                                                               }
+                                                            },
+                                                            "color" : [ 1, 1, 1, 1 ],
+                                                            "imageName" : ".\\Angel_icon.png",
+                                                            "position" : {
+                                                               "_typeName" : "AligningOffset",
+                                                               "horAlign" : 1,
+                                                               "horOffset" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 1,
+                                                                  "value" : 0
+                                                               },
+                                                               "vertAlign" : 1,
+                                                               "vertOffset" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 1,
+                                                                  "value" : 0
+                                                               }
+                                                            }
+                                                         },
+                                                         {
+                                                            "_name" : "label",
+                                                            "_typeName" : "StaticLabel",
+                                                            "adjustSize" : true,
+                                                            "box" : {
+                                                               "_typeName" : "RelativeBox",
+                                                               "height" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 0,
+                                                                  "value" : 0
+                                                               },
+                                                               "offset" : {
+                                                                  "_empty" : true
+                                                               },
+                                                               "width" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 0,
+                                                                  "value" : 0
+                                                               }
+                                                            },
+                                                            "color" : [ 0, 0, 0, 1 ],
+                                                            "outlineColor" : [ 1, 1, 1, 1 ],
+                                                            "position" : {
+                                                               "_typeName" : "AligningOffset",
+                                                               "horAlign" : 2,
+                                                               "horOffset" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 1,
+                                                                  "value" : -5
+                                                               },
+                                                               "vertAlign" : 2,
+                                                               "vertOffset" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 1,
+                                                                  "value" : 0
+                                                               }
+                                                            },
+                                                            "properties" : {
+                                                               "_typeName" : "AlignProperties",
+                                                               "enableStacking" : false,
+                                                               "font" : {
+                                                                  "_typeName" : "FontDesc",
+                                                                  "family" : "Roboto",
+                                                                  "outlineWidth" : 2,
+                                                                  "size" : 20
+                                                               },
+                                                               "horAlign" : 0,
+                                                               "vertAlign" : 0
+                                                            },
+                                                            "text" : "100"
+                                                         }
+                                                      ],
+                                                      "position" : {
+                                                         "_typeName" : "AligningOffset",
+                                                         "horAlign" : 0,
+                                                         "horOffset" : {
+                                                            "_typeName" : "RelativeValue",
+                                                            "type" : 1,
+                                                            "value" : 40
+                                                         },
+                                                         "vertAlign" : 1,
+                                                         "vertOffset" : {
+                                                            "_typeName" : "RelativeValue",
+                                                            "type" : 1,
+                                                            "value" : 0
+                                                         }
+                                                      }
+                                                   },
+                                                   {
+                                                      "_name" : "unitstatscastle3",
+                                                      "_typeName" : "CanvasLayout",
+                                                      "adjustment" : 0,
+                                                      "box" : {
+                                                         "_typeName" : "PixelBox",
+                                                         "height" : 150,
+                                                         "width" : 150
+                                                      },
+                                                      "list" : [
+                                                         {
+                                                            "_typeName" : "StaticFilledRect",
+                                                            "box" : {
+                                                               "_typeName" : "RelativeBox",
+                                                               "height" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 0,
+                                                                  "value" : 0
+                                                               },
+                                                               "offset" : {
+                                                                  "_empty" : true
+                                                               },
+                                                               "width" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 0,
+                                                                  "value" : 0
+                                                               }
+                                                            },
+                                                            "color" : [ 0, 0, 0, 1 ],
+                                                            "position" : {
+                                                               "_typeName" : "AligningOffset",
+                                                               "horAlign" : 1,
+                                                               "horOffset" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 1,
+                                                                  "value" : 0
+                                                               },
+                                                               "vertAlign" : 1,
+                                                               "vertOffset" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 1,
+                                                                  "value" : 0
+                                                               }
+                                                            }
+                                                         },
+                                                         {
+                                                            "_typeName" : "StaticFilledRect",
+                                                            "box" : {
+                                                               "_typeName" : "RelativeBox",
+                                                               "height" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 3,
+                                                                  "value" : 2
+                                                               },
+                                                               "offset" : {
+                                                                  "_empty" : true
+                                                               },
+                                                               "width" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 3,
+                                                                  "value" : 2
+                                                               }
+                                                            },
+                                                            "color" : [ 1, 1, 1, 1 ],
+                                                            "position" : {
+                                                               "_typeName" : "AligningOffset",
+                                                               "horAlign" : 1,
+                                                               "horOffset" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 1,
+                                                                  "value" : 0
+                                                               },
+                                                               "vertAlign" : 1,
+                                                               "vertOffset" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 1,
+                                                                  "value" : 0
+                                                               }
+                                                            }
+                                                         },
+                                                         {
+                                                            "_name" : "icon",
+                                                            "_typeName" : "StaticTextureRect",
+                                                            "box" : {
+                                                               "_typeName" : "RelativeBox",
+                                                               "height" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 3,
+                                                                  "value" : 2
+                                                               },
+                                                               "offset" : {
+                                                                  "_empty" : true
+                                                               },
+                                                               "width" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 3,
+                                                                  "value" : 2
+                                                               }
+                                                            },
+                                                            "color" : [ 1, 1, 1, 1 ],
+                                                            "imageName" : ".\\Angel_icon.png",
+                                                            "position" : {
+                                                               "_typeName" : "AligningOffset",
+                                                               "horAlign" : 1,
+                                                               "horOffset" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 1,
+                                                                  "value" : 0
+                                                               },
+                                                               "vertAlign" : 1,
+                                                               "vertOffset" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 1,
+                                                                  "value" : 0
+                                                               }
+                                                            }
+                                                         },
+                                                         {
+                                                            "_name" : "label",
+                                                            "_typeName" : "StaticLabel",
+                                                            "adjustSize" : true,
+                                                            "box" : {
+                                                               "_typeName" : "RelativeBox",
+                                                               "height" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 0,
+                                                                  "value" : 0
+                                                               },
+                                                               "offset" : {
+                                                                  "_empty" : true
+                                                               },
+                                                               "width" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 0,
+                                                                  "value" : 0
+                                                               }
+                                                            },
+                                                            "color" : [ 0, 0, 0, 1 ],
+                                                            "outlineColor" : [ 1, 1, 1, 1 ],
+                                                            "position" : {
+                                                               "_typeName" : "AligningOffset",
+                                                               "horAlign" : 2,
+                                                               "horOffset" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 1,
+                                                                  "value" : -5
+                                                               },
+                                                               "vertAlign" : 2,
+                                                               "vertOffset" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 1,
+                                                                  "value" : 0
+                                                               }
+                                                            },
+                                                            "properties" : {
+                                                               "_typeName" : "AlignProperties",
+                                                               "enableStacking" : false,
+                                                               "font" : {
+                                                                  "_typeName" : "FontDesc",
+                                                                  "family" : "Roboto",
+                                                                  "outlineWidth" : 2,
+                                                                  "size" : 20
+                                                               },
+                                                               "horAlign" : 0,
+                                                               "vertAlign" : 0
+                                                            },
+                                                            "text" : "100"
+                                                         }
+                                                      ],
+                                                      "position" : {
+                                                         "_typeName" : "AligningOffset",
+                                                         "horAlign" : 0,
+                                                         "horOffset" : {
+                                                            "_typeName" : "RelativeValue",
+                                                            "type" : 1,
+                                                            "value" : 40
+                                                         },
+                                                         "vertAlign" : 1,
+                                                         "vertOffset" : {
+                                                            "_typeName" : "RelativeValue",
+                                                            "type" : 1,
+                                                            "value" : 0
+                                                         }
+                                                      }
+                                                   }
+                                                ],
+                                                "position" : {
+                                                   "_typeName" : "AligningOffset",
+                                                   "horAlign" : 1,
+                                                   "horOffset" : {
+                                                      "_typeName" : "RelativeValue",
+                                                      "type" : 1,
+                                                      "value" : 0
+                                                   },
+                                                   "vertAlign" : 0,
+                                                   "vertOffset" : {
+                                                      "_typeName" : "RelativeValue",
+                                                      "type" : 1,
+                                                      "value" : 0
+                                                   }
+                                                },
+                                                "skin" : {
+                                                   "_typeName" : "HorizontalLayoutSkin",
+                                                   "adjustment" : 1,
+                                                   "align" : 1,
+                                                   "box" : {
+                                                      "_typeName" : "RelativeBox",
+                                                      "height" : {
+                                                         "_typeName" : "RelativeValue",
+                                                         "type" : 0,
+                                                         "value" : 0
+                                                      },
+                                                      "offset" : {
+                                                         "_empty" : true
+                                                      },
+                                                      "width" : {
+                                                         "_typeName" : "RelativeValue",
+                                                         "type" : 0,
+                                                         "value" : 0
+                                                      }
+                                                   },
+                                                   "padding" : {
+                                                      "_typeName" : "RelativeValue",
+                                                      "type" : 1,
+                                                      "value" : 40
+                                                   }
+                                                },
+                                                "skipInvisibleElements" : false
+                                             },
+                                             {
+                                                "_typeName" : "LinearLayout",
+                                                "list" : [
+                                                   {
+                                                      "_name" : "unitstatscastle4",
+                                                      "_typeName" : "CanvasLayout",
+                                                      "adjustment" : 0,
+                                                      "box" : {
+                                                         "_typeName" : "PixelBox",
+                                                         "height" : 150,
+                                                         "width" : 150
+                                                      },
+                                                      "list" : [
+                                                         {
+                                                            "_typeName" : "StaticFilledRect",
+                                                            "box" : {
+                                                               "_typeName" : "RelativeBox",
+                                                               "height" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 0,
+                                                                  "value" : 0
+                                                               },
+                                                               "offset" : {
+                                                                  "_empty" : true
+                                                               },
+                                                               "width" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 0,
+                                                                  "value" : 0
+                                                               }
+                                                            },
+                                                            "color" : [ 0, 0, 0, 1 ],
+                                                            "position" : {
+                                                               "_typeName" : "AligningOffset",
+                                                               "horAlign" : 1,
+                                                               "horOffset" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 1,
+                                                                  "value" : 0
+                                                               },
+                                                               "vertAlign" : 1,
+                                                               "vertOffset" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 1,
+                                                                  "value" : 0
+                                                               }
+                                                            }
+                                                         },
+                                                         {
+                                                            "_typeName" : "StaticFilledRect",
+                                                            "box" : {
+                                                               "_typeName" : "RelativeBox",
+                                                               "height" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 3,
+                                                                  "value" : 2
+                                                               },
+                                                               "offset" : {
+                                                                  "_empty" : true
+                                                               },
+                                                               "width" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 3,
+                                                                  "value" : 2
+                                                               }
+                                                            },
+                                                            "color" : [ 1, 1, 1, 1 ],
+                                                            "position" : {
+                                                               "_typeName" : "AligningOffset",
+                                                               "horAlign" : 1,
+                                                               "horOffset" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 1,
+                                                                  "value" : 0
+                                                               },
+                                                               "vertAlign" : 1,
+                                                               "vertOffset" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 1,
+                                                                  "value" : 0
+                                                               }
+                                                            }
+                                                         },
+                                                         {
+                                                            "_name" : "icon",
+                                                            "_typeName" : "StaticTextureRect",
+                                                            "box" : {
+                                                               "_typeName" : "RelativeBox",
+                                                               "height" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 3,
+                                                                  "value" : 2
+                                                               },
+                                                               "offset" : {
+                                                                  "_empty" : true
+                                                               },
+                                                               "width" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 3,
+                                                                  "value" : 2
+                                                               }
+                                                            },
+                                                            "color" : [ 1, 1, 1, 1 ],
+                                                            "imageName" : ".\\Angel_icon.png",
+                                                            "position" : {
+                                                               "_typeName" : "AligningOffset",
+                                                               "horAlign" : 1,
+                                                               "horOffset" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 1,
+                                                                  "value" : 0
+                                                               },
+                                                               "vertAlign" : 1,
+                                                               "vertOffset" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 1,
+                                                                  "value" : 0
+                                                               }
+                                                            }
+                                                         },
+                                                         {
+                                                            "_name" : "label",
+                                                            "_typeName" : "StaticLabel",
+                                                            "adjustSize" : true,
+                                                            "box" : {
+                                                               "_typeName" : "RelativeBox",
+                                                               "height" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 0,
+                                                                  "value" : 0
+                                                               },
+                                                               "offset" : {
+                                                                  "_empty" : true
+                                                               },
+                                                               "width" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 0,
+                                                                  "value" : 0
+                                                               }
+                                                            },
+                                                            "color" : [ 0, 0, 0, 1 ],
+                                                            "outlineColor" : [ 1, 1, 1, 1 ],
+                                                            "position" : {
+                                                               "_typeName" : "AligningOffset",
+                                                               "horAlign" : 2,
+                                                               "horOffset" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 1,
+                                                                  "value" : -5
+                                                               },
+                                                               "vertAlign" : 2,
+                                                               "vertOffset" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 1,
+                                                                  "value" : 0
+                                                               }
+                                                            },
+                                                            "properties" : {
+                                                               "_typeName" : "AlignProperties",
+                                                               "enableStacking" : false,
+                                                               "font" : {
+                                                                  "_typeName" : "FontDesc",
+                                                                  "family" : "Roboto",
+                                                                  "outlineWidth" : 2,
+                                                                  "size" : 20
+                                                               },
+                                                               "horAlign" : 0,
+                                                               "vertAlign" : 0
+                                                            },
+                                                            "text" : "100"
+                                                         }
+                                                      ],
+                                                      "position" : {
+                                                         "_typeName" : "AligningOffset",
+                                                         "horAlign" : 0,
+                                                         "horOffset" : {
+                                                            "_typeName" : "RelativeValue",
+                                                            "type" : 1,
+                                                            "value" : 0
+                                                         },
+                                                         "vertAlign" : 1,
+                                                         "vertOffset" : {
+                                                            "_typeName" : "RelativeValue",
+                                                            "type" : 1,
+                                                            "value" : 0
+                                                         }
+                                                      }
+                                                   },
+                                                   {
+                                                      "_name" : "unitstatscastle5",
+                                                      "_typeName" : "CanvasLayout",
+                                                      "adjustment" : 0,
+                                                      "box" : {
+                                                         "_typeName" : "PixelBox",
+                                                         "height" : 150,
+                                                         "width" : 150
+                                                      },
+                                                      "list" : [
+                                                         {
+                                                            "_typeName" : "StaticFilledRect",
+                                                            "box" : {
+                                                               "_typeName" : "RelativeBox",
+                                                               "height" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 0,
+                                                                  "value" : 0
+                                                               },
+                                                               "offset" : {
+                                                                  "_empty" : true
+                                                               },
+                                                               "width" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 0,
+                                                                  "value" : 0
+                                                               }
+                                                            },
+                                                            "color" : [ 0, 0, 0, 1 ],
+                                                            "position" : {
+                                                               "_typeName" : "AligningOffset",
+                                                               "horAlign" : 1,
+                                                               "horOffset" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 1,
+                                                                  "value" : 0
+                                                               },
+                                                               "vertAlign" : 1,
+                                                               "vertOffset" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 1,
+                                                                  "value" : 0
+                                                               }
+                                                            }
+                                                         },
+                                                         {
+                                                            "_typeName" : "StaticFilledRect",
+                                                            "box" : {
+                                                               "_typeName" : "RelativeBox",
+                                                               "height" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 3,
+                                                                  "value" : 2
+                                                               },
+                                                               "offset" : {
+                                                                  "_empty" : true
+                                                               },
+                                                               "width" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 3,
+                                                                  "value" : 2
+                                                               }
+                                                            },
+                                                            "color" : [ 1, 1, 1, 1 ],
+                                                            "position" : {
+                                                               "_typeName" : "AligningOffset",
+                                                               "horAlign" : 1,
+                                                               "horOffset" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 1,
+                                                                  "value" : 0
+                                                               },
+                                                               "vertAlign" : 1,
+                                                               "vertOffset" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 1,
+                                                                  "value" : 0
+                                                               }
+                                                            }
+                                                         },
+                                                         {
+                                                            "_name" : "icon",
+                                                            "_typeName" : "StaticTextureRect",
+                                                            "box" : {
+                                                               "_typeName" : "RelativeBox",
+                                                               "height" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 3,
+                                                                  "value" : 2
+                                                               },
+                                                               "offset" : {
+                                                                  "_empty" : true
+                                                               },
+                                                               "width" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 3,
+                                                                  "value" : 2
+                                                               }
+                                                            },
+                                                            "color" : [ 1, 1, 1, 1 ],
+                                                            "imageName" : ".\\Angel_icon.png",
+                                                            "position" : {
+                                                               "_typeName" : "AligningOffset",
+                                                               "horAlign" : 1,
+                                                               "horOffset" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 1,
+                                                                  "value" : 0
+                                                               },
+                                                               "vertAlign" : 1,
+                                                               "vertOffset" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 1,
+                                                                  "value" : 0
+                                                               }
+                                                            }
+                                                         },
+                                                         {
+                                                            "_name" : "label",
+                                                            "_typeName" : "StaticLabel",
+                                                            "adjustSize" : true,
+                                                            "box" : {
+                                                               "_typeName" : "RelativeBox",
+                                                               "height" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 0,
+                                                                  "value" : 0
+                                                               },
+                                                               "offset" : {
+                                                                  "_empty" : true
+                                                               },
+                                                               "width" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 0,
+                                                                  "value" : 0
+                                                               }
+                                                            },
+                                                            "color" : [ 0, 0, 0, 1 ],
+                                                            "outlineColor" : [ 1, 1, 1, 1 ],
+                                                            "position" : {
+                                                               "_typeName" : "AligningOffset",
+                                                               "horAlign" : 2,
+                                                               "horOffset" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 1,
+                                                                  "value" : -5
+                                                               },
+                                                               "vertAlign" : 2,
+                                                               "vertOffset" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 1,
+                                                                  "value" : 0
+                                                               }
+                                                            },
+                                                            "properties" : {
+                                                               "_typeName" : "AlignProperties",
+                                                               "enableStacking" : false,
+                                                               "font" : {
+                                                                  "_typeName" : "FontDesc",
+                                                                  "family" : "Roboto",
+                                                                  "outlineWidth" : 2,
+                                                                  "size" : 20
+                                                               },
+                                                               "horAlign" : 0,
+                                                               "vertAlign" : 0
+                                                            },
+                                                            "text" : "100"
+                                                         }
+                                                      ],
+                                                      "position" : {
+                                                         "_typeName" : "AligningOffset",
+                                                         "horAlign" : 0,
+                                                         "horOffset" : {
+                                                            "_typeName" : "RelativeValue",
+                                                            "type" : 1,
+                                                            "value" : 40
+                                                         },
+                                                         "vertAlign" : 1,
+                                                         "vertOffset" : {
+                                                            "_typeName" : "RelativeValue",
+                                                            "type" : 1,
+                                                            "value" : 0
+                                                         }
+                                                      }
+                                                   },
+                                                   {
+                                                      "_name" : "unitstatscastle6",
+                                                      "_typeName" : "CanvasLayout",
+                                                      "adjustment" : 0,
+                                                      "box" : {
+                                                         "_typeName" : "PixelBox",
+                                                         "height" : 150,
+                                                         "width" : 150
+                                                      },
+                                                      "list" : [
+                                                         {
+                                                            "_typeName" : "StaticFilledRect",
+                                                            "box" : {
+                                                               "_typeName" : "RelativeBox",
+                                                               "height" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 0,
+                                                                  "value" : 0
+                                                               },
+                                                               "offset" : {
+                                                                  "_empty" : true
+                                                               },
+                                                               "width" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 0,
+                                                                  "value" : 0
+                                                               }
+                                                            },
+                                                            "color" : [ 0, 0, 0, 1 ],
+                                                            "position" : {
+                                                               "_typeName" : "AligningOffset",
+                                                               "horAlign" : 1,
+                                                               "horOffset" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 1,
+                                                                  "value" : 0
+                                                               },
+                                                               "vertAlign" : 1,
+                                                               "vertOffset" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 1,
+                                                                  "value" : 0
+                                                               }
+                                                            }
+                                                         },
+                                                         {
+                                                            "_typeName" : "StaticFilledRect",
+                                                            "box" : {
+                                                               "_typeName" : "RelativeBox",
+                                                               "height" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 3,
+                                                                  "value" : 2
+                                                               },
+                                                               "offset" : {
+                                                                  "_empty" : true
+                                                               },
+                                                               "width" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 3,
+                                                                  "value" : 2
+                                                               }
+                                                            },
+                                                            "color" : [ 1, 1, 1, 1 ],
+                                                            "position" : {
+                                                               "_typeName" : "AligningOffset",
+                                                               "horAlign" : 1,
+                                                               "horOffset" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 1,
+                                                                  "value" : 0
+                                                               },
+                                                               "vertAlign" : 1,
+                                                               "vertOffset" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 1,
+                                                                  "value" : 0
+                                                               }
+                                                            }
+                                                         },
+                                                         {
+                                                            "_name" : "icon",
+                                                            "_typeName" : "StaticTextureRect",
+                                                            "box" : {
+                                                               "_typeName" : "RelativeBox",
+                                                               "height" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 3,
+                                                                  "value" : 2
+                                                               },
+                                                               "offset" : {
+                                                                  "_empty" : true
+                                                               },
+                                                               "width" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 3,
+                                                                  "value" : 2
+                                                               }
+                                                            },
+                                                            "color" : [ 1, 1, 1, 1 ],
+                                                            "imageName" : ".\\Angel_icon.png",
+                                                            "position" : {
+                                                               "_typeName" : "AligningOffset",
+                                                               "horAlign" : 1,
+                                                               "horOffset" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 1,
+                                                                  "value" : 0
+                                                               },
+                                                               "vertAlign" : 1,
+                                                               "vertOffset" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 1,
+                                                                  "value" : 0
+                                                               }
+                                                            }
+                                                         },
+                                                         {
+                                                            "_name" : "label",
+                                                            "_typeName" : "StaticLabel",
+                                                            "adjustSize" : true,
+                                                            "box" : {
+                                                               "_typeName" : "RelativeBox",
+                                                               "height" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 0,
+                                                                  "value" : 0
+                                                               },
+                                                               "offset" : {
+                                                                  "_empty" : true
+                                                               },
+                                                               "width" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 0,
+                                                                  "value" : 0
+                                                               }
+                                                            },
+                                                            "color" : [ 0, 0, 0, 1 ],
+                                                            "outlineColor" : [ 1, 1, 1, 1 ],
+                                                            "position" : {
+                                                               "_typeName" : "AligningOffset",
+                                                               "horAlign" : 2,
+                                                               "horOffset" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 1,
+                                                                  "value" : -5
+                                                               },
+                                                               "vertAlign" : 2,
+                                                               "vertOffset" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 1,
+                                                                  "value" : 0
+                                                               }
+                                                            },
+                                                            "properties" : {
+                                                               "_typeName" : "AlignProperties",
+                                                               "enableStacking" : false,
+                                                               "font" : {
+                                                                  "_typeName" : "FontDesc",
+                                                                  "family" : "Roboto",
+                                                                  "outlineWidth" : 2,
+                                                                  "size" : 20
+                                                               },
+                                                               "horAlign" : 0,
+                                                               "vertAlign" : 0
+                                                            },
+                                                            "text" : "100"
+                                                         }
+                                                      ],
+                                                      "position" : {
+                                                         "_typeName" : "AligningOffset",
+                                                         "horAlign" : 0,
+                                                         "horOffset" : {
+                                                            "_typeName" : "RelativeValue",
+                                                            "type" : 1,
+                                                            "value" : 40
+                                                         },
+                                                         "vertAlign" : 1,
+                                                         "vertOffset" : {
+                                                            "_typeName" : "RelativeValue",
+                                                            "type" : 1,
+                                                            "value" : 0
+                                                         }
+                                                      }
+                                                   }
+                                                ],
+                                                "position" : {
+                                                   "_typeName" : "AligningOffset",
+                                                   "horAlign" : 1,
+                                                   "horOffset" : {
+                                                      "_typeName" : "RelativeValue",
+                                                      "type" : 1,
+                                                      "value" : 0
+                                                   },
+                                                   "vertAlign" : 0,
+                                                   "vertOffset" : {
+                                                      "_typeName" : "RelativeValue",
+                                                      "type" : 1,
+                                                      "value" : -40
+                                                   }
+                                                },
+                                                "skin" : {
+                                                   "_typeName" : "HorizontalLayoutSkin",
+                                                   "adjustment" : 1,
+                                                   "align" : 1,
+                                                   "box" : {
+                                                      "_typeName" : "RelativeBox",
+                                                      "height" : {
+                                                         "_typeName" : "RelativeValue",
+                                                         "type" : 0,
+                                                         "value" : 0
+                                                      },
+                                                      "offset" : {
+                                                         "_empty" : true
+                                                      },
+                                                      "width" : {
+                                                         "_typeName" : "RelativeValue",
+                                                         "type" : 0,
+                                                         "value" : 0
+                                                      }
+                                                   },
+                                                   "padding" : {
+                                                      "_typeName" : "RelativeValue",
+                                                      "type" : 1,
+                                                      "value" : 40
+                                                   }
+                                                },
+                                                "skipInvisibleElements" : false
+                                             }
+                                          ],
+                                          "position" : {
+                                             "_typeName" : "AligningOffset",
+                                             "horAlign" : 1,
+                                             "horOffset" : {
+                                                "_typeName" : "RelativeValue",
+                                                "type" : 1,
+                                                "value" : 0
+                                             },
+                                             "vertAlign" : 1,
+                                             "vertOffset" : {
+                                                "_typeName" : "RelativeValue",
+                                                "type" : 1,
+                                                "value" : 0
+                                             }
+                                          },
+                                          "skin" : {
+                                             "_typeName" : "VerticalLayoutSkin",
+                                             "adjustment" : 1,
+                                             "align" : 1,
+                                             "box" : {
+                                                "_typeName" : "RelativeBox",
+                                                "height" : {
+                                                   "_typeName" : "RelativeValue",
+                                                   "type" : 0,
+                                                   "value" : 0
+                                                },
+                                                "offset" : {
+                                                   "_empty" : true
+                                                },
+                                                "width" : {
+                                                   "_typeName" : "RelativeValue",
+                                                   "type" : 0,
+                                                   "value" : 0
+                                                }
+                                             },
+                                             "padding" : {
+                                                "_typeName" : "RelativeValue",
+                                                "type" : 1,
+                                                "value" : -40
+                                             }
+                                          },
+                                          "skipInvisibleElements" : false
                                        }
                                     ],
                                     "position" : {
@@ -3052,6 +4303,280 @@
                            "imageName" : ".\\back_icon.png",
                            "imageWidth" : 60,
                            "useGradient" : false
+                        }
+                     },
+                     {
+                        "_name" : "buyPlace",
+                        "_typeName" : "CanvasLayout",
+                        "_visible" : false,
+                        "adjustment" : 0,
+                        "box" : {
+                           "_typeName" : "PixelBox",
+                           "height" : 250,
+                           "width" : 800
+                        },
+                        "list" : [
+                           {
+                              "_typeName" : "StaticFilledRect",
+                              "box" : {
+                                 "_typeName" : "RelativeBox",
+                                 "height" : {
+                                    "_typeName" : "RelativeValue",
+                                    "type" : 0,
+                                    "value" : 0
+                                 },
+                                 "offset" : {
+                                    "_empty" : true
+                                 },
+                                 "width" : {
+                                    "_typeName" : "RelativeValue",
+                                    "type" : 0,
+                                    "value" : 0
+                                 }
+                              },
+                              "color" : [ 0, 0, 0, 1 ],
+                              "position" : {
+                                 "_typeName" : "AligningOffset",
+                                 "horAlign" : 1,
+                                 "horOffset" : {
+                                    "_typeName" : "RelativeValue",
+                                    "type" : 1,
+                                    "value" : 0
+                                 },
+                                 "vertAlign" : 1,
+                                 "vertOffset" : {
+                                    "_typeName" : "RelativeValue",
+                                    "type" : 1,
+                                    "value" : 0
+                                 }
+                              }
+                           },
+                           {
+                              "_typeName" : "StaticFilledRect",
+                              "box" : {
+                                 "_typeName" : "RelativeBox",
+                                 "height" : {
+                                    "_typeName" : "RelativeValue",
+                                    "type" : 3,
+                                    "value" : 2
+                                 },
+                                 "offset" : {
+                                    "_empty" : true
+                                 },
+                                 "width" : {
+                                    "_typeName" : "RelativeValue",
+                                    "type" : 3,
+                                    "value" : 2
+                                 }
+                              },
+                              "color" : [ 1, 1, 1, 1 ],
+                              "position" : {
+                                 "_typeName" : "AligningOffset",
+                                 "horAlign" : 1,
+                                 "horOffset" : {
+                                    "_typeName" : "RelativeValue",
+                                    "type" : 1,
+                                    "value" : 0
+                                 },
+                                 "vertAlign" : 1,
+                                 "vertOffset" : {
+                                    "_typeName" : "RelativeValue",
+                                    "type" : 1,
+                                    "value" : 0
+                                 }
+                              }
+                           },
+                           {
+                              "_typeName" : "StaticLabel",
+                              "adjustSize" : true,
+                              "box" : {
+                                 "_typeName" : "RelativeBox",
+                                 "height" : {
+                                    "_typeName" : "RelativeValue",
+                                    "type" : 1,
+                                    "value" : 100
+                                 },
+                                 "offset" : {
+                                    "_empty" : true
+                                 },
+                                 "width" : {
+                                    "_typeName" : "RelativeValue",
+                                    "type" : 0,
+                                    "value" : 0
+                                 }
+                              },
+                              "color" : [ 0, 0, 0, 1 ],
+                              "outlineColor" : [ 1, 1, 1, 1 ],
+                              "position" : {
+                                 "_typeName" : "AligningOffset",
+                                 "horAlign" : 1,
+                                 "horOffset" : {
+                                    "_typeName" : "RelativeValue",
+                                    "type" : 1,
+                                    "value" : 0
+                                 },
+                                 "vertAlign" : 0,
+                                 "vertOffset" : {
+                                    "_typeName" : "RelativeValue",
+                                    "type" : 1,
+                                    "value" : -80
+                                 }
+                              },
+                              "properties" : {
+                                 "_typeName" : "AlignProperties",
+                                 "enableStacking" : false,
+                                 "font" : {
+                                    "_typeName" : "FontDesc",
+                                    "family" : "BulgariaModernaV3",
+                                    "size" : 50
+                                 },
+                                 "horAlign" : 0,
+                                 "vertAlign" : 0
+                              },
+                              "text" : "Куда отправить купленную армию?"
+                           },
+                           {
+                              "_typeName" : "LinearLayout",
+                              "list" : [
+                                 {
+                                    "_name" : "toHeroArmy",
+                                    "_typeName" : "Button",
+                                    "position" : {
+                                       "_typeName" : "AligningOffset",
+                                       "horAlign" : 0,
+                                       "horOffset" : {
+                                          "_typeName" : "RelativeValue",
+                                          "type" : 1,
+                                          "value" : 0
+                                       },
+                                       "vertAlign" : 2,
+                                       "vertOffset" : {
+                                          "_typeName" : "RelativeValue",
+                                          "type" : 1,
+                                          "value" : 0
+                                       }
+                                    },
+                                    "skin" : {
+                                       "_typeName" : "SimpleRectangleButtonSkin",
+                                       "borderColor" : [ 0, 0, 0, 1 ],
+                                       "borderWidth" : 1,
+                                       "box" : {
+                                          "_typeName" : "PixelBox",
+                                          "height" : 48,
+                                          "width" : 250
+                                       },
+                                       "fillColor" : [ 0.7843137383460999, 0.7843137383460999, 0.7843137383460999, 1 ],
+                                       "font" : {
+                                          "_typeName" : "FontDesc",
+                                          "family" : "BulgariaModernaV3",
+                                          "outlineWidth" : 1,
+                                          "size" : 35
+                                       },
+                                       "text" : "В армию героя",
+                                       "textColor" : [ 0, 0, 0, 1 ],
+                                       "textOutlineColor" : [ 1, 1, 1, 1 ],
+                                       "useGradient" : true
+                                    }
+                                 },
+                                 {
+                                    "_name" : "toCastle",
+                                    "_typeName" : "Button",
+                                    "position" : {
+                                       "_typeName" : "AligningOffset",
+                                       "horAlign" : 0,
+                                       "horOffset" : {
+                                          "_typeName" : "RelativeValue",
+                                          "type" : 1,
+                                          "value" : 50
+                                       },
+                                       "vertAlign" : 2,
+                                       "vertOffset" : {
+                                          "_typeName" : "RelativeValue",
+                                          "type" : 1,
+                                          "value" : 0
+                                       }
+                                    },
+                                    "skin" : {
+                                       "_typeName" : "SimpleRectangleButtonSkin",
+                                       "borderColor" : [ 0, 0, 0, 1 ],
+                                       "borderWidth" : 1,
+                                       "box" : {
+                                          "_typeName" : "PixelBox",
+                                          "height" : 48,
+                                          "width" : 250
+                                       },
+                                       "fillColor" : [ 0.7843137383460999, 0.7843137383460999, 0.7843137383460999, 1 ],
+                                       "font" : {
+                                          "_typeName" : "FontDesc",
+                                          "family" : "BulgariaModernaV3",
+                                          "outlineWidth" : 1,
+                                          "size" : 35
+                                       },
+                                       "text" : "В замок",
+                                       "textColor" : [ 0, 0, 0, 1 ],
+                                       "textOutlineColor" : [ 1, 1, 1, 1 ],
+                                       "useGradient" : true
+                                    }
+                                 }
+                              ],
+                              "position" : {
+                                 "_typeName" : "AligningOffset",
+                                 "horAlign" : 1,
+                                 "horOffset" : {
+                                    "_typeName" : "RelativeValue",
+                                    "type" : 1,
+                                    "value" : 0
+                                 },
+                                 "vertAlign" : 2,
+                                 "vertOffset" : {
+                                    "_typeName" : "RelativeValue",
+                                    "type" : 1,
+                                    "value" : 30
+                                 }
+                              },
+                              "skin" : {
+                                 "_typeName" : "HorizontalLayoutSkin",
+                                 "adjustment" : 1,
+                                 "align" : 2,
+                                 "box" : {
+                                    "_typeName" : "RelativeBox",
+                                    "height" : {
+                                       "_typeName" : "RelativeValue",
+                                       "type" : 1,
+                                       "value" : 50
+                                    },
+                                    "offset" : {
+                                       "_empty" : true
+                                    },
+                                    "width" : {
+                                       "_typeName" : "RelativeValue",
+                                       "type" : 0,
+                                       "value" : 0
+                                    }
+                                 },
+                                 "padding" : {
+                                    "_typeName" : "RelativeValue",
+                                    "type" : 1,
+                                    "value" : 50
+                                 }
+                              },
+                              "skipInvisibleElements" : false
+                           }
+                        ],
+                        "position" : {
+                           "_typeName" : "AligningOffset",
+                           "horAlign" : 1,
+                           "horOffset" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 1,
+                              "value" : 0
+                           },
+                           "vertAlign" : 1,
+                           "vertOffset" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 1,
+                              "value" : 0
+                           }
                         }
                      }
                   ],

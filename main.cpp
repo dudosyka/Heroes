@@ -192,6 +192,7 @@ class MyApp : public App
 	{
 		recType type;
 		Army castleArmy;
+		Army protectCastleArmy;
 		ownerType owner;
 		IntVec2 cords;
 		cityCenter castleRec;
@@ -230,6 +231,18 @@ class MyApp : public App
 		for (int i = 0; i < 6; i++)
 		{
 			auto unitstats = design.child<Layout>("unitstats" + toString(i + 1));
+			auto icon = unitstats.child<Texture>("icon");
+			auto label = unitstats.child<Label>("label");
+			icon.setImageName(army.units[i].type.icon_name);
+			label << army.units[i].n;
+		}
+	}
+
+	void loadArmyCastle(Army army)
+	{
+		for (int i = 0; i < 6; i++)
+		{
+			auto unitstats = design.child<Layout>("unitstatscastle" + toString(i + 1));
 			auto icon = unitstats.child<Texture>("icon");
 			auto label = unitstats.child<Label>("label");
 			icon.setImageName(army.units[i].type.icon_name);
@@ -428,6 +441,13 @@ class MyApp : public App
 						{ unitType::chuvak, 1000 },
 						{ unitType::horserider, 1000 },
 						{ unitType::angel, 1000 } });
+					rec.data(Rec).protectCastleArmy = createArmy({
+						{ unitType::myaso, 10 },
+						{ unitType::archer, 10 },
+						{ unitType::grifon, 10 },
+						{ unitType::chuvak, 10 },
+						{ unitType::horserider, 10 },
+						{ unitType::angel, 10 } });
 				}
 			}
 		}
@@ -994,6 +1014,18 @@ class MyApp : public App
 		design.update();
 	}
 
+	void toCastle(int n, int unitN, GameObj castle)
+	{
+		rec.data(castle).protectCastleArmy.units[n - 1].n += unitN;
+		design.child<Layout>("buyPlace").hide();
+	}
+
+	void toHeroArmy(int n, int unitN)
+	{
+		playerLayer.data(playerLayer.get(0)).army.units[n - 1].n += unitN;
+		design.child<Layout>("buyPlace").hide();
+	}
+
 	void buyUnit(int n, int unitN, GameObj castle)
 	{
 		if (n != 6)
@@ -1027,7 +1059,9 @@ class MyApp : public App
 			}
 		}
 		rec.data(castle).castleArmy.units[n - 1].n -= unitN;
-		playerLayer.data(playerLayer.get(0)).army.units[n - 1].n += unitN;
+		design.child<Layout>("buyPlace").show();
+		connect(design.child<Button>("toCastle"), toCastle, n, unitN, castle);
+		connect(design.child<Button>("toHeroArmy"), toHeroArmy, n, unitN);
 		auto allCost = design.child<Label>("allCost");
 		design.child<TextBox>("unitN") << "0";
 		allCost << tr("allCost") << "0";
@@ -1678,6 +1712,7 @@ class MyApp : public App
 		if (place == main)
 		{
 			selector.select(0);
+			loadArmyCastle(rec.data(castle).protectCastleArmy);
 			design.update();
 		}
 		else if (place == getArmy)
@@ -1887,6 +1922,7 @@ class MyApp : public App
 							Rec.child<Texture>("flag").setColor(255, 0, 0, 255);
 							auto cm = forWindow.load(3, "castleMenu.json");
 							connect(cm.child<Button>("closeCastleMenu"), CloseCastleMenu);
+							loadArmyCastle(rec.data(Rec).protectCastleArmy);
 							auto cmSelector = cm.child<Selector>("castleMenuSelector");
 							connect(cm.child<Button>("backToMain"), changeCastleMenuSelector, cmSelector, main, Rec);
 							connect(cm.child<Button>("getArmyButton"), changeCastleMenuSelector, cmSelector, getArmy, Rec);
@@ -1953,6 +1989,7 @@ class MyApp : public App
 			}
 		}
     }
+
 	GameMap groundmap, GroundObjMap, MobsMap, Nishtyakmap, recmap, realrecmap;
 	FromDesign(Button, start_button);
 	FromDesign(Button, quit_button);
