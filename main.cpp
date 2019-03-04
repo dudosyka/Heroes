@@ -441,7 +441,7 @@ class MyApp : public App
 					}
 					auto Rec = rec.load("Rec.json", x * 150, y * 150);
 					Rec.child<Texture>("mineTexture").setImageName("castle.png");
-					rec.data(Rec).owner = humanplayer;
+					rec.data(Rec).owner = neutral;
 					Rec.setScaleX(1.5);
 					Rec.setScaleY(1.5);
 					rec.data(Rec).type = castle;
@@ -467,11 +467,13 @@ class MyApp : public App
 		field.setView(groundmap.w / 2 * 150 - 75, groundmap.h / 2 * 150 - 75);
 		loadMainArmy(playerLayer.data(playerLayer.get(0)).army);
 		playerLayer.data(playerLayer.get(0)).exp = 0;
+		playerLayer.data(playerLayer.get(0)).owner = humanplayer;
 		updateHeroCastles();
 		loadTextBank("textBank.json");
 	}
 
 	void updateHeroCastles() {
+
 		design.child<Layout>("castle_menu").clear();
 		for (auto Build : rec.all())
 		{
@@ -637,13 +639,7 @@ class MyApp : public App
 		{
 			close();
 		}
-
-		if (input.justPressed(MouseLeft) && forWindow.empty() && playerLayer.get(0).anim.isEmpty()
-			&& !Relog.isMouseOn()
-			&& !newDirection.isMouseOn()
-			&& !heroMenu.isMouseOn()
-			&& !design.child<Layout>("castle_menu").isMouseOn()
-			&& !heroMenuOpen)
+		if (input.justPressed(MouseLeft)/* && !impl::isMouseOn(castle_menu.getImpl().get()) */&& forWindow.empty() && playerLayer.get(0).anim.isEmpty() && !impl::isMouseOn(Relog.getImpl().get()) && !impl::isMouseOn(newDirection.getImpl().get()) && !impl::isMouseOn(heroMenu.getImpl().get()) && !heroMenuOpen)
 		{
 			if (stepPoints <= 0)
 			{
@@ -1045,6 +1041,7 @@ class MyApp : public App
 		auto buyBut = design.child<Button>("buyArmyButton");
 		connect(buyBut, buyUnit, n, unitN, castle);
 		//cout << "textBoxChanged" << endl;
+		design.child<TextBox>("unitN") << unitN;
 		design.update();
 	}
 
@@ -1232,6 +1229,7 @@ class MyApp : public App
 						else
 						{
 							canBuy = false;
+							break;
 						}
 						//win.child<Label>("cost") << tr("gems") << " : " << Price.n;
 					}
@@ -1245,6 +1243,7 @@ class MyApp : public App
 						else
 						{
 							canBuy = false;
+							break;
 						}
 						//win.child<Label>("cost") << tr("wood") << " : " << Price.n;
 					}
@@ -1258,6 +1257,7 @@ class MyApp : public App
 						else
 						{
 							canBuy = false;
+							break;
 						}
 
 						//win.child<Label>("cost") << tr("ore") << " : " << Price.n;
@@ -1272,6 +1272,7 @@ class MyApp : public App
 						else
 						{
 							canBuy = false;
+							break;
 						}
 						//win.child<Label>("cost") << tr("gold") << " : " << Price.n;
 					}
@@ -1285,6 +1286,7 @@ class MyApp : public App
 						else
 						{
 							canBuy = false;
+							break;
 						}
 						//win.child<Label>("cost") << tr("sera") << " : " << Price.n;
 					}
@@ -1309,6 +1311,7 @@ class MyApp : public App
 						else
 						{
 							canBuy = false;
+							break;
 						}
 						//win.child<Label>("cost") << tr("gems") << " : " << Price.n;
 					}
@@ -1323,6 +1326,7 @@ class MyApp : public App
 						else
 						{
 							canBuy = false;
+							break;
 						}
 						//win.child<Label>("cost") << tr("wood") << " : " << Price.n;
 					}
@@ -1337,6 +1341,7 @@ class MyApp : public App
 						else
 						{
 							canBuy = false;
+							break;
 						}
 
 						//win.child<Label>("cost") << tr("ore") << " : " << Price.n;
@@ -1352,6 +1357,7 @@ class MyApp : public App
 						else
 						{
 							canBuy = false;
+							break;
 						}
 						//win.child<Label>("cost") << tr("gold") << " : " << Price.n;
 					}
@@ -1366,6 +1372,7 @@ class MyApp : public App
 						else
 						{
 							canBuy = false;
+							break;
 						}
 						//win.child<Label>("cost") << tr("sera") << " : " << Price.n;
 					}
@@ -1390,6 +1397,7 @@ class MyApp : public App
 						else
 						{
 							canBuy = false;
+							break;
 						}
 						//win.child<Label>("cost") << tr("gems") << " : " << Price.n;
 					}
@@ -1404,6 +1412,7 @@ class MyApp : public App
 						else
 						{
 							canBuy = false;
+							break;
 						}
 						//win.child<Label>("cost") << tr("wood") << " : " << Price.n;
 					}
@@ -1418,6 +1427,7 @@ class MyApp : public App
 						else
 						{
 							canBuy = false;
+							break;
 						}
 
 						//win.child<Label>("cost") << tr("ore") << " : " << Price.n;
@@ -1433,6 +1443,7 @@ class MyApp : public App
 						else
 						{
 							canBuy = false;
+							break;
 						}
 						//win.child<Label>("cost") << tr("gold") << " : " << Price.n;
 					}
@@ -1447,6 +1458,7 @@ class MyApp : public App
 						else
 						{
 							canBuy = false;
+							break;
 						}
 						//win.child<Label>("cost") << tr("sera") << " : " << Price.n;
 					}
@@ -1747,6 +1759,7 @@ class MyApp : public App
 		{
 			selector.select(0);
 			loadArmyCastle(rec.data(castle).protectCastleArmy);
+			loadArmyHeroCastle(playerLayer.data(playerLayer.get(0)).army);
 			design.update();
 		}
 		else if (place == getArmy)
@@ -1895,6 +1908,7 @@ class MyApp : public App
 		Sera << " : " << sera;
 		heroStepsLabel << " : " << stepPoints;
 		field.setView(playerLayer.get(0).pos());
+		//updateHeroCastles();
 		if (heroStay(playerLayer.get(0)))
 		{
 			for (auto n : nishtyaki.find(playerLayer.get(0).pos()))
@@ -1971,6 +1985,8 @@ class MyApp : public App
 						{
 							target = Target::none;
 							rec.data(Rec).heroInCastle = true;
+							Rec.child<Texture>("flag").setColor(255, 0, 0, 255);
+							rec.data(Rec).owner = playerLayer.data(playerLayer.get(0)).owner;
 							openCastleMenu(Rec);
 							updateHeroCastles();
 							//cm.child
@@ -2043,7 +2059,7 @@ class MyApp : public App
 	FromDesign(Button, newDirection);
 	FromDesign(Label, test_);
 	FromDesign(Selector, selector);
-
+	FromDesign(Layout, castle_menu);
 	//FromDesign(HorizontalLayout, armyMenu);
 
 	FromDesign(Label, heroStepsLabel);
