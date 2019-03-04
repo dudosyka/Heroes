@@ -1,0 +1,62 @@
+{
+   "_typeName" : "CanvasLayout",
+   "_version" : "VER3",
+   "adjustment" : 0,
+   "box" : {
+      "_typeName" : "PixelBox",
+      "height" : 150,
+      "width" : 150
+   },
+   "list" : [
+      {
+         "_name" : "castle_icon",
+         "_typeName" : "Button",
+         "position" : {
+            "_typeName" : "AligningOffset",
+            "horAlign" : 1,
+            "horOffset" : {
+               "_typeName" : "RelativeValue",
+               "type" : 1,
+               "value" : 0
+            },
+            "vertAlign" : 1,
+            "vertOffset" : {
+               "_typeName" : "RelativeValue",
+               "type" : 1,
+               "value" : 0
+            }
+         },
+         "skin" : {
+            "_typeName" : "RectangleImageButtonSkin",
+            "borderColor" : [ 0, 0, 0, 1 ],
+            "borderWidth" : 1,
+            "box" : {
+               "_typeName" : "PixelBox",
+               "height" : 150,
+               "width" : 150
+            },
+            "fillColor" : [ 1, 1, 1, 1 ],
+            "imageColor" : [ 1, 1, 1, 1 ],
+            "imageHeight" : 150,
+            "imageName" : ".\\castle_icon.png",
+            "imageWidth" : 150,
+            "useGradient" : false
+         }
+      }
+   ],
+   "position" : {
+      "_typeName" : "AligningOffset",
+      "horAlign" : 1,
+      "horOffset" : {
+         "_typeName" : "RelativeValue",
+         "type" : 1,
+         "value" : 0
+      },
+      "vertAlign" : 1,
+      "vertOffset" : {
+         "_typeName" : "RelativeValue",
+         "type" : 1,
+         "value" : 0
+      }
+   }
+}

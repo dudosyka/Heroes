@@ -196,6 +196,7 @@ class MyApp : public App
 		ownerType owner;
 		IntVec2 cords;
 		cityCenter castleRec;
+		bool heroInCastle = false;
 	};
 
 	struct playerData
@@ -243,6 +244,18 @@ class MyApp : public App
 		for (int i = 0; i < 6; i++)
 		{
 			auto unitstats = design.child<Layout>("unitstatscastle" + toString(i + 1));
+			auto icon = unitstats.child<Texture>("icon");
+			auto label = unitstats.child<Label>("label");
+			icon.setImageName(army.units[i].type.icon_name);
+			label << army.units[i].n;
+		}
+	}
+
+	void loadArmyHeroCastle(Army army)
+	{
+		for (int i = 0; i < 6; i++)
+		{
+			auto unitstats = design.child<Layout>("unitstatsherocastle" + toString(i + 1));
 			auto icon = unitstats.child<Texture>("icon");
 			auto label = unitstats.child<Label>("label");
 			icon.setImageName(army.units[i].type.icon_name);
@@ -452,10 +465,25 @@ class MyApp : public App
 			}
 		}
 		field.setView(groundmap.w / 2 * 150 - 75, groundmap.h / 2 * 150 - 75);
-
 		loadMainArmy(playerLayer.data(playerLayer.get(0)).army);
 		playerLayer.data(playerLayer.get(0)).exp = 0;
+		updateHeroCastles();
 		loadTextBank("textBank.json");
+	}
+
+	void updateHeroCastles() {
+		design.child<Layout>("castle_menu").clear();
+		for (auto Build : rec.all())
+		{
+			if (rec.data(Build).type == castle)
+			{
+				if (rec.data(Build).owner == playerLayer.data(playerLayer.get(0)).owner)
+				{
+					auto Castle = design.child<Layout>("castle_menu").load("castle_icon.json");
+					connect(Castle.child<Button>("castle_icon"), openCastleMenu, Build);
+				}
+			}
+		}
 	}
 
 	void hideLabel()
@@ -610,7 +638,12 @@ class MyApp : public App
 			close();
 		}
 
-		if (input.justPressed(MouseLeft) && forWindow.empty() && playerLayer.get(0).anim.isEmpty() && !impl::isMouseOn(Relog.getImpl().get()) && !impl::isMouseOn(newDirection.getImpl().get()) && !impl::isMouseOn(heroMenu.getImpl().get()) && !heroMenuOpen)
+		if (input.justPressed(MouseLeft) && forWindow.empty() && playerLayer.get(0).anim.isEmpty()
+			&& !Relog.isMouseOn()
+			&& !newDirection.isMouseOn()
+			&& !heroMenu.isMouseOn()
+			&& !design.child<Layout>("castle_menu").isMouseOn()
+			&& !heroMenuOpen)
 		{
 			if (stepPoints <= 0)
 			{
@@ -864,10 +897,11 @@ class MyApp : public App
 		isMineInfoOpen = false;
 	}
 
-	void CloseCastleMenu()
+	void CloseCastleMenu(GameObj castle)
 	{
 		forWindow.remove(3);
 		heroMenu.show();
+		rec.data(castle).heroInCastle = false;
 		loadMainArmy(playerLayer.data(playerLayer.get(0)).army);
 		design.update();
 	}
@@ -1835,6 +1869,23 @@ class MyApp : public App
 		}
 	}
 
+	void openCastleMenu(GameObj castle)
+	{
+		auto cm = forWindow.load(3, "castleMenu.json");
+		//design.child<Layout>("heroArmyCastle").clear();
+		if (rec.data(castle).heroInCastle)
+		{
+			loadArmyHeroCastle(playerLayer.data(playerLayer.get(0)).army);
+		}
+		connect(cm.child<Button>("closeCastleMenu"), CloseCastleMenu, castle);
+		loadArmyCastle(rec.data(castle).protectCastleArmy);
+		auto cmSelector = cm.child<Selector>("castleMenuSelector");
+		connect(cm.child<Button>("backToMain"), changeCastleMenuSelector, cmSelector, main, castle);
+		connect(cm.child<Button>("getArmyButton"), changeCastleMenuSelector, cmSelector, getArmy, castle);
+		connect(cm.child<Button>("castleBuildings"), changeCastleMenuSelector, cmSelector, build, castle);
+		heroMenu.hide();
+	}
+
     void move()
      {
 		GOld << " : " << gold;
@@ -1919,15 +1970,9 @@ class MyApp : public App
 						if (rec.data(Rec).type == castle)
 						{
 							target = Target::none;
-							Rec.child<Texture>("flag").setColor(255, 0, 0, 255);
-							auto cm = forWindow.load(3, "castleMenu.json");
-							connect(cm.child<Button>("closeCastleMenu"), CloseCastleMenu);
-							loadArmyCastle(rec.data(Rec).protectCastleArmy);
-							auto cmSelector = cm.child<Selector>("castleMenuSelector");
-							connect(cm.child<Button>("backToMain"), changeCastleMenuSelector, cmSelector, main, Rec);
-							connect(cm.child<Button>("getArmyButton"), changeCastleMenuSelector, cmSelector, getArmy, Rec);
-							connect(cm.child<Button>("castleBuildings"), changeCastleMenuSelector, cmSelector, build, Rec);
-							heroMenu.hide();
+							rec.data(Rec).heroInCastle = true;
+							openCastleMenu(Rec);
+							updateHeroCastles();
 							//cm.child
 							break;
 						}
