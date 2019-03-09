@@ -30,7 +30,7 @@ class MyApp : public App
 
 	enum recType
 	{
-		noneRec, mine, goldMine, castle, castle_entry, gem_mine, sera_mine
+		noneRec, mine, goldMine, castle, castle_entry, gem_mine, sera_mine, fight
 	};
 
 	struct nishData
@@ -63,6 +63,7 @@ class MyApp : public App
 		vector <Price> price;
 		Enum type;
 		string icon_name;
+		string img_name;
 	};
 
 	vector<unitType> allTypes = {
@@ -75,7 +76,8 @@ class MyApp : public App
 			8,
 			{{Price::gold, 85}},
 			unitType::myaso,
-			"myaso_icon.png"
+			"myaso_icon.png",
+			"myaso.png"
 		},
 		{
 			7,
@@ -86,7 +88,8 @@ class MyApp : public App
 			9,
 			{{Price::gold, 50}},
 			unitType::archer,
-			"archer_icon.png"
+			"archer_icon.png",
+			"Archer.png"
 		},
 		{
 			30,
@@ -97,7 +100,8 @@ class MyApp : public App
 			15,
 			{{Price::gold, 260}},
 			unitType::grifon,
-			"griffin_icon.png"
+			"griffin_icon.png",
+			"griffin.png"
 		},
 		{
 			54,
@@ -108,7 +112,8 @@ class MyApp : public App
 			10,
 			{{Price::gold, 600}},
 			unitType::chuvak,
-			"chuvak_icon.png"
+			"chuvak_icon.png",
+			"chuvak.png"
 		},
 		{
 			90,
@@ -119,7 +124,8 @@ class MyApp : public App
 			11,
 			{{Price::gold, 1300}},
 			unitType::horserider,
-			"horserider_icon.png"
+			"horserider_icon.png",
+			"horserider.png"
 		},
 		{
 			16,
@@ -130,7 +136,8 @@ class MyApp : public App
 			8,
 			{{Price::gold, 2800}, {Price::crystal, 1}},
 			unitType::myaso,
-			"Angel_icon.png"
+			"Angel_icon.png",
+			"Angel.png"
 		},
 	};
 
@@ -206,6 +213,13 @@ class MyApp : public App
 		ownerType owner;
 	};
 
+	struct neutralData
+	{
+		Army army;
+		ownerType owner;
+		IntVec2 cords;
+	};
+
 	enum grass
 	{
 		grassDark,
@@ -244,7 +258,7 @@ class MyApp : public App
 		for (int i = 0; i < 6; i++)
 		{
 			auto unitstats = design.child<Layout>("unitstatscastle" + toString(i + 1));
-			connect(unitstats.child<ToggleButton>("unitButton"), merge_units, i, army.units[i].n, false, castle);
+			connect(unitstats.child<Button>("unitButton"), merge_units, i, army.units[i].n, false, castle);
 			auto icon = unitstats.child<Texture>("icon");
 			auto label = unitstats.child<Label>("label");
 			icon.setImageName(army.units[i].type.icon_name);
@@ -257,7 +271,7 @@ class MyApp : public App
 		for (int i = 0; i < 6; i++)
 		{
 			auto unitstats = design.child<Layout>("unitstatsherocastle" + toString(i + 1));
-			connect(unitstats.child<ToggleButton>("unitButton"), merge_units, i, army.units[i].n, true, castle);
+			connect(unitstats.child<Button>("unitButton"), merge_units, i, army.units[i].n, true, castle);
 			auto icon = unitstats.child<Texture>("icon");
 			auto label = unitstats.child<Label>("label");
 			icon.setImageName(army.units[i].type.icon_name);
@@ -280,19 +294,116 @@ class MyApp : public App
 
 	//void chestMenu
 
-	struct merge_object
+	/*struct merge_object
 	{
 		bool isSelect = false;
 		int n = 0;
 		int num = 0;
 		bool fromHero = false;
-	};
+	};*/
 
-	merge_object merge_obj;
+	//merge_object merge_obj;
+
+	int UnitNum;
+
+	void send_army(int n, bool fromHero, GameObj castle)
+	{
+		if (fromHero)
+		{
+			playerLayer.data(playerLayer.get(0)).army.units[n].n -= UnitNum;
+			rec.data(castle).protectCastleArmy.units[n].n += UnitNum;
+		}
+		else
+		{
+			playerLayer.data(playerLayer.get(0)).army.units[n].n += UnitNum;
+			rec.data(castle).protectCastleArmy.units[n].n -= UnitNum;
+		}
+		loadArmyHeroCastle(playerLayer.data(playerLayer.get(0)).army, castle);
+		loadArmyCastle(rec.data(castle).protectCastleArmy, castle);
+		auto merge_window = design.child<Layout>("mergeArmyWindow");
+		merge_window.hide();
+		design.child<Button>("getArmyButton").enable();
+		design.child<Button>("castleBuildings").enable();
+		UnitNum = 0;
+		design.child<TextBox>("unitNum") << 0;
+	}
+
+	void more_units(int n, GameObj castle, bool fromHero)
+	{
+		if (fromHero)
+		{
+			if (UnitNum >= playerLayer.data(playerLayer.get(0)).army.units[n].n)
+			{
+				return;
+			}
+			else
+			{
+				UnitNum++;
+				design.child<TextBox>("unitNum") << UnitNum;
+			}
+		}
+		else
+		{
+			if (UnitNum == rec.data(castle).protectCastleArmy.units[n].n)
+			{
+				return;
+			}
+			else
+			{
+				UnitNum++;
+			}
+		}
+	}
+
+	void min_units(int n, GameObj castle)
+	{
+		if (UnitNum <= 0)
+		{
+			return;
+		}
+		else
+		{
+			UnitNum--;
+			design.child<TextBox>("unitNum") << UnitNum;
+		}
+	}
+
+	void change_textbox(int n, GameObj castle, bool fromHero)
+	{
+		design.child<TextBox>("unitNum") >> UnitNum;
+		
+		if (fromHero)
+		{
+			if (UnitNum > playerLayer.data(playerLayer.get(0)).army.units[n].n)
+			{
+				UnitNum = playerLayer.data(playerLayer.get(0)).army.units[n].n;
+			}
+		}
+		else
+		{
+			if (UnitNum > rec.data(castle).protectCastleArmy.units[n].n)
+			{
+				UnitNum = rec.data(castle).protectCastleArmy.units[n].n;
+			}
+		}
+		if (UnitNum < 0)
+		{
+			UnitNum = 0;
+		}
+		design.child<TextBox>("unitNum") << UnitNum;
+	}
 
 	void merge_units(int n, int num, bool fromHero, GameObj castle)
 	{
-		if (merge_obj.isSelect)
+		auto merge_window = design.child<Layout>("mergeArmyWindow");
+		merge_window.show();
+		design.child<Button>("getArmyButton").disable();
+		design.child<Button>("castleBuildings").disable();
+		connect(merge_window.child<TextBox>("unitNum"), change_textbox, n, castle, fromHero);
+		connect(merge_window.child<Button>("more_units"), more_units, n, castle, fromHero);
+		connect(merge_window.child<Button>("min_units"), min_units, n, castle);
+		connect(merge_window.child<Button>("sendArmyButton"), send_army, n, fromHero, castle);
+		/*if (merge_obj.isSelect)
 		{
 			if (n == merge_obj.n)
 			{
@@ -314,6 +425,10 @@ class MyApp : public App
 				loadArmyHeroCastle(playerLayer.data(playerLayer.get(0)).army, castle);
 				loadArmyCastle(rec.data(castle).protectCastleArmy, castle);
 			}
+			else
+			{
+
+			}
 		}
 		else
 		{
@@ -321,13 +436,41 @@ class MyApp : public App
 			merge_obj.n = n;
 			merge_obj.num = num;
 			merge_obj.fromHero = fromHero;
+		}*/
+	}
+
+	void readNeutralsData ()
+	{
+		ifstream File("neutrals_data.txt");
+		int rows = 0;
+		File >> rows;
+		for (int i = 0; i < rows; i++)
+		{
+			int n = 0;
+			int unitNum = 0;
+			IntVec2 cords;
+			File >> n >> unitNum >> cords.x >> cords.y;
+			auto Neutral = neutrals.load("neutral.json", cords.x * 150, cords.y * 150);
+			neutrals.data(Neutral).army = createArmy({
+				{ unitType::myaso, 0 },
+				{ unitType::archer, 0 },
+				{ unitType::grifon, 0 },
+				{ unitType::chuvak, 0 },
+				{ unitType::horserider, 0 },
+				{ unitType::angel, 0 }
+			});
+			Neutral.skin<Texture>().setImageName(allTypes[n].img_name);
+			neutrals.data(Neutral).army.units[n].n = unitNum;
+			neutrals.data(Neutral).owner = neutral;
+			neutrals.data(Neutral).cords = cords;
 		}
+		
 	}
 
 	void load()
 	{
 		connect(Relog, nextStep);
-
+		readNeutralsData();
 		connect(heroMenu, openHeroMenu);
 		connect(select0, changeHeroMenu, stats);
 		connect(select1, changeHeroMenu, arts);
@@ -509,6 +652,11 @@ class MyApp : public App
 						{ unitType::angel, 10 } });
 				}
 			}
+		}
+		for (auto Neutral : neutrals.all())
+		{
+			auto& data = neutrals.data(Neutral);
+			realrecmap[data.cords.x][data.cords.y] = fight;
 		}
 		field.setView(groundmap.w / 2 * 150 - 75, groundmap.h / 2 * 150 - 75);
 		loadMainArmy(playerLayer.data(playerLayer.get(0)).army);
@@ -736,11 +884,11 @@ class MyApp : public App
 	}
 
 	enum class Target {
-		none, castle, mine
+		none, castle, mine, fight
 	};
 
 	Target target;
-
+	//rgerjgoierijgijeriojgiojreiogjejgriejgiorejgiorejojgoiejogieogijiejgioejgoogjeiogjgjrjgioejgjreijgerjogerjoigrejgjerioger
 	deque <IntVec2> route(IntVec2 start, IntVec2 finish)
 	{
 		GameMap dmap;
@@ -752,7 +900,15 @@ class MyApp : public App
 			target = Target::castle;
 			if (realrecmap[finish] != castle && realrecmap[finish] != castle_entry)
 			{
-				target = Target::mine;
+				if (realrecmap[finish] != fight)
+				{
+					target = Target::mine;
+				}
+				else
+				{
+					target = Target::fight;
+				}
+				
 			}
 		}
 		for (int x = 0; x < dmap.w; x++)
@@ -957,6 +1113,10 @@ class MyApp : public App
 	{
 		int unitN = 0;
 		design.child<TextBox>("unitN") >> unitN;
+		if (unitN < 0)
+		{
+			unitN = 0;
+		}
 		//int unitPrice;
 		vector<Price> unitPrice = allTypes[n - 1].price;
 		if (n != 6)
@@ -1002,6 +1162,10 @@ class MyApp : public App
 		int unitN = 0;
 		design.child<TextBox>("unitN") >> unitN;
 		//int unitPrice;
+		if (unitN < 0)
+		{
+			unitN = 0;
+		}
 		vector<Price> unitPrice = allTypes[n - 1].price;
 		if (n != 6)
 		{
@@ -1043,6 +1207,10 @@ class MyApp : public App
 	{
 		int unitN = 0;
 		design.child<TextBox>("unitN") >> unitN;
+		if (unitN < 0)
+		{
+			unitN = 0;
+		}
 		if (rec.data(castle).castleArmy.units[n - 1].n <= unitN)
 		{
 			design.child<TextBox>("unitN") << rec.data(castle).castleArmy.units[n - 1].n;
@@ -1136,9 +1304,16 @@ class MyApp : public App
 			}
 		}
 		rec.data(castle).castleArmy.units[n - 1].n -= unitN;
-		design.child<Layout>("buyPlace").show();
-		connect(design.child<Button>("toCastle"), toCastle, n, unitN, castle);
-		connect(design.child<Button>("toHeroArmy"), toHeroArmy, n, unitN);
+		if (rec.data(castle).heroInCastle)
+		{
+			connect(design.child<Button>("toCastle"), toCastle, n, unitN, castle);
+			connect(design.child<Button>("toHeroArmy"), toHeroArmy, n, unitN);
+			design.child<Layout>("buyPlace").show();
+		}
+		else
+		{
+			toCastle(n, unitN, castle);
+		}
 		auto allCost = design.child<Label>("allCost");
 		design.child<TextBox>("unitN") << "0";
 		allCost << tr("allCost") << "0";
@@ -2023,11 +2198,39 @@ class MyApp : public App
 
 		if (target != Target::none && heroStay(playerLayer.get(0)))
 		{
+			auto& ppos = playerLayer.get(0).pos();
+			auto cppos = cell(ppos);
+			for (auto Neutral : neutrals.all())
+			{
+				auto& rpos = neutrals.data(Neutral).cords;
+				if ((rpos.x + 1 == cppos.x && rpos.y == cppos.y) || (rpos.x - 1 == cppos.x  && rpos.y == cppos.y) || (rpos.y + 1 == cppos.y && rpos.x == cppos.x) || (rpos.y - 1 == cppos.y && rpos.x == cppos.x) || (rpos.x + 1 == cppos.x && rpos.y + 1 == cppos.y) || (rpos.x + 1 == cppos.x && rpos.y - 1 == cppos.y) || (rpos.y - 1 == cppos.y && rpos.x - 1 == cppos.x) || (rpos.x - 1 == cppos.x && rpos.y + 1 == cppos.y))
+				{
+
+					if (target == Target::fight)
+					{
+						selector.select(3);
+						map<Color, int> colorToTypeGround = {
+							{ Color(165, 0, 255), grassDark },
+						};
+						fight_field_map = loadMap("Grassmap_fight.png", colorToTypeGround);
+						for (int x = 0; x < fight_field_map.w; ++x)
+						{
+							for (int y = 0; y < fight_field_map.h; ++y)
+							{
+								if (fight_field_map[x][y] == grassDark)
+								{
+									fight_ground.load("grass.json", x * 150, y * 150);
+								}
+							}
+						}
+						fight_field.setView(fight_field_map.w / 2 * 150, fight_field_map.h / 2 * 150);
+						target = Target::none;
+					}
+				}
+			}
 			for (auto Rec : rec.all())
 			{
 				auto& rpos = rec.data(Rec).cords;
-				auto& ppos = playerLayer.get(0).pos();
-				auto cppos = cell(ppos);
   				if ((rpos.x + 1 == cppos.x && rpos.y == cppos.y) || (rpos.x - 1 == cppos.x  && rpos.y == cppos.y) || (rpos.y + 1 == cppos.y && rpos.x == cppos.x) || (rpos.y - 1 == cppos.y && rpos.x == cppos.x) || (rpos.x + 1 == cppos.x && rpos.y + 1 == cppos.y) || (rpos.x + 1 == cppos.x && rpos.y - 1 == cppos.y) || (rpos.y - 1 == cppos.y && rpos.x - 1 == cppos.x) || (rpos.x - 1 == cppos.x && rpos.y + 1 == cppos.y))
 				{
 					if (target == Target::castle)
@@ -2048,7 +2251,7 @@ class MyApp : public App
 							continue;
 						}
 					}
-					else
+					else if (target == Target::mine)
 					{
 						if (rec.data(Rec).type == castle)
 							continue;
@@ -2102,7 +2305,7 @@ class MyApp : public App
 		}
     }
 
-	GameMap groundmap, GroundObjMap, MobsMap, Nishtyakmap, recmap, realrecmap;
+	GameMap groundmap, GroundObjMap, MobsMap, Nishtyakmap, recmap, realrecmap, fight_field_map;
 	FromDesign(Button, start_button);
 	FromDesign(Button, quit_button);
 	FromDesign(Button, load_button);
@@ -2123,6 +2326,7 @@ class MyApp : public App
 	FromDesign(Button, select2);
 	FromDesign(Button, heroMenu);
 	FromDesign(GameView, field);
+	FromDesign(GameView, fight_field);
 	FromDesign(Label, GOld);
 	FromDesign(Label, SKill);
 	FromDesign(Label, Ore);
@@ -2131,11 +2335,13 @@ class MyApp : public App
 	FromDesign(Label, emptyStep);
 	LayerFromDesign(void, mobs);
 	LayerFromDesign(void, ground);
+	LayerFromDesign(void, fight_ground);
 	LayerFromDesign(void, forest);
 	LayerFromDesign(playerData, playerLayer);
 	LayerFromDesign(recData, rec);
 	LayerFromDesign(nishData, nishtyaki);
-	LayerFromDesign(void, SuperMegaPuperStepEgg);	
+	LayerFromDesign(void, SuperMegaPuperStepEgg);
+	LayerFromDesign(neutralData, neutrals);
 };
 int main(int argc, char** argv)
 {

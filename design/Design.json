@@ -365,6 +365,18 @@
                               }
                            },
                            {
+                              "_name" : "neutrals",
+                              "_typeName" : "Layer",
+                              "index" : {
+                                 "_typeName" : "FlatIndex",
+                                 "keyType" : 2
+                              },
+                              "list" : [],
+                              "order" : {
+                                 "_typeName" : "SortByIDOrder"
+                              }
+                           },
+                           {
                               "_name" : "playerLayer",
                               "_typeName" : "Layer",
                               "index" : {
@@ -3900,6 +3912,71 @@
                            }
                         },
                         "skipInvisibleElements" : false
+                     }
+                  ],
+                  "position" : {
+                     "_typeName" : "AligningOffset",
+                     "horAlign" : 1,
+                     "horOffset" : {
+                        "_typeName" : "RelativeValue",
+                        "type" : 1,
+                        "value" : 0
+                     },
+                     "vertAlign" : 1,
+                     "vertOffset" : {
+                        "_typeName" : "RelativeValue",
+                        "type" : 1,
+                        "value" : 0
+                     }
+                  }
+               }
+            },
+            {
+               "_key" : 3,
+               "_value" : {
+                  "_name" : "fight_field",
+                  "_typeName" : "GameView",
+                  "box" : {
+                     "_typeName" : "PixelBox",
+                     "height" : 900,
+                     "width" : 900
+                  },
+                  "list" : [
+                     {
+                        "_name" : "enemies",
+                        "_typeName" : "Layer",
+                        "index" : {
+                           "_typeName" : "FlatIndex",
+                           "keyType" : 2
+                        },
+                        "list" : [],
+                        "order" : {
+                           "_typeName" : "SortByIDOrder"
+                        }
+                     },
+                     {
+                        "_name" : "friends",
+                        "_typeName" : "Layer",
+                        "index" : {
+                           "_typeName" : "FlatIndex",
+                           "keyType" : 2
+                        },
+                        "list" : [],
+                        "order" : {
+                           "_typeName" : "SortByIDOrder"
+                        }
+                     },
+                     {
+                        "_name" : "fight_ground",
+                        "_typeName" : "Layer",
+                        "index" : {
+                           "_typeName" : "FlatIndex",
+                           "keyType" : 2
+                        },
+                        "list" : [],
+                        "order" : {
+                           "_typeName" : "SortByIDOrder"
+                        }
                      }
                   ],
                   "position" : {

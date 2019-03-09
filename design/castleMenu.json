@@ -297,7 +297,7 @@
                                                          },
                                                          {
                                                             "_name" : "unitButton",
-                                                            "_typeName" : "ToggleButton",
+                                                            "_typeName" : "Button",
                                                             "position" : {
                                                                "_typeName" : "AligningOffset",
                                                                "horAlign" : 1,
@@ -313,7 +313,6 @@
                                                                   "value" : 0
                                                                }
                                                             },
-                                                            "pressed" : false,
                                                             "skin" : {
                                                                "_typeName" : "SimpleRectangleButtonSkin",
                                                                "borderColor" : [ 0, 0, 0, 1 ],
@@ -334,8 +333,7 @@
                                                                "textColor" : [ 0, 0, 0, 1 ],
                                                                "textOutlineColor" : [ 1, 1, 1, 1 ],
                                                                "useGradient" : true
-                                                            },
-                                                            "unpressOnFocusLost" : false
+                                                            }
                                                          },
                                                          {
                                                             "_name" : "icon",
@@ -524,7 +522,7 @@
                                                          },
                                                          {
                                                             "_name" : "unitButton",
-                                                            "_typeName" : "ToggleButton",
+                                                            "_typeName" : "Button",
                                                             "position" : {
                                                                "_typeName" : "AligningOffset",
                                                                "horAlign" : 1,
@@ -540,7 +538,6 @@
                                                                   "value" : 0
                                                                }
                                                             },
-                                                            "pressed" : false,
                                                             "skin" : {
                                                                "_typeName" : "SimpleRectangleButtonSkin",
                                                                "borderColor" : [ 0, 0, 0, 1 ],
@@ -561,8 +558,7 @@
                                                                "textColor" : [ 0, 0, 0, 1 ],
                                                                "textOutlineColor" : [ 1, 1, 1, 1 ],
                                                                "useGradient" : true
-                                                            },
-                                                            "unpressOnFocusLost" : false
+                                                            }
                                                          },
                                                          {
                                                             "_name" : "icon",
@@ -751,7 +747,7 @@
                                                          },
                                                          {
                                                             "_name" : "unitButton",
-                                                            "_typeName" : "ToggleButton",
+                                                            "_typeName" : "Button",
                                                             "position" : {
                                                                "_typeName" : "AligningOffset",
                                                                "horAlign" : 1,
@@ -767,7 +763,6 @@
                                                                   "value" : 0
                                                                }
                                                             },
-                                                            "pressed" : false,
                                                             "skin" : {
                                                                "_typeName" : "SimpleRectangleButtonSkin",
                                                                "borderColor" : [ 0, 0, 0, 1 ],
@@ -788,8 +783,7 @@
                                                                "textColor" : [ 0, 0, 0, 1 ],
                                                                "textOutlineColor" : [ 1, 1, 1, 1 ],
                                                                "useGradient" : true
-                                                            },
-                                                            "unpressOnFocusLost" : false
+                                                            }
                                                          },
                                                          {
                                                             "_name" : "icon",
@@ -1025,7 +1019,7 @@
                                                          },
                                                          {
                                                             "_name" : "unitButton",
-                                                            "_typeName" : "ToggleButton",
+                                                            "_typeName" : "Button",
                                                             "position" : {
                                                                "_typeName" : "AligningOffset",
                                                                "horAlign" : 1,
@@ -1041,7 +1035,6 @@
                                                                   "value" : 0
                                                                }
                                                             },
-                                                            "pressed" : false,
                                                             "skin" : {
                                                                "_typeName" : "SimpleRectangleButtonSkin",
                                                                "borderColor" : [ 0, 0, 0, 1 ],
@@ -1062,8 +1055,7 @@
                                                                "textColor" : [ 0, 0, 0, 1 ],
                                                                "textOutlineColor" : [ 1, 1, 1, 1 ],
                                                                "useGradient" : true
-                                                            },
-                                                            "unpressOnFocusLost" : false
+                                                            }
                                                          },
                                                          {
                                                             "_name" : "icon",
@@ -1252,7 +1244,7 @@
                                                          },
                                                          {
                                                             "_name" : "unitButton",
-                                                            "_typeName" : "ToggleButton",
+                                                            "_typeName" : "Button",
                                                             "position" : {
                                                                "_typeName" : "AligningOffset",
                                                                "horAlign" : 1,
@@ -1268,7 +1260,6 @@
                                                                   "value" : 0
                                                                }
                                                             },
-                                                            "pressed" : false,
                                                             "skin" : {
                                                                "_typeName" : "SimpleRectangleButtonSkin",
                                                                "borderColor" : [ 0, 0, 0, 1 ],
@@ -1285,12 +1276,11 @@
                                                                   "outlineWidth" : 1,
                                                                   "size" : 28
                                                                },
-                                                               "text" : "",
+                                                               "text" : " ",
                                                                "textColor" : [ 0, 0, 0, 1 ],
                                                                "textOutlineColor" : [ 1, 1, 1, 1 ],
                                                                "useGradient" : true
-                                                            },
-                                                            "unpressOnFocusLost" : false
+                                                            }
                                                          },
                                                          {
                                                             "_name" : "icon",
@@ -1479,7 +1469,7 @@
                                                          },
                                                          {
                                                             "_name" : "unitButton",
-                                                            "_typeName" : "ToggleButton",
+                                                            "_typeName" : "Button",
                                                             "position" : {
                                                                "_typeName" : "AligningOffset",
                                                                "horAlign" : 1,
@@ -1495,7 +1485,6 @@
                                                                   "value" : 0
                                                                }
                                                             },
-                                                            "pressed" : false,
                                                             "skin" : {
                                                                "_typeName" : "SimpleRectangleButtonSkin",
                                                                "borderColor" : [ 0, 0, 0, 1 ],
@@ -1516,8 +1505,7 @@
                                                                "textColor" : [ 0, 0, 0, 1 ],
                                                                "textOutlineColor" : [ 1, 1, 1, 1 ],
                                                                "useGradient" : true
-                                                            },
-                                                            "unpressOnFocusLost" : false
+                                                            }
                                                          },
                                                          {
                                                             "_name" : "icon",
@@ -2178,7 +2166,7 @@
                                                    },
                                                    {
                                                       "_name" : "unitButton",
-                                                      "_typeName" : "ToggleButton",
+                                                      "_typeName" : "Button",
                                                       "position" : {
                                                          "_typeName" : "AligningOffset",
                                                          "horAlign" : 1,
@@ -2194,7 +2182,6 @@
                                                             "value" : 0
                                                          }
                                                       },
-                                                      "pressed" : false,
                                                       "skin" : {
                                                          "_typeName" : "SimpleRectangleButtonSkin",
                                                          "borderColor" : [ 0, 0, 0, 1 ],
@@ -2215,8 +2202,7 @@
                                                          "textColor" : [ 0, 0, 0, 1 ],
                                                          "textOutlineColor" : [ 1, 1, 1, 1 ],
                                                          "useGradient" : true
-                                                      },
-                                                      "unpressOnFocusLost" : false
+                                                      }
                                                    },
                                                    {
                                                       "_name" : "icon",
@@ -2405,7 +2391,7 @@
                                                    },
                                                    {
                                                       "_name" : "unitButton",
-                                                      "_typeName" : "ToggleButton",
+                                                      "_typeName" : "Button",
                                                       "position" : {
                                                          "_typeName" : "AligningOffset",
                                                          "horAlign" : 1,
@@ -2421,7 +2407,6 @@
                                                             "value" : 0
                                                          }
                                                       },
-                                                      "pressed" : false,
                                                       "skin" : {
                                                          "_typeName" : "SimpleRectangleButtonSkin",
                                                          "borderColor" : [ 0, 0, 0, 1 ],
@@ -2442,8 +2427,7 @@
                                                          "textColor" : [ 0, 0, 0, 1 ],
                                                          "textOutlineColor" : [ 1, 1, 1, 1 ],
                                                          "useGradient" : true
-                                                      },
-                                                      "unpressOnFocusLost" : false
+                                                      }
                                                    },
                                                    {
                                                       "_name" : "icon",
@@ -2632,7 +2616,7 @@
                                                    },
                                                    {
                                                       "_name" : "unitButton",
-                                                      "_typeName" : "ToggleButton",
+                                                      "_typeName" : "Button",
                                                       "position" : {
                                                          "_typeName" : "AligningOffset",
                                                          "horAlign" : 1,
@@ -2648,7 +2632,6 @@
                                                             "value" : 0
                                                          }
                                                       },
-                                                      "pressed" : false,
                                                       "skin" : {
                                                          "_typeName" : "SimpleRectangleButtonSkin",
                                                          "borderColor" : [ 0, 0, 0, 1 ],
@@ -2669,8 +2652,7 @@
                                                          "textColor" : [ 0, 0, 0, 1 ],
                                                          "textOutlineColor" : [ 1, 1, 1, 1 ],
                                                          "useGradient" : true
-                                                      },
-                                                      "unpressOnFocusLost" : false
+                                                      }
                                                    },
                                                    {
                                                       "_name" : "icon",
@@ -2859,7 +2841,7 @@
                                                    },
                                                    {
                                                       "_name" : "unitButton",
-                                                      "_typeName" : "ToggleButton",
+                                                      "_typeName" : "Button",
                                                       "position" : {
                                                          "_typeName" : "AligningOffset",
                                                          "horAlign" : 1,
@@ -2875,7 +2857,6 @@
                                                             "value" : 0
                                                          }
                                                       },
-                                                      "pressed" : false,
                                                       "skin" : {
                                                          "_typeName" : "SimpleRectangleButtonSkin",
                                                          "borderColor" : [ 0, 0, 0, 1 ],
@@ -2896,8 +2877,7 @@
                                                          "textColor" : [ 0, 0, 0, 1 ],
                                                          "textOutlineColor" : [ 1, 1, 1, 1 ],
                                                          "useGradient" : true
-                                                      },
-                                                      "unpressOnFocusLost" : false
+                                                      }
                                                    },
                                                    {
                                                       "_name" : "icon",
@@ -3086,7 +3066,7 @@
                                                    },
                                                    {
                                                       "_name" : "unitButton",
-                                                      "_typeName" : "ToggleButton",
+                                                      "_typeName" : "Button",
                                                       "position" : {
                                                          "_typeName" : "AligningOffset",
                                                          "horAlign" : 1,
@@ -3102,7 +3082,6 @@
                                                             "value" : 0
                                                          }
                                                       },
-                                                      "pressed" : false,
                                                       "skin" : {
                                                          "_typeName" : "SimpleRectangleButtonSkin",
                                                          "borderColor" : [ 0, 0, 0, 1 ],
@@ -3123,8 +3102,7 @@
                                                          "textColor" : [ 0, 0, 0, 1 ],
                                                          "textOutlineColor" : [ 1, 1, 1, 1 ],
                                                          "useGradient" : true
-                                                      },
-                                                      "unpressOnFocusLost" : false
+                                                      }
                                                    },
                                                    {
                                                       "_name" : "icon",
@@ -3313,7 +3291,7 @@
                                                    },
                                                    {
                                                       "_name" : "unitButton",
-                                                      "_typeName" : "ToggleButton",
+                                                      "_typeName" : "Button",
                                                       "position" : {
                                                          "_typeName" : "AligningOffset",
                                                          "horAlign" : 1,
@@ -3329,7 +3307,6 @@
                                                             "value" : 0
                                                          }
                                                       },
-                                                      "pressed" : false,
                                                       "skin" : {
                                                          "_typeName" : "SimpleRectangleButtonSkin",
                                                          "borderColor" : [ 0, 0, 0, 1 ],
@@ -3350,8 +3327,7 @@
                                                          "textColor" : [ 0, 0, 0, 1 ],
                                                          "textOutlineColor" : [ 1, 1, 1, 1 ],
                                                          "useGradient" : true
-                                                      },
-                                                      "unpressOnFocusLost" : false
+                                                      }
                                                    },
                                                    {
                                                       "_name" : "icon",
@@ -3645,6 +3621,522 @@
                            "textColor" : [ 0, 0, 0, 1 ],
                            "textOutlineColor" : [ 1, 1, 1, 1 ],
                            "useGradient" : false
+                        }
+                     },
+                     {
+                        "_name" : "mergeArmyWindow",
+                        "_typeName" : "CanvasLayout",
+                        "_visible" : false,
+                        "adjustment" : 0,
+                        "box" : {
+                           "_typeName" : "RelativeBox",
+                           "height" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 0,
+                              "value" : 0
+                           },
+                           "offset" : {
+                              "_empty" : true
+                           },
+                           "width" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 0,
+                              "value" : 0
+                           }
+                        },
+                        "list" : [
+                           {
+                              "_typeName" : "Backgrounded",
+                              "background" : {
+                                 "_typeName" : "StaticTextureRect",
+                                 "box" : {
+                                    "_typeName" : "RelativeBox",
+                                    "height" : {
+                                       "_typeName" : "RelativeValue",
+                                       "type" : 0,
+                                       "value" : 0
+                                    },
+                                    "offset" : {
+                                       "_empty" : true
+                                    },
+                                    "width" : {
+                                       "_typeName" : "RelativeValue",
+                                       "type" : 0,
+                                       "value" : 0
+                                    }
+                                 },
+                                 "color" : [ 1, 1, 1, 1 ],
+                                 "imageName" : ".\\orig.png",
+                                 "position" : {
+                                    "_typeName" : "AligningOffset",
+                                    "horAlign" : 1,
+                                    "horOffset" : {
+                                       "_typeName" : "RelativeValue",
+                                       "type" : 1,
+                                       "value" : 0
+                                    },
+                                    "vertAlign" : 1,
+                                    "vertOffset" : {
+                                       "_typeName" : "RelativeValue",
+                                       "type" : 1,
+                                       "value" : 0
+                                    }
+                                 }
+                              },
+                              "obj" : {
+                                 "_typeName" : "CanvasLayout",
+                                 "adjustment" : 0,
+                                 "box" : {
+                                    "_typeName" : "PixelBox",
+                                    "height" : 250,
+                                    "width" : 450
+                                 },
+                                 "list" : [
+                                    {
+                                       "_name" : "shopWindow",
+                                       "_typeName" : "CanvasLayout",
+                                       "adjustment" : 0,
+                                       "box" : {
+                                          "_typeName" : "RelativeBox",
+                                          "height" : {
+                                             "_typeName" : "RelativeValue",
+                                             "type" : 1,
+                                             "value" : 420
+                                          },
+                                          "offset" : {
+                                             "_empty" : true
+                                          },
+                                          "width" : {
+                                             "_typeName" : "RelativeValue",
+                                             "type" : 0,
+                                             "value" : 0
+                                          }
+                                       },
+                                       "list" : [
+                                          {
+                                             "_typeName" : "Backgrounded",
+                                             "background" : {
+                                                "_typeName" : "StaticFilledRect",
+                                                "box" : {
+                                                   "_typeName" : "RelativeBox",
+                                                   "height" : {
+                                                      "_typeName" : "RelativeValue",
+                                                      "type" : 0,
+                                                      "value" : 0
+                                                   },
+                                                   "offset" : {
+                                                      "_empty" : true
+                                                   },
+                                                   "width" : {
+                                                      "_typeName" : "RelativeValue",
+                                                      "type" : 0,
+                                                      "value" : 0
+                                                   }
+                                                },
+                                                "color" : [ 0, 0, 0, 0 ],
+                                                "position" : {
+                                                   "_typeName" : "AligningOffset",
+                                                   "horAlign" : 1,
+                                                   "horOffset" : {
+                                                      "_typeName" : "RelativeValue",
+                                                      "type" : 1,
+                                                      "value" : 0
+                                                   },
+                                                   "vertAlign" : 1,
+                                                   "vertOffset" : {
+                                                      "_typeName" : "RelativeValue",
+                                                      "type" : 1,
+                                                      "value" : 0
+                                                   }
+                                                }
+                                             },
+                                             "obj" : {
+                                                "_typeName" : "LinearLayout",
+                                                "list" : [
+                                                   {
+                                                      "_name" : "place",
+                                                      "_typeName" : "StaticLabel",
+                                                      "adjustSize" : true,
+                                                      "box" : {
+                                                         "_typeName" : "RelativeBox",
+                                                         "height" : {
+                                                            "_typeName" : "RelativeValue",
+                                                            "type" : 0,
+                                                            "value" : 0
+                                                         },
+                                                         "offset" : {
+                                                            "_empty" : true
+                                                         },
+                                                         "width" : {
+                                                            "_typeName" : "RelativeValue",
+                                                            "type" : 0,
+                                                            "value" : 0
+                                                         }
+                                                      },
+                                                      "color" : [ 0, 0, 0, 1 ],
+                                                      "outlineColor" : [ 1, 1, 1, 1 ],
+                                                      "position" : {
+                                                         "_typeName" : "AligningOffset",
+                                                         "horAlign" : 1,
+                                                         "horOffset" : {
+                                                            "_typeName" : "RelativeValue",
+                                                            "type" : 1,
+                                                            "value" : 0
+                                                         },
+                                                         "vertAlign" : 0,
+                                                         "vertOffset" : {
+                                                            "_typeName" : "RelativeValue",
+                                                            "type" : 1,
+                                                            "value" : 0
+                                                         }
+                                                      },
+                                                      "properties" : {
+                                                         "_typeName" : "AlignProperties",
+                                                         "enableStacking" : false,
+                                                         "font" : {
+                                                            "_typeName" : "FontDesc",
+                                                            "family" : "Roboto",
+                                                            "size" : 28
+                                                         },
+                                                         "horAlign" : 0,
+                                                         "vertAlign" : 0
+                                                      },
+                                                      "text" : "В город"
+                                                   },
+                                                   {
+                                                      "_typeName" : "LinearLayout",
+                                                      "list" : [
+                                                         {
+                                                            "_name" : "more_units",
+                                                            "_typeName" : "Button",
+                                                            "position" : {
+                                                               "_typeName" : "AligningOffset",
+                                                               "horAlign" : 0,
+                                                               "horOffset" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 1,
+                                                                  "value" : 0
+                                                               },
+                                                               "vertAlign" : 1,
+                                                               "vertOffset" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 1,
+                                                                  "value" : 0
+                                                               }
+                                                            },
+                                                            "skin" : {
+                                                               "_typeName" : "SimpleRectangleButtonSkin",
+                                                               "borderColor" : [ 0, 0, 0, 1 ],
+                                                               "borderWidth" : 1,
+                                                               "box" : {
+                                                                  "_typeName" : "PixelBox",
+                                                                  "height" : 48,
+                                                                  "width" : 48
+                                                               },
+                                                               "fillColor" : [ 0.7843137383460999, 0.7843137383460999, 0.7843137383460999, 1 ],
+                                                               "font" : {
+                                                                  "_typeName" : "FontDesc",
+                                                                  "family" : "Roboto",
+                                                                  "outlineWidth" : 1,
+                                                                  "size" : 28
+                                                               },
+                                                               "text" : "+",
+                                                               "textColor" : [ 0, 0, 0, 1 ],
+                                                               "textOutlineColor" : [ 1, 1, 1, 1 ],
+                                                               "useGradient" : true
+                                                            }
+                                                         },
+                                                         {
+                                                            "_name" : "unitNum",
+                                                            "_typeName" : "TextBox",
+                                                            "filter" : {
+                                                               "_empty" : true
+                                                            },
+                                                            "position" : {
+                                                               "_typeName" : "AligningOffset",
+                                                               "horAlign" : 0,
+                                                               "horOffset" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 1,
+                                                                  "value" : 20
+                                                               },
+                                                               "vertAlign" : 1,
+                                                               "vertOffset" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 1,
+                                                                  "value" : 0
+                                                               }
+                                                            },
+                                                            "skin" : {
+                                                               "_typeName" : "SimpleRectangleTextBoxSkin",
+                                                               "borderColor" : [ 0.9843137264251709, 0.501960813999176, 0, 1 ],
+                                                               "borderWidth" : 1,
+                                                               "box" : {
+                                                                  "_typeName" : "PixelBox",
+                                                                  "height" : 48,
+                                                                  "width" : 150
+                                                               },
+                                                               "fillColor" : [ 1, 1, 1, 1 ],
+                                                               "font" : {
+                                                                  "_typeName" : "FontDesc",
+                                                                  "family" : "Roboto",
+                                                                  "size" : 28
+                                                               },
+                                                               "selectionColor" : [ 0.7450980544090271, 0.8235294222831726, 1, 1 ],
+                                                               "textColor" : [ 0, 0, 1, 1 ],
+                                                               "textOutlineColor" : [ 0.9843137264251709, 0.501960813999176, 0, 1 ]
+                                                            },
+                                                            "text" : "0"
+                                                         },
+                                                         {
+                                                            "_name" : "min_units",
+                                                            "_typeName" : "Button",
+                                                            "position" : {
+                                                               "_typeName" : "AligningOffset",
+                                                               "horAlign" : 0,
+                                                               "horOffset" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 1,
+                                                                  "value" : 20
+                                                               },
+                                                               "vertAlign" : 1,
+                                                               "vertOffset" : {
+                                                                  "_typeName" : "RelativeValue",
+                                                                  "type" : 1,
+                                                                  "value" : 0
+                                                               }
+                                                            },
+                                                            "skin" : {
+                                                               "_typeName" : "SimpleRectangleButtonSkin",
+                                                               "borderColor" : [ 0, 0, 0, 1 ],
+                                                               "borderWidth" : 1,
+                                                               "box" : {
+                                                                  "_typeName" : "PixelBox",
+                                                                  "height" : 48,
+                                                                  "width" : 48
+                                                               },
+                                                               "fillColor" : [ 0.7843137383460999, 0.7843137383460999, 0.7843137383460999, 1 ],
+                                                               "font" : {
+                                                                  "_typeName" : "FontDesc",
+                                                                  "family" : "Roboto",
+                                                                  "outlineWidth" : 1,
+                                                                  "size" : 28
+                                                               },
+                                                               "text" : "-",
+                                                               "textColor" : [ 0, 0, 0, 1 ],
+                                                               "textOutlineColor" : [ 1, 1, 1, 1 ],
+                                                               "useGradient" : true
+                                                            }
+                                                         }
+                                                      ],
+                                                      "position" : {
+                                                         "_typeName" : "AligningOffset",
+                                                         "horAlign" : 1,
+                                                         "horOffset" : {
+                                                            "_typeName" : "RelativeValue",
+                                                            "type" : 1,
+                                                            "value" : 0
+                                                         },
+                                                         "vertAlign" : 0,
+                                                         "vertOffset" : {
+                                                            "_typeName" : "RelativeValue",
+                                                            "type" : 1,
+                                                            "value" : -20
+                                                         }
+                                                      },
+                                                      "skin" : {
+                                                         "_typeName" : "HorizontalLayoutSkin",
+                                                         "adjustment" : 1,
+                                                         "align" : 1,
+                                                         "box" : {
+                                                            "_typeName" : "RelativeBox",
+                                                            "height" : {
+                                                               "_typeName" : "RelativeValue",
+                                                               "type" : 0,
+                                                               "value" : 0
+                                                            },
+                                                            "offset" : {
+                                                               "_empty" : true
+                                                            },
+                                                            "width" : {
+                                                               "_typeName" : "RelativeValue",
+                                                               "type" : 0,
+                                                               "value" : 0
+                                                            }
+                                                         },
+                                                         "padding" : {
+                                                            "_typeName" : "RelativeValue",
+                                                            "type" : 1,
+                                                            "value" : 20
+                                                         }
+                                                      },
+                                                      "skipInvisibleElements" : false
+                                                   },
+                                                   {
+                                                      "_name" : "sendArmyButton",
+                                                      "_typeName" : "Button",
+                                                      "position" : {
+                                                         "_typeName" : "AligningOffset",
+                                                         "horAlign" : 1,
+                                                         "horOffset" : {
+                                                            "_typeName" : "RelativeValue",
+                                                            "type" : 1,
+                                                            "value" : 0
+                                                         },
+                                                         "vertAlign" : 0,
+                                                         "vertOffset" : {
+                                                            "_typeName" : "RelativeValue",
+                                                            "type" : 1,
+                                                            "value" : -20
+                                                         }
+                                                      },
+                                                      "skin" : {
+                                                         "_typeName" : "SimpleRectangleButtonSkin",
+                                                         "borderColor" : [ 0, 0, 0, 1 ],
+                                                         "borderWidth" : 1,
+                                                         "box" : {
+                                                            "_typeName" : "PixelBox",
+                                                            "height" : 48,
+                                                            "width" : 300
+                                                         },
+                                                         "fillColor" : [ 0.7843137383460999, 0.7843137383460999, 0.7843137383460999, 1 ],
+                                                         "font" : {
+                                                            "_typeName" : "FontDesc",
+                                                            "family" : "Roboto",
+                                                            "outlineWidth" : 1,
+                                                            "size" : 28
+                                                         },
+                                                         "text" : "Отправить",
+                                                         "textColor" : [ 0, 0, 0, 1 ],
+                                                         "textOutlineColor" : [ 1, 1, 1, 1 ],
+                                                         "useGradient" : true
+                                                      }
+                                                   }
+                                                ],
+                                                "position" : {
+                                                   "_typeName" : "AligningOffset",
+                                                   "horAlign" : 1,
+                                                   "horOffset" : {
+                                                      "_typeName" : "RelativeValue",
+                                                      "type" : 1,
+                                                      "value" : 0
+                                                   },
+                                                   "vertAlign" : 1,
+                                                   "vertOffset" : {
+                                                      "_typeName" : "RelativeValue",
+                                                      "type" : 1,
+                                                      "value" : 0
+                                                   }
+                                                },
+                                                "skin" : {
+                                                   "_typeName" : "VerticalLayoutSkin",
+                                                   "adjustment" : 1,
+                                                   "align" : 1,
+                                                   "box" : {
+                                                      "_typeName" : "RelativeBox",
+                                                      "height" : {
+                                                         "_typeName" : "RelativeValue",
+                                                         "type" : 0,
+                                                         "value" : 0
+                                                      },
+                                                      "offset" : {
+                                                         "_empty" : true
+                                                      },
+                                                      "width" : {
+                                                         "_typeName" : "RelativeValue",
+                                                         "type" : 0,
+                                                         "value" : 0
+                                                      }
+                                                   },
+                                                   "padding" : {
+                                                      "_typeName" : "RelativeValue",
+                                                      "type" : 1,
+                                                      "value" : -20
+                                                   }
+                                                },
+                                                "skipInvisibleElements" : false
+                                             },
+                                             "position" : {
+                                                "_typeName" : "AligningOffset",
+                                                "horAlign" : 1,
+                                                "horOffset" : {
+                                                   "_typeName" : "RelativeValue",
+                                                   "type" : 1,
+                                                   "value" : 0
+                                                },
+                                                "vertAlign" : 1,
+                                                "vertOffset" : {
+                                                   "_typeName" : "RelativeValue",
+                                                   "type" : 1,
+                                                   "value" : 0
+                                                }
+                                             }
+                                          }
+                                       ],
+                                       "position" : {
+                                          "_typeName" : "AligningOffset",
+                                          "horAlign" : 1,
+                                          "horOffset" : {
+                                             "_typeName" : "RelativeValue",
+                                             "type" : 1,
+                                             "value" : 0
+                                          },
+                                          "vertAlign" : 1,
+                                          "vertOffset" : {
+                                             "_typeName" : "RelativeValue",
+                                             "type" : 1,
+                                             "value" : 0
+                                          }
+                                       }
+                                    }
+                                 ],
+                                 "position" : {
+                                    "_typeName" : "AligningOffset",
+                                    "horAlign" : 1,
+                                    "horOffset" : {
+                                       "_typeName" : "RelativeValue",
+                                       "type" : 1,
+                                       "value" : 0
+                                    },
+                                    "vertAlign" : 1,
+                                    "vertOffset" : {
+                                       "_typeName" : "RelativeValue",
+                                       "type" : 1,
+                                       "value" : 0
+                                    }
+                                 }
+                              },
+                              "position" : {
+                                 "_typeName" : "AligningOffset",
+                                 "horAlign" : 1,
+                                 "horOffset" : {
+                                    "_typeName" : "RelativeValue",
+                                    "type" : 1,
+                                    "value" : 0
+                                 },
+                                 "vertAlign" : 1,
+                                 "vertOffset" : {
+                                    "_typeName" : "RelativeValue",
+                                    "type" : 1,
+                                    "value" : 0
+                                 }
+                              }
+                           }
+                        ],
+                        "position" : {
+                           "_typeName" : "AligningOffset",
+                           "horAlign" : 1,
+                           "horOffset" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 1,
+                              "value" : 0
+                           },
+                           "vertAlign" : 1,
+                           "vertOffset" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 1,
+                              "value" : 0
+                           }
                         }
                      }
                   ],
