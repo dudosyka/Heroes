@@ -239,11 +239,12 @@ class MyApp : public App
 		}
 	}
 
-	void loadArmyCastle(Army army)
+	void loadArmyCastle(Army army, GameObj castle)
 	{
 		for (int i = 0; i < 6; i++)
 		{
 			auto unitstats = design.child<Layout>("unitstatscastle" + toString(i + 1));
+			connect(unitstats.child<ToggleButton>("unitButton"), merge_units, i, army.units[i].n, false, castle);
 			auto icon = unitstats.child<Texture>("icon");
 			auto label = unitstats.child<Label>("label");
 			icon.setImageName(army.units[i].type.icon_name);
@@ -251,11 +252,12 @@ class MyApp : public App
 		}
 	}
 
-	void loadArmyHeroCastle(Army army)
+	void loadArmyHeroCastle(Army army, GameObj castle)
 	{
 		for (int i = 0; i < 6; i++)
 		{
 			auto unitstats = design.child<Layout>("unitstatsherocastle" + toString(i + 1));
+			connect(unitstats.child<ToggleButton>("unitButton"), merge_units, i, army.units[i].n, true, castle);
 			auto icon = unitstats.child<Texture>("icon");
 			auto label = unitstats.child<Label>("label");
 			icon.setImageName(army.units[i].type.icon_name);
@@ -277,6 +279,50 @@ class MyApp : public App
 	}
 
 	//void chestMenu
+
+	struct merge_object
+	{
+		bool isSelect = false;
+		int n = 0;
+		int num = 0;
+		bool fromHero = false;
+	};
+
+	merge_object merge_obj;
+
+	void merge_units(int n, int num, bool fromHero, GameObj castle)
+	{
+		if (merge_obj.isSelect)
+		{
+			if (n == merge_obj.n)
+			{
+				if (merge_obj.fromHero)
+				{
+					rec.data(castle).protectCastleArmy.units[n].n += playerLayer.data(playerLayer.get(0)).army.units[n].n;
+					playerLayer.data(playerLayer.get(0)).army.units[n].n = 0;
+					design.child<Layout>("unitstatsherocastle" + toString(merge_obj.n + 1)).child<ToggleButton>("unitButton").unpress();
+					design.child<Layout>("unitstatscastle" + toString(n + 1)).child<ToggleButton>("unitButton").unpress();
+				}
+				else
+				{
+					playerLayer.data(playerLayer.get(0)).army.units[n].n += rec.data(castle).protectCastleArmy.units[n].n;
+					rec.data(castle).protectCastleArmy.units[n].n = 0;
+					design.child<Layout>("unitstatsherocastle" + toString(n + 1)).child<ToggleButton>("unitButton").unpress();
+					design.child<Layout>("unitstatscastle" + toString(merge_obj.n + 1)).child<ToggleButton>("unitButton").unpress();
+				}
+				merge_obj.isSelect = false;
+				loadArmyHeroCastle(playerLayer.data(playerLayer.get(0)).army, castle);
+				loadArmyCastle(rec.data(castle).protectCastleArmy, castle);
+			}
+		}
+		else
+		{
+			merge_obj.isSelect = true;
+			merge_obj.n = n;
+			merge_obj.num = num;
+			merge_obj.fromHero = fromHero;
+		}
+	}
 
 	void load()
 	{
@@ -1758,8 +1804,8 @@ class MyApp : public App
 		if (place == main)
 		{
 			selector.select(0);
-			loadArmyCastle(rec.data(castle).protectCastleArmy);
-			loadArmyHeroCastle(playerLayer.data(playerLayer.get(0)).army);
+			loadArmyCastle(rec.data(castle).protectCastleArmy, castle);
+			loadArmyHeroCastle(playerLayer.data(playerLayer.get(0)).army, castle);
 			design.update();
 		}
 		else if (place == getArmy)
@@ -1888,10 +1934,15 @@ class MyApp : public App
 		//design.child<Layout>("heroArmyCastle").clear();
 		if (rec.data(castle).heroInCastle)
 		{
-			loadArmyHeroCastle(playerLayer.data(playerLayer.get(0)).army);
+			loadArmyHeroCastle(playerLayer.data(playerLayer.get(0)).army, castle);
+			design.child<Layout>("heroIcon").child<Texture>("icon").setImageName("player_icon.png");
+		}
+		else
+		{
+			design.child<Layout>("heroArmyCastle").hide();
 		}
 		connect(cm.child<Button>("closeCastleMenu"), CloseCastleMenu, castle);
-		loadArmyCastle(rec.data(castle).protectCastleArmy);
+		loadArmyCastle(rec.data(castle).protectCastleArmy, castle);
 		auto cmSelector = cm.child<Selector>("castleMenuSelector");
 		connect(cm.child<Button>("backToMain"), changeCastleMenuSelector, cmSelector, main, castle);
 		connect(cm.child<Button>("getArmyButton"), changeCastleMenuSelector, cmSelector, getArmy, castle);
