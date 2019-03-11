@@ -141,7 +141,7 @@ class MyApp : public App
 		},
 	};
 
-	struct unit
+	struct Unit
 	{
 		int n;
 		unitType type;
@@ -150,7 +150,7 @@ class MyApp : public App
 	struct Army
 	{
 		ownerType owner;
-		vector <unit> units;
+		vector <Unit> units;
 	};
 	//djsifefhwefhihiwefihwehfhwhefihweuhfwhehfewhfhiewihfiwehfhweuihfwhfwhefhiwehfiwehfheuihfwiuhfewhfhiewhfuhweihfwhefhewfhweifhwehifhewieuwhfefhiwehfifuweiuhfiwhfiuehiewihfwehfheuwhifwhifewhifewh
 	enum class IsBuild
@@ -220,6 +220,13 @@ class MyApp : public App
 		IntVec2 cords;
 	};
 
+	struct unitsData
+	{
+		Unit unit;
+		ownerType owner;
+		IntVec2 cords;
+	};
+
 	enum grass
 	{
 		grassDark,
@@ -233,10 +240,10 @@ class MyApp : public App
 		Army army;
 		for (auto armyUnit : newArmy)
 		{
-			unit Unit;
-			Unit.type = allTypes[armyUnit.first];
-			Unit.n = armyUnit.second;
-			army.units.push_back(Unit);
+			Unit unit;
+			unit.type = allTypes[armyUnit.first];
+			unit.n = armyUnit.second;
+			army.units.push_back(unit);
 		}
 		return army;
 	}
@@ -536,7 +543,7 @@ class MyApp : public App
 						{ unitType::angel, 1000 } }
 					);
 					/*auto& parmy = player.army;
-					unit Unit;
+					Unit Unit;
 					Unit.type = allTypes[0];
 					Unit.n = 20;
 					parmy.units.push_back()*/
@@ -2125,6 +2132,37 @@ class MyApp : public App
 		heroMenu.hide();
 	}
 
+	void placeArmy(Army army, bool isLeft)
+	{
+		int y = 0;
+		for (auto unit : army.units)
+		{
+			if (unit.n != 0)
+			{
+				int x = 5;
+				if (isLeft)
+				{
+					x = 0;
+				}
+				auto uunitObj = units.load("unit.json", x * 150, y * 150);
+				if (isLeft)
+				{
+					uunitObj.child<GameObj>("fightUnitImg").setScaleX(-1);
+				}
+				uunitObj.child<GameObj>("fightUnitImg").skin<Texture>().setImageName(allTypes[y].img_name);
+				auto& udata = units.data(uunitObj);
+				udata.owner = army.owner;
+				udata.unit.n = unit.n;
+				uunitObj.child<Label>("fightUnitNum") << udata.unit.n;
+				udata.cords.x = x;
+				udata.cords.y = y;
+				udata.unit.type = unit.type;
+				fight_field_map[x][y] = uunitObj.id();
+			}
+			y++;
+		}
+	}
+
     void move()
      {
 		GOld << " : " << gold;
@@ -2209,6 +2247,7 @@ class MyApp : public App
 					if (target == Target::fight)
 					{
 						selector.select(3);
+						design.child<Layout>("statusBar").hide();
 						map<Color, int> colorToTypeGround = {
 							{ Color(165, 0, 255), grassDark },
 						};
@@ -2220,10 +2259,13 @@ class MyApp : public App
 								if (fight_field_map[x][y] == grassDark)
 								{
 									fight_ground.load("grass.json", x * 150, y * 150);
+									fight_field_map[x][y] = -1;
 								}
 							}
 						}
-						fight_field.setView(fight_field_map.w / 2 * 150, fight_field_map.h / 2 * 150);
+						fight_field.setView(fight_field_map.w / 2 * 150 - 75, fight_field_map.h / 2 * 150 - 75);
+						placeArmy(playerLayer.data(playerLayer.get(0)).army, true);
+						placeArmy(neutrals.data(Neutral).army, false);
 						target = Target::none;
 					}
 				}
@@ -2336,6 +2378,7 @@ class MyApp : public App
 	LayerFromDesign(void, mobs);
 	LayerFromDesign(void, ground);
 	LayerFromDesign(void, fight_ground);
+	LayerFromDesign(unitsData, units);
 	LayerFromDesign(void, forest);
 	LayerFromDesign(playerData, playerLayer);
 	LayerFromDesign(recData, rec);
@@ -2353,3 +2396,13 @@ int main(int argc, char** argv)
     app.run();
     return 0;
 }
+
+
+
+
+
+
+
+
+
+

@@ -21,14 +21,103 @@
       "clickTime" : 500
    },
    "skin" : {
-      "_typeName" : "StaticTextureRect",
+      "_typeName" : "CanvasLayout",
+      "adjustment" : 0,
       "box" : {
          "_typeName" : "PixelBox",
          "height" : 150,
          "width" : 150
       },
-      "color" : [ 1, 1, 1, 1 ],
-      "imageName" : ".\\Angel.png",
+      "list" : [
+         {
+            "_name" : "fightUnitImg",
+            "_typeName" : "ObjectConstruct",
+            "animations" : [],
+            "finder" : {
+               "_typeName" : "FindableGeometryElement",
+               "geom" : {
+                  "_typeName" : "IdenticGeometry"
+               }
+            },
+            "id" : 0,
+            "position" : {
+               "_typeName" : "PositionElement",
+               "angle" : 0,
+               "offset" : [ 0, 0 ],
+               "scaleX" : 1,
+               "scaleY" : 1
+            },
+            "selector" : {
+               "_typeName" : "PressableAndClickableElement",
+               "clickTime" : 500
+            },
+            "skin" : {
+               "_typeName" : "StaticTextureRect",
+               "box" : {
+                  "_typeName" : "PixelBox",
+                  "height" : 150,
+                  "width" : 150
+               },
+               "color" : [ 1, 1, 1, 1 ],
+               "imageName" : ".\\Angel.png",
+               "position" : {
+                  "_typeName" : "AligningOffset",
+                  "horAlign" : 1,
+                  "horOffset" : {
+                     "_typeName" : "RelativeValue",
+                     "type" : 1,
+                     "value" : 0
+                  },
+                  "vertAlign" : 1,
+                  "vertOffset" : {
+                     "_typeName" : "RelativeValue",
+                     "type" : 1,
+                     "value" : 0
+                  }
+               }
+            },
+            "transitionAnimations" : []
+         },
+         {
+            "_name" : "fightUnitNum",
+            "_typeName" : "StaticLabel",
+            "adjustSize" : true,
+            "box" : {
+               "_typeName" : "PixelBox",
+               "height" : 100,
+               "width" : 100
+            },
+            "color" : [ 0, 0, 0, 1 ],
+            "outlineColor" : [ 1, 1, 1, 1 ],
+            "position" : {
+               "_typeName" : "AligningOffset",
+               "horAlign" : 2,
+               "horOffset" : {
+                  "_typeName" : "RelativeValue",
+                  "type" : 1,
+                  "value" : -10
+               },
+               "vertAlign" : 2,
+               "vertOffset" : {
+                  "_typeName" : "RelativeValue",
+                  "type" : 1,
+                  "value" : 10
+               }
+            },
+            "properties" : {
+               "_typeName" : "AlignProperties",
+               "enableStacking" : false,
+               "font" : {
+                  "_typeName" : "FontDesc",
+                  "family" : "Roboto",
+                  "size" : 28
+               },
+               "horAlign" : 0,
+               "vertAlign" : 2
+            },
+            "text" : "100"
+         }
+      ],
       "position" : {
          "_typeName" : "AligningOffset",
          "horAlign" : 1,

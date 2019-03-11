@@ -3943,31 +3943,19 @@
                   },
                   "list" : [
                      {
-                        "_name" : "enemies",
-                        "_typeName" : "Layer",
-                        "index" : {
-                           "_typeName" : "FlatIndex",
-                           "keyType" : 2
-                        },
-                        "list" : [],
-                        "order" : {
-                           "_typeName" : "SortByIDOrder"
-                        }
-                     },
-                     {
-                        "_name" : "friends",
-                        "_typeName" : "Layer",
-                        "index" : {
-                           "_typeName" : "FlatIndex",
-                           "keyType" : 2
-                        },
-                        "list" : [],
-                        "order" : {
-                           "_typeName" : "SortByIDOrder"
-                        }
-                     },
-                     {
                         "_name" : "fight_ground",
+                        "_typeName" : "Layer",
+                        "index" : {
+                           "_typeName" : "FlatIndex",
+                           "keyType" : 2
+                        },
+                        "list" : [],
+                        "order" : {
+                           "_typeName" : "SortByIDOrder"
+                        }
+                     },
+                     {
+                        "_name" : "units",
                         "_typeName" : "Layer",
                         "index" : {
                            "_typeName" : "FlatIndex",
