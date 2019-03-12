@@ -1,11 +1,14 @@
 #include <gamebase/Gamebase.h>
 
+#include <algorithm>
 using namespace gamebase;
 using namespace std;
 
 class MyApp : public App
 {
 	int gold, skill, ore, gems, sera, wood;
+
+	bool isFighting = false;
 
 	int days;
 
@@ -840,6 +843,14 @@ class MyApp : public App
 		{
 			close();
 		}
+
+		if (isFighting)
+		{
+			if (input.justPressed(MouseLeft))
+			{
+				return;
+			}			
+		}
 		if (input.justPressed(MouseLeft)/* && !impl::isMouseOn(castle_menu.getImpl().get()) */&& forWindow.empty() && playerLayer.get(0).anim.isEmpty() && !impl::isMouseOn(Relog.getImpl().get()) && !impl::isMouseOn(newDirection.getImpl().get()) && !impl::isMouseOn(heroMenu.getImpl().get()) && !heroMenuOpen)
 		{
 			if (stepPoints <= 0)
@@ -987,6 +998,145 @@ class MyApp : public App
 					if (start.y < finish.y)
 					{
 						finish = { finish.x, finish.y-1 };
+					}
+				}
+			}
+		}
+		w = dmap[finish];
+		cur = finish;
+		if (finish == start)
+		{
+			return {};
+		}
+		deque <IntVec2> direction = {};
+		while (true)
+		{
+			if (w == 0)
+			{
+				return direction;
+			}
+			/*if (w == 2000000001)
+			{
+				return direction;
+			}*/
+			direction.push_front(cur);
+			if (cur.x > 0 && w > dmap[cur.x - 1][cur.y])
+			{
+				w--;
+				cur.x--;
+				continue;
+			}
+			if (cur.y < dmap.h - 1 && w > dmap[cur.x][cur.y + 1])
+			{
+				w--;
+				cur.y++;
+				continue;
+			}
+			if (dmap.w > cur.x + 1 && w > dmap[cur.x + 1][cur.y])
+			{
+				w--;
+				cur.x++;
+				continue;
+			}
+			if (cur.y > 0 && w > dmap[cur.x][cur.y - 1])
+			{
+				w--;
+				cur.y--;
+				continue;
+			}
+		}
+	}
+
+	enum class FightTarget
+	{
+		none, unit
+	};
+
+	FightTarget fightTarget;
+
+	deque <IntVec2> fight_route(IntVec2 start, IntVec2 finish)
+	{
+		GameMap dmap;
+		deque <IntVec2> queue;
+		dmap = createMap(fight_field_map.w, fight_field_map.h);
+		fightTarget = FightTarget::none;
+		if (fight_field_map[finish] != grassDark)
+		{
+			fightTarget = FightTarget::unit;
+		}
+		else
+		{
+			fightTarget = FightTarget::none;
+		}
+		for (int x = 0; x < dmap.w; x++)
+		{
+			for (int y = 0; y < dmap.h; y++)
+			{
+				dmap[x][y] = 2000000001;
+			}
+		}
+		dmap[start] = 0;
+		queue.push_front(start);
+		IntVec2 cur = start;
+		int w = 0;
+		while (true)
+		{
+			w = dmap[cur.x][cur.y] + 1;
+			if (dmap.w > cur.x + 1 && dmap[cur.x + 1][cur.y] > w && fight_field_map[cur.x + 1][cur.y] == noneRec)
+			{
+				queue.emplace_front(cur.x + 1, cur.y);
+				dmap[cur.x + 1][cur.y] = w;
+			}
+			if (cur.y > 0 && dmap[cur.x][cur.y - 1] > dmap[cur.x][cur.y] && fight_field_map[cur.x][cur.y - 1] == noneRec)
+			{
+				queue.emplace_front(cur.x, cur.y - 1);
+				dmap[cur.x][cur.y - 1] = w;
+			}
+			if (cur.x > 0 && dmap[cur.x - 1][cur.y] > dmap[cur.x][cur.y] && fight_field_map[cur.x - 1][cur.y] == noneRec)
+			{
+				queue.emplace_front(cur.x - 1, cur.y);
+				dmap[cur.x - 1][cur.y] = w;
+			}
+			if (cur.y < dmap.h - 1 && dmap[cur.x][cur.y + 1] > dmap[cur.x][cur.y] && fight_field_map[cur.x][cur.y + 1] == noneRec)
+			{
+				queue.emplace_front(cur.x, cur.y + 1);
+				dmap[cur.x][cur.y + 1] = w;
+			}
+			queue.pop_back();
+			if (queue.empty())
+			{
+				break;
+			}
+			cur = queue.back();
+		}
+		if (dmap[finish] == 2000000001)
+		{
+			if (fightTarget == FightTarget::none)
+			{
+				return {};
+			}
+			else
+			{
+				while (dmap[finish] == 2000000001)
+				{
+					if (start.x > finish.x)
+					{
+						IntVec2 newFinish;
+						newFinish.x = finish.x + 1;
+						newFinish.y = finish.y;
+						finish = newFinish;
+					}
+					if (start.x < finish.x)
+					{
+						finish = { finish.x - 1, finish.y };
+					}
+					if (start.y > finish.y)
+					{
+						finish = { finish.x, finish.y + 1 };
+					}
+					if (start.y < finish.y)
+					{
+						finish = { finish.x, finish.y - 1 };
 					}
 				}
 			}
@@ -2163,6 +2313,25 @@ class MyApp : public App
 		}
 	}
 
+	bool comp(pair <int, int> a, pair <int, int> b)
+	{
+		return (a.second < b.second);
+	}
+
+	vector <pair <int, int>> make_fight_queue (Army army)
+	{
+		vector <pair <int, int>> queue;
+		for (auto unit : army.units)
+		{
+			pair <int, int> p;
+			p.first = unit.type.initiative;
+			p.second = unit.type.type;
+			queue.push_back(p);
+		}
+		sort(queue.begin(), queue.end());
+		return queue;
+	}
+
     void move()
      {
 		GOld << " : " << gold;
@@ -2266,6 +2435,8 @@ class MyApp : public App
 						fight_field.setView(fight_field_map.w / 2 * 150 - 75, fight_field_map.h / 2 * 150 - 75);
 						placeArmy(playerLayer.data(playerLayer.get(0)).army, true);
 						placeArmy(neutrals.data(Neutral).army, false);
+						vector <pair <int, int>> fight_queue = make_fight_queue(playerLayer.data(playerLayer.get(0)).army);
+						isFighting = true;
 						target = Target::none;
 					}
 				}
@@ -2396,13 +2567,3 @@ int main(int argc, char** argv)
     app.run();
     return 0;
 }
-
-
-
-
-
-
-
-
-
-

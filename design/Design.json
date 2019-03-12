@@ -39,7 +39,7 @@
                "value" : 0
             }
          },
-         "currentID" : 1,
+         "currentID" : 3,
          "objects" : [
             {
                "_key" : 0,
@@ -3965,6 +3965,18 @@
                         "order" : {
                            "_typeName" : "SortByIDOrder"
                         }
+                     },
+                     {
+                        "_name" : "queue",
+                        "_typeName" : "Layer",
+                        "index" : {
+                           "_typeName" : "FlatIndex",
+                           "keyType" : 2
+                        },
+                        "list" : [],
+                        "order" : {
+                           "_typeName" : "SortByIDOrder"
+                        }
                      }
                   ],
                   "position" : {
@@ -4004,6 +4016,7 @@
       {
          "_name" : "statusBar",
          "_typeName" : "CanvasLayout",
+         "_visible" : false,
          "adjustment" : 0,
          "box" : {
             "_typeName" : "RelativeBox",

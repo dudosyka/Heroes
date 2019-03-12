@@ -1,0 +1,145 @@
+{
+   "_typeName" : "ObjectConstruct",
+   "_version" : "VER3",
+   "animations" : [],
+   "finder" : {
+      "_typeName" : "FindableGeometryElement",
+      "geom" : {
+         "_typeName" : "IdenticGeometry"
+      }
+   },
+   "id" : 0,
+   "position" : {
+      "_typeName" : "PositionElement",
+      "angle" : 0,
+      "offset" : [ 0, 0 ],
+      "scaleX" : 1,
+      "scaleY" : 1
+   },
+   "selector" : {
+      "_typeName" : "PressableAndClickableElement",
+      "clickTime" : 500
+   },
+   "skin" : {
+      "_typeName" : "CanvasLayout",
+      "adjustment" : 0,
+      "box" : {
+         "_typeName" : "PixelBox",
+         "height" : 100,
+         "width" : 100
+      },
+      "list" : [
+         {
+            "_typeName" : "StaticFilledRect",
+            "box" : {
+               "_typeName" : "RelativeBox",
+               "height" : {
+                  "_typeName" : "RelativeValue",
+                  "type" : 0,
+                  "value" : 0
+               },
+               "offset" : {
+                  "_empty" : true
+               },
+               "width" : {
+                  "_typeName" : "RelativeValue",
+                  "type" : 0,
+                  "value" : 0
+               }
+            },
+            "color" : [ 0, 0, 0, 1 ],
+            "position" : {
+               "_typeName" : "AligningOffset",
+               "horAlign" : 1,
+               "horOffset" : {
+                  "_typeName" : "RelativeValue",
+                  "type" : 1,
+                  "value" : 0
+               },
+               "vertAlign" : 1,
+               "vertOffset" : {
+                  "_typeName" : "RelativeValue",
+                  "type" : 1,
+                  "value" : 0
+               }
+            }
+         },
+         {
+            "_typeName" : "StaticFilledRect",
+            "box" : {
+               "_typeName" : "RelativeBox",
+               "height" : {
+                  "_typeName" : "RelativeValue",
+                  "type" : 3,
+                  "value" : 2
+               },
+               "offset" : {
+                  "_empty" : true
+               },
+               "width" : {
+                  "_typeName" : "RelativeValue",
+                  "type" : 3,
+                  "value" : 2
+               }
+            },
+            "color" : [ 1, 1, 1, 1 ],
+            "position" : {
+               "_typeName" : "AligningOffset",
+               "horAlign" : 1,
+               "horOffset" : {
+                  "_typeName" : "RelativeValue",
+                  "type" : 1,
+                  "value" : 0
+               },
+               "vertAlign" : 1,
+               "vertOffset" : {
+                  "_typeName" : "RelativeValue",
+                  "type" : 1,
+                  "value" : 0
+               }
+            }
+         },
+         {
+            "_typeName" : "StaticTextureRect",
+            "box" : {
+               "_typeName" : "PixelBox",
+               "height" : 100,
+               "width" : 100
+            },
+            "color" : [ 1, 1, 1, 1 ],
+            "imageName" : ".\\Angel.png",
+            "position" : {
+               "_typeName" : "AligningOffset",
+               "horAlign" : 1,
+               "horOffset" : {
+                  "_typeName" : "RelativeValue",
+                  "type" : 1,
+                  "value" : 0
+               },
+               "vertAlign" : 1,
+               "vertOffset" : {
+                  "_typeName" : "RelativeValue",
+                  "type" : 1,
+                  "value" : 0
+               }
+            }
+         }
+      ],
+      "position" : {
+         "_typeName" : "AligningOffset",
+         "horAlign" : 1,
+         "horOffset" : {
+            "_typeName" : "RelativeValue",
+            "type" : 1,
+            "value" : 0
+         },
+         "vertAlign" : 1,
+         "vertOffset" : {
+            "_typeName" : "RelativeValue",
+            "type" : 1,
+            "value" : 0
+         }
+      }
+   },
+   "transitionAnimations" : []
+}
