@@ -3934,48 +3934,125 @@
             {
                "_key" : 3,
                "_value" : {
-                  "_name" : "fight_field",
-                  "_typeName" : "GameView",
+                  "_typeName" : "CanvasLayout",
+                  "adjustment" : 0,
                   "box" : {
-                     "_typeName" : "PixelBox",
-                     "height" : 900,
-                     "width" : 900
+                     "_typeName" : "RelativeBox",
+                     "height" : {
+                        "_typeName" : "RelativeValue",
+                        "type" : 0,
+                        "value" : 0
+                     },
+                     "offset" : {
+                        "_empty" : true
+                     },
+                     "width" : {
+                        "_typeName" : "RelativeValue",
+                        "type" : 0,
+                        "value" : 0
+                     }
                   },
                   "list" : [
                      {
-                        "_name" : "fight_ground",
-                        "_typeName" : "Layer",
-                        "index" : {
-                           "_typeName" : "FlatIndex",
-                           "keyType" : 2
+                        "_name" : "fight_field",
+                        "_typeName" : "GameView",
+                        "box" : {
+                           "_typeName" : "PixelBox",
+                           "height" : 900,
+                           "width" : 900
                         },
-                        "list" : [],
-                        "order" : {
-                           "_typeName" : "SortByIDOrder"
+                        "list" : [
+                           {
+                              "_name" : "fight_ground",
+                              "_typeName" : "Layer",
+                              "index" : {
+                                 "_typeName" : "FlatIndex",
+                                 "keyType" : 2
+                              },
+                              "list" : [],
+                              "order" : {
+                                 "_typeName" : "SortByIDOrder"
+                              }
+                           },
+                           {
+                              "_name" : "units",
+                              "_typeName" : "Layer",
+                              "index" : {
+                                 "_typeName" : "FlatIndex",
+                                 "keyType" : 2
+                              },
+                              "list" : [],
+                              "order" : {
+                                 "_typeName" : "SortByIDOrder"
+                              }
+                           },
+                           {
+                              "_name" : "queue",
+                              "_typeName" : "Layer",
+                              "index" : {
+                                 "_typeName" : "FlatIndex",
+                                 "keyType" : 2
+                              },
+                              "list" : [],
+                              "order" : {
+                                 "_typeName" : "SortByIDOrder"
+                              }
+                           }
+                        ],
+                        "position" : {
+                           "_typeName" : "AligningOffset",
+                           "horAlign" : 1,
+                           "horOffset" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 1,
+                              "value" : 0
+                           },
+                           "vertAlign" : 1,
+                           "vertOffset" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 1,
+                              "value" : 0
+                           }
                         }
                      },
                      {
-                        "_name" : "units",
-                        "_typeName" : "Layer",
-                        "index" : {
-                           "_typeName" : "FlatIndex",
-                           "keyType" : 2
+                        "_name" : "new_fight_step",
+                        "_typeName" : "Button",
+                        "position" : {
+                           "_typeName" : "AligningOffset",
+                           "horAlign" : 2,
+                           "horOffset" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 1,
+                              "value" : 0
+                           },
+                           "vertAlign" : 2,
+                           "vertOffset" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 1,
+                              "value" : 0
+                           }
                         },
-                        "list" : [],
-                        "order" : {
-                           "_typeName" : "SortByIDOrder"
-                        }
-                     },
-                     {
-                        "_name" : "queue",
-                        "_typeName" : "Layer",
-                        "index" : {
-                           "_typeName" : "FlatIndex",
-                           "keyType" : 2
-                        },
-                        "list" : [],
-                        "order" : {
-                           "_typeName" : "SortByIDOrder"
+                        "skin" : {
+                           "_typeName" : "SimpleRectangleButtonSkin",
+                           "borderColor" : [ 0, 0, 0, 1 ],
+                           "borderWidth" : 1,
+                           "box" : {
+                              "_typeName" : "PixelBox",
+                              "height" : 100,
+                              "width" : 100
+                           },
+                           "fillColor" : [ 0.7843137383460999, 0.7843137383460999, 0.7843137383460999, 1 ],
+                           "font" : {
+                              "_typeName" : "FontDesc",
+                              "family" : "Roboto",
+                              "outlineWidth" : 1,
+                              "size" : 28
+                           },
+                           "text" : "Ждать",
+                           "textColor" : [ 0, 0, 0, 1 ],
+                           "textOutlineColor" : [ 1, 1, 1, 1 ],
+                           "useGradient" : true
                         }
                      }
                   ],

@@ -135,10 +135,10 @@ class MyApp : public App
 			4,
 			8,
 			3,
-			4,
-			8,
+			6,
+			12,
 			{{Price::gold, 2800}, {Price::crystal, 1}},
-			unitType::myaso,
+			unitType::angel,
 			"Angel_icon.png",
 			"Angel.png"
 		},
@@ -836,6 +836,8 @@ class MyApp : public App
 		close();
 	}
 
+	deque <IntVec2> fight_direction;
+	//iowei09giofriojwijewf9uwfer4i93f4jt340t35jt90958t5f0834jt8j03j8t4f8t30948fj8430jtf8t094jf09t4380934jf8t0j8j08j80c8cjfwe
     void process(Input input)
 	{
         using namespace gamebase::InputKey;
@@ -843,14 +845,28 @@ class MyApp : public App
 		{
 			close();
 		}
-
+		//fkjosdgjiodfgjdgjdjgodjgsjsgoigjdijojgdjgodjigjfkjosdgjiodfgjdgjdjgodjgsjsgoigjdijojgdjgodjigjfkjosdgjiodfgjdgjdjgodjgsjsgoigjdijojgdjgodjigjfkjosdgjiodfgjdgjdjgodjgsjsgoigjdijojgdjgodjigjfkjosdgjiodfgjdgjdjgodjgsjsgoigjdijojgdjgodjigjfkjosdgjiodfgjdgjdjgodjgsjsgoigjdijojgdjgodjigjfkjosdgjiodfgjdgjdjgodjgsjsgoigjdijojgdjgodjigjfkjosdgjiodfgjdgjdjgodjgsjsgoigjdijojgdjgodjigjfkjosdgjiodfgjdgjdjgodjgsjsgoigjdijojgdjgodjigjfkjosdgjiodfgjdgjdjgodjgsjsgoigjdijojgdjgodjigjfkjosdgjiodfgjdgjdjgodjgsjsgoigjdijojgdjgodjigjfkjosdgjiodfgjdgjdjgodjgsjsgoigjdijojgdjgodjigjfkjosdgjiodfgjdgjdjgodjgsjsgoigjdijojgdjgodjigjfkjosdgjiodfgjdgjdjgodjgsjsgoigjdijojgdjgodjigjfkjosdgjiodfgjdgjdjgodjgsjsgoigjdijojgdjgodjigj
 		if (isFighting)
 		{
 			if (input.justPressed(MouseLeft))
 			{
-				return;
+				auto c = cell(fight_field.mousePos());
+				if (c.x >= fight_field_map.w || c.y >= fight_field_map.h || c.y < 0 || c.x < 0)
+				{
+					return;
+				}
+				int id = fight_queue[0].second;
+				for (auto nit : units.all())
+				{
+					if (nit.id() == id)
+					{
+						fight_direction = fight_route(units.data(nit).cords, c);
+						//fdfdf
+					}
+				}
 			}			
 		}
+
 		if (input.justPressed(MouseLeft)/* && !impl::isMouseOn(castle_menu.getImpl().get()) */&& forWindow.empty() && playerLayer.get(0).anim.isEmpty() && !impl::isMouseOn(Relog.getImpl().get()) && !impl::isMouseOn(newDirection.getImpl().get()) && !impl::isMouseOn(heroMenu.getImpl().get()) && !heroMenuOpen)
 		{
 			if (stepPoints <= 0)
@@ -873,6 +889,7 @@ class MyApp : public App
 				}
 			}
 		}
+		
 		if (input.justPressed(MouseRight))
 		{
 			cout << "MouseRight pressed" << endl;
@@ -1060,7 +1077,7 @@ class MyApp : public App
 		deque <IntVec2> queue;
 		dmap = createMap(fight_field_map.w, fight_field_map.h);
 		fightTarget = FightTarget::none;
-		if (fight_field_map[finish] != grassDark)
+		if (fight_field_map[finish] != -1)
 		{
 			fightTarget = FightTarget::unit;
 		}
@@ -1082,22 +1099,22 @@ class MyApp : public App
 		while (true)
 		{
 			w = dmap[cur.x][cur.y] + 1;
-			if (dmap.w > cur.x + 1 && dmap[cur.x + 1][cur.y] > w && fight_field_map[cur.x + 1][cur.y] == noneRec)
+			if (dmap.w > cur.x + 1 && dmap[cur.x + 1][cur.y] > w && fight_field_map[cur.x + 1][cur.y] == -1)
 			{
 				queue.emplace_front(cur.x + 1, cur.y);
 				dmap[cur.x + 1][cur.y] = w;
 			}
-			if (cur.y > 0 && dmap[cur.x][cur.y - 1] > dmap[cur.x][cur.y] && fight_field_map[cur.x][cur.y - 1] == noneRec)
+			if (cur.y > 0 && dmap[cur.x][cur.y - 1] > dmap[cur.x][cur.y] && fight_field_map[cur.x][cur.y - 1] == -1)
 			{
 				queue.emplace_front(cur.x, cur.y - 1);
 				dmap[cur.x][cur.y - 1] = w;
 			}
-			if (cur.x > 0 && dmap[cur.x - 1][cur.y] > dmap[cur.x][cur.y] && fight_field_map[cur.x - 1][cur.y] == noneRec)
+			if (cur.x > 0 && dmap[cur.x - 1][cur.y] > dmap[cur.x][cur.y] && fight_field_map[cur.x - 1][cur.y] == -1)
 			{
 				queue.emplace_front(cur.x - 1, cur.y);
 				dmap[cur.x - 1][cur.y] = w;
 			}
-			if (cur.y < dmap.h - 1 && dmap[cur.x][cur.y + 1] > dmap[cur.x][cur.y] && fight_field_map[cur.x][cur.y + 1] == noneRec)
+			if (cur.y < dmap.h - 1 && dmap[cur.x][cur.y + 1] > dmap[cur.x][cur.y] && fight_field_map[cur.x][cur.y + 1] == -1)
 			{
 				queue.emplace_front(cur.x, cur.y + 1);
 				dmap[cur.x][cur.y + 1] = w;
@@ -2313,23 +2330,28 @@ class MyApp : public App
 		}
 	}
 
-	bool comp(pair <int, int> a, pair <int, int> b)
-	{
-		return (a.second < b.second);
-	}
+	deque <pair <int, int>> fight_queue; //fewkolfewoiewfhiwefiuhfewhufiuewfuhewihuerihufrcdiuhreihuihureihurfiuhrfiuhfrihurfikhufvikhu
 
-	vector <pair <int, int>> make_fight_queue (Army army)
+	deque <pair <int, int>> make_fight_queue ()
 	{
-		vector <pair <int, int>> queue;
-		for (auto unit : army.units)
+		deque <pair <int, int>> queue;
+		for (auto nit : units.all())
 		{
+			auto& unit = units.data(nit);
 			pair <int, int> p;
-			p.first = unit.type.initiative;
-			p.second = unit.type.type;
+			p.first = unit.unit.type.initiative;
+			p.second = nit.id();
 			queue.push_back(p);
 		}
 		sort(queue.begin(), queue.end());
 		return queue;
+	}
+
+	void next_fight_step()
+	{
+		auto first = fight_queue[0];
+		fight_queue.pop_front();
+		fight_queue.push_back(first);
 	}
 
     void move()
@@ -2371,6 +2393,38 @@ class MyApp : public App
 		if (stepPoints > 0)
 		{
 			emptyStep.hide();
+		}
+
+		if (!empty(fight_direction))
+		{
+			for (auto dir : fight_direction)
+			{
+
+				IntVec2& NowPPos = units.data(units.get(fight_queue[0].second)).cords;
+				fight_field_map[units.data(units.get(fight_queue[0].second)).cords.x][units.data(units.get(fight_queue[0].second)).cords.y] = -1;
+				if (dir.x > NowPPos.x)
+				{
+					units.data(units.get(fight_queue[0].second)).cords.x++;
+					units.get(fight_queue[0].second).anim.play("right", 0);
+				}
+				else if (dir.x < NowPPos.x)
+				{
+					units.data(units.get(fight_queue[0].second)).cords.x--;
+					units.get(fight_queue[0].second).anim.play("left", 0);
+				}
+				else if (dir.y > NowPPos.y)
+				{
+					units.data(units.get(fight_queue[0].second)).cords.y++;
+					units.get(fight_queue[0].second).anim.play("top", 0);
+				}
+				else if (dir.y < NowPPos.y)
+				{
+					units.data(units.get(fight_queue[0].second)).cords.y--;
+					units.get(fight_queue[0].second).anim.play("down", 0);
+				}
+				fight_field_map[units.data(units.get(fight_queue[0].second)).cords.x][units.data(units.get(fight_queue[0].second)).cords.y] = fight_queue[0].second;
+			}
+			fight_direction.clear();
 		}
 
 		if (!empty(direction) && playerLayer.get(0).anim.isEmpty() && stepPoints > 0)
@@ -2435,7 +2489,8 @@ class MyApp : public App
 						fight_field.setView(fight_field_map.w / 2 * 150 - 75, fight_field_map.h / 2 * 150 - 75);
 						placeArmy(playerLayer.data(playerLayer.get(0)).army, true);
 						placeArmy(neutrals.data(Neutral).army, false);
-						vector <pair <int, int>> fight_queue = make_fight_queue(playerLayer.data(playerLayer.get(0)).army);
+						fight_queue = make_fight_queue();
+						connect(new_fight_step, next_fight_step);
 						isFighting = true;
 						target = Target::none;
 					}
@@ -2527,6 +2582,7 @@ class MyApp : public App
 	FromDesign(Label, test_);
 	FromDesign(Selector, selector);
 	FromDesign(Layout, castle_menu);
+	FromDesign(Button, new_fight_step);
 	//FromDesign(HorizontalLayout, armyMenu);
 
 	FromDesign(Label, heroStepsLabel);

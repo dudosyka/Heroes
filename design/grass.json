@@ -28,7 +28,7 @@
          "width" : 150
       },
       "color" : [ 1, 1, 1, 1 ],
-      "imageName" : ".\\grassDark.png",
+      "imageName" : ".\\russia.png",
       "position" : {
          "_typeName" : "AligningOffset",
          "horAlign" : 1,
