@@ -1,6 +1,6 @@
 #include <gamebase/Gamebase.h>
-
 #include <algorithm>
+
 using namespace gamebase;
 using namespace std;
 
@@ -22,7 +22,7 @@ class MyApp : public App
 
 	enum ownerType
 	{
-		neutral, humanplayer, others
+		neutral, humanplayer, others, noOwner
 	};
 
 	enum nishType
@@ -851,6 +851,8 @@ class MyApp : public App
 			if (input.justPressed(MouseLeft))
 			{
 				auto c = cell(fight_field.mousePos());
+				if (zone.count(c) == 0)
+					return;
 				if (c.x >= fight_field_map.w || c.y >= fight_field_map.h || c.y < 0 || c.x < 0)
 				{
 					return;
@@ -1071,6 +1073,88 @@ class MyApp : public App
 
 	FightTarget fightTarget;
 
+	ownerType get_owner(int x, int y)
+	{
+		ownerType owner = noOwner;
+		if (fight_field_map[x][y] == -1)
+		{
+			return owner;
+		}
+		owner = units.data(fight_field_map[x][y]).owner;
+		return owner;
+	}
+
+	set <IntVec2> get_fight_zone(IntVec2 start, int step)
+	{
+		GameMap dmap;
+
+		deque <IntVec2> queue;
+		dmap = createMap(fight_field_map.w, fight_field_map.h);
+		for (int x = 0; x < dmap.w; x++)
+		{
+			for (int y = 0; y < dmap.h; y++)
+			{
+				dmap[x][y] = 2000000001;
+			}
+		}
+		dmap[start] = 0;
+		queue.push_front(start);
+		IntVec2 cur = start;
+		int w = 0;
+		set <IntVec2> zone;
+		while (true)
+		{
+			w = dmap[cur.x][cur.y] + 1;
+			if (w > step)
+			{
+				break;
+			}
+			if (dmap.w > cur.x + 1 && dmap[cur.x + 1][cur.y] > w && get_owner(start.x, start.y) != get_owner(cur.x + 1, cur.y))
+			{
+				if (get_owner(cur.x + 1, cur.y) == noOwner)
+				{
+					queue.emplace_front(cur.x + 1, cur.y);
+					dmap[cur.x + 1][cur.y] = w;
+				}
+				zone.insert({ cur.x + 1, cur.y });
+			}
+			if (cur.x > 0 && dmap[cur.x - 1][cur.y] > dmap[cur.x][cur.y] && get_owner(start.x, start.y) != get_owner(cur.x - 1, cur.y))
+			{
+				if (get_owner(cur.x - 1, cur.y) == noOwner)
+				{
+					queue.emplace_front(cur.x - 1, cur.y);
+					dmap[cur.x - 1][cur.y] = w;
+				}
+				zone.insert({ cur.x - 1, cur.y });
+			}
+			if (cur.y > 0 && dmap[cur.x][cur.y - 1] > dmap[cur.x][cur.y] && get_owner(start.x, start.y) != get_owner(cur.x, cur.y - 1))
+			{
+				if (get_owner(cur.x, cur.y - 1) == noOwner)
+				{
+					queue.emplace_front(cur.x, cur.y - 1);
+					dmap[cur.x][cur.y - 1] = w;
+				}
+				zone.insert({ cur.x, cur.y - 1 });
+			}
+			if (cur.y < dmap.h - 1 && dmap[cur.x][cur.y + 1] > dmap[cur.x][cur.y] && get_owner(start.x, start.y) != get_owner(cur.x, cur.y + 1))
+			{
+				if (get_owner(cur.x, cur.y + 1) == noOwner)
+				{
+					queue.emplace_front(cur.x, cur.y + 1);
+					dmap[cur.x][cur.y + 1] = w;
+				}
+				zone.insert({ cur.x, cur.y + 1 });
+			}
+			queue.pop_back();
+			if (queue.empty())
+			{
+				break;
+			}
+			cur = queue.back();
+		}
+		return zone;
+	}
+
 	deque <IntVec2> fight_route(IntVec2 start, IntVec2 finish)
 	{
 		GameMap dmap;
@@ -1202,7 +1286,7 @@ class MyApp : public App
 			}
 		}
 	}
-
+	
 	enum Babosiki
 	{
 		g, e
@@ -2347,12 +2431,35 @@ class MyApp : public App
 		return queue;
 	}
 
+	set <IntVec2> zone;
+
+	void draw_get_step_fight_zone(int id)
+	{
+		IntVec2 pos;
+		pos = units.data(id).cords;
+		int step = units.data(id).unit.type.initiative;
+		zone = get_fight_zone(pos, step);
+		step_zone.clear();
+		for (auto zitem : zone)
+		{
+			auto item = step_zone.load("zone_item.json", zitem.x * 150, zitem.y * 150);
+			if (get_owner(zitem.x, zitem.y) == noOwner)
+			{
+				item.skin<Texture>().setColor(0, 255, 0, 255);
+			}
+		}
+	}
+
 	void next_fight_step()
 	{
 		auto first = fight_queue[0];
+		draw_get_step_fight_zone(first.second);
 		fight_queue.pop_front();
 		fight_queue.push_back(first);
 	}
+
+	bool animStart = false;
+	int moveUnitId = -1;
 
     void move()
      {
@@ -2364,6 +2471,16 @@ class MyApp : public App
 		heroStepsLabel << " : " << stepPoints;
 		field.setView(playerLayer.get(0).pos());
 		//updateHeroCastles();
+
+		if (moveUnitId != -1 && animStart)
+		{
+			if (units.get(moveUnitId).anim.isEmpty())
+			{
+				animStart = false;
+				next_fight_step();
+			}
+		}
+
 		if (heroStay(playerLayer.get(0)))
 		{
 			for (auto n : nishtyaki.find(playerLayer.get(0).pos()))
@@ -2394,12 +2511,12 @@ class MyApp : public App
 		{
 			emptyStep.hide();
 		}
-
+		
 		if (!empty(fight_direction))
 		{
+			int steps;
 			for (auto dir : fight_direction)
 			{
-
 				IntVec2& NowPPos = units.data(units.get(fight_queue[0].second)).cords;
 				fight_field_map[units.data(units.get(fight_queue[0].second)).cords.x][units.data(units.get(fight_queue[0].second)).cords.y] = -1;
 				if (dir.x > NowPPos.x)
@@ -2423,6 +2540,9 @@ class MyApp : public App
 					units.get(fight_queue[0].second).anim.play("down", 0);
 				}
 				fight_field_map[units.data(units.get(fight_queue[0].second)).cords.x][units.data(units.get(fight_queue[0].second)).cords.y] = fight_queue[0].second;
+				
+				animStart = true;
+				moveUnitId = fight_queue[0].second;
 			}
 			fight_direction.clear();
 		}
@@ -2490,6 +2610,7 @@ class MyApp : public App
 						placeArmy(playerLayer.data(playerLayer.get(0)).army, true);
 						placeArmy(neutrals.data(Neutral).army, false);
 						fight_queue = make_fight_queue();
+						draw_get_step_fight_zone(fight_queue[0].second);
 						connect(new_fight_step, next_fight_step);
 						isFighting = true;
 						target = Target::none;
@@ -2606,6 +2727,7 @@ class MyApp : public App
 	LayerFromDesign(void, ground);
 	LayerFromDesign(void, fight_ground);
 	LayerFromDesign(unitsData, units);
+	LayerFromDesign(void, step_zone);
 	LayerFromDesign(void, forest);
 	LayerFromDesign(playerData, playerLayer);
 	LayerFromDesign(recData, rec);
@@ -2613,6 +2735,7 @@ class MyApp : public App
 	LayerFromDesign(void, SuperMegaPuperStepEgg);
 	LayerFromDesign(neutralData, neutrals);
 };
+
 int main(int argc, char** argv)
 {
     MyApp app;

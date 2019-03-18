@@ -3934,6 +3934,7 @@
             {
                "_key" : 3,
                "_value" : {
+                  "_name" : "Бой",
                   "_typeName" : "CanvasLayout",
                   "adjustment" : 0,
                   "box" : {
@@ -3975,7 +3976,7 @@
                               }
                            },
                            {
-                              "_name" : "units",
+                              "_name" : "queue",
                               "_typeName" : "Layer",
                               "index" : {
                                  "_typeName" : "FlatIndex",
@@ -3987,7 +3988,19 @@
                               }
                            },
                            {
-                              "_name" : "queue",
+                              "_name" : "step_zone",
+                              "_typeName" : "Layer",
+                              "index" : {
+                                 "_typeName" : "FlatIndex",
+                                 "keyType" : 2
+                              },
+                              "list" : [],
+                              "order" : {
+                                 "_typeName" : "SortByIDOrder"
+                              }
+                           },
+                           {
+                              "_name" : "units",
                               "_typeName" : "Layer",
                               "index" : {
                                  "_typeName" : "FlatIndex",

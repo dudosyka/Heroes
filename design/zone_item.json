@@ -27,8 +27,8 @@
          "height" : 150,
          "width" : 150
       },
-      "color" : [ 1, 1, 1, 1 ],
-      "imageName" : ".\\grassDark.png",
+      "color" : [ 1, 0, 0, 0.3411764800548553 ],
+      "imageName" : ".\\zone_item.png",
       "position" : {
          "_typeName" : "AligningOffset",
          "horAlign" : 1,
