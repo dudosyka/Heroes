@@ -13,7 +13,7 @@ class MyApp : public App
 	int days;
 
 	deque <IntVec2> direction;
-	
+
 	bool heroMenuOpen = false;
 
 	Timer timer;
@@ -388,7 +388,7 @@ class MyApp : public App
 	void change_textbox(int n, GameObj castle, bool fromHero)
 	{
 		design.child<TextBox>("unitNum") >> UnitNum;
-		
+
 		if (fromHero)
 		{
 			if (UnitNum > playerLayer.data(playerLayer.get(0)).army.units[n].n)
@@ -456,7 +456,7 @@ class MyApp : public App
 		}*/
 	}
 
-	void readNeutralsData ()
+	void readNeutralsData()
 	{
 		ifstream File("neutrals_data.txt");
 		int rows = 0;
@@ -475,13 +475,13 @@ class MyApp : public App
 				{ unitType::chuvak, 0 },
 				{ unitType::horserider, 0 },
 				{ unitType::angel, 0 }
-			});
+				});
 			Neutral.skin<Texture>().setImageName(allTypes[n].img_name);
 			neutrals.data(Neutral).army.units[n].n = unitNum;
 			neutrals.data(Neutral).owner = neutral;
 			neutrals.data(Neutral).cords = cords;
 		}
-		
+
 	}
 
 	void load()
@@ -495,9 +495,9 @@ class MyApp : public App
 
 		connect(newDirection, clearSteps);
 		connect(timer, hideLabel);
-		
+
 		timer.repeat(2);
-		
+
 		gold = 100000;
 		skill = 9000;
 		stepPoints = 4;
@@ -506,12 +506,12 @@ class MyApp : public App
 		sera = 50000;
 		gems = 100000;
 		wood = 10000;
-		
+
 		GOld << "gold: " << gold;
 		SKill << "skill: " << skill;
-		
+
 		selector.select(1);
-		
+
 		connect(start_button, startGame);
 		connect(quit_button, quitGame);
 
@@ -827,7 +827,7 @@ class MyApp : public App
 		}
 	}
 
-	void clearSteps ()
+	void clearSteps()
 	{
 		direction.clear();
 		SuperMegaPuperStepEgg.clear();
@@ -845,7 +845,7 @@ class MyApp : public App
 
 	float damage_count(int attack, int protect, int damage, int n, int n2, int lvl)
 	{
-		if (attack > protect) 
+		if (attack > protect)
 		{
 			return (attack - protect) * damage * n * 0.02 * lvl;
 		}
@@ -870,12 +870,19 @@ class MyApp : public App
 		}
 		else
 		{
-			return round_up(new_n) - round_up(n);
+			return  round_up(n) - round_up(new_n);
 		}
 	}
 
 	deque <IntVec2> fight_direction;
 	//iowei09giofriojwijewf9uwfer4i93f4jt340t35jt90958t5f0834jt8j03j8t4f8t30948fj8430jtf8t094jf09t4380934jf8t0j8j08j80c8cjfwe
+
+	void close_fight_stats()
+	{
+		auto info = design.child<Layout>("fight_unit_stats");
+		info.hide();
+	}
+
     void process(Input input)
 	{
         using namespace gamebase::InputKey;
@@ -899,9 +906,12 @@ class MyApp : public App
 					info.child<Label>("attack") << unit1.type.attack;
 					info.child<Label>("protect") << unit1.type.protect;
 					auto damage = damage_count(unit2.type.attack, unit1.type.protect, unit2.type.damage, unit2.n, unit1.n, unit1.type.lvl);
-					info.child<Label>("enemy_die") << die_count(damage, unit1.n, unit1.type.hp);
+					auto die = die_count(damage, unit1.n, unit1.type.hp);
+					info.child<Label>("enemy_die") << die;
 					damage = damage_count(unit1.type.attack, unit2.type.protect, unit1.type.damage, unit1.n, unit2.n, unit2.type.lvl);
-					info.child<Label>("your_die") << die_count(damage, unit2.n, unit2.type.hp);
+					die = die_count(damage, unit2.n, unit2.type.hp);
+					info.child<Label>("your_die") << die;
+					connect(info.child<Button>("close_fight_stats"), close_fight_stats);
 				}
 			}
 			if (input.justPressed(MouseLeft))
