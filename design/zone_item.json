@@ -24,10 +24,10 @@
       "_typeName" : "StaticTextureRect",
       "box" : {
          "_typeName" : "PixelBox",
-         "height" : 150,
-         "width" : 150
+         "height" : 75,
+         "width" : 75
       },
-      "color" : [ 1, 0, 0, 0.3411764800548553 ],
+      "color" : [ 1, 0, 0, 0.6274510025978088 ],
       "imageName" : ".\\zone_item.png",
       "position" : {
          "_typeName" : "AligningOffset",

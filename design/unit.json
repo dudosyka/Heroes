@@ -15,7 +15,7 @@
                   "parentHeightRelativeCoord" : 0,
                   "parentWidthRelativeCoord" : 0,
                   "period" : 500,
-                  "pixelCoord" : 150,
+                  "pixelCoord" : 75,
                   "relativeMove" : true,
                   "selfHeightRelativeCoord" : 0,
                   "selfWidthRelativeCoord" : 0
@@ -33,7 +33,7 @@
             "parentHeightRelativeCoord" : 0,
             "parentWidthRelativeCoord" : 0,
             "period" : 500,
-            "pixelCoord" : -150,
+            "pixelCoord" : -75,
             "relativeMove" : true,
             "selfHeightRelativeCoord" : 0,
             "selfWidthRelativeCoord" : 0
@@ -49,7 +49,7 @@
             "parentHeightRelativeCoord" : 0,
             "parentWidthRelativeCoord" : 0,
             "period" : 500,
-            "pixelCoord" : -150,
+            "pixelCoord" : -75,
             "relativeMove" : true,
             "selfHeightRelativeCoord" : 0,
             "selfWidthRelativeCoord" : 0
@@ -65,7 +65,7 @@
             "parentHeightRelativeCoord" : 0,
             "parentWidthRelativeCoord" : 0,
             "period" : 500,
-            "pixelCoord" : 150,
+            "pixelCoord" : 75,
             "relativeMove" : true,
             "selfHeightRelativeCoord" : 0,
             "selfWidthRelativeCoord" : 0
@@ -95,8 +95,8 @@
       "adjustment" : 0,
       "box" : {
          "_typeName" : "PixelBox",
-         "height" : 150,
-         "width" : 150
+         "height" : 75,
+         "width" : 75
       },
       "list" : [
          {
@@ -124,9 +124,20 @@
             "skin" : {
                "_typeName" : "StaticTextureRect",
                "box" : {
-                  "_typeName" : "PixelBox",
-                  "height" : 150,
-                  "width" : 150
+                  "_typeName" : "RelativeBox",
+                  "height" : {
+                     "_typeName" : "RelativeValue",
+                     "type" : 0,
+                     "value" : 0
+                  },
+                  "offset" : {
+                     "_empty" : true
+                  },
+                  "width" : {
+                     "_typeName" : "RelativeValue",
+                     "type" : 0,
+                     "value" : 0
+                  }
                },
                "color" : [ 1, 1, 1, 1 ],
                "imageName" : ".\\Angel.png",
@@ -157,21 +168,21 @@
                "height" : 100,
                "width" : 100
             },
-            "color" : [ 0, 0, 0, 1 ],
-            "outlineColor" : [ 1, 1, 1, 1 ],
+            "color" : [ 1, 0, 0, 1 ],
+            "outlineColor" : [ 0, 1, 0, 1 ],
             "position" : {
                "_typeName" : "AligningOffset",
                "horAlign" : 2,
                "horOffset" : {
                   "_typeName" : "RelativeValue",
                   "type" : 1,
-                  "value" : -10
+                  "value" : -5
                },
                "vertAlign" : 2,
                "vertOffset" : {
                   "_typeName" : "RelativeValue",
                   "type" : 1,
-                  "value" : 10
+                  "value" : 5
                }
             },
             "properties" : {
@@ -180,7 +191,8 @@
                "font" : {
                   "_typeName" : "FontDesc",
                   "family" : "Roboto",
-                  "size" : 28
+                  "outlineWidth" : 1,
+                  "size" : 20
                },
                "horAlign" : 0,
                "vertAlign" : 2

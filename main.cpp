@@ -63,6 +63,7 @@ class MyApp : public App
 		float damage;
 		int stepPoint;
 		int initiative;
+		int lvl;
 		vector <Price> price;
 		Enum type;
 		string icon_name;
@@ -71,12 +72,13 @@ class MyApp : public App
 
 	vector<unitType> allTypes = {
 		{
-			16,
+			3,
 			4,
 			8,
 			3,
 			4,
 			8,
+			1,
 			{{Price::gold, 85}},
 			unitType::myaso,
 			"myaso_icon.png",
@@ -89,6 +91,7 @@ class MyApp : public App
 			3,
 			4,
 			9,
+			2,
 			{{Price::gold, 50}},
 			unitType::archer,
 			"archer_icon.png",
@@ -101,6 +104,7 @@ class MyApp : public App
 			8,
 			7,
 			15,
+			3,
 			{{Price::gold, 260}},
 			unitType::grifon,
 			"griffin_icon.png",
@@ -113,6 +117,7 @@ class MyApp : public App
 			10,
 			5,
 			10,
+			4,
 			{{Price::gold, 600}},
 			unitType::chuvak,
 			"chuvak_icon.png",
@@ -125,18 +130,20 @@ class MyApp : public App
 			25,
 			7,
 			11,
+			5,
 			{{Price::gold, 1300}},
 			unitType::horserider,
 			"horserider_icon.png",
 			"horserider.png"
 		},
 		{
-			16,
-			4,
-			8,
-			3,
+			180,
+			27,
+			27,
+			45,
 			6,
 			12,
+			6,
 			{{Price::gold, 2800}, {Price::crystal, 1}},
 			unitType::angel,
 			"Angel_icon.png",
@@ -836,6 +843,37 @@ class MyApp : public App
 		close();
 	}
 
+	float damage_count(int attack, int protect, int damage, int n, int n2, int lvl)
+	{
+		if (attack > protect) 
+		{
+			return (attack - protect) * damage * n * 0.02 * lvl;
+		}
+		else
+		{
+			return n * damage - (protect - attack) * n2 * 0.02 * lvl;
+		}
+	}
+
+	int round_up(float a)
+	{
+		return a + 0.999999999;
+	}
+
+	int die_count(float damage, float n, int hp)
+	{
+		float new_n = n - damage / hp;
+
+		if (new_n < 0)
+		{
+			return round_up(n);
+		}
+		else
+		{
+			return round_up(new_n) - round_up(n);
+		}
+	}
+
 	deque <IntVec2> fight_direction;
 	//iowei09giofriojwijewf9uwfer4i93f4jt340t35jt90958t5f0834jt8j03j8t4f8t30948fj8430jtf8t094jf09t4380934jf8t0j8j08j80c8cjfwe
     void process(Input input)
@@ -848,9 +886,27 @@ class MyApp : public App
 		//fkjosdgjiodfgjdgjdjgodjgsjsgoigjdijojgdjgodjigjfkjosdgjiodfgjdgjdjgodjgsjsgoigjdijojgdjgodjigjfkjosdgjiodfgjdgjdjgodjgsjsgoigjdijojgdjgodjigjfkjosdgjiodfgjdgjdjgodjgsjsgoigjdijojgdjgodjigjfkjosdgjiodfgjdgjdjgodjgsjsgoigjdijojgdjgodjigjfkjosdgjiodfgjdgjdjgodjgsjsgoigjdijojgdjgodjigjfkjosdgjiodfgjdgjdjgodjgsjsgoigjdijojgdjgodjigjfkjosdgjiodfgjdgjdjgodjgsjsgoigjdijojgdjgodjigjfkjosdgjiodfgjdgjdjgodjgsjsgoigjdijojgdjgodjigjfkjosdgjiodfgjdgjdjgodjgsjsgoigjdijojgdjgodjigjfkjosdgjiodfgjdgjdjgodjgsjsgoigjdijojgdjgodjigjfkjosdgjiodfgjdgjdjgodjgsjsgoigjdijojgdjgodjigjfkjosdgjiodfgjdgjdjgodjgsjsgoigjdijojgdjgodjigjfkjosdgjiodfgjdgjdjgodjgsjsgoigjdijojgdjgodjigjfkjosdgjiodfgjdgjdjgodjgsjsgoigjdijojgdjgodjigj
 		if (isFighting)
 		{
+			if (input.justPressed(MouseRight))
+			{
+				auto c = cell_fight(fight_field.mousePos());
+				int die = 0;
+				if (fight_field_map[c.x][c.y] > -1)
+				{
+					auto unit1 = units.data(fight_field_map[c.x][c.y]).unit;
+					auto unit2 = units.data(fight_queue[0].second).unit;
+					auto info = design.child<Layout>("fight_unit_stats");
+					info.show();
+					info.child<Label>("attack") << unit1.type.attack;
+					info.child<Label>("protect") << unit1.type.protect;
+					auto damage = damage_count(unit2.type.attack, unit1.type.protect, unit2.type.damage, unit2.n, unit1.n, unit1.type.lvl);
+					info.child<Label>("enemy_die") << die_count(damage, unit1.n, unit1.type.hp);
+					damage = damage_count(unit1.type.attack, unit2.type.protect, unit1.type.damage, unit1.n, unit2.n, unit2.type.lvl);
+					info.child<Label>("your_die") << die_count(damage, unit2.n, unit2.type.hp);
+				}
+			}
 			if (input.justPressed(MouseLeft))
 			{
-				auto c = cell(fight_field.mousePos());
+				auto c = cell_fight(fight_field.mousePos());
 				if (zone.count(c) == 0)
 					return;
 				if (c.x >= fight_field_map.w || c.y >= fight_field_map.h || c.y < 0 || c.x < 0)
@@ -867,6 +923,20 @@ class MyApp : public App
 					}
 				}
 			}			
+		}
+		else
+		{
+			if (input.justPressed(MouseRight))
+			{
+				cout << "MouseRight pressed" << endl;
+				if (impl::isMouseOn(design.child<Button>("castleMagicBuild1").getImpl().get()))
+				{
+					auto& but = design.child<Button>("more_info");
+					but.show();
+					but.setPos(input.mousePos());
+					cout << "Mouse on castleMagicBuild1" << endl;
+				}
+			}
 		}
 
 		if (input.justPressed(MouseLeft)/* && !impl::isMouseOn(castle_menu.getImpl().get()) */&& forWindow.empty() && playerLayer.get(0).anim.isEmpty() && !impl::isMouseOn(Relog.getImpl().get()) && !impl::isMouseOn(newDirection.getImpl().get()) && !impl::isMouseOn(heroMenu.getImpl().get()) && !heroMenuOpen)
@@ -891,18 +961,6 @@ class MyApp : public App
 				}
 			}
 		}
-		
-		if (input.justPressed(MouseRight))
-		{
-			cout << "MouseRight pressed" << endl;
-			if (impl::isMouseOn(design.child<Button>("castleMagicBuild1").getImpl().get()))
-			{
-				auto& but = design.child<Button>("more_info");
-				but.show();
-				but.setPos(input.mousePos());
-				cout << "Mouse on castleMagicBuild1" << endl;
-			}
-		}
     }
 
 	IntVec2 cell (Vec2 v)
@@ -917,6 +975,22 @@ class MyApp : public App
 	{
 		v.x *= 150;
 		v.y *= 150;
+		return Vec2(v.x, v.y);
+	}
+
+
+	IntVec2 cell_fight(Vec2 v)
+	{
+		v.x += cellsize / 2;
+		v.y += cellsize / 2;
+		v /= cellsize;
+		return IntVec2(v.x, v.y);
+	}
+
+	Vec2 pixels_fight(IntVec2 v)
+	{
+		v.x *= cellsize;
+		v.y *= cellsize;
 		return Vec2(v.x, v.y);
 	}
 
@@ -2385,7 +2459,7 @@ class MyApp : public App
 
 	void placeArmy(Army army, bool isLeft)
 	{
-		int y = 0;
+		int y = 2;
 		for (auto unit : army.units)
 		{
 			if (unit.n != 0)
@@ -2395,12 +2469,12 @@ class MyApp : public App
 				{
 					x = 0;
 				}
-				auto uunitObj = units.load("unit.json", x * 150, y * 150);
+				auto uunitObj = units.load("unit.json", x * cellsize, y * cellsize);
 				if (isLeft)
 				{
 					uunitObj.child<GameObj>("fightUnitImg").setScaleX(-1);
 				}
-				uunitObj.child<GameObj>("fightUnitImg").skin<Texture>().setImageName(allTypes[y].img_name);
+				uunitObj.child<GameObj>("fightUnitImg").skin<Texture>().setImageName(allTypes[y - 2].img_name);
 				auto& udata = units.data(uunitObj);
 				udata.owner = army.owner;
 				udata.unit.n = unit.n;
@@ -2428,6 +2502,7 @@ class MyApp : public App
 			queue.push_back(p);
 		}
 		sort(queue.begin(), queue.end());
+		reverse(queue.begin(), queue.end());
 		return queue;
 	}
 
@@ -2435,17 +2510,17 @@ class MyApp : public App
 
 	void draw_get_step_fight_zone(int id)
 	{
-		IntVec2 pos;
-		pos = units.data(id).cords;
-		int step = units.data(id).unit.type.initiative;
+		IntVec2 pos = units.data(id).cords;
+		int step = units.data(id).unit.type.stepPoint;
 		zone = get_fight_zone(pos, step);
 		step_zone.clear();
+		step_zone.load("zone_item.json", pos.x * cellsize, pos.y * cellsize);
 		for (auto zitem : zone)
 		{
-			auto item = step_zone.load("zone_item.json", zitem.x * 150, zitem.y * 150);
+			auto item = step_zone.load("zone_item.json", zitem.x * cellsize, zitem.y * cellsize);
 			if (get_owner(zitem.x, zitem.y) == noOwner)
 			{
-				item.skin<Texture>().setColor(0, 255, 0, 255);
+				item.skin<Texture>().setColor(0, 255, 0, 100);
 			}
 		}
 	}
@@ -2453,14 +2528,15 @@ class MyApp : public App
 	void next_fight_step()
 	{
 		auto first = fight_queue[0];
-		draw_get_step_fight_zone(first.second);
 		fight_queue.pop_front();
 		fight_queue.push_back(first);
+		auto first2 = fight_queue[0];
+		draw_get_step_fight_zone(first2.second);
 	}
 
 	bool animStart = false;
 	int moveUnitId = -1;
-
+	const int cellsize = 75;
     void move()
      {
 		GOld << " : " << gold;
@@ -2601,12 +2677,12 @@ class MyApp : public App
 							{
 								if (fight_field_map[x][y] == grassDark)
 								{
-									fight_ground.load("grass.json", x * 150, y * 150);
+									fight_ground.load("grass.json", x * cellsize, y * cellsize);
 									fight_field_map[x][y] = -1;
 								}
 							}
 						}
-						fight_field.setView(fight_field_map.w / 2 * 150 - 75, fight_field_map.h / 2 * 150 - 75);
+						fight_field.setView(fight_field_map.w * 0.5 * cellsize - cellsize * 0.5, fight_field_map.h * 0.5 * cellsize - cellsize * 0.5);
 						placeArmy(playerLayer.data(playerLayer.get(0)).army, true);
 						placeArmy(neutrals.data(Neutral).army, false);
 						fight_queue = make_fight_queue();
