@@ -2390,7 +2390,7 @@ class MyApp : public App
 		{
 			if (unit.n != 0)
 			{
-				int x = 5;
+				int x = fight_field_map.w - 1;
 				if (isLeft)
 				{
 					x = 0;
