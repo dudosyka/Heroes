@@ -72,9 +72,9 @@ class MyApp : public App
 
 	vector<unitType> allTypes = {
 		{
-			3,
 			4,
-			8,
+			4,
+			3,
 			3,
 			4,
 			8,
@@ -87,7 +87,7 @@ class MyApp : public App
 		{
 			7,
 			4,
-			3,
+			4,
 			3,
 			4,
 			9,
@@ -252,6 +252,7 @@ class MyApp : public App
 		{
 			Unit unit;
 			unit.type = allTypes[armyUnit.first];
+			unit.type.hp = allTypes[armyUnit.first].hp * armyUnit.second;
 			unit.n = armyUnit.second;
 			army.units.push_back(unit);
 		}
@@ -478,8 +479,10 @@ class MyApp : public App
 				});
 			Neutral.skin<Texture>().setImageName(allTypes[n].img_name);
 			neutrals.data(Neutral).army.units[n].n = unitNum;
+			neutrals.data(Neutral).army.owner = neutral;
 			neutrals.data(Neutral).owner = neutral;
 			neutrals.data(Neutral).cords = cords;
+			neutrals.data(Neutral).army.units[n].type.hp = unitNum * allTypes[n].hp;
 		}
 
 	}
@@ -552,6 +555,7 @@ class MyApp : public App
 						{ unitType::horserider, 1 },
 						{ unitType::angel, 1000 } }
 					);
+					player.army.owner = humanplayer;
 					/*auto& parmy = player.army;
 					Unit Unit;
 					Unit.type = allTypes[0];
@@ -860,9 +864,9 @@ class MyApp : public App
 		return a + 0.999999999;
 	}
 
-	int die_count(float damage, float n, int hp)
+	int die_count(float damage, float n, int hp, int lvl)
 	{
-		float new_n = n - damage / hp;
+		float new_n = n - damage / allTypes[lvl - 1].hp;
 
 		if (new_n < 0)
 		{
@@ -901,16 +905,25 @@ class MyApp : public App
 				{
 					auto unit1 = units.data(fight_field_map[c.x][c.y]).unit;
 					auto unit2 = units.data(fight_queue[0].second).unit;
+					int lvl1 = unit1.type.lvl;
+					int lvl2 = unit2.type.lvl;
 					auto info = design.child<Layout>("fight_unit_stats");
 					info.show();
 					info.child<Label>("attack") << unit1.type.attack;
 					info.child<Label>("protect") << unit1.type.protect;
 					auto damage = damage_count(unit2.type.attack, unit1.type.protect, unit2.type.damage, unit2.n, unit1.n, unit1.type.lvl);
-					auto die = die_count(damage, unit1.n, unit1.type.hp);
+					auto die = die_count(damage, unit1.n, unit1.type.hp, lvl1);
 					info.child<Label>("enemy_die") << die;
-					damage = damage_count(unit1.type.attack, unit2.type.protect, unit1.type.damage, unit1.n, unit2.n, unit2.type.lvl);
-					die = die_count(damage, unit2.n, unit2.type.hp);
-					info.child<Label>("your_die") << die;
+					if (die < unit1.n)
+					{
+						damage = damage_count(unit1.type.attack, unit2.type.protect, unit1.type.damage, unit1.n - die, unit2.n, unit2.type.lvl);
+						die = die_count(damage, unit2.n, unit2.type.hp, lvl2);
+						info.child<Label>("your_die") << die;
+					}
+					else
+					{
+						info.child<Label>("your_die") << 0;
+					}
 					connect(info.child<Button>("close_fight_stats"), close_fight_stats);
 				}
 			}
@@ -1182,6 +1195,7 @@ class MyApp : public App
 			}
 		}
 		dmap[start] = 0;
+		auto a = get_owner(start.x, start.y);
 		queue.push_front(start);
 		IntVec2 cur = start;
 		int w = 0;
@@ -1195,7 +1209,7 @@ class MyApp : public App
 			}
 			if (dmap.w > cur.x + 1 && dmap[cur.x + 1][cur.y] > w && get_owner(start.x, start.y) != get_owner(cur.x + 1, cur.y))
 			{
-				if (get_owner(cur.x + 1, cur.y) == noOwner)
+				if (get_owner(cur.x + 1, cur.y) == noOwner || get_owner(cur.x + 1, cur.y) == neutral)
 				{
 					queue.emplace_front(cur.x + 1, cur.y);
 					dmap[cur.x + 1][cur.y] = w;
@@ -1204,7 +1218,7 @@ class MyApp : public App
 			}
 			if (cur.x > 0 && dmap[cur.x - 1][cur.y] > dmap[cur.x][cur.y] && get_owner(start.x, start.y) != get_owner(cur.x - 1, cur.y))
 			{
-				if (get_owner(cur.x - 1, cur.y) == noOwner)
+				if (get_owner(cur.x - 1, cur.y) == noOwner || get_owner(cur.x - 1, cur.y) == neutral)
 				{
 					queue.emplace_front(cur.x - 1, cur.y);
 					dmap[cur.x - 1][cur.y] = w;
@@ -1213,7 +1227,7 @@ class MyApp : public App
 			}
 			if (cur.y > 0 && dmap[cur.x][cur.y - 1] > dmap[cur.x][cur.y] && get_owner(start.x, start.y) != get_owner(cur.x, cur.y - 1))
 			{
-				if (get_owner(cur.x, cur.y - 1) == noOwner)
+				if (get_owner(cur.x, cur.y - 1) == noOwner || get_owner(cur.x, cur.y - 1) == neutral)
 				{
 					queue.emplace_front(cur.x, cur.y - 1);
 					dmap[cur.x][cur.y - 1] = w;
@@ -1222,7 +1236,7 @@ class MyApp : public App
 			}
 			if (cur.y < dmap.h - 1 && dmap[cur.x][cur.y + 1] > dmap[cur.x][cur.y] && get_owner(start.x, start.y) != get_owner(cur.x, cur.y + 1))
 			{
-				if (get_owner(cur.x, cur.y + 1) == noOwner)
+				if (get_owner(cur.x, cur.y + 1) == noOwner || get_owner(cur.x, cur.y + 1) == neutral)
 				{
 					queue.emplace_front(cur.x, cur.y + 1);
 					dmap[cur.x][cur.y + 1] = w;
@@ -1239,18 +1253,26 @@ class MyApp : public App
 		return zone;
 	}
 
+	int attackUnitId, protectUnitId;
+	bool isAttacking = false;
+
 	deque <IntVec2> fight_route(IntVec2 start, IntVec2 finish)
 	{
 		GameMap dmap;
 		deque <IntVec2> queue;
 		dmap = createMap(fight_field_map.w, fight_field_map.h);
+		ownerType owner = get_owner(start.x, start.y);
 		fightTarget = FightTarget::none;
 		if (fight_field_map[finish] != -1)
 		{
+			attackUnitId = fight_field_map[start.x][start.y];
+			protectUnitId = fight_field_map[finish.x][finish.y];
+			isAttacking = true;
 			fightTarget = FightTarget::unit;
 		}
 		else
 		{
+			isAttacking = false;
 			fightTarget = FightTarget::none;
 		}
 		for (int x = 0; x < dmap.w; x++)
@@ -2479,14 +2501,15 @@ class MyApp : public App
 				{
 					x = 0;
 				}
-				auto uunitObj = units.load("unit.json", x * cellsize, y * cellsize);
+				auto& uunitObj = units.load("unit.json", x * cellsize, y * cellsize);
 				if (isLeft)
 				{
 					uunitObj.child<GameObj>("fightUnitImg").setScaleX(-1);
 				}
 				uunitObj.child<GameObj>("fightUnitImg").skin<Texture>().setImageName(allTypes[y - 2].img_name);
 				auto& udata = units.data(uunitObj);
-				udata.owner = army.owner;
+				auto a = army.owner;
+				udata.owner = a;
 				udata.unit.n = unit.n;
 				uunitObj.child<Label>("fightUnitNum") << udata.unit.n;
 				udata.cords.x = x;
@@ -2510,6 +2533,7 @@ class MyApp : public App
 			p.first = unit.unit.type.initiative;
 			p.second = nit.id();
 			queue.push_back(p);
+			cout << "owner: " << unit.owner;
 		}
 		sort(queue.begin(), queue.end());
 		reverse(queue.begin(), queue.end());
@@ -2518,13 +2542,19 @@ class MyApp : public App
 
 	set <IntVec2> zone;
 
+	void renderUnitStats(int id)
+	{
+		units.get(id).child<Label>("fightUnitNum") << units.data(id).unit.n;
+	}
+
 	void draw_get_step_fight_zone(int id)
 	{
 		IntVec2 pos = units.data(id).cords;
 		int step = units.data(id).unit.type.stepPoint;
 		zone = get_fight_zone(pos, step);
 		step_zone.clear();
-		step_zone.load("zone_item.json", pos.x * cellsize, pos.y * cellsize);
+		auto a = step_zone.load("zone_item.json", pos.x * cellsize, pos.y * cellsize);
+		a.skin<Texture>().setColor(0, 0, 255, 100);
 		for (auto zitem : zone)
 		{
 			auto item = step_zone.load("zone_item.json", zitem.x * cellsize, zitem.y * cellsize);
@@ -2544,9 +2574,25 @@ class MyApp : public App
 		draw_get_step_fight_zone(first2.second);
 	}
 
+	bool check_win(ownerType owner)
+	{
+		bool win = true;
+		for (auto nit : units.all())
+		{
+			auto owner1 = units.data(units.get(nit)).owner;
+			cout << owner1 << endl;
+			if (owner1 != owner)
+			{
+				win = false;
+			}
+		}
+		return win;
+	}
+
 	bool animStart = false;
 	int moveUnitId = -1;
 	const int cellsize = 75;
+	
     void move()
      {
 		GOld << " : " << gold;
@@ -2557,11 +2603,64 @@ class MyApp : public App
 		heroStepsLabel << " : " << stepPoints;
 		field.setView(playerLayer.get(0).pos());
 		//updateHeroCastles();
+		
 
 		if (moveUnitId != -1 && animStart)
 		{
 			if (units.get(moveUnitId).anim.isEmpty())
 			{
+				if (fightTarget == FightTarget::unit && isAttacking)
+				{
+					isAttacking = false;
+					auto& unit1 = units.data(attackUnitId).unit;
+					auto& unit2 = units.data(protectUnitId).unit;
+					float damage1 = damage_count(unit1.type.attack, unit2.type.protect, unit1.type.damage, unit1.n, unit2.n, unit1.type.lvl);
+					float oneHp1 = allTypes[unit1.type.lvl - 1].hp;
+					float oneHp2 = allTypes[unit2.type.lvl - 1].hp;
+					float allHp1 = unit1.type.hp;
+					float allHp2 = unit2.type.hp;
+					float n1 = unit1.n;
+					float n2 = unit2.n;
+					int die2 = n2 - ((allHp2 - damage1) / oneHp2);
+					n2 -= die2;
+					float damage2 = damage_count(unit2.type.attack, unit1.type.protect, unit2.type.damage, n2, unit1.n, unit2.type.lvl);
+					int die1 = n1 - ((allHp1 - damage2) / oneHp1);
+					n1 -= die1;
+					allHp1 -= damage2;
+					allHp2 -= damage1;
+					cout << "die1: " << die1 << endl;
+					cout << "die2: " << die2 << endl;
+					unit1.type.hp = allHp1;
+					unit2.type.hp = allHp2;
+					if (n1 < 0)
+					{
+						n1 = 0;
+						units.get(protectUnitId).kill();
+						if (check_win(humanplayer) || check_win(neutral))
+						{
+							isFighting = false;
+							selector.select(1);
+							units.clear();
+						}
+
+					}
+					if (n2 < 0)
+					{
+						n2 = 0;
+						units.get(attackUnitId).kill();
+						if (check_win(humanplayer) || check_win(neutral))
+						{
+							isFighting = false;
+							selector.select(1);
+							units.clear();
+						}
+
+					}
+					unit1.n = n1;
+					unit2.n = n2;
+					renderUnitStats(attackUnitId);
+					renderUnitStats(protectUnitId);
+				}
 				animStart = false;
 				next_fight_step();
 			}
