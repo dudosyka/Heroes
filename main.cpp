@@ -74,7 +74,7 @@ class MyApp : public App
 		{
 			4,
 			4,
-			3,
+			7,
 			3,
 			4,
 			8,
@@ -85,10 +85,10 @@ class MyApp : public App
 			"myaso.png"
 		},
 		{
-			7,
+			10,
 			4,
 			4,
-			3,
+			8,
 			4,
 			9,
 			2,
@@ -101,7 +101,7 @@ class MyApp : public App
 			30,
 			7,
 			5,
-			8,
+			15,
 			7,
 			15,
 			3,
@@ -114,7 +114,7 @@ class MyApp : public App
 			54,
 			12,
 			12,
-			10,
+			25,
 			5,
 			10,
 			4,
@@ -127,7 +127,7 @@ class MyApp : public App
 			90,
 			23,
 			21,
-			25,
+			35,
 			7,
 			11,
 			5,
@@ -139,7 +139,7 @@ class MyApp : public App
 		{
 			180,
 			27,
-			27,
+			25,
 			45,
 			6,
 			12,
@@ -847,16 +847,26 @@ class MyApp : public App
 		close();
 	}
 
-	float damage_count(int attack, int protect, int damage, int n, int n2, int lvl)
+	float damage_count(int attack, int protect, int damage, int n)
 	{
-		if (attack > protect)
+		float damage_per_unit = damage * ((attack - protect) * 0.05 + 1);
+		if (damage_per_unit < 1)
+		{
+			return n;
+		}
+		else
+		{
+			return n * damage_per_unit;
+		}
+
+		/*if (attack > protect)
 		{
 			return (attack - protect) * damage * n * 0.02 * lvl;
 		}
 		else
 		{
-			return n * damage - (protect - attack) * n2 * 0.02 * lvl;
-		}
+			return (n * damage * attack / float(protect)) * 0.02 * lvl;
+		}*/
 	}
 
 	int round_up(float a)
@@ -903,25 +913,26 @@ class MyApp : public App
 				int die = 0;
 				if (fight_field_map[c.x][c.y] > -1)
 				{
-					auto unit1 = units.data(fight_field_map[c.x][c.y]).unit;
-					auto unit2 = units.data(fight_queue[0].second).unit;
+					auto unit1 = units.data(fight_queue[0].second).unit;
+					auto unit2 = units.data(fight_field_map[c.x][c.y]).unit;
 					int lvl1 = unit1.type.lvl;
 					int lvl2 = unit2.type.lvl;
 					auto info = design.child<Layout>("fight_unit_stats");
 					info.show();
-					info.child<Label>("attack") << unit1.type.attack;
-					info.child<Label>("protect") << unit1.type.protect;
-					auto damage = damage_count(unit2.type.attack, unit1.type.protect, unit2.type.damage, unit2.n, unit1.n, unit1.type.lvl);
-					auto die = die_count(damage, unit1.n, unit1.type.hp, lvl1);
+					info.child<Label>("attack") << unit2.type.attack;
+					info.child<Label>("protect") << unit2.type.protect;
+					auto damage = damage_count(unit1.type.attack, unit2.type.protect, unit1.type.damage, unit1.n);
+					auto die = die_count(damage, unit2.n, unit2.type.hp, lvl2);
 					info.child<Label>("enemy_die") << die;
-					if (die < unit1.n)
+					if (die < unit2.n)
 					{
-						damage = damage_count(unit1.type.attack, unit2.type.protect, unit1.type.damage, unit1.n - die, unit2.n, unit2.type.lvl);
-						die = die_count(damage, unit2.n, unit2.type.hp, lvl2);
+						damage = damage_count(unit1.type.attack, unit2.type.protect, unit1.type.damage, unit2.n - die);
+						die = die_count(damage, unit1.n, unit1.type.hp, lvl1);
 						info.child<Label>("your_die") << die;
 					}
 					else
 					{
+						info.child<Label>("enemy_die") << unit2.n;
 						info.child<Label>("your_die") << 0;
 					}
 					connect(info.child<Button>("close_fight_stats"), close_fight_stats);
@@ -960,30 +971,31 @@ class MyApp : public App
 					cout << "Mouse on castleMagicBuild1" << endl;
 				}
 			}
-		}
-
-		if (input.justPressed(MouseLeft)/* && !impl::isMouseOn(castle_menu.getImpl().get()) */&& forWindow.empty() && playerLayer.get(0).anim.isEmpty() && !impl::isMouseOn(Relog.getImpl().get()) && !impl::isMouseOn(newDirection.getImpl().get()) && !impl::isMouseOn(heroMenu.getImpl().get()) && !heroMenuOpen)
-		{
-			if (stepPoints <= 0)
+			if (input.justPressed(MouseLeft)/* && !impl::isMouseOn(castle_menu.getImpl().get()) */&& forWindow.empty() && playerLayer.get(0).anim.isEmpty() && !impl::isMouseOn(Relog.getImpl().get()) && !impl::isMouseOn(newDirection.getImpl().get()) && !impl::isMouseOn(heroMenu.getImpl().get()) && !heroMenuOpen)
 			{
-				emptyStep.show();
-				timer.start();
-				timer.repeat(2);
-			}
-			else
-			{
-				emptyStep.hide();
-				auto c = cell(field.mousePos());
-				if (c.x < groundmap.w && c.y < groundmap.h && c.y >= 0 && c.x >= 0)
+				if (stepPoints <= 0)
 				{
-					direction = route(cell(playerLayer.get(0).pos()), c);
-					for (auto dir : direction)
+					emptyStep.show();
+					timer.start();
+					timer.repeat(2);
+				}
+				else
+				{
+					emptyStep.hide();
+					auto c = cell(field.mousePos());
+					if (c.x < groundmap.w && c.y < groundmap.h && c.y >= 0 && c.x >= 0)
 					{
-						SuperMegaPuperStepEgg.load("SuperMegaPuperStepEgg.json", pixels(dir));
+						direction = route(cell(playerLayer.get(0).pos()), c);
+						for (auto dir : direction)
+						{
+							SuperMegaPuperStepEgg.load("SuperMegaPuperStepEgg.json", pixels(dir));
+						}
 					}
 				}
 			}
 		}
+
+		
     }
 
 	IntVec2 cell (Vec2 v)
@@ -2579,9 +2591,9 @@ class MyApp : public App
 		bool win = true;
 		for (auto nit : units.all())
 		{
-			auto owner1 = units.data(units.get(nit)).owner;
-			cout << owner1 << endl;
-			if (owner1 != owner)
+			auto owner2 = units.data(nit).owner;
+			cout << owner2 << endl;
+			if (owner2 != owner)
 			{
 				win = false;
 			}
@@ -2593,6 +2605,22 @@ class MyApp : public App
 	int moveUnitId = -1;
 	const int cellsize = 75;
 	
+	void delete_from_queue(int id)
+	{
+		int i = 0;
+		for (auto item : fight_queue)
+		{
+			if (item.second == id)
+			{
+				fight_queue.erase(fight_queue.begin() + i);
+				break;
+			}
+			i++;
+		}
+	}
+
+	int neutral_fight_id;
+
     void move()
      {
 		GOld << " : " << gold;
@@ -2614,52 +2642,83 @@ class MyApp : public App
 					isAttacking = false;
 					auto& unit1 = units.data(attackUnitId).unit;
 					auto& unit2 = units.data(protectUnitId).unit;
-					float damage1 = damage_count(unit1.type.attack, unit2.type.protect, unit1.type.damage, unit1.n, unit2.n, unit1.type.lvl);
+					float damage1 = damage_count(unit1.type.attack, unit2.type.protect, unit1.type.damage, unit1.n);
 					float oneHp1 = allTypes[unit1.type.lvl - 1].hp;
 					float oneHp2 = allTypes[unit2.type.lvl - 1].hp;
 					float allHp1 = unit1.type.hp;
 					float allHp2 = unit2.type.hp;
-					float n1 = unit1.n;
-					float n2 = unit2.n;
-					int die2 = n2 - ((allHp2 - damage1) / oneHp2);
-					n2 -= die2;
-					float damage2 = damage_count(unit2.type.attack, unit1.type.protect, unit2.type.damage, n2, unit1.n, unit2.type.lvl);
-					int die1 = n1 - ((allHp1 - damage2) / oneHp1);
-					n1 -= die1;
+					int n1 = unit1.n;
+					int n2 = unit2.n;
+					n2 -= die_count(damage1, unit2.n, unit2.type.hp, unit2.type.lvl);
+					float damage2 = damage_count(unit2.type.attack, unit1.type.protect, unit2.type.damage, n2);
+					float die1 = n1 - ((allHp1 - damage2) / oneHp1);
+					n1 -= die_count(damage2, unit1.n, unit1.type.hp, unit1.type.lvl);
 					allHp1 -= damage2;
 					allHp2 -= damage1;
-					cout << "die1: " << die1 << endl;
-					cout << "die2: " << die2 << endl;
 					unit1.type.hp = allHp1;
 					unit2.type.hp = allHp2;
-					if (n1 < 0)
-					{
-						n1 = 0;
-						units.get(protectUnitId).kill();
-						if (check_win(humanplayer) || check_win(neutral))
-						{
-							isFighting = false;
-							selector.select(1);
-							units.clear();
-						}
-
-					}
-					if (n2 < 0)
-					{
-						n2 = 0;
-						units.get(attackUnitId).kill();
-						if (check_win(humanplayer) || check_win(neutral))
-						{
-							isFighting = false;
-							selector.select(1);
-							units.clear();
-						}
-
-					}
 					unit1.n = n1;
 					unit2.n = n2;
 					renderUnitStats(attackUnitId);
 					renderUnitStats(protectUnitId);
+					if (n1 == 0)
+					{
+						fight_field_map[units.data(attackUnitId).cords] = -1;
+						delete_from_queue(attackUnitId);
+						units.get(attackUnitId).kill();
+						moveUnitId = -1;
+						if (check_win(humanplayer) || check_win(neutral))
+						{
+							isFighting = false;
+							selector.select(1);
+							if (check_win(humanplayer))
+							{
+								realrecmap[neutrals.data(neutral_fight_id).cords.x][neutrals.data(neutral_fight_id).cords.y] = noneRec;
+								neutrals.get(neutral_fight_id).kill();
+							}
+							else
+							{
+								playerLayer.data(playerLayer.get(0)).army = createArmy({
+										{ unitType::myaso, 1 },
+										{ unitType::archer, 0 },
+										{ unitType::grifon, 0 },
+										{ unitType::chuvak, 0 },
+										{ unitType::horserider, 0 },
+										{ unitType::angel, 0 }
+								});
+							}
+							units.clear();
+						}
+					}
+					if (n2 == 0)
+					{
+						fight_field_map[units.data(protectUnitId).cords] = -1;
+						delete_from_queue(protectUnitId);
+						units.get(protectUnitId).kill();
+						moveUnitId = -1;
+						if (check_win(humanplayer) || check_win(neutral))
+						{
+							isFighting = false;
+							selector.select(1);
+							if (check_win(humanplayer))
+							{
+								realrecmap[neutrals.data(neutral_fight_id).cords.x][neutrals.data(neutral_fight_id).cords.y] = noneRec;
+								neutrals.get(neutral_fight_id).kill();
+							}
+							else
+							{
+								playerLayer.data(playerLayer.get(0)).army = createArmy({
+										{ unitType::myaso, 1 },
+										{ unitType::archer, 0 },
+										{ unitType::grifon, 0 },
+										{ unitType::chuvak, 0 },
+										{ unitType::horserider, 0 },
+										{ unitType::angel, 0 }
+									});
+							}
+							units.clear();
+						}
+					}
 				}
 				animStart = false;
 				next_fight_step();
@@ -2797,6 +2856,7 @@ class MyApp : public App
 						fight_queue = make_fight_queue();
 						draw_get_step_fight_zone(fight_queue[0].second);
 						connect(new_fight_step, next_fight_step);
+						neutral_fight_id = Neutral.id();
 						isFighting = true;
 						target = Target::none;
 					}
@@ -2899,25 +2959,30 @@ class MyApp : public App
 	FromDesign(Button, select0);
 	FromDesign(Button, select1);
 	FromDesign(Button, select2);
+
 	FromDesign(Button, heroMenu);
 	FromDesign(GameView, field);
 	FromDesign(GameView, fight_field);
+
 	FromDesign(Label, GOld);
 	FromDesign(Label, SKill);
 	FromDesign(Label, Ore);
 	FromDesign(Label, Gems);
 	FromDesign(Label, Sera);
+
 	FromDesign(Label, emptyStep);
+
 	LayerFromDesign(void, mobs);
 	LayerFromDesign(void, ground);
 	LayerFromDesign(void, fight_ground);
-	LayerFromDesign(unitsData, units);
 	LayerFromDesign(void, step_zone);
 	LayerFromDesign(void, forest);
+	LayerFromDesign(void, SuperMegaPuperStepEgg);
+
 	LayerFromDesign(playerData, playerLayer);
+	LayerFromDesign(unitsData, units);
 	LayerFromDesign(recData, rec);
 	LayerFromDesign(nishData, nishtyaki);
-	LayerFromDesign(void, SuperMegaPuperStepEgg);
 	LayerFromDesign(neutralData, neutrals);
 };
 
@@ -2926,8 +2991,10 @@ int main(int argc, char** argv)
     MyApp app;
     app.setConfig("HeroesConfig.json");
     app.setDesign("Design.json");
-    if (!app.init(&argc, argv))
-        return 1;
+	if (!app.init(&argc, argv))
+	{
+		return 1;
+	}        
     app.run();
     return 0;
 }
