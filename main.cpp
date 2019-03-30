@@ -64,6 +64,7 @@ class MyApp : public App
 		int stepPoint;
 		int initiative;
 		int lvl;
+		float k;
 		vector <Price> price;
 		Enum type;
 		string icon_name;
@@ -74,11 +75,12 @@ class MyApp : public App
 		{
 			4,
 			4,
-			7,
+			7, // protect
 			3,
 			4,
 			8,
 			1,
+			0.5,
 			{{Price::gold, 85}},
 			unitType::myaso,
 			"myaso_icon.png",
@@ -87,11 +89,12 @@ class MyApp : public App
 		{
 			10,
 			4,
-			4,
+			4,// protect
 			8,
 			4,
 			9,
 			2,
+			0.8,
 			{{Price::gold, 50}},
 			unitType::archer,
 			"archer_icon.png",
@@ -99,12 +102,13 @@ class MyApp : public App
 		},
 		{
 			30,
-			7,
-			5,
+			18,
+			10,// protect
 			15,
 			7,
 			15,
 			3,
+			0.7,
 			{{Price::gold, 260}},
 			unitType::grifon,
 			"griffin_icon.png",
@@ -113,11 +117,12 @@ class MyApp : public App
 		{
 			54,
 			12,
-			12,
+			12,// protect
 			25,
 			5,
 			10,
 			4,
+			0.6,
 			{{Price::gold, 600}},
 			unitType::chuvak,
 			"chuvak_icon.png",
@@ -126,11 +131,12 @@ class MyApp : public App
 		{
 			90,
 			23,
-			21,
+			21,// protect
 			35,
 			7,
 			11,
 			5,
+			0.4,
 			{{Price::gold, 1300}},
 			unitType::horserider,
 			"horserider_icon.png",
@@ -139,11 +145,12 @@ class MyApp : public App
 		{
 			180,
 			27,
-			25,
+			25,// protect
 			45,
 			6,
 			12,
 			6,
+			0.3,
 			{{Price::gold, 2800}, {Price::crystal, 1}},
 			unitType::angel,
 			"Angel_icon.png",
@@ -235,6 +242,7 @@ class MyApp : public App
 		Unit unit;
 		ownerType owner;
 		IntVec2 cords;
+		float k;
 	};
 
 	enum grass
@@ -244,6 +252,28 @@ class MyApp : public App
 		Chest,
 		Gold
 	};
+
+	/*float get_k(unitsData unit)
+	{
+		float k = 0;
+		if (unit.unit.type.type == archer)
+		{
+			k += 0.5;
+		}
+		if (unit.unit.type.protect <= 7)
+		{
+			k += 0.3;
+		}
+		if (unit.unit.type.protect <= 12 && unit.unit.type.protect > 7)
+		{
+			k += 0.2;
+		}
+		if (unit.unit.type.protect > 12)
+		{
+			k += 0.1;
+		}
+		return k;
+	}*/
 
 	Army createArmy(vector<pair<unitType::Enum, int>> newArmy)
 	{
@@ -487,6 +517,26 @@ class MyApp : public App
 
 	}
 
+	void clearArmy(Army& army)
+	{
+		army = createArmy({
+					{ unitType::myaso, 0 },
+					{ unitType::archer, 0 },
+					{ unitType::grifon, 0 },
+					{ unitType::chuvak, 0 },
+					{ unitType::horserider, 1 },
+					{ unitType::angel, 0 }
+				});
+	}
+
+	void fightExit()
+	{
+		isFighting = false;
+		units.clear();
+		clearArmy(playerLayer.data(playerLayer.get(0)).army);
+		selector.select(1);
+	}
+
 	void load()
 	{
 		connect(Relog, nextStep);
@@ -495,7 +545,8 @@ class MyApp : public App
 		connect(select0, changeHeroMenu, stats);
 		connect(select1, changeHeroMenu, arts);
 		connect(select2, changeHeroMenu, army);
-
+		connect(fight_exit, fightExit);
+		fight_exit.hide();
 		connect(newDirection, clearSteps);
 		connect(timer, hideLabel);
 
@@ -909,6 +960,10 @@ class MyApp : public App
 		{
 			if (input.justPressed(MouseRight))
 			{
+				if (getUnitOwner(fight_queue[0].second) != humanplayer)
+				{
+					return;
+				}
 				auto c = cell_fight(fight_field.mousePos());
 				int die = 0;
 				if (fight_field_map[c.x][c.y] > -1)
@@ -1267,6 +1322,14 @@ class MyApp : public App
 
 	int attackUnitId, protectUnitId;
 	bool isAttacking = false;
+
+	int get_target()
+	{
+		for (auto nit : units.all())
+		{
+			
+		}
+	}
 
 	deque <IntVec2> fight_route(IntVec2 start, IntVec2 finish)
 	{
@@ -2577,13 +2640,58 @@ class MyApp : public App
 		}
 	}
 
+	deque <IntVec2> enemy_fight_direction;
+
+	void make_computer_step()
+	{
+		int id = target_queue[0].second;
+		IntVec2 pos1 = units.data(id).cords;
+		id = fight_queue[0].second;
+		IntVec2 pos2 = units.data(id).cords;
+		enemy_fight_direction = fight_route(pos2, pos1);
+	}
+
+	ownerType getUnitOwner(int id)
+	{
+		return units.data(id).owner;
+	}
+
+	deque <pair <float, int>> target_queue;
+
+	deque <pair <float, int>> makeTargetQueue (ownerType attackOwner)
+	{
+		deque <pair <float, int>> queue;
+		for (auto nit : units.all())
+		{
+			auto& unit = units.data(nit);
+			pair <float, int> p;
+			p.first = unit.unit.type.k;
+			p.second = nit.id();
+			if (attackOwner == units.data(nit).owner)
+			{
+				continue;
+			}
+			queue.push_back(p);
+		}
+		sort(queue.begin(), queue.end());
+		reverse(queue.begin(), queue.end());
+		return queue;
+	}
+
 	void next_fight_step()
 	{
 		auto first = fight_queue[0];
 		fight_queue.pop_front();
 		fight_queue.push_back(first);
 		auto first2 = fight_queue[0];
-		draw_get_step_fight_zone(first2.second);
+		if (getUnitOwner(first2.second) == humanplayer)
+		{
+			draw_get_step_fight_zone(first2.second);
+		}			
+		else
+		{
+			make_computer_step();
+		}
 	}
 
 	bool check_win(ownerType owner)
@@ -2600,7 +2708,6 @@ class MyApp : public App
 		}
 		return win;
 	}
-
 	bool animStart = false;
 	int moveUnitId = -1;
 	const int cellsize = 75;
@@ -2620,6 +2727,24 @@ class MyApp : public App
 	}
 
 	int neutral_fight_id;
+
+	bool is_mi_ryadom(IntVec2 pos1, IntVec2 pos2)
+	{
+		bool mi_ryadom = false;
+		/*pos1.x + 1 == pos2.x
+			|| pos1.x - 1 == pos2.x
+			|| pos1.y + 1 == pos2.y
+			|| pos1.y - 1 == pos2.y
+			|| (pos1.x + 1 == pos2.x && pos1.y + 1 == pos2.y)
+			|| (pos1.x + 1 == pos2.x && pos1.y - 1 == pos2.y)
+			|| (pos1.x - 1 == pos2.x && pos1.y - 1 == pos2.y)
+			|| (pos1.x - 1 == pos2.x && pos1.y + 1 == pos2.y)*/
+		if (abs(pos1.x - pos2.x) <= 1 && abs(pos1.y - pos2.y) <= 1)
+		{
+			mi_ryadom = true;
+		}
+		return mi_ryadom;
+	}
 
     void move()
      {
@@ -2642,6 +2767,11 @@ class MyApp : public App
 					isAttacking = false;
 					auto& unit1 = units.data(attackUnitId).unit;
 					auto& unit2 = units.data(protectUnitId).unit;
+					if (!is_mi_ryadom(units.data(attackUnitId).cords, units.data(protectUnitId).cords))
+					{
+						isAttacking = true;
+						return;
+					}
 					float damage1 = damage_count(unit1.type.attack, unit2.type.protect, unit1.type.damage, unit1.n);
 					float oneHp1 = allTypes[unit1.type.lvl - 1].hp;
 					float oneHp2 = allTypes[unit2.type.lvl - 1].hp;
@@ -2671,6 +2801,8 @@ class MyApp : public App
 						{
 							isFighting = false;
 							selector.select(1);
+
+							fight_exit.hide();
 							if (check_win(humanplayer))
 							{
 								realrecmap[neutrals.data(neutral_fight_id).cords.x][neutrals.data(neutral_fight_id).cords.y] = noneRec;
@@ -2678,16 +2810,13 @@ class MyApp : public App
 							}
 							else
 							{
-								playerLayer.data(playerLayer.get(0)).army = createArmy({
-										{ unitType::myaso, 1 },
-										{ unitType::archer, 0 },
-										{ unitType::grifon, 0 },
-										{ unitType::chuvak, 0 },
-										{ unitType::horserider, 0 },
-										{ unitType::angel, 0 }
-								});
+								clearArmy(playerLayer.data(playerLayer.get(0)).army);
 							}
 							units.clear();
+						}
+						else
+						{
+							target_queue = makeTargetQueue(neutral);
 						}
 					}
 					if (n2 == 0)
@@ -2696,10 +2825,12 @@ class MyApp : public App
 						delete_from_queue(protectUnitId);
 						units.get(protectUnitId).kill();
 						moveUnitId = -1;
+						
 						if (check_win(humanplayer) || check_win(neutral))
 						{
 							isFighting = false;
 							selector.select(1);
+							fight_exit.hide();
 							if (check_win(humanplayer))
 							{
 								realrecmap[neutrals.data(neutral_fight_id).cords.x][neutrals.data(neutral_fight_id).cords.y] = noneRec;
@@ -2707,16 +2838,13 @@ class MyApp : public App
 							}
 							else
 							{
-								playerLayer.data(playerLayer.get(0)).army = createArmy({
-										{ unitType::myaso, 1 },
-										{ unitType::archer, 0 },
-										{ unitType::grifon, 0 },
-										{ unitType::chuvak, 0 },
-										{ unitType::horserider, 0 },
-										{ unitType::angel, 0 }
-									});
+								clearArmy(playerLayer.data(playerLayer.get(0)).army);
 							}
 							units.clear();
+						}
+						else
+						{
+							target_queue = makeTargetQueue(neutral);
 						}
 					}
 				}
@@ -2756,9 +2884,48 @@ class MyApp : public App
 			emptyStep.hide();
 		}
 		
+		if (!empty(enemy_fight_direction))
+		{
+
+			int steps = units.data(fight_queue[0].second).unit.type.stepPoint;
+			for (auto dir : enemy_fight_direction)
+			{
+				IntVec2& NowPPos = units.data(units.get(fight_queue[0].second)).cords;
+				fight_field_map[units.data(units.get(fight_queue[0].second)).cords.x][units.data(units.get(fight_queue[0].second)).cords.y] = -1;
+				if (dir.x > NowPPos.x)
+				{
+					units.data(units.get(fight_queue[0].second)).cords.x++;
+					units.get(fight_queue[0].second).anim.play("right", 0);
+				}
+				else if (dir.x < NowPPos.x)
+				{
+					units.data(units.get(fight_queue[0].second)).cords.x--;
+					units.get(fight_queue[0].second).anim.play("left", 0);
+				}
+				else if (dir.y > NowPPos.y)
+				{
+					units.data(units.get(fight_queue[0].second)).cords.y++;
+					units.get(fight_queue[0].second).anim.play("top", 0);
+				}
+				else if (dir.y < NowPPos.y)
+				{
+					units.data(units.get(fight_queue[0].second)).cords.y--;
+					units.get(fight_queue[0].second).anim.play("down", 0);
+				}
+				fight_field_map[units.data(units.get(fight_queue[0].second)).cords.x][units.data(units.get(fight_queue[0].second)).cords.y] = fight_queue[0].second;
+				animStart = true;
+				moveUnitId = fight_queue[0].second;
+				steps--;
+				if (steps < 1)
+				{
+					break;
+				}
+			}
+			enemy_fight_direction.clear();
+		}
+
 		if (!empty(fight_direction))
 		{
-			int steps;
 			for (auto dir : fight_direction)
 			{
 				IntVec2& NowPPos = units.data(units.get(fight_queue[0].second)).cords;
@@ -2854,9 +3021,11 @@ class MyApp : public App
 						placeArmy(playerLayer.data(playerLayer.get(0)).army, true);
 						placeArmy(neutrals.data(Neutral).army, false);
 						fight_queue = make_fight_queue();
+						target_queue = makeTargetQueue(neutral);
 						draw_get_step_fight_zone(fight_queue[0].second);
 						connect(new_fight_step, next_fight_step);
 						neutral_fight_id = Neutral.id();
+						fight_exit.show();
 						isFighting = true;
 						target = Target::none;
 					}
@@ -2949,6 +3118,7 @@ class MyApp : public App
 	FromDesign(Selector, selector);
 	FromDesign(Layout, castle_menu);
 	FromDesign(Button, new_fight_step);
+	FromDesign(Button, fight_exit);
 	//FromDesign(HorizontalLayout, armyMenu);
 
 	FromDesign(Label, heroStepsLabel);
