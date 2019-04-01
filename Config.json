@@ -1,12 +1,12 @@
 {
     "designPath": "design",
     "fontsPath": "../gamebase/resources/fonts",
-    "height": 1080,
+    "height": 1024,
     "imagesPath": "images",
-    "mode": "window",
+    "mode": "fullscreen",
     "musicPath": "music",
     "shadersPath": "../gamebase/resources/shaders",
     "soundsPath": "sounds",
     "version": "VER3",
-    "width": 1920
+    "width": 1280
 }

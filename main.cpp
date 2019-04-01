@@ -242,6 +242,10 @@ class MyApp : public App
 		IntVec2 cords;
 	};
 
+	struct eggData {
+		IntVec2 cords;
+	};
+
 	struct unitsData
 	{
 		Unit unit;
@@ -797,6 +801,17 @@ class MyApp : public App
 			auto cords = rec.data(r).cords;
 			r.setScale(scale);
 			r.setPos(cords.x * (150 * scale), cords.y * (150 * scale));
+			if (rec.data(r).type == castle || rec.data(r).type == castle_entry)
+			{
+				r.setScale(scale * 1.5);
+				r.setPos((cords.x + 1) * (150 * scale), (cords.y + 1) * (150 * scale));
+			}
+		}
+		for (auto e : SuperMegaPuperStepEgg.all())
+		{
+			auto cords = SuperMegaPuperStepEgg.data(e).cords;
+			e.setScale(scale);
+			e.setPos(cords.x * 150 * scale, cords.y * 150 * scale);
 		}
 		for (auto neutral : neutrals.all())
 		{
@@ -1014,7 +1029,6 @@ class MyApp : public App
 		}
 	}
 
-	deque <IntVec2> fight_direction;
 	//iowei09giofriojwijewf9uwfer4i93f4jt340t35jt90958t5f0834jt8j03j8t4f8t30948fj8430jtf8t094jf09t4380934jf8t0j8j08j80c8cjfwe
 
 	void close_fight_stats()
@@ -1033,6 +1047,10 @@ class MyApp : public App
 		//fkjosdgjiodfgjdgjdjgodjgsjsgoigjdijojgdjgodjigjfkjosdgjiodfgjdgjdjgodjgsjsgoigjdijojgdjgodjigjfkjosdgjiodfgjdgjdjgodjgsjsgoigjdijojgdjgodjigjfkjosdgjiodfgjdgjdjgodjgsjsgoigjdijojgdjgodjigjfkjosdgjiodfgjdgjdjgodjgsjsgoigjdijojgdjgodjigjfkjosdgjiodfgjdgjdjgodjgsjsgoigjdijojgdjgodjigjfkjosdgjiodfgjdgjdjgodjgsjsgoigjdijojgdjgodjigjfkjosdgjiodfgjdgjdjgodjgsjsgoigjdijojgdjgodjigjfkjosdgjiodfgjdgjdjgodjgsjsgoigjdijojgdjgodjigjfkjosdgjiodfgjdgjdjgodjgsjsgoigjdijojgdjgodjigjfkjosdgjiodfgjdgjdjgodjgsjsgoigjdijojgdjgodjigjfkjosdgjiodfgjdgjdjgodjgsjsgoigjdijojgdjgodjigjfkjosdgjiodfgjdgjdjgodjgsjsgoigjdijojgdjgodjigjfkjosdgjiodfgjdgjdjgodjgsjsgoigjdijojgdjgodjigjfkjosdgjiodfgjdgjdjgodjgsjsgoigjdijojgdjgodjigj
 		if (isFighting)
 		{
+			if (animStart)
+			{
+				return;
+			}
 			if (input.justPressed(MouseRight))
 			{
 				if (getUnitOwner(fight_queue[0].second) != humanplayer)
@@ -1080,12 +1098,37 @@ class MyApp : public App
 					return;
 				}
 				int id = fight_queue[0].second;
-				for (auto nit : units.all())
+				auto& cords = units.data(id).cords;
+				auto obj = units.get(fight_queue[0].second);
+				auto fight_direction = fight_route(units.data(id).cords, c);
+				for (auto dir : fight_direction)
 				{
-					if (nit.id() == id)
+					IntVec2& NowPPos = units.data(id).cords;
+					fight_field_map[cords.x][cords.y] = -1;
+					if (dir.x > NowPPos.x)
 					{
-						fight_direction = fight_route(units.data(nit).cords, c);
+						cords.x++;
+						obj.anim.play("right", 0);
 					}
+					else if (dir.x < NowPPos.x)
+					{
+						cords.x--;
+						obj.anim.play("left", 0);
+					}
+					else if (dir.y > NowPPos.y)
+					{
+						cords.y++;
+						obj.anim.play("top", 0);
+					}
+					else if (dir.y < NowPPos.y)
+					{
+						cords.y--;
+						obj.anim.play("down", 0);
+					}
+					fight_field_map[cords.x][cords.y] = fight_queue[0].second;
+
+					animStart = true;
+					moveUnitId = fight_queue[0].second;
 				}
 			}			
 		}
@@ -1121,7 +1164,9 @@ class MyApp : public App
 							direction = route(cell(playerLayer.get(0).pos()), c);
 							for (auto dir : direction)
 							{
-								SuperMegaPuperStepEgg.load("SuperMegaPuperStepEgg.json", pixels(dir));
+
+								auto egg = SuperMegaPuperStepEgg.load("SuperMegaPuperStepEgg.json", pixels(dir));
+								SuperMegaPuperStepEgg.data(egg).cords = dir;
 							}
 						}
 					}						
@@ -1134,19 +1179,21 @@ class MyApp : public App
 							for (auto dir : direction)
 							{
 								auto egg = SuperMegaPuperStepEgg.load("SuperMegaPuperStepEgg.json", pixels_zoom(dir));
-								egg.setSize(37.5, 37.5);
+								egg.setSize(18.5, 18.5);
 							}
 						}
 					}
 						
 				}
 			}
-			if (input.justPressed(U))
+			if (isZoomDown && playerLayer.get(0).anim.isEmpty())
+				if (input.justPressed(U))
 			{
 				isZoomDown = false;
 				zoom(1);
 			}
-			if (input.justPressed(D))
+			if (!isZoomDown && playerLayer.get(0).anim.isEmpty())
+				if (input.justPressed(D))
 			{
 				isZoomDown = true;
 				zoom(0.25);
@@ -1487,17 +1534,17 @@ class MyApp : public App
 				queue.emplace_front(cur.x + 1, cur.y);
 				dmap[cur.x + 1][cur.y] = w;
 			}
-			if (cur.y > 0 && dmap[cur.x][cur.y - 1] > dmap[cur.x][cur.y] && fight_field_map[cur.x][cur.y - 1] == -1)
+			if (cur.y > 0 && dmap[cur.x][cur.y - 1] > w && fight_field_map[cur.x][cur.y - 1] == -1)
 			{
 				queue.emplace_front(cur.x, cur.y - 1);
 				dmap[cur.x][cur.y - 1] = w;
 			}
-			if (cur.x > 0 && dmap[cur.x - 1][cur.y] > dmap[cur.x][cur.y] && fight_field_map[cur.x - 1][cur.y] == -1)
+			if (cur.x > 0 && dmap[cur.x - 1][cur.y] > w && fight_field_map[cur.x - 1][cur.y] == -1)
 			{
 				queue.emplace_front(cur.x - 1, cur.y);
 				dmap[cur.x - 1][cur.y] = w;
 			}
-			if (cur.y < dmap.h - 1 && dmap[cur.x][cur.y + 1] > dmap[cur.x][cur.y] && fight_field_map[cur.x][cur.y + 1] == -1)
+			if (cur.y < dmap.h - 1 && dmap[cur.x][cur.y + 1] > w && fight_field_map[cur.x][cur.y + 1] == -1)
 			{
 				queue.emplace_front(cur.x, cur.y + 1);
 				dmap[cur.x][cur.y + 1] = w;
@@ -2767,6 +2814,42 @@ class MyApp : public App
 		id = fight_queue[0].second;
 		IntVec2 pos2 = units.data(id).cords;
 		enemy_fight_direction = fight_route(pos2, pos1);
+		int steps = units.data(fight_queue[0].second).unit.type.stepPoint;
+		for (auto dir : enemy_fight_direction)
+		{
+			IntVec2& NowPPos = units.data(units.get(fight_queue[0].second)).cords;
+			fight_field_map[units.data(units.get(fight_queue[0].second)).cords.x][units.data(units.get(fight_queue[0].second)).cords.y] = -1;
+			if (dir.x > NowPPos.x)
+			{
+				units.data(units.get(fight_queue[0].second)).cords.x++;
+				units.get(fight_queue[0].second).anim.play("right", 0);
+			}
+			else if (dir.x < NowPPos.x)
+			{
+				units.data(units.get(fight_queue[0].second)).cords.x--;
+				units.get(fight_queue[0].second).anim.play("left", 0);
+			}
+			else if (dir.y > NowPPos.y)
+			{
+				units.data(units.get(fight_queue[0].second)).cords.y++;
+				units.get(fight_queue[0].second).anim.play("top", 0);
+			}
+			else if (dir.y < NowPPos.y)
+			{
+				units.data(units.get(fight_queue[0].second)).cords.y--;
+				units.get(fight_queue[0].second).anim.play("down", 0);
+			}
+			fight_field_map[units.data(units.get(fight_queue[0].second)).cords.x][units.data(units.get(fight_queue[0].second)).cords.y] = fight_queue[0].second;
+
+			steps--;
+			if (steps < 1)
+			{
+				break;
+			}
+		}
+		enemy_fight_direction.clear();
+		animStart = true;
+		moveUnitId = fight_queue[0].second;
 	}
 
 	ownerType getUnitOwner(int id)
@@ -2798,21 +2881,25 @@ class MyApp : public App
 
 	void next_fight_step()
 	{
+		if (animStart)
+		{
+			return;
+		}
 		auto first = fight_queue[0];
 		fight_queue.pop_front();
 		fight_queue.push_back(first);
 		auto first2 = fight_queue[0];
-		if (getUnitOwner(first2.second) == humanplayer)
-		{
-			draw_get_step_fight_zone(first2.second);
-		}			
-		else
+		if (getUnitOwner(first2.second) != humanplayer)
 		{
 			IntVec2 pos = units.data(first2.second).cords;
 			int step = units.data(first2.second).unit.type.stepPoint;
 			zone = get_fight_zone(pos, step);
 			step_zone.clear();
 			make_computer_step();
+		}
+		else
+		{
+			draw_get_step_fight_zone(first2.second);
 		}
 	}
 
@@ -2868,6 +2955,92 @@ class MyApp : public App
 		return mi_ryadom;
 	}
 	
+	void attack()
+	{
+		isAttacking = false;
+		auto& unit1 = units.data(attackUnitId).unit;
+		auto& unit2 = units.data(protectUnitId).unit;
+		if (!is_mi_ryadom(units.data(attackUnitId).cords, units.data(protectUnitId).cords))
+		{
+			isAttacking = true;
+			return;
+		}
+		auto damage1 = damage_count(unit1.type.attack, unit2.type.protect, unit1.type.damage, unit1.n);
+		auto& oneHp1 = allTypes[unit1.type.lvl - 1].hp;
+		auto& oneHp2 = allTypes[unit2.type.lvl - 1].hp;
+		auto& allHp1 = unit1.type.hp;
+		auto& allHp2 = unit2.type.hp;
+		int n1 = unit1.n;
+		int n2 = unit2.n;
+		n2 -= die_count(damage1, unit2.n, unit2.type.hp, unit2.type.lvl);
+		float damage2 = damage_count(unit2.type.attack, unit1.type.protect, unit2.type.damage, n2);
+		n1 -= die_count(damage2, unit1.n, unit1.type.hp, unit1.type.lvl);
+		allHp1 -= damage2;
+		allHp2 -= damage1;
+		unit1.type.hp = allHp1;
+		unit2.type.hp = allHp2;
+		unit1.n = n1;
+		unit2.n = n2;
+		renderUnitStats(attackUnitId);
+		renderUnitStats(protectUnitId);
+		if (n1 == 0)
+		{
+			fight_field_map[units.data(attackUnitId).cords] = -1;
+			delete_from_queue(attackUnitId);
+			units.get(attackUnitId).kill();
+			moveUnitId = -1;
+			if (check_win(humanplayer) || check_win(neutral))
+			{
+				isFighting = false;
+				selector.select(1);
+
+				fight_exit.hide();
+				if (check_win(humanplayer))
+				{
+					realrecmap[neutrals.data(neutral_fight_id).cords.x][neutrals.data(neutral_fight_id).cords.y] = noneRec;
+					neutrals.get(neutral_fight_id).kill();
+				}
+				else
+				{
+					clearArmy(playerLayer.data(playerLayer.get(0)).army);
+				}
+				units.clear();
+			}
+			else
+			{
+				target_queue = makeTargetQueue(neutral);
+			}
+		}
+		if (n2 == 0)
+		{
+			fight_field_map[units.data(protectUnitId).cords] = -1;
+			delete_from_queue(protectUnitId);
+			units.get(protectUnitId).kill();
+			moveUnitId = -1;
+
+			if (check_win(humanplayer) || check_win(neutral))
+			{
+				isFighting = false;
+				selector.select(1);
+				fight_exit.hide();
+				if (check_win(humanplayer))
+				{
+					realrecmap[neutrals.data(neutral_fight_id).cords.x][neutrals.data(neutral_fight_id).cords.y] = noneRec;
+					neutrals.get(neutral_fight_id).kill();
+				}
+				else
+				{
+					clearArmy(playerLayer.data(playerLayer.get(0)).army);
+				}
+				units.clear();
+			}
+			else
+			{
+				target_queue = makeTargetQueue(neutral);
+			}
+		}
+	}
+
     void move()
      {
 		GOld << " : " << gold;
@@ -2881,391 +3054,240 @@ class MyApp : public App
 		//updateHeroCastles();
 		
 
-		if (moveUnitId != -1 && animStart)
+		if (isFighting)
 		{
-			if (units.get(moveUnitId).anim.isEmpty())
+			if (moveUnitId != -1 && animStart)
 			{
-				if (fightTarget == FightTarget::unit && isAttacking)
+				if (units.get(moveUnitId).anim.isEmpty())
 				{
-					isAttacking = false;
-					auto& unit1 = units.data(attackUnitId).unit;
-					auto& unit2 = units.data(protectUnitId).unit;
-					if (!is_mi_ryadom(units.data(attackUnitId).cords, units.data(protectUnitId).cords))
+					if (fightTarget == FightTarget::unit && isAttacking)
 					{
-						isAttacking = true;
-						return;
+						attack();
 					}
-					auto damage1 = damage_count(unit1.type.attack, unit2.type.protect, unit1.type.damage, unit1.n);
-					auto& oneHp1 = allTypes[unit1.type.lvl - 1].hp;
-					auto& oneHp2 = allTypes[unit2.type.lvl - 1].hp;
-					auto& allHp1 = unit1.type.hp;
-					auto& allHp2 = unit2.type.hp;
-					int n1 = unit1.n;
-					int n2 = unit2.n;
-					n2 -= die_count(damage1, unit2.n, unit2.type.hp, unit2.type.lvl);
-					float damage2 = damage_count(unit2.type.attack, unit1.type.protect, unit2.type.damage, n2);
-					n1 -= die_count(damage2, unit1.n, unit1.type.hp, unit1.type.lvl);
-					allHp1 -= damage2;
-					allHp2 -= damage1;
-					unit1.type.hp = allHp1;
-					unit2.type.hp = allHp2;
-					unit1.n = n1;
-					unit2.n = n2;
-					renderUnitStats(attackUnitId);
-					renderUnitStats(protectUnitId);
-					if (n1 == 0)
-					{
-						fight_field_map[units.data(attackUnitId).cords] = -1;
-						delete_from_queue(attackUnitId);
-						units.get(attackUnitId).kill();
-						moveUnitId = -1;
-						if (check_win(humanplayer) || check_win(neutral))
-						{
-							isFighting = false;
-							selector.select(1);
-
-							fight_exit.hide();
-							if (check_win(humanplayer))
-							{
-								realrecmap[neutrals.data(neutral_fight_id).cords.x][neutrals.data(neutral_fight_id).cords.y] = noneRec;
-								neutrals.get(neutral_fight_id).kill();
-							}
-							else
-							{
-								clearArmy(playerLayer.data(playerLayer.get(0)).army);
-							}
-							units.clear();
-						}
-						else
-						{
-							target_queue = makeTargetQueue(neutral);
-						}
-					}
-					if (n2 == 0)
-					{
-						fight_field_map[units.data(protectUnitId).cords] = -1;
-						delete_from_queue(protectUnitId);
-						units.get(protectUnitId).kill();
-						moveUnitId = -1;
-						
-						if (check_win(humanplayer) || check_win(neutral))
-						{
-							isFighting = false;
-							selector.select(1);
-							fight_exit.hide();
-							if (check_win(humanplayer))
-							{
-								realrecmap[neutrals.data(neutral_fight_id).cords.x][neutrals.data(neutral_fight_id).cords.y] = noneRec;
-								neutrals.get(neutral_fight_id).kill();
-							}
-							else
-							{
-								clearArmy(playerLayer.data(playerLayer.get(0)).army);
-							}
-							units.clear();
-						}
-						else
-						{
-							target_queue = makeTargetQueue(neutral);
-						}
-					}
+					animStart = false;
+					moveUnitId = -1;
+					next_fight_step();
 				}
-				animStart = false;
-				moveUnitId = -1;
 			}
 		}
+		else {
 
-		if (heroStay(playerLayer.get(0)))
-		{
-			for (auto n : nishtyaki.find(playerLayer.get(0).pos()))
+			if (heroStay(playerLayer.get(0)))
 			{
-				if (nishtyaki.data(n).type == golda)
+				for (auto n : nishtyaki.find(playerLayer.get(0).pos()))
 				{
-					randomize();
-					int a = randomInt(1, 5);
-					if (a >= 1 && a < 4)
+					if (nishtyaki.data(n).type == golda)
 					{
-						gold += 200;
+						randomize();
+						int a = randomInt(1, 5);
+						if (a >= 1 && a < 4)
+						{
+							gold += 200;
+						}
+						if (a >= 4)
+						{
+							gold += 400;
+						}
+
 					}
-					if (a >= 4)
+					else
 					{
-						gold += 400;
+						showChestMenu();
 					}
-					
+					n.kill();
+				}
+			}
+
+			if (stepPoints > 0)
+			{
+				emptyStep.hide();
+			}
+
+			if (!empty(direction) && playerLayer.get(0).anim.isEmpty() && stepPoints > 0)
+			{
+				IntVec2 NowPPos;
+				if (!isZoomDown)
+				{
+					NowPPos = cell(playerLayer.get(0).pos());
 				}
 				else
 				{
-					showChestMenu();
+					NowPPos = cell_zoom(playerLayer.get(0).pos());
 				}
-				n.kill();
-			}
-		}
-
-		if (stepPoints > 0)
-		{
-			emptyStep.hide();
-		}
-		
-		if (!empty(enemy_fight_direction))
-		{
-
-			int steps = units.data(fight_queue[0].second).unit.type.stepPoint;
-			for (auto dir : enemy_fight_direction)
-			{
-				IntVec2& NowPPos = units.data(units.get(fight_queue[0].second)).cords;
-				fight_field_map[units.data(units.get(fight_queue[0].second)).cords.x][units.data(units.get(fight_queue[0].second)).cords.y] = -1;
-				if (dir.x > NowPPos.x)
+				auto dir = direction.front();
+				stepPoints--;
+				if (!isZoomDown)
 				{
-					units.data(units.get(fight_queue[0].second)).cords.x++;
-					units.get(fight_queue[0].second).anim.play("right", 0);
-				}
-				else if (dir.x < NowPPos.x)
-				{
-					units.data(units.get(fight_queue[0].second)).cords.x--;
-					units.get(fight_queue[0].second).anim.play("left", 0);
-				}
-				else if (dir.y > NowPPos.y)
-				{
-					units.data(units.get(fight_queue[0].second)).cords.y++;
-					units.get(fight_queue[0].second).anim.play("top", 0);
-				}
-				else if (dir.y < NowPPos.y)
-				{
-					units.data(units.get(fight_queue[0].second)).cords.y--;
-					units.get(fight_queue[0].second).anim.play("down", 0);
-				}
-				fight_field_map[units.data(units.get(fight_queue[0].second)).cords.x][units.data(units.get(fight_queue[0].second)).cords.y] = fight_queue[0].second;
-				animStart = true;
-				moveUnitId = fight_queue[0].second;
-				steps--;
-				if (steps < 1)
-				{
-					break;
-				}
-			}
-			enemy_fight_direction.clear();
-			next_fight_step();
-		}
-
-		if (!empty(fight_direction))
-		{
-			for (auto dir : fight_direction)
-			{
-				IntVec2& NowPPos = units.data(units.get(fight_queue[0].second)).cords;
-				fight_field_map[units.data(units.get(fight_queue[0].second)).cords.x][units.data(units.get(fight_queue[0].second)).cords.y] = -1;
-				if (dir.x > NowPPos.x)
-				{
-					units.data(units.get(fight_queue[0].second)).cords.x++;
-					units.get(fight_queue[0].second).anim.play("right", 0);
-				}
-				else if (dir.x < NowPPos.x)
-				{
-					units.data(units.get(fight_queue[0].second)).cords.x--;
-					units.get(fight_queue[0].second).anim.play("left", 0);
-				}
-				else if (dir.y > NowPPos.y)
-				{
-					units.data(units.get(fight_queue[0].second)).cords.y++;
-					units.get(fight_queue[0].second).anim.play("top", 0);
-				}
-				else if (dir.y < NowPPos.y)
-				{
-					units.data(units.get(fight_queue[0].second)).cords.y--;
-					units.get(fight_queue[0].second).anim.play("down", 0);
-				}
-				fight_field_map[units.data(units.get(fight_queue[0].second)).cords.x][units.data(units.get(fight_queue[0].second)).cords.y] = fight_queue[0].second;
-				
-				animStart = true;
-				moveUnitId = fight_queue[0].second;
-			}
-			fight_direction.clear();
-			next_fight_step();
-		}
-
-		if (!empty(direction) && playerLayer.get(0).anim.isEmpty() && stepPoints > 0)
-		{
-			IntVec2 NowPPos;
-			if (!isZoomDown)
-			{
-				NowPPos = cell(playerLayer.get(0).pos());
-			}
-			else
-			{
-				NowPPos = cell_zoom(playerLayer.get(0).pos());
-			}			
-			auto dir = direction.front();
-			stepPoints--;
-			if (!isZoomDown)
-			{
-				if (dir.x > NowPPos.x)
-				{
-					playerLayer.get(0).anim.play("right", 0);
-				}
-				else if (dir.x < NowPPos.x)
-				{
-					playerLayer.get(0).anim.play("left", 0);
-				}
-				else if (dir.y > NowPPos.y)
-				{
-					playerLayer.get(0).anim.play("up", 0);
-				}
-				else if (dir.y < NowPPos.y)
-				{
-					playerLayer.get(0).anim.play("down", 0);
-				}
-			}	
-			else
-			{
-				if (dir.x > NowPPos.x)
-				{
-					playerLayer.get(0).anim.play("right_min", 0);
-				}
-				else if (dir.x < NowPPos.x)
-				{
-					playerLayer.get(0).anim.play("left_min", 0);
-				}
-				else if (dir.y > NowPPos.y)
-				{
-					playerLayer.get(0).anim.play("up_min", 0);
-				}
-				else if (dir.y < NowPPos.y)
-				{
-					playerLayer.get(0).anim.play("down_min", 0);
-				}
-			}
-			NowPPos = dir;
-			direction.pop_front();
-		}
-
-		for (auto egg : SuperMegaPuperStepEgg.find(playerLayer.get(0).pos()))
-		{
-			egg.kill();
-		}
-
-		if (target != Target::none && heroStay(playerLayer.get(0)))
-		{
-			auto& ppos = playerLayer.get(0).pos();
-			auto cppos = cell(ppos);
-			if (isZoomDown)
-			{
-				cppos = cell_zoom(ppos);
-			}
-			for (auto Neutral : neutrals.all())
-			{
-				auto& rpos = neutrals.data(Neutral).cords;
-				if ((rpos.x + 1 == cppos.x && rpos.y == cppos.y) || (rpos.x - 1 == cppos.x  && rpos.y == cppos.y) || (rpos.y + 1 == cppos.y && rpos.x == cppos.x) || (rpos.y - 1 == cppos.y && rpos.x == cppos.x) || (rpos.x + 1 == cppos.x && rpos.y + 1 == cppos.y) || (rpos.x + 1 == cppos.x && rpos.y - 1 == cppos.y) || (rpos.y - 1 == cppos.y && rpos.x - 1 == cppos.x) || (rpos.x - 1 == cppos.x && rpos.y + 1 == cppos.y))
-				{
-
-					if (target == Target::fight)
+					if (dir.x > NowPPos.x)
 					{
-						selector.select(3);
-						design.child<Layout>("statusBar").hide();
-						map<Color, int> colorToTypeGround = {
-							{ Color(165, 0, 255), grassDark },
-						};
-						fight_field_map = loadMap("Grassmap_fight.png", colorToTypeGround);
-						for (int x = 0; x < fight_field_map.w; ++x)
+						playerLayer.get(0).anim.play("right", 0);
+					}
+					else if (dir.x < NowPPos.x)
+					{
+						playerLayer.get(0).anim.play("left", 0);
+					}
+					else if (dir.y > NowPPos.y)
+					{
+						playerLayer.get(0).anim.play("up", 0);
+					}
+					else if (dir.y < NowPPos.y)
+					{
+						playerLayer.get(0).anim.play("down", 0);
+					}
+				}
+				else
+				{
+					if (dir.x > NowPPos.x)
+					{
+						playerLayer.get(0).anim.play("right_min", 0);
+					}
+					else if (dir.x < NowPPos.x)
+					{
+						playerLayer.get(0).anim.play("left_min", 0);
+					}
+					else if (dir.y > NowPPos.y)
+					{
+						playerLayer.get(0).anim.play("up_min", 0);
+					}
+					else if (dir.y < NowPPos.y)
+					{
+						playerLayer.get(0).anim.play("down_min", 0);
+					}
+				}
+				NowPPos = dir;
+				direction.pop_front();
+			}
+
+			for (auto egg : SuperMegaPuperStepEgg.find(playerLayer.get(0).pos()))
+			{
+				egg.kill();
+			}
+
+			if (target != Target::none && heroStay(playerLayer.get(0)))
+			{
+				auto& ppos = playerLayer.get(0).pos();
+				auto cppos = cell(ppos);
+				if (isZoomDown)
+				{
+					cppos = cell_zoom(ppos);
+				}
+				for (auto Neutral : neutrals.all())
+				{
+					auto& rpos = neutrals.data(Neutral).cords;
+					if ((rpos.x + 1 == cppos.x && rpos.y == cppos.y) || (rpos.x - 1 == cppos.x  && rpos.y == cppos.y) || (rpos.y + 1 == cppos.y && rpos.x == cppos.x) || (rpos.y - 1 == cppos.y && rpos.x == cppos.x) || (rpos.x + 1 == cppos.x && rpos.y + 1 == cppos.y) || (rpos.x + 1 == cppos.x && rpos.y - 1 == cppos.y) || (rpos.y - 1 == cppos.y && rpos.x - 1 == cppos.x) || (rpos.x - 1 == cppos.x && rpos.y + 1 == cppos.y))
+					{
+
+						if (target == Target::fight)
 						{
-							for (int y = 0; y < fight_field_map.h; ++y)
+							selector.select(3);
+							design.child<Layout>("statusBar").hide();
+							map<Color, int> colorToTypeGround = {
+								{ Color(165, 0, 255), grassDark },
+							};
+							fight_field_map = loadMap("Grassmap_fight.png", colorToTypeGround);
+							for (int x = 0; x < fight_field_map.w; ++x)
 							{
-								if (fight_field_map[x][y] == grassDark)
+								for (int y = 0; y < fight_field_map.h; ++y)
 								{
-									fight_ground.load("grass.json", x * cellsize, y * cellsize);
-									fight_field_map[x][y] = -1;
+									if (fight_field_map[x][y] == grassDark)
+									{
+										fight_ground.load("grass.json", x * cellsize, y * cellsize);
+										fight_field_map[x][y] = -1;
+									}
 								}
 							}
+							fight_field.setView(fight_field_map.w * 0.5 * cellsize - cellsize * 0.5, fight_field_map.h * 0.5 * cellsize - cellsize * 0.5);
+							placeArmy(playerLayer.data(playerLayer.get(0)).army, true);
+							placeArmy(neutrals.data(Neutral).army, false);
+							fight_queue = make_fight_queue();
+							target_queue = makeTargetQueue(neutral);
+							draw_get_step_fight_zone(fight_queue[0].second);
+							connect(new_fight_step, next_fight_step);
+							neutral_fight_id = Neutral.id();
+							fight_exit.show();
+							isFighting = true;
+							target = Target::none;
 						}
-						fight_field.setView(fight_field_map.w * 0.5 * cellsize - cellsize * 0.5, fight_field_map.h * 0.5 * cellsize - cellsize * 0.5);
-						placeArmy(playerLayer.data(playerLayer.get(0)).army, true);
-						placeArmy(neutrals.data(Neutral).army, false);
-						fight_queue = make_fight_queue();
-						target_queue = makeTargetQueue(neutral);
-						draw_get_step_fight_zone(fight_queue[0].second);
-						connect(new_fight_step, next_fight_step);
-						neutral_fight_id = Neutral.id();
-						fight_exit.show();
-						isFighting = true;
-						target = Target::none;
 					}
 				}
-			}
-			for (auto Rec : rec.all())
-			{
-				auto& rpos = rec.data(Rec).cords;
-  				if ((rpos.x + 1 == cppos.x && rpos.y == cppos.y) || (rpos.x - 1 == cppos.x  && rpos.y == cppos.y) || (rpos.y + 1 == cppos.y && rpos.x == cppos.x) || (rpos.y - 1 == cppos.y && rpos.x == cppos.x) || (rpos.x + 1 == cppos.x && rpos.y + 1 == cppos.y) || (rpos.x + 1 == cppos.x && rpos.y - 1 == cppos.y) || (rpos.y - 1 == cppos.y && rpos.x - 1 == cppos.x) || (rpos.x - 1 == cppos.x && rpos.y + 1 == cppos.y))
+				for (auto Rec : rec.all())
 				{
-					if (target == Target::castle)
+					auto& rpos = rec.data(Rec).cords;
+					if ((rpos.x + 1 == cppos.x && rpos.y == cppos.y) || (rpos.x - 1 == cppos.x  && rpos.y == cppos.y) || (rpos.y + 1 == cppos.y && rpos.x == cppos.x) || (rpos.y - 1 == cppos.y && rpos.x == cppos.x) || (rpos.x + 1 == cppos.x && rpos.y + 1 == cppos.y) || (rpos.x + 1 == cppos.x && rpos.y - 1 == cppos.y) || (rpos.y - 1 == cppos.y && rpos.x - 1 == cppos.x) || (rpos.x - 1 == cppos.x && rpos.y + 1 == cppos.y))
 					{
-						if (rec.data(Rec).type == castle)
+						if (target == Target::castle)
 						{
-							target = Target::none;
-							rec.data(Rec).heroInCastle = true;
-							Rec.child<Texture>("flag").setColor(255, 0, 0, 255);
+							if (rec.data(Rec).type == castle)
+							{
+								target = Target::none;
+								rec.data(Rec).heroInCastle = true;
+								Rec.child<Texture>("flag").setColor(255, 0, 0, 255);
+								rec.data(Rec).owner = playerLayer.data(playerLayer.get(0)).owner;
+								openCastleMenu(Rec);
+								updateHeroCastles();
+								//cm.child
+								break;
+							}
+							else
+							{
+								continue;
+							}
+						}
+						else if (target == Target::mine)
+						{
+							if (rec.data(Rec).type == castle)
+								continue;
+							//GOld << "allright!!";
 							rec.data(Rec).owner = playerLayer.data(playerLayer.get(0)).owner;
-							openCastleMenu(Rec);
-							updateHeroCastles();
-							//cm.child
-							break;
-						}
-						else
-						{
-							continue;
-						}
-					}
-					else if (target == Target::mine)
-					{
-						if (rec.data(Rec).type == castle)
-							continue;
-						//GOld << "allright!!";
-						rec.data(Rec).owner = playerLayer.data(playerLayer.get(0)).owner;
-						forWindow.load(2, "MineInfo.json");
-						auto owner = forWindow.child<Label>("rOwner");
-						if (rec.data(Rec).owner == humanplayer)
-						{
-							owner << tr("you");
-							Rec.child<Texture>("flag").setColor(255, 0, 0, 255);
-						}
-						else
-						{
-							owner << tr("neutral");
-						}
+							forWindow.load(2, "MineInfo.json");
+							auto owner = forWindow.child<Label>("rOwner");
+							if (rec.data(Rec).owner == humanplayer)
+							{
+								owner << tr("you");
+								Rec.child<Texture>("flag").setColor(255, 0, 0, 255);
+							}
+							else
+							{
+								owner << tr("neutral");
+							}
 
-						auto type = forWindow.child<Label>("rType");
+							auto type = forWindow.child<Label>("rType");
 
-						auto n = forWindow.child<Label>("rN");
-						if (rec.data(Rec).type == goldMine)
-						{
-							type << tr("gold");
-							n << "1000";
-							Rec.child<Texture>("flag").setColor(255, 0, 0, 255);
+							auto n = forWindow.child<Label>("rN");
+							if (rec.data(Rec).type == goldMine)
+							{
+								type << tr("gold");
+								n << "1000";
+								Rec.child<Texture>("flag").setColor(255, 0, 0, 255);
+							}
+							else if (rec.data(Rec).type == mine)
+							{
+								type << tr("ore");
+								n << "2";
+								Rec.child<Texture>("flag").setColor(255, 0, 0, 255);
+							}
+							else if (rec.data(Rec).type == sera_mine)
+							{
+								type << tr("sera");
+								n << "1";
+								Rec.child<Texture>("flag").setColor(255, 0, 0, 255);
+							}
+							else if (rec.data(Rec).type == gem_mine)
+							{
+								type << tr("gems");
+								n << "1";
+								Rec.child<Texture>("flag").setColor(255, 0, 0, 255);
+							}
+							else if (rec.data(Rec).type == sawmill)
+							{
+								type << tr("wood");
+								n << "2";
+								Rec.child<Texture>("flag").setColor(255, 0, 0, 255);
+							}
+							auto closeBut = forWindow.child<Button>("closeMineInfoBut");
+							connect(closeBut, closeMineInfo);
+							target = Target::none;
 						}
-						else if (rec.data(Rec).type == mine)
-						{
-							type << tr("ore");
-							n << "2";
-							Rec.child<Texture>("flag").setColor(255, 0, 0, 255);
-						}
-						else if (rec.data(Rec).type == sera_mine)
-						{
-							type << tr("sera");
-							n << "1";
-							Rec.child<Texture>("flag").setColor(255, 0, 0, 255);
-						}
-						else if (rec.data(Rec).type == gem_mine)
-						{
-							type << tr("gems");
-							n << "1";
-							Rec.child<Texture>("flag").setColor(255, 0, 0, 255);
-						}
-						else if (rec.data(Rec).type == sawmill)
-						{
-							type << tr("wood");
-							n << "2";
-							Rec.child<Texture>("flag").setColor(255, 0, 0, 255);
-						}
-						auto closeBut = forWindow.child<Button>("closeMineInfoBut");
-						connect(closeBut, closeMineInfo);
-						target = Target::none;
 					}
 				}
 			}
@@ -3313,7 +3335,7 @@ class MyApp : public App
 	LayerFromDesign(void, fight_ground);
 	LayerFromDesign(void, step_zone);
 	LayerFromDesign(void, forest);
-	LayerFromDesign(void, SuperMegaPuperStepEgg);
+	LayerFromDesign(eggData, SuperMegaPuperStepEgg);
 
 	LayerFromDesign(playerData, playerLayer);
 	LayerFromDesign(unitsData, units);

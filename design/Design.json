@@ -5210,7 +5210,7 @@
                         "horOffset" : {
                            "_typeName" : "RelativeValue",
                            "type" : 1,
-                           "value" : 150
+                           "value" : 60
                         },
                         "vertAlign" : 1,
                         "vertOffset" : {
@@ -5369,7 +5369,7 @@
                         "horOffset" : {
                            "_typeName" : "RelativeValue",
                            "type" : 1,
-                           "value" : 150
+                           "value" : 60
                         },
                         "vertAlign" : 1,
                         "vertOffset" : {
@@ -5528,7 +5528,7 @@
                         "horOffset" : {
                            "_typeName" : "RelativeValue",
                            "type" : 1,
-                           "value" : 150
+                           "value" : 60
                         },
                         "vertAlign" : 1,
                         "vertOffset" : {
@@ -5687,7 +5687,7 @@
                         "horOffset" : {
                            "_typeName" : "RelativeValue",
                            "type" : 1,
-                           "value" : 150
+                           "value" : 60
                         },
                         "vertAlign" : 1,
                         "vertOffset" : {
@@ -5846,7 +5846,7 @@
                         "horOffset" : {
                            "_typeName" : "RelativeValue",
                            "type" : 1,
-                           "value" : 150
+                           "value" : 60
                         },
                         "vertAlign" : 1,
                         "vertOffset" : {
@@ -6005,7 +6005,7 @@
                         "horOffset" : {
                            "_typeName" : "RelativeValue",
                            "type" : 1,
-                           "value" : 150
+                           "value" : 60
                         },
                         "vertAlign" : 1,
                         "vertOffset" : {
@@ -6054,7 +6054,7 @@
                   "padding" : {
                      "_typeName" : "RelativeValue",
                      "type" : 1,
-                     "value" : 150
+                     "value" : 60
                   }
                },
                "skipInvisibleElements" : false
