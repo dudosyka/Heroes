@@ -36,6 +36,38 @@
          }
       },
       {
+         "_key" : "right_min",
+         "_value" : {
+            "_typeName" : "AdvancedMove",
+            "changeFunc" : 0,
+            "coordType" : 0,
+            "objName" : "",
+            "parentHeightRelativeCoord" : 0,
+            "parentWidthRelativeCoord" : 0,
+            "period" : 500,
+            "pixelCoord" : 37.5,
+            "relativeMove" : true,
+            "selfHeightRelativeCoord" : 0,
+            "selfWidthRelativeCoord" : 0
+         }
+      },
+      {
+         "_key" : "down_min",
+         "_value" : {
+            "_typeName" : "AdvancedMove",
+            "changeFunc" : 0,
+            "coordType" : 1,
+            "objName" : "",
+            "parentHeightRelativeCoord" : 0,
+            "parentWidthRelativeCoord" : 0,
+            "period" : 500,
+            "pixelCoord" : -37.5,
+            "relativeMove" : true,
+            "selfHeightRelativeCoord" : 0,
+            "selfWidthRelativeCoord" : 0
+         }
+      },
+      {
          "_key" : "up",
          "_value" : {
             "_typeName" : "AdvancedMove",
@@ -62,6 +94,38 @@
             "parentWidthRelativeCoord" : 0,
             "period" : 500,
             "pixelCoord" : -150,
+            "relativeMove" : true,
+            "selfHeightRelativeCoord" : 0,
+            "selfWidthRelativeCoord" : 0
+         }
+      },
+      {
+         "_key" : "up_min",
+         "_value" : {
+            "_typeName" : "AdvancedMove",
+            "changeFunc" : 0,
+            "coordType" : 1,
+            "objName" : "",
+            "parentHeightRelativeCoord" : 0,
+            "parentWidthRelativeCoord" : 0,
+            "period" : 500,
+            "pixelCoord" : 37.5,
+            "relativeMove" : true,
+            "selfHeightRelativeCoord" : 0,
+            "selfWidthRelativeCoord" : 0
+         }
+      },
+      {
+         "_key" : "left_min",
+         "_value" : {
+            "_typeName" : "AdvancedMove",
+            "changeFunc" : 0,
+            "coordType" : 0,
+            "objName" : "",
+            "parentHeightRelativeCoord" : 0,
+            "parentWidthRelativeCoord" : 0,
+            "period" : 500,
+            "pixelCoord" : -37.5,
             "relativeMove" : true,
             "selfHeightRelativeCoord" : 0,
             "selfWidthRelativeCoord" : 0

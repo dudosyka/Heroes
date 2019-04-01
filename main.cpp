@@ -33,12 +33,13 @@ class MyApp : public App
 
 	enum recType
 	{
-		noneRec, mine, goldMine, castle, castle_entry, gem_mine, sera_mine, fight
+		noneRec, mine, goldMine, castle, castle_entry, gem_mine, sera_mine, fight, sawmill
 	};
 
 	struct nishData
 	{
 		nishType type;
+		IntVec2 cords;
 	};
 
 	struct Price
@@ -158,12 +159,16 @@ class MyApp : public App
 		},
 	};
 
+	struct groundData {
+		IntVec2 cords;
+	};
+
 	struct Unit
 	{
 		int n;
 		unitType type;
 	};
-
+	
 	struct Army
 	{
 		ownerType owner;
@@ -537,6 +542,8 @@ class MyApp : public App
 		selector.select(1);
 	}
 
+	int normalHeight, normalWidth;
+
 	void load()
 	{
 		connect(Relog, nextStep);
@@ -552,14 +559,19 @@ class MyApp : public App
 
 		timer.repeat(2);
 
-		gold = 100000;
-		skill = 9000;
+		selector.select(1);
+
+		normalHeight = field.height();
+		normalWidth = field.width();
+
+		gold = 0;
+		skill = 0;
 		stepPoints = 4;
 		days = 0;
-		ore = 100000;
-		sera = 50000;
-		gems = 100000;
-		wood = 10000;
+		ore = 0;
+		sera = 0;
+		gems = 0;
+		wood = 0;
 
 		GOld << "gold: " << gold;
 		SKill << "skill: " << skill;
@@ -579,7 +591,9 @@ class MyApp : public App
 			{
 				if (groundmap[x][y] == grassDark)
 				{
-					ground.load("grass.json", x * 150, y * 150);
+					auto cell = ground.load("grass.json", x * 150, y * 150);
+					ground.data(cell).cords.x = x;
+					ground.data(cell).cords.y = y;
 				}
 			}
 		}
@@ -630,6 +644,8 @@ class MyApp : public App
 				{
 					auto nishtyak = nishtyaki.load("Nishtyak.json", x * 150, y * 150);
 					nishtyaki.data(nishtyak).type = chest;
+					nishtyaki.data(nishtyak).cords.x = x;
+					nishtyaki.data(nishtyak).cords.y = y;
 				}
 				if (Nishtyakmap[x][y] == Gold)
 				{
@@ -649,6 +665,7 @@ class MyApp : public App
 			{ Color(0, 4, 255), goldMine },
 			{ Color(255, 0, 246), gem_mine },
 			{ Color(127, 0, 19), sera_mine },
+			{ Color(0, 250, 255), sawmill},
 		};
 		recmap = loadMap("recmap.png", colorToTypeRec);
 		realrecmap = loadMap("recmap.png", colorToTypeRec);
@@ -723,6 +740,14 @@ class MyApp : public App
 						{ unitType::horserider, 10 },
 						{ unitType::angel, 10 } });
 				}
+				if (recmap[x][y] == sawmill) 
+				{
+					auto Rec = rec.load("Rec.json", x * 150, y * 150);
+					Rec.child<Texture>("mineTexture").setImageName("lesopilka.png");
+					rec.data(Rec).type = sawmill;
+					rec.data(Rec).owner = neutral;
+					rec.data(Rec).cords = { x,y };
+				}
 			}
 		}
 		for (auto Neutral : neutrals.all())
@@ -738,6 +763,52 @@ class MyApp : public App
 		loadTextBank("textBank.json");
 	}
 
+	bool isZoomDown = false;
+
+	void zoom(float scale)
+	{
+		for (auto g : ground.all())
+		{
+			auto cords = ground.data(g).cords;
+			g.setScale(scale);
+			g.setPos(cords.x * (150 * scale), cords.y * (150 * scale));
+		}
+		for (auto p : playerLayer.all())
+		{
+			p.setScale(scale);
+			if (isZoomDown)
+			{
+				p.setPos(cell(p.pos()).x * (150 * scale), cell(p.pos()).y * (150 * scale));
+			}
+			else
+			{
+				p.setPos(cell_zoom(p.pos()).x * (150 * scale), cell_zoom(p.pos()).y * (150 * scale));
+			}
+		}
+		for (auto n : nishtyaki.all())
+		{
+			auto cords = nishtyaki.data(n).cords;
+			n.setScale(scale);
+			n.setPos(cords.x * (150 * scale), cords.y * (150 * scale));
+
+		}
+		for (auto r : rec.all())
+		{
+			auto cords = rec.data(r).cords;
+			r.setScale(scale);
+			r.setPos(cords.x * (150 * scale), cords.y * (150 * scale));
+		}
+		for (auto neutral : neutrals.all())
+		{
+			auto cords = neutrals.data(neutral).cords;
+			neutral.setScale(scale);
+			neutral.setPos(cords.x * (150 * scale), cords.y * (150 * scale));
+		}
+		cout << field_container.size() << endl;
+		field.setView(groundmap.w / 2 * (150 * scale) - (75 * scale), groundmap.h / 2 * (150 * scale) - (75 * scale));
+		cout << field_container.size() << endl;
+	} //edwaeawduhwaduwhahdauwhdiwauhduhiwahuhdwuahdhwhauhdiuhiwuahidhwuahduhwuahdhwuahudwhduhwudhwuhdhwduhwhwuhduwhduhwhdhdwudhwuhduwhduhdiuwhduwhduwdhwhdwdwdwdhuwhdwhdhwdwhudwhuhegfteffdtefdfertwrwtrwtdrtwddfgsfdgsdfgsdgsd
+	
 	void updateHeroCastles() {
 
 		design.child<Layout>("castle_menu").clear();
@@ -841,6 +912,10 @@ class MyApp : public App
 						i++;
 					}
 					gold += castleGold;
+				}
+				else if (rec.data(Rec).type == sawmill)
+				{
+					wood += 2;
 				}
 			}
 		}
@@ -997,7 +1072,9 @@ class MyApp : public App
 			{
 				auto c = cell_fight(fight_field.mousePos());
 				if (zone.count(c) == 0)
+				{
 					return;
+				}					
 				if (c.x >= fight_field_map.w || c.y >= fight_field_map.h || c.y < 0 || c.x < 0)
 				{
 					return;
@@ -1008,7 +1085,6 @@ class MyApp : public App
 					if (nit.id() == id)
 					{
 						fight_direction = fight_route(units.data(nit).cords, c);
-						//fdfdf
 					}
 				}
 			}			
@@ -1037,16 +1113,43 @@ class MyApp : public App
 				else
 				{
 					emptyStep.hide();
-					auto c = cell(field.mousePos());
-					if (c.x < groundmap.w && c.y < groundmap.h && c.y >= 0 && c.x >= 0)
+					if (!isZoomDown)
 					{
-						direction = route(cell(playerLayer.get(0).pos()), c);
-						for (auto dir : direction)
+						auto c = cell(field.mousePos());
+						if (c.x < groundmap.w && c.y < groundmap.h && c.y >= 0 && c.x >= 0)
 						{
-							SuperMegaPuperStepEgg.load("SuperMegaPuperStepEgg.json", pixels(dir));
+							direction = route(cell(playerLayer.get(0).pos()), c);
+							for (auto dir : direction)
+							{
+								SuperMegaPuperStepEgg.load("SuperMegaPuperStepEgg.json", pixels(dir));
+							}
+						}
+					}						
+					else
+					{
+						auto c = cell_zoom(field.mousePos());
+						if (c.x < groundmap.w && c.y < groundmap.h && c.y >= 0 && c.x >= 0)
+						{
+							direction = route(cell_zoom(playerLayer.get(0).pos()), c);
+							for (auto dir : direction)
+							{
+								auto egg = SuperMegaPuperStepEgg.load("SuperMegaPuperStepEgg.json", pixels_zoom(dir));
+								egg.setSize(37.5, 37.5);
+							}
 						}
 					}
+						
 				}
+			}
+			if (input.justPressed(U))
+			{
+				isZoomDown = false;
+				zoom(1);
+			}
+			if (input.justPressed(D))
+			{
+				isZoomDown = true;
+				zoom(0.25);
 			}
 		}
 
@@ -1081,6 +1184,21 @@ class MyApp : public App
 	{
 		v.x *= cellsize;
 		v.y *= cellsize;
+		return Vec2(v.x, v.y);
+	}
+
+	IntVec2 cell_zoom(Vec2 v)
+	{
+		v.x += 37.5 / 2;
+		v.y += 37.5 / 2;
+		v /= 37.5;
+		return IntVec2(v.x, v.y);
+	}
+
+	Vec2 pixels_zoom(IntVec2 v)
+	{
+		v.x *= 37.5;
+		v.y *= 37.5;
 		return Vec2(v.x, v.y);
 	}
 
@@ -1547,7 +1665,7 @@ class MyApp : public App
 	{
 		main, getArmy, build
 	};
-
+	
 	void more(int n, GameObj castle)
 	{
 		int unitN = 0;
@@ -2690,6 +2808,10 @@ class MyApp : public App
 		}			
 		else
 		{
+			IntVec2 pos = units.data(first2.second).cords;
+			int step = units.data(first2.second).unit.type.stepPoint;
+			zone = get_fight_zone(pos, step);
+			step_zone.clear();
 			make_computer_step();
 		}
 	}
@@ -2745,7 +2867,7 @@ class MyApp : public App
 		}
 		return mi_ryadom;
 	}
-
+	
     void move()
      {
 		GOld << " : " << gold;
@@ -2753,6 +2875,7 @@ class MyApp : public App
 		Ore << " : " << ore;
 		Gems << " : " << gems;
 		Sera << " : " << sera;
+		WOOD << " : " << wood;
 		heroStepsLabel << " : " << stepPoints;
 		field.setView(playerLayer.get(0).pos());
 		//updateHeroCastles();
@@ -2772,16 +2895,15 @@ class MyApp : public App
 						isAttacking = true;
 						return;
 					}
-					float damage1 = damage_count(unit1.type.attack, unit2.type.protect, unit1.type.damage, unit1.n);
-					float oneHp1 = allTypes[unit1.type.lvl - 1].hp;
-					float oneHp2 = allTypes[unit2.type.lvl - 1].hp;
-					float allHp1 = unit1.type.hp;
-					float allHp2 = unit2.type.hp;
+					auto damage1 = damage_count(unit1.type.attack, unit2.type.protect, unit1.type.damage, unit1.n);
+					auto& oneHp1 = allTypes[unit1.type.lvl - 1].hp;
+					auto& oneHp2 = allTypes[unit2.type.lvl - 1].hp;
+					auto& allHp1 = unit1.type.hp;
+					auto& allHp2 = unit2.type.hp;
 					int n1 = unit1.n;
 					int n2 = unit2.n;
 					n2 -= die_count(damage1, unit2.n, unit2.type.hp, unit2.type.lvl);
 					float damage2 = damage_count(unit2.type.attack, unit1.type.protect, unit2.type.damage, n2);
-					float die1 = n1 - ((allHp1 - damage2) / oneHp1);
 					n1 -= die_count(damage2, unit1.n, unit1.type.hp, unit1.type.lvl);
 					allHp1 -= damage2;
 					allHp2 -= damage1;
@@ -2849,7 +2971,7 @@ class MyApp : public App
 					}
 				}
 				animStart = false;
-				next_fight_step();
+				moveUnitId = -1;
 			}
 		}
 
@@ -2922,6 +3044,7 @@ class MyApp : public App
 				}
 			}
 			enemy_fight_direction.clear();
+			next_fight_step();
 		}
 
 		if (!empty(fight_direction))
@@ -2956,28 +3079,59 @@ class MyApp : public App
 				moveUnitId = fight_queue[0].second;
 			}
 			fight_direction.clear();
+			next_fight_step();
 		}
 
 		if (!empty(direction) && playerLayer.get(0).anim.isEmpty() && stepPoints > 0)
 		{
-			IntVec2 NowPPos = cell(playerLayer.get(0).pos());
+			IntVec2 NowPPos;
+			if (!isZoomDown)
+			{
+				NowPPos = cell(playerLayer.get(0).pos());
+			}
+			else
+			{
+				NowPPos = cell_zoom(playerLayer.get(0).pos());
+			}			
 			auto dir = direction.front();
 			stepPoints--;
-			if (dir.x > NowPPos.x)
+			if (!isZoomDown)
 			{
-				playerLayer.get(0).anim.play("right", 0);
-			}
-			else if (dir.x < NowPPos.x)
+				if (dir.x > NowPPos.x)
+				{
+					playerLayer.get(0).anim.play("right", 0);
+				}
+				else if (dir.x < NowPPos.x)
+				{
+					playerLayer.get(0).anim.play("left", 0);
+				}
+				else if (dir.y > NowPPos.y)
+				{
+					playerLayer.get(0).anim.play("up", 0);
+				}
+				else if (dir.y < NowPPos.y)
+				{
+					playerLayer.get(0).anim.play("down", 0);
+				}
+			}	
+			else
 			{
-				playerLayer.get(0).anim.play("left", 0);
-			}
-			else if (dir.y > NowPPos.y)
-			{
-				playerLayer.get(0).anim.play("up", 0);
-			}
-			else if (dir.y < NowPPos.y)
-			{
-				playerLayer.get(0).anim.play("down", 0);
+				if (dir.x > NowPPos.x)
+				{
+					playerLayer.get(0).anim.play("right_min", 0);
+				}
+				else if (dir.x < NowPPos.x)
+				{
+					playerLayer.get(0).anim.play("left_min", 0);
+				}
+				else if (dir.y > NowPPos.y)
+				{
+					playerLayer.get(0).anim.play("up_min", 0);
+				}
+				else if (dir.y < NowPPos.y)
+				{
+					playerLayer.get(0).anim.play("down_min", 0);
+				}
 			}
 			NowPPos = dir;
 			direction.pop_front();
@@ -2992,6 +3146,10 @@ class MyApp : public App
 		{
 			auto& ppos = playerLayer.get(0).pos();
 			auto cppos = cell(ppos);
+			if (isZoomDown)
+			{
+				cppos = cell_zoom(ppos);
+			}
 			for (auto Neutral : neutrals.all())
 			{
 				auto& rpos = neutrals.data(Neutral).cords;
@@ -3099,6 +3257,12 @@ class MyApp : public App
 							n << "1";
 							Rec.child<Texture>("flag").setColor(255, 0, 0, 255);
 						}
+						else if (rec.data(Rec).type == sawmill)
+						{
+							type << tr("wood");
+							n << "2";
+							Rec.child<Texture>("flag").setColor(255, 0, 0, 255);
+						}
 						auto closeBut = forWindow.child<Button>("closeMineInfoBut");
 						connect(closeBut, closeMineInfo);
 						target = Target::none;
@@ -3117,8 +3281,10 @@ class MyApp : public App
 	FromDesign(Label, test_);
 	FromDesign(Selector, selector);
 	FromDesign(Layout, castle_menu);
+	FromDesign(Layout, field_container);
 	FromDesign(Button, new_fight_step);
 	FromDesign(Button, fight_exit);
+	FromDesign(Label, WOOD);
 	//FromDesign(HorizontalLayout, armyMenu);
 
 	FromDesign(Label, heroStepsLabel);
@@ -3143,7 +3309,7 @@ class MyApp : public App
 	FromDesign(Label, emptyStep);
 
 	LayerFromDesign(void, mobs);
-	LayerFromDesign(void, ground);
+	LayerFromDesign(groundData, ground);
 	LayerFromDesign(void, fight_ground);
 	LayerFromDesign(void, step_zone);
 	LayerFromDesign(void, forest);
@@ -3161,6 +3327,7 @@ int main(int argc, char** argv)
     MyApp app;
     app.setConfig("HeroesConfig.json");
     app.setDesign("Design.json");
+	//app.setWindowTitle("Супер прога");
 	if (!app.init(&argc, argv))
 	{
 		return 1;

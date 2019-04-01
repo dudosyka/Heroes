@@ -273,8 +273,9 @@
                   },
                   "list" : [
                      {
-                        "_name" : "field",
-                        "_typeName" : "GameView",
+                        "_name" : "field_container",
+                        "_typeName" : "CanvasLayout",
+                        "adjustment" : 0,
                         "box" : {
                            "_typeName" : "RelativeBox",
                            "height" : {
@@ -293,99 +294,136 @@
                         },
                         "list" : [
                            {
-                              "_name" : "ground",
-                              "_typeName" : "Layer",
-                              "index" : {
-                                 "_typeName" : "FlatIndex",
-                                 "keyType" : 2
+                              "_name" : "field",
+                              "_typeName" : "GameView",
+                              "box" : {
+                                 "_typeName" : "RelativeBox",
+                                 "height" : {
+                                    "_typeName" : "RelativeValue",
+                                    "type" : 0,
+                                    "value" : 0
+                                 },
+                                 "offset" : {
+                                    "_empty" : true
+                                 },
+                                 "width" : {
+                                    "_typeName" : "RelativeValue",
+                                    "type" : 0,
+                                    "value" : 0
+                                 }
                               },
-                              "list" : [],
-                              "order" : {
-                                 "_typeName" : "SortByIDOrder"
-                              }
-                           },
-                           {
-                              "_name" : "forest",
-                              "_typeName" : "Layer",
-                              "index" : {
-                                 "_typeName" : "FlatIndex",
-                                 "keyType" : 2
-                              },
-                              "list" : [],
-                              "order" : {
-                                 "_typeName" : "SortByIDOrder"
-                              }
-                           },
-                           {
-                              "_name" : "mobs",
-                              "_typeName" : "Layer",
-                              "index" : {
-                                 "_typeName" : "FlatIndex",
-                                 "keyType" : 2
-                              },
-                              "list" : [],
-                              "order" : {
-                                 "_typeName" : "SortByIDOrder"
-                              }
-                           },
-                           {
-                              "_name" : "nishtyaki",
-                              "_typeName" : "Layer",
-                              "index" : {
-                                 "_typeName" : "FlatIndex",
-                                 "keyType" : 2
-                              },
-                              "list" : [],
-                              "order" : {
-                                 "_typeName" : "SortByIDOrder"
-                              }
-                           },
-                           {
-                              "_name" : "rec",
-                              "_typeName" : "Layer",
-                              "index" : {
-                                 "_typeName" : "FlatIndex",
-                                 "keyType" : 2
-                              },
-                              "list" : [],
-                              "order" : {
-                                 "_typeName" : "SortByIDOrder"
-                              }
-                           },
-                           {
-                              "_name" : "SuperMegaPuperStepEgg",
-                              "_typeName" : "Layer",
-                              "index" : {
-                                 "_typeName" : "FlatIndex",
-                                 "keyType" : 2
-                              },
-                              "list" : [],
-                              "order" : {
-                                 "_typeName" : "SortByIDOrder"
-                              }
-                           },
-                           {
-                              "_name" : "neutrals",
-                              "_typeName" : "Layer",
-                              "index" : {
-                                 "_typeName" : "FlatIndex",
-                                 "keyType" : 2
-                              },
-                              "list" : [],
-                              "order" : {
-                                 "_typeName" : "SortByIDOrder"
-                              }
-                           },
-                           {
-                              "_name" : "playerLayer",
-                              "_typeName" : "Layer",
-                              "index" : {
-                                 "_typeName" : "FlatIndex",
-                                 "keyType" : 2
-                              },
-                              "list" : [],
-                              "order" : {
-                                 "_typeName" : "SortByIDOrder"
+                              "list" : [
+                                 {
+                                    "_name" : "ground",
+                                    "_typeName" : "Layer",
+                                    "index" : {
+                                       "_typeName" : "FlatIndex",
+                                       "keyType" : 2
+                                    },
+                                    "list" : [],
+                                    "order" : {
+                                       "_typeName" : "SortByIDOrder"
+                                    }
+                                 },
+                                 {
+                                    "_name" : "forest",
+                                    "_typeName" : "Layer",
+                                    "index" : {
+                                       "_typeName" : "FlatIndex",
+                                       "keyType" : 2
+                                    },
+                                    "list" : [],
+                                    "order" : {
+                                       "_typeName" : "SortByIDOrder"
+                                    }
+                                 },
+                                 {
+                                    "_name" : "mobs",
+                                    "_typeName" : "Layer",
+                                    "index" : {
+                                       "_typeName" : "FlatIndex",
+                                       "keyType" : 2
+                                    },
+                                    "list" : [],
+                                    "order" : {
+                                       "_typeName" : "SortByIDOrder"
+                                    }
+                                 },
+                                 {
+                                    "_name" : "nishtyaki",
+                                    "_typeName" : "Layer",
+                                    "index" : {
+                                       "_typeName" : "FlatIndex",
+                                       "keyType" : 2
+                                    },
+                                    "list" : [],
+                                    "order" : {
+                                       "_typeName" : "SortByIDOrder"
+                                    }
+                                 },
+                                 {
+                                    "_name" : "rec",
+                                    "_typeName" : "Layer",
+                                    "index" : {
+                                       "_typeName" : "FlatIndex",
+                                       "keyType" : 2
+                                    },
+                                    "list" : [],
+                                    "order" : {
+                                       "_typeName" : "SortByIDOrder"
+                                    }
+                                 },
+                                 {
+                                    "_name" : "SuperMegaPuperStepEgg",
+                                    "_typeName" : "Layer",
+                                    "index" : {
+                                       "_typeName" : "FlatIndex",
+                                       "keyType" : 2
+                                    },
+                                    "list" : [],
+                                    "order" : {
+                                       "_typeName" : "SortByIDOrder"
+                                    }
+                                 },
+                                 {
+                                    "_name" : "neutrals",
+                                    "_typeName" : "Layer",
+                                    "index" : {
+                                       "_typeName" : "FlatIndex",
+                                       "keyType" : 2
+                                    },
+                                    "list" : [],
+                                    "order" : {
+                                       "_typeName" : "SortByIDOrder"
+                                    }
+                                 },
+                                 {
+                                    "_name" : "playerLayer",
+                                    "_typeName" : "Layer",
+                                    "index" : {
+                                       "_typeName" : "FlatIndex",
+                                       "keyType" : 2
+                                    },
+                                    "list" : [],
+                                    "order" : {
+                                       "_typeName" : "SortByIDOrder"
+                                    }
+                                 }
+                              ],
+                              "position" : {
+                                 "_typeName" : "AligningOffset",
+                                 "horAlign" : 1,
+                                 "horOffset" : {
+                                    "_typeName" : "RelativeValue",
+                                    "type" : 1,
+                                    "value" : 0
+                                 },
+                                 "vertAlign" : 1,
+                                 "vertOffset" : {
+                                    "_typeName" : "RelativeValue",
+                                    "type" : 1,
+                                    "value" : 0
+                                 }
                               }
                            }
                         ],
@@ -4803,7 +4841,6 @@
       {
          "_name" : "statusBar",
          "_typeName" : "CanvasLayout",
-         "_visible" : false,
          "adjustment" : 0,
          "box" : {
             "_typeName" : "RelativeBox",
@@ -4892,8 +4929,8 @@
                                  "_typeName" : "StaticTextureRect",
                                  "box" : {
                                     "_typeName" : "PixelBox",
-                                    "height" : 50,
-                                    "width" : 50
+                                    "height" : 25,
+                                    "width" : 25
                                  },
                                  "color" : [ 1, 1, 1, 1 ],
                                  "imageName" : ".\\shhavel-2.png",
@@ -4956,7 +4993,7 @@
                                     "font" : {
                                        "_typeName" : "FontDesc",
                                        "family" : "Roboto",
-                                       "size" : 60
+                                       "size" : 25
                                     },
                                     "horAlign" : 0,
                                     "vertAlign" : 0
@@ -5051,8 +5088,8 @@
                                  "_typeName" : "StaticTextureRect",
                                  "box" : {
                                     "_typeName" : "PixelBox",
-                                    "height" : 50,
-                                    "width" : 50
+                                    "height" : 25,
+                                    "width" : 25
                                  },
                                  "color" : [ 1, 1, 1, 1 ],
                                  "imageName" : ".\\gold.png",
@@ -5115,7 +5152,7 @@
                                     "font" : {
                                        "_typeName" : "FontDesc",
                                        "family" : "Roboto",
-                                       "size" : 60
+                                       "size" : 25
                                     },
                                     "horAlign" : 0,
                                     "vertAlign" : 0
@@ -5173,7 +5210,7 @@
                         "horOffset" : {
                            "_typeName" : "RelativeValue",
                            "type" : 1,
-                           "value" : 200
+                           "value" : 150
                         },
                         "vertAlign" : 1,
                         "vertOffset" : {
@@ -5210,8 +5247,8 @@
                                  "_typeName" : "StaticTextureRect",
                                  "box" : {
                                     "_typeName" : "PixelBox",
-                                    "height" : 50,
-                                    "width" : 50
+                                    "height" : 25,
+                                    "width" : 25
                                  },
                                  "color" : [ 1, 1, 1, 1 ],
                                  "imageName" : ".\\chest.png",
@@ -5274,7 +5311,7 @@
                                     "font" : {
                                        "_typeName" : "FontDesc",
                                        "family" : "Roboto",
-                                       "size" : 60
+                                       "size" : 25
                                     },
                                     "horAlign" : 0,
                                     "vertAlign" : 0
@@ -5332,7 +5369,7 @@
                         "horOffset" : {
                            "_typeName" : "RelativeValue",
                            "type" : 1,
-                           "value" : 200
+                           "value" : 150
                         },
                         "vertAlign" : 1,
                         "vertOffset" : {
@@ -5369,8 +5406,8 @@
                                  "_typeName" : "StaticTextureRect",
                                  "box" : {
                                     "_typeName" : "PixelBox",
-                                    "height" : 50,
-                                    "width" : 50
+                                    "height" : 25,
+                                    "width" : 25
                                  },
                                  "color" : [ 1, 1, 1, 1 ],
                                  "imageName" : ".\\metal.ore_.png",
@@ -5433,7 +5470,7 @@
                                     "font" : {
                                        "_typeName" : "FontDesc",
                                        "family" : "Roboto",
-                                       "size" : 60
+                                       "size" : 25
                                     },
                                     "horAlign" : 0,
                                     "vertAlign" : 0
@@ -5491,7 +5528,7 @@
                         "horOffset" : {
                            "_typeName" : "RelativeValue",
                            "type" : 1,
-                           "value" : 200
+                           "value" : 150
                         },
                         "vertAlign" : 1,
                         "vertOffset" : {
@@ -5528,8 +5565,8 @@
                                  "_typeName" : "StaticTextureRect",
                                  "box" : {
                                     "_typeName" : "PixelBox",
-                                    "height" : 50,
-                                    "width" : 50
+                                    "height" : 25,
+                                    "width" : 25
                                  },
                                  "color" : [ 1, 1, 1, 1 ],
                                  "imageName" : ".\\gem_icom.png",
@@ -5592,7 +5629,7 @@
                                     "font" : {
                                        "_typeName" : "FontDesc",
                                        "family" : "Roboto",
-                                       "size" : 60
+                                       "size" : 25
                                     },
                                     "horAlign" : 0,
                                     "vertAlign" : 0
@@ -5650,7 +5687,7 @@
                         "horOffset" : {
                            "_typeName" : "RelativeValue",
                            "type" : 1,
-                           "value" : 200
+                           "value" : 150
                         },
                         "vertAlign" : 1,
                         "vertOffset" : {
@@ -5687,8 +5724,8 @@
                                  "_typeName" : "StaticTextureRect",
                                  "box" : {
                                     "_typeName" : "PixelBox",
-                                    "height" : 50,
-                                    "width" : 50
+                                    "height" : 25,
+                                    "width" : 25
                                  },
                                  "color" : [ 1, 1, 1, 1 ],
                                  "imageName" : ".\\sera_icon.png",
@@ -5751,7 +5788,7 @@
                                     "font" : {
                                        "_typeName" : "FontDesc",
                                        "family" : "Roboto",
-                                       "size" : 60
+                                       "size" : 25
                                     },
                                     "horAlign" : 0,
                                     "vertAlign" : 0
@@ -5809,7 +5846,166 @@
                         "horOffset" : {
                            "_typeName" : "RelativeValue",
                            "type" : 1,
-                           "value" : 200
+                           "value" : 150
+                        },
+                        "vertAlign" : 1,
+                        "vertOffset" : {
+                           "_typeName" : "RelativeValue",
+                           "type" : 1,
+                           "value" : 0
+                        }
+                     }
+                  },
+                  {
+                     "_typeName" : "CanvasLayout",
+                     "adjustment" : 0,
+                     "box" : {
+                        "_typeName" : "RelativeBox",
+                        "height" : {
+                           "_typeName" : "RelativeValue",
+                           "type" : 0,
+                           "value" : 0
+                        },
+                        "offset" : {
+                           "_empty" : true
+                        },
+                        "width" : {
+                           "_typeName" : "RelativeValue",
+                           "type" : 1,
+                           "value" : 50
+                        }
+                     },
+                     "list" : [
+                        {
+                           "_typeName" : "LinearLayout",
+                           "list" : [
+                              {
+                                 "_typeName" : "StaticTextureRect",
+                                 "box" : {
+                                    "_typeName" : "PixelBox",
+                                    "height" : 25,
+                                    "width" : 25
+                                 },
+                                 "color" : [ 1, 1, 1, 1 ],
+                                 "imageName" : ".\\wood_icon.png",
+                                 "position" : {
+                                    "_typeName" : "AligningOffset",
+                                    "horAlign" : 0,
+                                    "horOffset" : {
+                                       "_typeName" : "RelativeValue",
+                                       "type" : 1,
+                                       "value" : 0
+                                    },
+                                    "vertAlign" : 1,
+                                    "vertOffset" : {
+                                       "_typeName" : "RelativeValue",
+                                       "type" : 1,
+                                       "value" : 0
+                                    }
+                                 }
+                              },
+                              {
+                                 "_name" : "WOOD",
+                                 "_typeName" : "StaticLabel",
+                                 "adjustSize" : true,
+                                 "box" : {
+                                    "_typeName" : "RelativeBox",
+                                    "height" : {
+                                       "_typeName" : "RelativeValue",
+                                       "type" : 0,
+                                       "value" : 0
+                                    },
+                                    "offset" : {
+                                       "_empty" : true
+                                    },
+                                    "width" : {
+                                       "_typeName" : "RelativeValue",
+                                       "type" : 0,
+                                       "value" : 0
+                                    }
+                                 },
+                                 "color" : [ 0.9843137264251709, 0.501960813999176, 0, 1 ],
+                                 "outlineColor" : [ 1, 1, 1, 1 ],
+                                 "position" : {
+                                    "_typeName" : "AligningOffset",
+                                    "horAlign" : 0,
+                                    "horOffset" : {
+                                       "_typeName" : "RelativeValue",
+                                       "type" : 1,
+                                       "value" : 0
+                                    },
+                                    "vertAlign" : 1,
+                                    "vertOffset" : {
+                                       "_typeName" : "RelativeValue",
+                                       "type" : 1,
+                                       "value" : 0
+                                    }
+                                 },
+                                 "properties" : {
+                                    "_typeName" : "AlignProperties",
+                                    "enableStacking" : false,
+                                    "font" : {
+                                       "_typeName" : "FontDesc",
+                                       "family" : "Roboto",
+                                       "size" : 25
+                                    },
+                                    "horAlign" : 0,
+                                    "vertAlign" : 0
+                                 },
+                                 "text" : " : 0"
+                              }
+                           ],
+                           "position" : {
+                              "_typeName" : "AligningOffset",
+                              "horAlign" : 1,
+                              "horOffset" : {
+                                 "_typeName" : "RelativeValue",
+                                 "type" : 1,
+                                 "value" : 0
+                              },
+                              "vertAlign" : 1,
+                              "vertOffset" : {
+                                 "_typeName" : "RelativeValue",
+                                 "type" : 1,
+                                 "value" : 0
+                              }
+                           },
+                           "skin" : {
+                              "_typeName" : "HorizontalLayoutSkin",
+                              "adjustment" : 1,
+                              "align" : 1,
+                              "box" : {
+                                 "_typeName" : "RelativeBox",
+                                 "height" : {
+                                    "_typeName" : "RelativeValue",
+                                    "type" : 0,
+                                    "value" : 0
+                                 },
+                                 "offset" : {
+                                    "_empty" : true
+                                 },
+                                 "width" : {
+                                    "_typeName" : "RelativeValue",
+                                    "type" : 0,
+                                    "value" : 0
+                                 }
+                              },
+                              "padding" : {
+                                 "_typeName" : "RelativeValue",
+                                 "type" : 1,
+                                 "value" : 0
+                              }
+                           },
+                           "skipInvisibleElements" : false
+                        }
+                     ],
+                     "position" : {
+                        "_typeName" : "AligningOffset",
+                        "horAlign" : 0,
+                        "horOffset" : {
+                           "_typeName" : "RelativeValue",
+                           "type" : 1,
+                           "value" : 150
                         },
                         "vertAlign" : 1,
                         "vertOffset" : {
@@ -5858,7 +6054,7 @@
                   "padding" : {
                      "_typeName" : "RelativeValue",
                      "type" : 1,
-                     "value" : 200
+                     "value" : 150
                   }
                },
                "skipInvisibleElements" : false
