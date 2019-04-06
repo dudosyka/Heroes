@@ -284,7 +284,7 @@ class MyApp : public App
 		return k;
 	}*/
 
-	Army createArmy(vector<pair<unitType::Enum, int>> newArmy)
+	Army createArmy(vector<pair<unitType::Enum, int>> newArmy, ownerType owner)
 	{
 		Army army;
 		for (auto armyUnit : newArmy)
@@ -295,6 +295,7 @@ class MyApp : public App
 			unit.n = armyUnit.second;
 			army.units.push_back(unit);
 		}
+		army.owner = owner;
 		return army;
 	}
 
@@ -496,6 +497,18 @@ class MyApp : public App
 		}*/
 	}
 
+	Army createEmptyArmy(ownerType owner)
+	{
+		return createArmy({
+			   { unitType::myaso, 0 },
+			   { unitType::archer, 0 },
+			   { unitType::grifon, 0 },
+			   { unitType::chuvak, 0 },
+			   { unitType::horserider, 0 },
+			   { unitType::angel, 0 }
+			}, owner);
+	}
+
 	void readNeutralsData()
 	{
 		ifstream File("neutrals_data.txt");
@@ -508,14 +521,7 @@ class MyApp : public App
 			IntVec2 cords;
 			File >> n >> unitNum >> cords.x >> cords.y;
 			auto Neutral = neutrals.load("neutral.json", cords.x * 150, cords.y * 150);
-			neutrals.data(Neutral).army = createArmy({
-				{ unitType::myaso, 0 },
-				{ unitType::archer, 0 },
-				{ unitType::grifon, 0 },
-				{ unitType::chuvak, 0 },
-				{ unitType::horserider, 0 },
-				{ unitType::angel, 0 }
-				});
+			neutrals.data(Neutral).army = createEmptyArmy(neutral);
 			Neutral.skin<Texture>().setImageName(allTypes[n].img_name);
 			neutrals.data(Neutral).army.units[n].n = unitNum;
 			neutrals.data(Neutral).army.owner = neutral;
@@ -526,7 +532,7 @@ class MyApp : public App
 
 	}
 
-	void clearArmy(Army& army)
+	void clearArmy(Army& army, ownerType owner)
 	{
 		army = createArmy({
 					{ unitType::myaso, 0 },
@@ -535,15 +541,16 @@ class MyApp : public App
 					{ unitType::chuvak, 0 },
 					{ unitType::horserider, 1 },
 					{ unitType::angel, 0 }
-				});
+				}, owner);
 	}
 
 	void fightExit()
 	{
 		isFighting = false;
 		units.clear();
-		clearArmy(playerLayer.data(playerLayer.get(0)).army);
+		clearArmy(playerLayer.data(playerLayer.get(0)).army, humanplayer);
 		selector.select(1);
+		loadMainArmy(playerLayer.data(playerLayer.get(0)).army);
 	}
 
 	int normalHeight, normalWidth;
@@ -622,7 +629,8 @@ class MyApp : public App
 						{ unitType::grifon, 50 },
 						{ unitType::chuvak, 100 },
 						{ unitType::horserider, 1 },
-						{ unitType::angel, 1000 } }
+						{ unitType::angel, 1000 } },
+						humanplayer
 					);
 					player.army.owner = humanplayer;
 					/*auto& parmy = player.army;
@@ -735,14 +743,14 @@ class MyApp : public App
 						{ unitType::grifon, 1000 },
 						{ unitType::chuvak, 1000 },
 						{ unitType::horserider, 1000 },
-						{ unitType::angel, 1000 } });
+						{ unitType::angel, 1000 } }, humanplayer);
 					rec.data(Rec).protectCastleArmy = createArmy({
 						{ unitType::myaso, 10 },
 						{ unitType::archer, 10 },
 						{ unitType::grifon, 10 },
 						{ unitType::chuvak, 10 },
 						{ unitType::horserider, 10 },
-						{ unitType::angel, 10 } });
+						{ unitType::angel, 10 } }, humanplayer);
 				}
 				if (recmap[x][y] == sawmill) 
 				{
@@ -1126,10 +1134,10 @@ class MyApp : public App
 						obj.anim.play("down", 0);
 					}
 					fight_field_map[cords.x][cords.y] = fight_queue[0].second;
-
-					animStart = true;
-					moveUnitId = fight_queue[0].second;
 				}
+
+				animStart = true;
+				moveUnitId = fight_queue[0].second;
 			}			
 		}
 		else
@@ -1187,16 +1195,20 @@ class MyApp : public App
 				}
 			}
 			if (isZoomDown && playerLayer.get(0).anim.isEmpty())
-				if (input.justPressed(U))
 			{
-				isZoomDown = false;
-				zoom(1);
+				if (input.justPressed(Z))
+				{
+					isZoomDown = false;
+					zoom(1);
+				}
 			}
 			if (!isZoomDown && playerLayer.get(0).anim.isEmpty())
-				if (input.justPressed(D))
 			{
-				isZoomDown = true;
-				zoom(0.25);
+				if (input.justPressed(X))
+				{
+					isZoomDown = true;
+					zoom(0.25);
+				}
 			}
 		}
 
@@ -1326,28 +1338,7 @@ class MyApp : public App
 			}
 			else
 			{
-				while (dmap[finish] == 2000000001)
-				{
-					if (start.x > finish.x)
-					{
-						IntVec2 newFinish;
-						newFinish.x = finish.x + 1;
-						newFinish.y = finish.y;
-						finish = newFinish;
-					}
-					if (start.x < finish.x)
-					{
-						finish = { finish.x-1, finish.y };
-					}
-					if (start.y > finish.y)
-					{
-						finish = { finish.x, finish.y+1 };
-					}
-					if (start.y < finish.y)
-					{
-						finish = { finish.x, finish.y-1 };
-					}
-				}
+				finish = find_finish(start, finish, dmap);
 			}
 		}
 		w = dmap[finish];
@@ -1496,6 +1487,116 @@ class MyApp : public App
 		}
 	}
 
+	bool isValidPoint(GameMap& map, IntVec2 point)
+	{
+		if (map.w > point.x && map.h > point.y && point.y >= 0 && point.x >= 0)
+		{
+			if (map[point] == 2000000001)
+			{
+				return false;
+			}
+			else
+			{
+				return true;
+			}
+		}
+		else
+		{
+			return false;
+		}
+
+	}
+
+	IntVec2 find_finish(IntVec2 start, IntVec2 finish, GameMap& dmap)
+	{
+		int n = 1;
+		IntVec2 startOffset;
+		IntVec2 dir;
+		if (start.x > finish.x)
+		{
+			startOffset = { -1, 0 };
+			dir = { 1, 1 };
+		}
+		if (start.x < finish.x)
+		{
+			startOffset = { 1, 0 };
+			dir = { -1, -1 };
+		}
+		if (start.y > finish.y)
+		{
+			startOffset = { 0, 1 };
+			dir = { 1, -1 };
+		}
+		if (start.y < finish.y)
+		{
+			startOffset = { 0, -1 };
+			dir = { -1, 1 };
+		}
+		while (true)
+		{
+			/*
+
+			if (start.x > finish.x && dmap[finish.x + 1][finish.y] == 2000000001)
+			{
+				finish = { finish.x + 1, finish.y };
+			}
+			if (start.x < finish.x && dmap[finish.x - 1][finish.y] == 2000000001)
+			{
+				finish = { finish.x - 1, finish.y };
+			}
+			if (start.y > finish.y && dmap[finish.x][finish.y + 1] == 2000000001)
+			{
+				finish = { finish.x, finish.y + 1 };
+			}
+			if (start.y < finish.y && dmap[finish.x][finish.y - 1] == 2000000001)
+			{
+				finish = { finish.x, finish.y - 1 };
+			}
+			if (dmap[finish] == 2000000001)
+			{
+
+			}*/
+			IntVec2 cur = { finish.x - startOffset.x * n, finish.y + startOffset.y * n};
+			for (int i = 0; i < n; i++)
+			{
+				if (isValidPoint(dmap, cur))
+				{
+					return cur;
+				}
+				cur += dir;
+			}
+			dir = rotate90CW(dir);
+			for (int i = 0; i < n; i++)
+			{
+				if (isValidPoint(dmap, cur))
+				{
+					return cur;
+				}
+				cur += dir;
+			}
+			dir = rotate90CW(dir);
+			for (int i = 0; i < n; i++)
+			{
+				if (isValidPoint(dmap, cur))
+				{
+					return cur;
+				}
+				cur += dir;
+			}
+			dir = rotate90CW(dir);
+			for (int i = 0; i < n - 1; i++)
+			{
+				if (isValidPoint(dmap, cur))
+				{
+					return cur;
+				}
+				cur += dir;
+			}
+			dir = rotate90CW(dir);
+			n++;
+		}
+	}
+
 	deque <IntVec2> fight_route(IntVec2 start, IntVec2 finish)
 	{
 		GameMap dmap;
@@ -1564,28 +1665,7 @@ class MyApp : public App
 			}
 			else
 			{
-				while (dmap[finish] == 2000000001)
-				{
-					if (start.x > finish.x)
-					{
-						IntVec2 newFinish;
-						newFinish.x = finish.x + 1;
-						newFinish.y = finish.y;
-						finish = newFinish;
-					}
-					if (start.x < finish.x)
-					{
-						finish = { finish.x - 1, finish.y };
-					}
-					if (start.y > finish.y)
-					{
-						finish = { finish.x, finish.y + 1 };
-					}
-					if (start.y < finish.y)
-					{
-						finish = { finish.x, finish.y - 1 };
-					}
-				}
+				finish = find_finish(start, finish, dmap);
 			}
 		}
 		w = dmap[finish];
@@ -2955,6 +3035,17 @@ class MyApp : public App
 		return mi_ryadom;
 	}
 	
+	Army getOstatochki(ownerType owner)
+	{
+		Army army = createEmptyArmy(owner);
+		for (auto nit : units.all())
+		{
+			if (units.data(nit).owner == owner)
+				army.units[units.data(nit).unit.type.lvl - 1] = units.data(nit).unit;
+		}
+		return army;
+	}
+
 	void attack()
 	{
 		isAttacking = false;
@@ -2999,12 +3090,16 @@ class MyApp : public App
 				{
 					realrecmap[neutrals.data(neutral_fight_id).cords.x][neutrals.data(neutral_fight_id).cords.y] = noneRec;
 					neutrals.get(neutral_fight_id).kill();
+					playerLayer.data(playerLayer.get(0)).army = getOstatochki(humanplayer);
+					loadMainArmy(playerLayer.data(playerLayer.get(0)).army);
 				}
 				else
 				{
-					clearArmy(playerLayer.data(playerLayer.get(0)).army);
+					clearArmy(playerLayer.data(playerLayer.get(0)).army, humanplayer);
+					loadMainArmy(playerLayer.data(playerLayer.get(0)).army);
 				}
 				units.clear();
+				design.child<Layout>("statusBar").show();
 			}
 			else
 			{
@@ -3027,11 +3122,15 @@ class MyApp : public App
 				{
 					realrecmap[neutrals.data(neutral_fight_id).cords.x][neutrals.data(neutral_fight_id).cords.y] = noneRec;
 					neutrals.get(neutral_fight_id).kill();
+					playerLayer.data(playerLayer.get(0)).army = getOstatochki(humanplayer);
+					loadMainArmy(playerLayer.data(playerLayer.get(0)).army);
 				}
 				else
 				{
-					clearArmy(playerLayer.data(playerLayer.get(0)).army);
+					clearArmy(playerLayer.data(playerLayer.get(0)).army, humanplayer);
+					loadMainArmy(playerLayer.data(playerLayer.get(0)).army);
 				}
+				design.child<Layout>("statusBar").show();
 				units.clear();
 			}
 			else
