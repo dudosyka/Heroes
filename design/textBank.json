@@ -67,6 +67,10 @@
          "_value" : "Серы:"
       },
       {
+         "_key" : "skillpoints",
+         "_value" : "ед. опыта"
+      },
+      {
          "_key" : "steps",
          "_value" : "Ходы: "
       },

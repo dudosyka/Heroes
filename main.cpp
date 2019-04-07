@@ -66,6 +66,7 @@ class MyApp : public App
 		int initiative;
 		int lvl;
 		float k;
+		int skill;
 		vector <Price> price;
 		Enum type;
 		string icon_name;
@@ -82,6 +83,7 @@ class MyApp : public App
 			8,
 			1,
 			0.5,
+			20,
 			{{Price::gold, 85}},
 			unitType::myaso,
 			"myaso_icon.png",
@@ -96,6 +98,7 @@ class MyApp : public App
 			9,
 			2,
 			0.8,
+			10,
 			{{Price::gold, 50}},
 			unitType::archer,
 			"archer_icon.png",
@@ -110,6 +113,7 @@ class MyApp : public App
 			15,
 			3,
 			0.7,
+			100,
 			{{Price::gold, 260}},
 			unitType::grifon,
 			"griffin_icon.png",
@@ -124,6 +128,7 @@ class MyApp : public App
 			10,
 			4,
 			0.6,
+			150,
 			{{Price::gold, 600}},
 			unitType::chuvak,
 			"chuvak_icon.png",
@@ -138,6 +143,7 @@ class MyApp : public App
 			11,
 			5,
 			0.4,
+			350,
 			{{Price::gold, 1300}},
 			unitType::horserider,
 			"horserider_icon.png",
@@ -152,6 +158,7 @@ class MyApp : public App
 			12,
 			6,
 			0.3,
+			450,
 			{{Price::gold, 2800}, {Price::crystal, 1}},
 			unitType::angel,
 			"Angel_icon.png",
@@ -254,6 +261,11 @@ class MyApp : public App
 		float k;
 	};
 
+	struct rockData
+	{
+		IntVec2 cords;
+	};
+
 	enum grass
 	{
 		grassDark,
@@ -350,8 +362,28 @@ class MyApp : public App
 		design.update();
 	}
 
-	//void chestMenu
-
+	// -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	void loadfinishstats(Army army, Army army2) // 1 - твоя 2 - враг
+	{
+		for (int i = 0; i < 6; i++)
+		{
+			auto unitstats = design.child<Layout>("yourfinishfightstats" + toString(i + 1));
+			auto icon = unitstats.child<Texture>("icon");
+			auto label = unitstats.child<Label>("label");
+			icon.setImageName(army.units[i].type.icon_name);
+			label << army.units[i].n;
+		} 
+		for (int i = 0; i < 6; i++)
+		{
+			auto unitstats = design.child<Layout>("finishfightstats" + toString(i + 1));
+			auto icon = unitstats.child<Texture>("icon");
+			auto label = unitstats.child<Label>("label");
+			icon.setImageName(army2.units[i].type.icon_name);
+			label << army2.units[i].n;
+		}
+	}  
+	// -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+	
 	/*struct merge_object
 	{
 		bool isSelect = false;
@@ -678,7 +710,6 @@ class MyApp : public App
 			{ Color(255, 0, 246), gem_mine },
 			{ Color(127, 0, 19), sera_mine },
 			{ Color(0, 250, 255), sawmill},
-			{ Color(111, 111, 111), rock},
 		};
 		recmap = loadMap("recmap.png", colorToTypeRec);
 		realrecmap = loadMap("recmap.png", colorToTypeRec);
@@ -761,13 +792,6 @@ class MyApp : public App
 					rec.data(Rec).owner = neutral;
 					rec.data(Rec).cords = { x,y };
 				}
-				if (recmap[x][y] == rock)
-				{
-					auto Rec = rec.load("hora.json", x * 150, y * 150);
-					rec.data(Rec).type = rock;
-					rec.data(Rec).owner = neutral;
-					rec.data(Rec).cords = { x,y };
-				}
 			}
 		}
 		for (auto Neutral : neutrals.all())
@@ -775,6 +799,27 @@ class MyApp : public App
 			auto& data = neutrals.data(Neutral);
 			realrecmap[data.cords.x][data.cords.y] = fight;
 		}
+
+
+
+		map<Color, int> colorToTypeRock = {
+			{ Color(111, 111, 111), rock },
+		};
+		rockmap = loadMap("rockpng.png", colorToTypeRock);
+		for (int x = 0; x < rockmap.w; ++x)
+		{
+			for (int y = 0; y < rockmap.h; ++y)
+			{
+				if (rockmap[x][y] == rock)
+				{
+					auto r = rocks.load("hora.json", x * 150, y * 150);
+					rocks.data(r).cords = { x,y };
+					realrecmap[x][y] = rock;
+				}
+			}
+		}
+
+
 		field.setView(groundmap.w / 2 * 150 - 75, groundmap.h / 2 * 150 - 75);
 		loadMainArmy(playerLayer.data(playerLayer.get(0)).army);
 		playerLayer.data(playerLayer.get(0)).exp = 0;
@@ -834,6 +879,12 @@ class MyApp : public App
 			auto cords = neutrals.data(neutral).cords;
 			neutral.setScale(scale);
 			neutral.setPos(cords.x * (150 * scale), cords.y * (150 * scale));
+		}
+		for (auto r : rocks.all())
+		{
+			auto cords = rocks.data(r).cords;
+			r.setScale(scale);
+			r.setPos(cords.x * (150 * scale), cords.y * (150 * scale));
 		}
 		cout << field_container.size() << endl;
 		field.setView(groundmap.w / 2 * (150 * scale) - (75 * scale), groundmap.h / 2 * (150 * scale) - (75 * scale));
@@ -1202,6 +1253,10 @@ class MyApp : public App
 						
 				}
 			}
+			if (input.justPressed(C))
+			{
+				clearSteps();
+			}
 			if (isZoomDown && playerLayer.get(0).anim.isEmpty())
 			{
 				if (input.justPressed(Z))
@@ -1237,7 +1292,6 @@ class MyApp : public App
 		v.y *= 150;
 		return Vec2(v.x, v.y);
 	}
-
 
 	IntVec2 cell_fight(Vec2 v)
 	{
@@ -1288,7 +1342,14 @@ class MyApp : public App
 			{
 				if (realrecmap[finish] != fight)
 				{
-					target = Target::mine;
+					if (realrecmap[finish] != rock)
+					{
+						target = Target::none;
+					}
+					else
+					{
+						target = Target::mine;
+					}					
 				}
 				else
 				{
@@ -3042,7 +3103,7 @@ class MyApp : public App
 		}
 		return mi_ryadom;
 	}
-	
+
 	Army getOstatochki(ownerType owner)
 	{
 		Army army = createEmptyArmy(owner);
@@ -3052,6 +3113,48 @@ class MyApp : public App
 				army.units[units.data(nit).unit.type.lvl - 1] = units.data(nit).unit;
 		}
 		return army;
+	}
+
+	Army getPoteri(Army startArmy)
+	{
+		ownerType owner = startArmy.owner;
+		Army army = createEmptyArmy(owner);
+		Army finishArmy = getOstatochki(owner);
+		int index = 0;
+		for (auto nit : finishArmy.units)
+		{
+			army.units[index].n = startArmy.units[index].n - nit.n;
+			index++;
+		}
+		/*for (auto nit : units.all())
+		{
+			int index = units.data(nit).unit.type.lvl - 1;
+			if (units.data(nit).owner == owner)
+			{
+				int newCount = startArmy.units[index].n - finishArmy.units[index].n;
+				army.units[index] = units.data(nit).unit;
+				army.units[index].n = newCount;
+			}
+		}*/
+		return army;
+	}
+
+	Army startArmy1, startArmy2;
+
+	int countfightReward(Army startArmy)
+	{
+		int points = 0;
+		for (auto nit : getPoteri(startArmy).units)
+		{
+			points += nit.n * nit.type.skill;
+		}
+		return points;
+	}
+
+	void selectFight()
+	{
+		selector.select(1);
+		isFighting = false;
 	}
 
 	void attack()
@@ -3090,9 +3193,11 @@ class MyApp : public App
 			moveUnitId = -1;
 			if (check_win(humanplayer) || check_win(neutral))
 			{
-				isFighting = false;
-				selector.select(1);
-
+				auto forwindow = design.child<Layout>("forFightWindow");
+				forwindow.show();
+				auto window = forwindow.load("finishFight.json");
+				connect(window.child<Button>("closeFinishStats"), selectFight);
+				loadfinishstats(getPoteri(startArmy1), getPoteri(startArmy2));
 				fight_exit.hide();
 				if (check_win(humanplayer))
 				{
@@ -3100,6 +3205,8 @@ class MyApp : public App
 					neutrals.get(neutral_fight_id).kill();
 					playerLayer.data(playerLayer.get(0)).army = getOstatochki(humanplayer);
 					loadMainArmy(playerLayer.data(playerLayer.get(0)).army);
+					window.child<Label>("fightReward") << countfightReward(startArmy2) << tr("skillpoints");
+					skill += countfightReward(startArmy2);
 				}
 				else
 				{
@@ -3123,8 +3230,11 @@ class MyApp : public App
 
 			if (check_win(humanplayer) || check_win(neutral))
 			{
-				isFighting = false;
-				selector.select(1);
+				auto forwindow = design.child<Layout>("forFightWindow");
+				forwindow.show();
+				auto window = forwindow.load("finishFight.json");
+				connect(window.child<Button>("closeFinishStats"), selectFight);
+				window.child<Label>("fightReward") << countfightReward(startArmy2);
 				fight_exit.hide();
 				if (check_win(humanplayer))
 				{
@@ -3132,6 +3242,9 @@ class MyApp : public App
 					neutrals.get(neutral_fight_id).kill();
 					playerLayer.data(playerLayer.get(0)).army = getOstatochki(humanplayer);
 					loadMainArmy(playerLayer.data(playerLayer.get(0)).army);
+					loadfinishstats(getPoteri(startArmy1), getPoteri(startArmy2));
+					window.child<Label>("fightReward") << countfightReward(startArmy2) << tr("skillpoints");
+					skill += countfightReward(startArmy2);
 				}
 				else
 				{
@@ -3139,6 +3252,7 @@ class MyApp : public App
 					loadMainArmy(playerLayer.data(playerLayer.get(0)).army);
 				}
 				design.child<Layout>("statusBar").show();
+				//selector.select(1);
 				units.clear();
 			}
 			else
@@ -3146,6 +3260,63 @@ class MyApp : public App
 				target_queue = makeTargetQueue(neutral);
 			}
 		}
+	}
+
+	void startFight(Army army1, Army army2, int neutralFightId = -1)
+	{
+
+		selector.select(3);
+		design.child<Layout>("statusBar").hide();
+		map<Color, int> colorToTypeGround = {
+			{ Color(165, 0, 255), grassDark },
+		};
+		fight_field_map = loadMap("Grassmap_fight.png", colorToTypeGround);
+		for (int x = 0; x < fight_field_map.w; ++x)
+		{
+			for (int y = 0; y < fight_field_map.h; ++y)
+			{
+				if (fight_field_map[x][y] == grassDark)
+				{
+					fight_ground.load("grass.json", x * cellsize, y * cellsize);
+					fight_field_map[x][y] = -1;
+				}
+			}
+		}
+		fight_field.setView(fight_field_map.w * 0.5 * cellsize - cellsize * 0.5, fight_field_map.h * 0.5 * cellsize - cellsize * 0.5);
+		placeArmy(army1, true);
+		placeArmy(army2, false);
+		startArmy1 = army1;
+		startArmy2 = army2;
+		fight_queue = make_fight_queue();
+		target_queue = makeTargetQueue(neutral);
+		if (units.data(fight_queue[0].second).owner != humanplayer)
+		{
+			make_computer_step();
+		}
+		else
+		{
+			draw_get_step_fight_zone(fight_queue[0].second);
+		}
+		connect(new_fight_step, next_fight_step);
+		if (neutralFightId != -1)
+		{
+			neutral_fight_id = neutralFightId;
+		}
+		fight_exit.show();
+		isFighting = true;
+	}
+
+	int isNeutralsRyadom(IntVec2 cords)
+	{
+		for (auto neutral : neutrals.all())
+		{
+			auto ncords = neutrals.data(neutral).cords;
+			if (is_mi_ryadom(cords, ncords))
+			{
+				return neutral.id();
+			}
+		}
+		return -1;
 	}
 
     void move()
@@ -3221,6 +3392,10 @@ class MyApp : public App
 				{
 					NowPPos = cell_zoom(playerLayer.get(0).pos());
 				}
+				if (isNeutralsRyadom(NowPPos) != -1)
+				{
+					startFight(playerLayer.data(playerLayer.get(0)).army, neutrals.data(isNeutralsRyadom(NowPPos)).army, isNeutralsRyadom(NowPPos));
+				}
 				auto dir = direction.front();
 				stepPoints--;
 				if (!isZoomDown)
@@ -3286,40 +3461,7 @@ class MyApp : public App
 
 						if (target == Target::fight)
 						{
-							selector.select(3);
-							design.child<Layout>("statusBar").hide();
-							map<Color, int> colorToTypeGround = {
-								{ Color(165, 0, 255), grassDark },
-							};
-							fight_field_map = loadMap("Grassmap_fight.png", colorToTypeGround);
-							for (int x = 0; x < fight_field_map.w; ++x)
-							{
-								for (int y = 0; y < fight_field_map.h; ++y)
-								{
-									if (fight_field_map[x][y] == grassDark)
-									{
-										fight_ground.load("grass.json", x * cellsize, y * cellsize);
-										fight_field_map[x][y] = -1;
-									}
-								}
-							}
-							fight_field.setView(fight_field_map.w * 0.5 * cellsize - cellsize * 0.5, fight_field_map.h * 0.5 * cellsize - cellsize * 0.5);
-							placeArmy(playerLayer.data(playerLayer.get(0)).army, true);
-							placeArmy(neutrals.data(Neutral).army, false);
-							fight_queue = make_fight_queue();
-							target_queue = makeTargetQueue(neutral);
-							if (units.data(fight_queue[0].second).owner != humanplayer)
-							{
-								make_computer_step();
-							}
-							else
-							{
-								draw_get_step_fight_zone(fight_queue[0].second);
-							}
-							connect(new_fight_step, next_fight_step);
-							neutral_fight_id = Neutral.id();
-							fight_exit.show();
-							isFighting = true;
+							startFight(playerLayer.data(playerLayer.get(0)).army, neutrals.data(Neutral).army, Neutral.id());
 							target = Target::none;
 						}
 					}
@@ -3349,7 +3491,7 @@ class MyApp : public App
 						}
 						else if (target == Target::mine)
 						{
-							if (rec.data(Rec).type == castle)
+							if (rec.data(Rec).type == castle || rec.data(Rec).type == rock)
 								continue;
 							//GOld << "allright!!";
 							rec.data(Rec).owner = playerLayer.data(playerLayer.get(0)).owner;
@@ -3398,6 +3540,10 @@ class MyApp : public App
 								n << "2";
 								Rec.child<Texture>("flag").setColor(255, 0, 0, 255);
 							}
+							else if (rec.data(Rec).type == rock)
+							{
+								closeMineInfo();
+							}
 							auto closeBut = forWindow.child<Button>("closeMineInfoBut");
 							connect(closeBut, closeMineInfo);
 							target = Target::none;
@@ -3408,7 +3554,7 @@ class MyApp : public App
 		}
     }
 
-	GameMap groundmap, GroundObjMap, MobsMap, Nishtyakmap, recmap, realrecmap, fight_field_map;
+	GameMap groundmap, GroundObjMap, MobsMap, Nishtyakmap, rockmap, recmap, realrecmap, fight_field_map;
 	FromDesign(Button, start_button);
 	FromDesign(Button, quit_button);
 	FromDesign(Button, load_button);
@@ -3456,6 +3602,7 @@ class MyApp : public App
 	LayerFromDesign(recData, rec);
 	LayerFromDesign(nishData, nishtyaki);
 	LayerFromDesign(neutralData, neutrals);
+	LayerFromDesign(rockData, rocks);
 };
 
 int main(int argc, char** argv)

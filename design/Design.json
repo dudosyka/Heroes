@@ -398,6 +398,19 @@
                                     }
                                  },
                                  {
+                                    "_name" : "rocks",
+                                    "_typeName" : "Layer",
+                                    "index" : {
+                                       "_typeName" : "FlatIndex",
+                                       "keyType" : 2
+                                    },
+                                    "list" : [],
+                                    "order" : {
+                                       "_typeName" : "SortByYOrder",
+                                       "keyType" : 2
+                                    }
+                                 },
+                                 {
                                     "_name" : "playerLayer",
                                     "_typeName" : "Layer",
                                     "index" : {
@@ -4801,6 +4814,44 @@
                            "textColor" : [ 0, 0, 0, 1 ],
                            "textOutlineColor" : [ 1, 1, 1, 1 ],
                            "useGradient" : true
+                        }
+                     },
+                     {
+                        "_name" : "forFightWindow",
+                        "_typeName" : "CanvasLayout",
+                        "_visible" : false,
+                        "adjustment" : 0,
+                        "box" : {
+                           "_typeName" : "RelativeBox",
+                           "height" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 0,
+                              "value" : 0
+                           },
+                           "offset" : {
+                              "_empty" : true
+                           },
+                           "width" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 0,
+                              "value" : 0
+                           }
+                        },
+                        "list" : [],
+                        "position" : {
+                           "_typeName" : "AligningOffset",
+                           "horAlign" : 1,
+                           "horOffset" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 1,
+                              "value" : 0
+                           },
+                           "vertAlign" : 1,
+                           "vertOffset" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 1,
+                              "value" : 0
+                           }
                         }
                      }
                   ],
