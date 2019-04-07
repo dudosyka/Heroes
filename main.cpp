@@ -33,7 +33,7 @@ class MyApp : public App
 
 	enum recType
 	{
-		noneRec, mine, goldMine, castle, castle_entry, gem_mine, sera_mine, fight, sawmill
+		noneRec, mine, goldMine, castle, castle_entry, gem_mine, sera_mine, fight, sawmill, rock
 	};
 
 	struct nishData
@@ -76,7 +76,7 @@ class MyApp : public App
 		{
 			4,
 			4,
-			7, // protect
+			8, // protect
 			3,
 			4,
 			8,
@@ -90,7 +90,7 @@ class MyApp : public App
 		{
 			10,
 			4,
-			4,// protect
+			3,// protect
 			8,
 			4,
 			9,
@@ -103,8 +103,8 @@ class MyApp : public App
 		},
 		{
 			30,
-			18,
-			10,// protect
+			15,
+			17,// protect
 			15,
 			7,
 			15,
@@ -117,8 +117,8 @@ class MyApp : public App
 		},
 		{
 			54,
-			12,
-			12,// protect
+			14,
+			14,// protect
 			25,
 			5,
 			10,
@@ -522,12 +522,12 @@ class MyApp : public App
 			File >> n >> unitNum >> cords.x >> cords.y;
 			auto Neutral = neutrals.load("neutral.json", cords.x * 150, cords.y * 150);
 			neutrals.data(Neutral).army = createEmptyArmy(neutral);
-			Neutral.skin<Texture>().setImageName(allTypes[n].img_name);
-			neutrals.data(Neutral).army.units[n].n = unitNum;
+			Neutral.skin<Texture>().setImageName(allTypes[n - 1].img_name);
+			neutrals.data(Neutral).army.units[n - 1].n = unitNum;
 			neutrals.data(Neutral).army.owner = neutral;
 			neutrals.data(Neutral).owner = neutral;
 			neutrals.data(Neutral).cords = cords;
-			neutrals.data(Neutral).army.units[n].type.hp = unitNum * allTypes[n].hp;
+			neutrals.data(Neutral).army.units[n - 1].type.hp = unitNum * allTypes[n - 1].hp;
 		}
 
 	}
@@ -678,6 +678,7 @@ class MyApp : public App
 			{ Color(255, 0, 246), gem_mine },
 			{ Color(127, 0, 19), sera_mine },
 			{ Color(0, 250, 255), sawmill},
+			{ Color(111, 111, 111), rock},
 		};
 		recmap = loadMap("recmap.png", colorToTypeRec);
 		realrecmap = loadMap("recmap.png", colorToTypeRec);
@@ -757,6 +758,13 @@ class MyApp : public App
 					auto Rec = rec.load("Rec.json", x * 150, y * 150);
 					Rec.child<Texture>("mineTexture").setImageName("lesopilka.png");
 					rec.data(Rec).type = sawmill;
+					rec.data(Rec).owner = neutral;
+					rec.data(Rec).cords = { x,y };
+				}
+				if (recmap[x][y] == rock)
+				{
+					auto Rec = rec.load("hora.json", x * 150, y * 150);
+					rec.data(Rec).type = rock;
 					rec.data(Rec).owner = neutral;
 					rec.data(Rec).cords = { x,y };
 				}
@@ -3300,7 +3308,14 @@ class MyApp : public App
 							placeArmy(neutrals.data(Neutral).army, false);
 							fight_queue = make_fight_queue();
 							target_queue = makeTargetQueue(neutral);
-							draw_get_step_fight_zone(fight_queue[0].second);
+							if (units.data(fight_queue[0].second).owner != humanplayer)
+							{
+								make_computer_step();
+							}
+							else
+							{
+								draw_get_step_fight_zone(fight_queue[0].second);
+							}
 							connect(new_fight_step, next_fight_step);
 							neutral_fight_id = Neutral.id();
 							fight_exit.show();
