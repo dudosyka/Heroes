@@ -583,6 +583,19 @@ class MyApp : public App
 		clearArmy(playerLayer.data(playerLayer.get(0)).army, humanplayer);
 		selector.select(1);
 		loadMainArmy(playerLayer.data(playerLayer.get(0)).army);
+		for (auto r : rec.all())
+		{
+			auto type = rec.data(r).type;
+			auto owner = rec.data(r).owner;
+			auto powner = playerLayer.data(playerLayer.get(0)).owner;
+			if (type == castle)
+			{
+				if (owner == powner)
+				{
+					playerLayer.get(0).setPos(pixels({ rec.data(r).cords.x,rec.data(r).cords.y - 1 }, isZoomDown));
+				}
+			}
+		}
 	}
 
 	int normalHeight, normalWidth;
@@ -1257,9 +1270,13 @@ class MyApp : public App
 			{
 				clearSteps();
 			}
+			if (input.justPressed(Space))
+			{
+				nextStep();
+			}
 			if (isZoomDown && playerLayer.get(0).anim.isEmpty())
 			{
-				if (input.justPressed(Z))
+				if (input.justPressed(Add))
 				{
 					isZoomDown = false;
 					zoom(1);
@@ -1267,7 +1284,7 @@ class MyApp : public App
 			}
 			if (!isZoomDown && playerLayer.get(0).anim.isEmpty())
 			{
-				if (input.justPressed(X))
+				if (input.justPressed(Subtract))
 				{
 					isZoomDown = true;
 					zoom(0.25);
@@ -1316,12 +1333,23 @@ class MyApp : public App
 		return IntVec2(v.x, v.y);
 	}
 
+	IntVec2 cell(Vec2 v, bool isZoom)
+	{
+		return isZoom ? cell_zoom(v) : cell(v);
+	}
+
 	Vec2 pixels_zoom(IntVec2 v)
 	{
 		v.x *= 37.5;
 		v.y *= 37.5;
 		return Vec2(v.x, v.y);
 	}
+
+	Vec2 pixels(IntVec2 v, bool isZoom)
+	{
+		return isZoom ? pixels_zoom(v) : pixels(v);
+	}
+
 
 	enum class Target {
 		none, castle, mine, fight
@@ -1342,7 +1370,7 @@ class MyApp : public App
 			{
 				if (realrecmap[finish] != fight)
 				{
-					if (realrecmap[finish] != rock)
+					if (realrecmap[finish] == rock)
 					{
 						target = Target::none;
 					}
@@ -3066,6 +3094,7 @@ class MyApp : public App
 		}
 		return win;
 	}
+
 	bool animStart = false;
 	int moveUnitId = -1;
 	const int cellsize = 75;
@@ -3155,6 +3184,8 @@ class MyApp : public App
 	{
 		selector.select(1);
 		isFighting = false;
+		design.child<Layout>("forFightWindow").clear();
+		design.child<Layout>("forFightWindow").hide();
 	}
 
 	void attack()
@@ -3349,7 +3380,14 @@ class MyApp : public App
 			}
 		}
 		else {
-
+			if (playerLayer.get(0).anim.isEmpty())
+			{
+				IntVec2 NowPPos = cell(playerLayer.get(0).pos(), isZoomDown);
+				if (isNeutralsRyadom(NowPPos) != -1)
+				{
+					startFight(playerLayer.data(playerLayer.get(0)).army, neutrals.data(isNeutralsRyadom(NowPPos)).army, isNeutralsRyadom(NowPPos));
+				}
+			}
 			if (heroStay(playerLayer.get(0)))
 			{
 				for (auto n : nishtyaki.find(playerLayer.get(0).pos()))
@@ -3381,60 +3419,29 @@ class MyApp : public App
 				emptyStep.hide();
 			}
 
+
+
 			if (!empty(direction) && playerLayer.get(0).anim.isEmpty() && stepPoints > 0)
 			{
-				IntVec2 NowPPos;
-				if (!isZoomDown)
-				{
-					NowPPos = cell(playerLayer.get(0).pos());
-				}
-				else
-				{
-					NowPPos = cell_zoom(playerLayer.get(0).pos());
-				}
-				if (isNeutralsRyadom(NowPPos) != -1)
-				{
-					startFight(playerLayer.data(playerLayer.get(0)).army, neutrals.data(isNeutralsRyadom(NowPPos)).army, isNeutralsRyadom(NowPPos));
-				}
+				IntVec2 NowPPos = cell(playerLayer.get(0).pos(), isZoomDown);
 				auto dir = direction.front();
 				stepPoints--;
-				if (!isZoomDown)
+				string suffix = isZoomDown ? "_min" : "";
+				if (dir.x > NowPPos.x)
 				{
-					if (dir.x > NowPPos.x)
-					{
-						playerLayer.get(0).anim.play("right", 0);
-					}
-					else if (dir.x < NowPPos.x)
-					{
-						playerLayer.get(0).anim.play("left", 0);
-					}
-					else if (dir.y > NowPPos.y)
-					{
-						playerLayer.get(0).anim.play("up", 0);
-					}
-					else if (dir.y < NowPPos.y)
-					{
-						playerLayer.get(0).anim.play("down", 0);
-					}
+					playerLayer.get(0).anim.play("right" + suffix, 0);
 				}
-				else
+				else if (dir.x < NowPPos.x)
 				{
-					if (dir.x > NowPPos.x)
-					{
-						playerLayer.get(0).anim.play("right_min", 0);
-					}
-					else if (dir.x < NowPPos.x)
-					{
-						playerLayer.get(0).anim.play("left_min", 0);
-					}
-					else if (dir.y > NowPPos.y)
-					{
-						playerLayer.get(0).anim.play("up_min", 0);
-					}
-					else if (dir.y < NowPPos.y)
-					{
-						playerLayer.get(0).anim.play("down_min", 0);
-					}
+					playerLayer.get(0).anim.play("left" + suffix, 0);
+				}
+				else if (dir.y > NowPPos.y)
+				{
+					playerLayer.get(0).anim.play("up" + suffix, 0);
+				}
+				else if (dir.y < NowPPos.y)
+				{
+					playerLayer.get(0).anim.play("down" + suffix, 0);
 				}
 				NowPPos = dir;
 				direction.pop_front();
@@ -3473,7 +3480,7 @@ class MyApp : public App
 					{
 						if (target == Target::castle)
 						{
-							if (rec.data(Rec).type == castle)
+							if (rec.data(Rec).type == castle || rec.data(Rec).type == castle_entry)
 							{
 								target = Target::none;
 								rec.data(Rec).heroInCastle = true;
