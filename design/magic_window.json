@@ -889,7 +889,7 @@
                         "_visible" : false,
                         "list" : [
                            {
-                              "_name" : "magicIcon1",
+                              "_name" : "magicIcon11",
                               "_typeName" : "CanvasLayout",
                               "adjustment" : 0,
                               "box" : {
@@ -1656,7 +1656,7 @@
                         "_visible" : false,
                         "list" : [
                            {
-                              "_name" : "magicIcon1",
+                              "_name" : "magicIcon21",
                               "_typeName" : "CanvasLayout",
                               "adjustment" : 0,
                               "box" : {
@@ -2423,7 +2423,7 @@
                         "_visible" : false,
                         "list" : [
                            {
-                              "_name" : "magicIcon1",
+                              "_name" : "magicIcon31",
                               "_typeName" : "CanvasLayout",
                               "adjustment" : 0,
                               "box" : {

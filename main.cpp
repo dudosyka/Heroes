@@ -1182,6 +1182,10 @@ class MyApp : public App
 		
 		if (isFighting)
 		{
+			if (!design.child<Layout>("forFightWindow").empty())
+			{
+				return;
+			}
 			if (animStart)
 			{
 				return;
@@ -1242,36 +1246,51 @@ class MyApp : public App
 				auto fight_direction = fight_route(units.data(id).cords, c);
 				if (!units.data(obj).unit.type.strelyarcher || (fight_field_map[c] == -1 && get_owner(c.x,c.y) != units.data(id).owner))
 				{
-					for (auto dir : fight_direction)
+					if (!kastuyu)
 					{
-						IntVec2& NowPPos = units.data(id).cords;
-						fight_field_map[cords.x][cords.y] = -1;
-						if (dir.x > NowPPos.x)
+						for (auto dir : fight_direction)
 						{
-							cords.x++;
-							obj.anim.play("right", 0);
+							IntVec2& NowPPos = units.data(id).cords;
+							fight_field_map[cords.x][cords.y] = -1;
+							if (dir.x > NowPPos.x)
+							{
+								cords.x++;
+								obj.anim.play("right", 0);
+							}
+							else if (dir.x < NowPPos.x)
+							{
+								cords.x--;
+								obj.anim.play("left", 0);
+							}
+							else if (dir.y > NowPPos.y)
+							{
+								cords.y++;
+								obj.anim.play("top", 0);
+							}
+							else if (dir.y < NowPPos.y)
+							{
+								cords.y--;
+								obj.anim.play("down", 0);
+							}
+							fight_field_map[cords.x][cords.y] = fight_queue[0].second;
 						}
-						else if (dir.x < NowPPos.x)
-						{
-							cords.x--;
-							obj.anim.play("left", 0);
-						}
-						else if (dir.y > NowPPos.y)
-						{
-							cords.y++;
-							obj.anim.play("top", 0);
-						}
-						else if (dir.y < NowPPos.y)
-						{
-							cords.y--;
-							obj.anim.play("down", 0);
-						}
-						fight_field_map[cords.x][cords.y] = fight_queue[0].second;
+
+					}
+					else
+					{
+						magicAttack();
 					}
 				}
 				else
 				{
-					attack(units.data(obj).unit.type.strelyarcher);
+					if (!kastuyu)
+					{
+						attack(units.data(obj).unit.type.strelyarcher);
+					}
+					else
+					{
+						magicAttack();
+					}
 				}
 				animStart = true;
 				moveUnitId = fight_queue[0].second;
@@ -3086,40 +3105,56 @@ class MyApp : public App
 		int steps = units.data(fight_queue[0].second).unit.type.stepPoint;
 		if (units.data(id).unit.type.strelyarcher)
 		{
-			attack(units.data(id2).unit.type.strelyarcher);
+			if (!empty(units.data(id).unit.type.availibleMagic))
+			{
+				kastanut_malexa(1);
+				magicAttack();
+			}
+			else
+			{
+				attack(units.data(id2).unit.type.strelyarcher);
+			}
 		}
 		else
 		{
-			for (auto dir : enemy_fight_direction)
+			if (!empty(units.data(id).unit.type.availibleMagic))
 			{
-				IntVec2& NowPPos = units.data(units.get(fight_queue[0].second)).cords;
-				fight_field_map[units.data(units.get(fight_queue[0].second)).cords.x][units.data(units.get(fight_queue[0].second)).cords.y] = -1;
-				if (dir.x > NowPPos.x)
+				kastanut_malexa(1);
+				magicAttack();
+			}
+			else
+			{
+				for (auto dir : enemy_fight_direction)
 				{
-					units.data(units.get(fight_queue[0].second)).cords.x++;
-					units.get(fight_queue[0].second).anim.play("right", 0);
-				}
-				else if (dir.x < NowPPos.x)
-				{
-					units.data(units.get(fight_queue[0].second)).cords.x--;
-					units.get(fight_queue[0].second).anim.play("left", 0);
-				}
-				else if (dir.y > NowPPos.y)
-				{
-					units.data(units.get(fight_queue[0].second)).cords.y++;
-					units.get(fight_queue[0].second).anim.play("top", 0);
-				}
-				else if (dir.y < NowPPos.y)
-				{
-					units.data(units.get(fight_queue[0].second)).cords.y--;
-					units.get(fight_queue[0].second).anim.play("down", 0);
-				}
-				fight_field_map[units.data(units.get(fight_queue[0].second)).cords.x][units.data(units.get(fight_queue[0].second)).cords.y] = fight_queue[0].second;
+					IntVec2& NowPPos = units.data(units.get(fight_queue[0].second)).cords;
+					fight_field_map[units.data(units.get(fight_queue[0].second)).cords.x][units.data(units.get(fight_queue[0].second)).cords.y] = -1;
+					if (dir.x > NowPPos.x)
+					{
+						units.data(units.get(fight_queue[0].second)).cords.x++;
+						units.get(fight_queue[0].second).anim.play("right", 0);
+					}
+					else if (dir.x < NowPPos.x)
+					{
+						units.data(units.get(fight_queue[0].second)).cords.x--;
+						units.get(fight_queue[0].second).anim.play("left", 0);
+					}
+					else if (dir.y > NowPPos.y)
+					{
+						units.data(units.get(fight_queue[0].second)).cords.y++;
+						units.get(fight_queue[0].second).anim.play("top", 0);
+					}
+					else if (dir.y < NowPPos.y)
+					{
+						units.data(units.get(fight_queue[0].second)).cords.y--;
+						units.get(fight_queue[0].second).anim.play("down", 0);
+					}
+					fight_field_map[units.data(units.get(fight_queue[0].second)).cords.x][units.data(units.get(fight_queue[0].second)).cords.y] = fight_queue[0].second;
 
-				steps--;
-				if (steps < 1)
-				{
-					break;
+					steps--;
+					if (steps < 1)
+					{
+						break;
+					}
 				}
 			}
 		}
@@ -3165,6 +3200,14 @@ class MyApp : public App
 		fight_queue.pop_front();
 		fight_queue.push_back(first);
 		auto first2 = fight_queue[0];
+		if (!empty(units.data(first2.second).unit.type.availibleMagic))
+		{
+			useMagicUnit.show();
+		}
+		else
+		{
+			useMagicUnit.hide();
+		}
 		if (getUnitOwner(first2.second) != humanplayer)
 		{
 			IntVec2 pos = units.data(first2.second).cords;
@@ -3179,14 +3222,32 @@ class MyApp : public App
 		}
 	}
 
+	bool kastuyu = false;
+
+	int kastId = -1;
+
+	void kastanut_malexa(int kast_id)
+	{
+		kastuyu = true;
+		kastId = kast_id; 
+	    closeMagicWindow();
+	}
+
 	void loadMagic(vector<int> availibleMagic)
 	{
 		auto win = design.child<Layout>("magicWin");
 		for (auto m : availibleMagic)
 		{
-			auto mag = win.child<Layout>("magicIcon" + m);
-			mag.child<Button>("button").child<Texture>("icon").setImageName("magic_icons\fireball_icon.png");
+			string stroka = "magicIcon" + toString(m);
+			cout << stroka << endl;
+			auto mag = win.child<Layout>(stroka);
+			auto but = mag.child<Button>("button");
+			but.child<Texture>("icon").setImageName("magic_icons/fireball_icon.png");
+			design.update();
+			connect(but, kastanut_malexa, m);
 		}
+		win.show();
+		design.child<Layout>("forFightWindow").show();
 	}
 
 	void closeMagicWindow()
@@ -3198,11 +3259,14 @@ class MyApp : public App
 
 	void showMagicWindow()
 	{
+		if (animStart)
+		{
+			return;
+		}
 		auto win = design.child<Layout>("forFightWindow");
 		win.load("magic_window.json");
 		connect(win.child<Button>("closeMagicWindow"), closeMagicWindow);
-		loadMagic(allTypes[3].availibleMagic);
-		win.show();
+		loadMagic(units.data(fight_queue[0].second).unit.type.availibleMagic);
 	}
 
 	bool check_win(ownerType owner)
@@ -3314,6 +3378,72 @@ class MyApp : public App
 		design.child<Layout>("forFightWindow").hide();
 	}
 
+	int magicDamageCount(int kast_damage, int n)
+	{
+		return kast_damage * n;
+	}
+
+	void magicAttack()
+	{
+		isAttacking = false;
+		kastuyu = false;
+		useMagicUnit.hide();
+		auto& unit1 = units.data(attackUnitId).unit;
+		auto& unit2 = units.data(protectUnitId).unit;
+		int n1 = unit1.n;
+		int n2 = unit2.n;
+		auto& oneHp2 = allTypes[unit2.type.lvl - 1].hp;
+		auto& allHp2 = unit2.type.hp;
+		auto damage = magicDamageCount(AllMagic[kastId - 1].damage, n1);
+		n2 -= die_count(damage, unit2.n, unit2.type.hp, unit2.type.lvl);
+		allHp2 -= damage;
+		unit2.n = n2;
+		renderUnitStats(protectUnitId); 
+		if (n2 <= 0)
+		{
+			fight_field_map[units.data(protectUnitId).cords] = -1;
+			delete_from_queue(protectUnitId);
+			units.get(protectUnitId).kill();
+			moveUnitId = -1;
+
+			if (check_win(humanplayer) || check_win(neutral))
+			{
+				auto forwindow = design.child<Layout>("forFightWindow");
+				forwindow.show();
+				auto window = forwindow.load("finishFight.json");
+				window.child<Label>("fightReward") << countfightReward(startArmy2);
+				fight_exit.hide();
+				if (check_win(humanplayer))
+				{
+					realrecmap[neutrals.data(neutral_fight_id).cords.x][neutrals.data(neutral_fight_id).cords.y] = noneRec;
+					neutrals.get(neutral_fight_id).kill();
+					playerLayer.data(playerLayer.get(0)).army = getOstatochki(humanplayer);
+					loadMainArmy(playerLayer.data(playerLayer.get(0)).army);
+					loadfinishstats(getPoteri(startArmy1), getPoteri(startArmy2));
+					window.child<Label>("fightReward") << countfightReward(startArmy2) << tr("skillpoints");
+					skill += countfightReward(startArmy2);
+					connect(window.child<Button>("closeFinishStats"), selectFight, false);
+				}
+				else
+				{
+					clearArmy(playerLayer.data(playerLayer.get(0)).army, humanplayer);
+					loadMainArmy(playerLayer.data(playerLayer.get(0)).army);
+					loadfinishstats(getPoteri(startArmy1), getPoteri(startArmy2));
+					window.child<Label>("fightReward") << countfightReward(startArmy2) << tr("skillpoints");
+					connect(window.child<Button>("closeFinishStats"), selectFight, true);
+				}
+				design.child<Layout>("statusBar").show();
+				//selector.select(1);
+				units.clear();
+				zone.clear();
+			}
+			else
+			{
+				target_queue = makeTargetQueue(neutral);
+			}
+		}
+	}
+
 	void attack(bool archer)
 	{
 		isAttacking = false;
@@ -3333,12 +3463,15 @@ class MyApp : public App
 		int n2 = unit2.n;
 		n2 -= die_count(damage1, unit2.n, unit2.type.hp, unit2.type.lvl);
 		float damage2 = damage_count(unit2.type.attack, unit1.type.protect, unit2.type.damage, n2);
-		n1 -= die_count(damage2, unit1.n, unit1.type.hp, unit1.type.lvl);
-		allHp1 -= damage2;
 		allHp2 -= damage1;
-		unit1.type.hp = allHp1;
 		unit2.type.hp = allHp2;
-		unit1.n = n1;
+		if (unit2.type.strelyarcher)
+		{
+			n1 -= die_count(damage2, unit1.n, unit1.type.hp, unit1.type.lvl);
+			unit1.n = n1;
+			allHp1 -= damage2;
+			unit1.type.hp = allHp1;
+		}
 		unit2.n = n2;
 		renderUnitStats(attackUnitId);
 		renderUnitStats(protectUnitId);
@@ -3417,6 +3550,7 @@ class MyApp : public App
 				design.child<Layout>("statusBar").show();
 				//selector.select(1);
 				units.clear();
+				zone.clear();
 			}
 			else
 			{
@@ -3750,7 +3884,6 @@ int main(int argc, char** argv)
     MyApp app;
     app.setConfig("HeroesConfig.json");
     app.setDesign("Design.json");
-	//app.setWindowTitle("Супер прога");
 	if (!app.init(&argc, argv))
 	{
 		return 1;
