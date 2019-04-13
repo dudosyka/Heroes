@@ -576,26 +576,87 @@ class MyApp : public App
 				}, owner);
 	}
 
-	void fightExit()
+	void fightExit(bool lose)
 	{
 		isFighting = false;
 		units.clear();
-		clearArmy(playerLayer.data(playerLayer.get(0)).army, humanplayer);
 		selector.select(1);
 		loadMainArmy(playerLayer.data(playerLayer.get(0)).army);
-		for (auto r : rec.all())
+		if (lose)
 		{
-			auto type = rec.data(r).type;
-			auto owner = rec.data(r).owner;
-			auto powner = playerLayer.data(playerLayer.get(0)).owner;
-			if (type == castle)
+			clearArmy(playerLayer.data(playerLayer.get(0)).army, humanplayer);
+			bool isHaveCastle = false;
+			for (auto r : rec.all())
 			{
-				if (owner == powner)
+				auto type = rec.data(r).type;
+				auto owner = rec.data(r).owner;
+				auto powner = playerLayer.data(playerLayer.get(0)).owner;
+				if (type == castle)
 				{
-					playerLayer.get(0).setPos(pixels({ rec.data(r).cords.x,rec.data(r).cords.y - 1 }, isZoomDown));
+					if (owner == powner)
+					{
+						playerLayer.get(0).setPos(pixels({ rec.data(r).cords.x,rec.data(r).cords.y - 1 }, isZoomDown));
+						clearSteps();
+						isHaveCastle = true;
+					}
+				}
+			}
+			if (!isHaveCastle)
+			{
+				clearSteps();
+				setStartPlayerPos(false);
+			}
+		}
+	}
+
+	void initializePlayer(int x,int y)
+	{
+		playerLayer.load("Heroes.json", x * 150, y * 150);
+		auto& player = playerLayer.data(playerLayer.get(0));
+		player.army.owner = humanplayer;
+		player.owner = humanplayer;
+		player.army = createArmy({
+			{ unitType::myaso, 20 },
+			{ unitType::archer, 5 },
+			{ unitType::grifon, 50 },
+			{ unitType::chuvak, 100 },
+			{ unitType::horserider, 1 },
+			{ unitType::angel, 1000 } },
+			humanplayer
+			);
+		player.army.owner = humanplayer;
+	}
+
+	void setStartPlayerPos(bool load)
+	{
+		map<Color, int> colorToTypeMobs = {
+			{ Color(0, 0, 0), Player },
+		};
+		MobsMap = loadMap("mapPlayer.png", colorToTypeMobs);
+		for (int x = 0; x < MobsMap.w; ++x)
+		{
+			for (int y = 0; y < MobsMap.h; ++y)
+			{
+				if (MobsMap[x][y] == Player)
+				{
+					if (load)
+					{
+						initializePlayer(x, y);
+					}
+					else
+					{
+						playerLayer.get(0).setPos(pixels({ x, y }, isZoomDown));
+						
+					}
+					/*auto& parmy = player.army;
+					Unit Unit;
+					Unit.type = allTypes[0];
+					Unit.n = 20;
+					parmy.units.push_back()*/
 				}
 			}
 		}
+		field.setView(groundmap.w / 2 * 150 - 75, groundmap.h / 2 * 150 - 75);
 	}
 
 	int normalHeight, normalWidth;
@@ -608,7 +669,7 @@ class MyApp : public App
 		connect(select0, changeHeroMenu, stats);
 		connect(select1, changeHeroMenu, arts);
 		connect(select2, changeHeroMenu, army);
-		connect(fight_exit, fightExit);
+		connect(fight_exit, fightExit, true);
 		fight_exit.hide();
 		connect(newDirection, clearSteps);
 		connect(timer, hideLabel);
@@ -654,39 +715,7 @@ class MyApp : public App
 			}
 		}
 
-		map<Color, int> colorToTypeMobs = {
-			{ Color(0, 0, 0), Player },
-		};
-		MobsMap = loadMap("mapPlayer.png", colorToTypeMobs);
-		for (int x = 0; x < MobsMap.w; ++x)
-		{
-			for (int y = 0; y < MobsMap.h; ++y)
-			{
-				if (MobsMap[x][y] == Player)
-				{
-					playerLayer.load("Heroes.json", x * 150, y * 150);
-					auto& player = playerLayer.data(playerLayer.get(0));
-					player.army.owner = humanplayer;
-					player.owner = humanplayer;
-					player.army = createArmy({
-						{ unitType::myaso, 20 },
-						{ unitType::archer, 5 },
-						{ unitType::grifon, 50 },
-						{ unitType::chuvak, 100 },
-						{ unitType::horserider, 1 },
-						{ unitType::angel, 1000 } },
-						humanplayer
-					);
-					player.army.owner = humanplayer;
-					/*auto& parmy = player.army;
-					Unit Unit;
-					Unit.type = allTypes[0];
-					Unit.n = 20;
-					parmy.units.push_back()*/
-				}
-			}
-		}
-		field.setView(groundmap.w / 2 * 150 - 75, groundmap.h / 2 * 150 - 75);
+		setStartPlayerPos(true);
 
 		map<Color, int> colorToTypeNishtyak = {
 			{ Color(255, 119, 0), Chest },
@@ -3180,10 +3209,11 @@ class MyApp : public App
 		return points;
 	}
 
-	void selectFight()
+	void selectFight(bool lose)
 	{
 		selector.select(1);
 		isFighting = false;
+		fightExit(lose);
 		design.child<Layout>("forFightWindow").clear();
 		design.child<Layout>("forFightWindow").hide();
 	}
@@ -3227,7 +3257,6 @@ class MyApp : public App
 				auto forwindow = design.child<Layout>("forFightWindow");
 				forwindow.show();
 				auto window = forwindow.load("finishFight.json");
-				connect(window.child<Button>("closeFinishStats"), selectFight);
 				loadfinishstats(getPoteri(startArmy1), getPoteri(startArmy2));
 				fight_exit.hide();
 				if (check_win(humanplayer))
@@ -3238,11 +3267,15 @@ class MyApp : public App
 					loadMainArmy(playerLayer.data(playerLayer.get(0)).army);
 					window.child<Label>("fightReward") << countfightReward(startArmy2) << tr("skillpoints");
 					skill += countfightReward(startArmy2);
+					connect(window.child<Button>("closeFinishStats"), selectFight, false);
 				}
 				else
 				{
 					clearArmy(playerLayer.data(playerLayer.get(0)).army, humanplayer);
 					loadMainArmy(playerLayer.data(playerLayer.get(0)).army);
+					loadfinishstats(getPoteri(startArmy1), getPoteri(startArmy2));
+					window.child<Label>("fightReward") << countfightReward(startArmy2) << tr("skillpoints");
+					connect(window.child<Button>("closeFinishStats"), selectFight, true);
 				}
 				units.clear();
 				design.child<Layout>("statusBar").show();
@@ -3264,7 +3297,6 @@ class MyApp : public App
 				auto forwindow = design.child<Layout>("forFightWindow");
 				forwindow.show();
 				auto window = forwindow.load("finishFight.json");
-				connect(window.child<Button>("closeFinishStats"), selectFight);
 				window.child<Label>("fightReward") << countfightReward(startArmy2);
 				fight_exit.hide();
 				if (check_win(humanplayer))
@@ -3276,11 +3308,15 @@ class MyApp : public App
 					loadfinishstats(getPoteri(startArmy1), getPoteri(startArmy2));
 					window.child<Label>("fightReward") << countfightReward(startArmy2) << tr("skillpoints");
 					skill += countfightReward(startArmy2);
+					connect(window.child<Button>("closeFinishStats"), selectFight, false);
 				}
 				else
 				{
 					clearArmy(playerLayer.data(playerLayer.get(0)).army, humanplayer);
 					loadMainArmy(playerLayer.data(playerLayer.get(0)).army);
+					loadfinishstats(getPoteri(startArmy1), getPoteri(startArmy2));
+					window.child<Label>("fightReward") << countfightReward(startArmy2) << tr("skillpoints");
+					connect(window.child<Button>("closeFinishStats"), selectFight, true);
 				}
 				design.child<Layout>("statusBar").show();
 				//selector.select(1);
