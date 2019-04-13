@@ -4853,6 +4853,77 @@
                               "value" : 0
                            }
                         }
+                     },
+                     {
+                        "_name" : "useMagicUnit",
+                        "_typeName" : "Button",
+                        "position" : {
+                           "_typeName" : "AligningOffset",
+                           "horAlign" : 2,
+                           "horOffset" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 1,
+                              "value" : 0
+                           },
+                           "vertAlign" : 2,
+                           "vertOffset" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 1,
+                              "value" : 100
+                           }
+                        },
+                        "skin" : {
+                           "_typeName" : "RectangleImageButtonSkin",
+                           "borderColor" : [ 0, 0, 0, 1 ],
+                           "borderWidth" : 1,
+                           "box" : {
+                              "_typeName" : "PixelBox",
+                              "height" : 55,
+                              "width" : 55
+                           },
+                           "fillColor" : [ 1, 1, 0.6549019813537598, 1 ],
+                           "imageColor" : [ 1, 1, 1, 1 ],
+                           "imageHeight" : 50,
+                           "imageName" : "magic_icons\\magic_unit.png",
+                           "imageWidth" : 50,
+                           "useGradient" : true
+                        }
+                     },
+                     {
+                        "_name" : "useMagicHero",
+                        "_typeName" : "Button",
+                        "_visible" : false,
+                        "position" : {
+                           "_typeName" : "AligningOffset",
+                           "horAlign" : 2,
+                           "horOffset" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 1,
+                              "value" : 0
+                           },
+                           "vertAlign" : 2,
+                           "vertOffset" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 1,
+                              "value" : 170
+                           }
+                        },
+                        "skin" : {
+                           "_typeName" : "RectangleImageButtonSkin",
+                           "borderColor" : [ 0, 0, 0, 1 ],
+                           "borderWidth" : 1,
+                           "box" : {
+                              "_typeName" : "PixelBox",
+                              "height" : 55,
+                              "width" : 55
+                           },
+                           "fillColor" : [ 1, 1, 0.6549019813537598, 1 ],
+                           "imageColor" : [ 1, 1, 1, 1 ],
+                           "imageHeight" : 50,
+                           "imageName" : "magic_icons\\magic.png",
+                           "imageWidth" : 50,
+                           "useGradient" : true
+                        }
                      }
                   ],
                   "position" : {

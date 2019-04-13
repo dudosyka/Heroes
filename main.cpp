@@ -52,6 +52,17 @@ class MyApp : public App
 		int n;
 	};
 
+	struct Magic
+	{
+		int id;
+		int damage;
+		string opisalovo;
+	};
+
+	vector <Magic> AllMagic = {
+		{1, 10, "fireball, damage: 100"},
+	};
+
 	struct unitType
 	{
 		enum Enum
@@ -67,6 +78,8 @@ class MyApp : public App
 		int lvl;
 		float k;
 		int skill;
+		bool strelyarcher;
+		vector <int> availibleMagic;
 		vector <Price> price;
 		Enum type;
 		string icon_name;
@@ -84,6 +97,8 @@ class MyApp : public App
 			1,
 			0.5,
 			20,
+			false,
+			{},
 			{{Price::gold, 85}},
 			unitType::myaso,
 			"myaso_icon.png",
@@ -99,6 +114,8 @@ class MyApp : public App
 			2,
 			0.8,
 			10,
+			true,
+			{},
 			{{Price::gold, 50}},
 			unitType::archer,
 			"archer_icon.png",
@@ -109,11 +126,13 @@ class MyApp : public App
 			15,
 			17,// protect
 			15,
-			7,
+			1,
 			15,
 			3,
 			0.7,
 			100,
+			false,
+			{},
 			{{Price::gold, 260}},
 			unitType::grifon,
 			"griffin_icon.png",
@@ -129,6 +148,8 @@ class MyApp : public App
 			4,
 			0.6,
 			150,
+			true,
+			{1},
 			{{Price::gold, 600}},
 			unitType::chuvak,
 			"chuvak_icon.png",
@@ -144,6 +165,8 @@ class MyApp : public App
 			5,
 			0.4,
 			350,
+			false,
+			{},
 			{{Price::gold, 1300}},
 			unitType::horserider,
 			"horserider_icon.png",
@@ -159,6 +182,8 @@ class MyApp : public App
 			6,
 			0.3,
 			450,
+			false,
+			{},
 			{{Price::gold, 2800}, {Price::crystal, 1}},
 			unitType::angel,
 			"Angel_icon.png",
@@ -582,6 +607,7 @@ class MyApp : public App
 		units.clear();
 		selector.select(1);
 		loadMainArmy(playerLayer.data(playerLayer.get(0)).army);
+		design.child<Layout>("statusBar").show();
 		if (lose)
 		{
 			clearArmy(playerLayer.data(playerLayer.get(0)).army, humanplayer);
@@ -617,7 +643,7 @@ class MyApp : public App
 		player.owner = humanplayer;
 		player.army = createArmy({
 			{ unitType::myaso, 20 },
-			{ unitType::archer, 5 },
+			{ unitType::archer, 50 },
 			{ unitType::grifon, 50 },
 			{ unitType::chuvak, 100 },
 			{ unitType::horserider, 1 },
@@ -673,6 +699,8 @@ class MyApp : public App
 		fight_exit.hide();
 		connect(newDirection, clearSteps);
 		connect(timer, hideLabel);
+
+		connect(useMagicUnit, showMagicWindow);
 
 		timer.repeat(2);
 
@@ -1138,8 +1166,6 @@ class MyApp : public App
 		}
 	}
 
-	//iowei09giofriojwijewf9uwfer4i93f4jt340t35jt90958t5f0834jt8j03j8t4f8t30948fj8430jtf8t094jf09t4380934jf8t0j8j08j80c8cjfwe
-
 	void close_fight_stats()
 	{
 		auto info = design.child<Layout>("fight_unit_stats");
@@ -1153,7 +1179,7 @@ class MyApp : public App
 		{
 			close();
 		}
-		//fkjosdgjiodfgjdgjdjgodjgsjsgoigjdijojgdjgodjigjfkjosdgjiodfgjdgjdjgodjgsjsgoigjdijojgdjgodjigjfkjosdgjiodfgjdgjdjgodjgsjsgoigjdijojgdjgodjigjfkjosdgjiodfgjdgjdjgodjgsjsgoigjdijojgdjgodjigjfkjosdgjiodfgjdgjdjgodjgsjsgoigjdijojgdjgodjigjfkjosdgjiodfgjdgjdjgodjgsjsgoigjdijojgdjgodjigjfkjosdgjiodfgjdgjdjgodjgsjsgoigjdijojgdjgodjigjfkjosdgjiodfgjdgjdjgodjgsjsgoigjdijojgdjgodjigjfkjosdgjiodfgjdgjdjgodjgsjsgoigjdijojgdjgodjigjfkjosdgjiodfgjdgjdjgodjgsjsgoigjdijojgdjgodjigjfkjosdgjiodfgjdgjdjgodjgsjsgoigjdijojgdjgodjigjfkjosdgjiodfgjdgjdjgodjgsjsgoigjdijojgdjgodjigjfkjosdgjiodfgjdgjdjgodjgsjsgoigjdijojgdjgodjigjfkjosdgjiodfgjdgjdjgodjgsjsgoigjdijojgdjgodjigjfkjosdgjiodfgjdgjdjgodjgsjsgoigjdijojgdjgodjigj
+		
 		if (isFighting)
 		{
 			if (animStart)
@@ -1168,6 +1194,10 @@ class MyApp : public App
 				}
 				auto c = cell_fight(fight_field.mousePos());
 				int die = 0;
+				if (c.x >= fight_field_map.w || c.y >= fight_field_map.h || c.y < 0 || c.x < 0)
+				{
+					return;
+				}
 				if (fight_field_map[c.x][c.y] > -1)
 				{
 					auto unit1 = units.data(fight_queue[0].second).unit;
@@ -1210,33 +1240,39 @@ class MyApp : public App
 				auto& cords = units.data(id).cords;
 				auto obj = units.get(fight_queue[0].second);
 				auto fight_direction = fight_route(units.data(id).cords, c);
-				for (auto dir : fight_direction)
+				if (!units.data(obj).unit.type.strelyarcher || (fight_field_map[c] == -1 && get_owner(c.x,c.y) != units.data(id).owner))
 				{
-					IntVec2& NowPPos = units.data(id).cords;
-					fight_field_map[cords.x][cords.y] = -1;
-					if (dir.x > NowPPos.x)
+					for (auto dir : fight_direction)
 					{
-						cords.x++;
-						obj.anim.play("right", 0);
+						IntVec2& NowPPos = units.data(id).cords;
+						fight_field_map[cords.x][cords.y] = -1;
+						if (dir.x > NowPPos.x)
+						{
+							cords.x++;
+							obj.anim.play("right", 0);
+						}
+						else if (dir.x < NowPPos.x)
+						{
+							cords.x--;
+							obj.anim.play("left", 0);
+						}
+						else if (dir.y > NowPPos.y)
+						{
+							cords.y++;
+							obj.anim.play("top", 0);
+						}
+						else if (dir.y < NowPPos.y)
+						{
+							cords.y--;
+							obj.anim.play("down", 0);
+						}
+						fight_field_map[cords.x][cords.y] = fight_queue[0].second;
 					}
-					else if (dir.x < NowPPos.x)
-					{
-						cords.x--;
-						obj.anim.play("left", 0);
-					}
-					else if (dir.y > NowPPos.y)
-					{
-						cords.y++;
-						obj.anim.play("top", 0);
-					}
-					else if (dir.y < NowPPos.y)
-					{
-						cords.y--;
-						obj.anim.play("down", 0);
-					}
-					fight_field_map[cords.x][cords.y] = fight_queue[0].second;
 				}
-
+				else
+				{
+					attack(units.data(obj).unit.type.strelyarcher);
+				}
 				animStart = true;
 				moveUnitId = fight_queue[0].second;
 			}			
@@ -1379,7 +1415,6 @@ class MyApp : public App
 		return isZoom ? pixels_zoom(v) : pixels(v);
 	}
 
-
 	enum class Target {
 		none, castle, mine, fight
 	};
@@ -1519,21 +1554,31 @@ class MyApp : public App
 
 	FightTarget fightTarget;
 
-	ownerType get_owner(int x, int y)
+	unitsData getUnitData(int x, int y)
 	{
-		ownerType owner = noOwner;
+		unitsData data;
 		if (fight_field_map[x][y] == -1)
 		{
-			return owner;
+			return data;
 		}
-		owner = units.data(fight_field_map[x][y]).owner;
-		return owner;
+		data = units.data(fight_field_map[x][y]);
+		return data;
+	}
+
+	ownerType get_owner(int x, int y)
+	{
+		ownerType data = noOwner;
+		if (fight_field_map[x][y] == -1)
+		{
+			return data;
+		}
+		data = units.data(fight_field_map[x][y]).owner;
+		return data;
 	}
 
 	set <IntVec2> get_fight_zone(IntVec2 start, int step)
 	{
 		GameMap dmap;
-
 		deque <IntVec2> queue;
 		dmap = createMap(fight_field_map.w, fight_field_map.h);
 		for (int x = 0; x < dmap.w; x++)
@@ -1544,7 +1589,7 @@ class MyApp : public App
 			}
 		}
 		dmap[start] = 0;
-		auto a = get_owner(start.x, start.y);
+		auto a = getUnitData(start.x, start.y);
 		queue.push_front(start);
 		IntVec2 cur = start;
 		int w = 0;
@@ -1599,6 +1644,23 @@ class MyApp : public App
 			}
 			cur = queue.back();
 		}
+
+		auto type = a.unit.type.strelyarcher;
+
+		auto type2 = a.owner;
+
+		if (type)
+		{
+			for (auto nit : units.all())
+			{
+				auto& data = units.data(nit);
+				if (data.owner != type2)
+				{
+					zone.insert(data.cords);
+				}
+			}
+		}
+
 		return zone;
 	}
 
@@ -3015,42 +3077,50 @@ class MyApp : public App
 
 	void make_computer_step()
 	{
-		int id = target_queue[0].second;
+		int id = target_queue[0].second; // êîãî áü¸ì
+		int id2 = id;
 		IntVec2 pos1 = units.data(id).cords;
-		id = fight_queue[0].second;
+		id = fight_queue[0].second; // êòî áü¸ò
 		IntVec2 pos2 = units.data(id).cords;
 		enemy_fight_direction = fight_route(pos2, pos1);
 		int steps = units.data(fight_queue[0].second).unit.type.stepPoint;
-		for (auto dir : enemy_fight_direction)
+		if (units.data(id).unit.type.strelyarcher)
 		{
-			IntVec2& NowPPos = units.data(units.get(fight_queue[0].second)).cords;
-			fight_field_map[units.data(units.get(fight_queue[0].second)).cords.x][units.data(units.get(fight_queue[0].second)).cords.y] = -1;
-			if (dir.x > NowPPos.x)
+			attack(units.data(id2).unit.type.strelyarcher);
+		}
+		else
+		{
+			for (auto dir : enemy_fight_direction)
 			{
-				units.data(units.get(fight_queue[0].second)).cords.x++;
-				units.get(fight_queue[0].second).anim.play("right", 0);
-			}
-			else if (dir.x < NowPPos.x)
-			{
-				units.data(units.get(fight_queue[0].second)).cords.x--;
-				units.get(fight_queue[0].second).anim.play("left", 0);
-			}
-			else if (dir.y > NowPPos.y)
-			{
-				units.data(units.get(fight_queue[0].second)).cords.y++;
-				units.get(fight_queue[0].second).anim.play("top", 0);
-			}
-			else if (dir.y < NowPPos.y)
-			{
-				units.data(units.get(fight_queue[0].second)).cords.y--;
-				units.get(fight_queue[0].second).anim.play("down", 0);
-			}
-			fight_field_map[units.data(units.get(fight_queue[0].second)).cords.x][units.data(units.get(fight_queue[0].second)).cords.y] = fight_queue[0].second;
+				IntVec2& NowPPos = units.data(units.get(fight_queue[0].second)).cords;
+				fight_field_map[units.data(units.get(fight_queue[0].second)).cords.x][units.data(units.get(fight_queue[0].second)).cords.y] = -1;
+				if (dir.x > NowPPos.x)
+				{
+					units.data(units.get(fight_queue[0].second)).cords.x++;
+					units.get(fight_queue[0].second).anim.play("right", 0);
+				}
+				else if (dir.x < NowPPos.x)
+				{
+					units.data(units.get(fight_queue[0].second)).cords.x--;
+					units.get(fight_queue[0].second).anim.play("left", 0);
+				}
+				else if (dir.y > NowPPos.y)
+				{
+					units.data(units.get(fight_queue[0].second)).cords.y++;
+					units.get(fight_queue[0].second).anim.play("top", 0);
+				}
+				else if (dir.y < NowPPos.y)
+				{
+					units.data(units.get(fight_queue[0].second)).cords.y--;
+					units.get(fight_queue[0].second).anim.play("down", 0);
+				}
+				fight_field_map[units.data(units.get(fight_queue[0].second)).cords.x][units.data(units.get(fight_queue[0].second)).cords.y] = fight_queue[0].second;
 
-			steps--;
-			if (steps < 1)
-			{
-				break;
+				steps--;
+				if (steps < 1)
+				{
+					break;
+				}
 			}
 		}
 		enemy_fight_direction.clear();
@@ -3107,6 +3177,32 @@ class MyApp : public App
 		{
 			draw_get_step_fight_zone(first2.second);
 		}
+	}
+
+	void loadMagic(vector<int> availibleMagic)
+	{
+		auto win = design.child<Layout>("magicWin");
+		for (auto m : availibleMagic)
+		{
+			auto mag = win.child<Layout>("magicIcon" + m);
+			mag.child<Button>("button").child<Texture>("icon").setImageName("magic_icons\fireball_icon.png");
+		}
+	}
+
+	void closeMagicWindow()
+	{
+		auto win = design.child<Layout>("forFightWindow");
+		win.clear();
+		win.hide();
+	}
+
+	void showMagicWindow()
+	{
+		auto win = design.child<Layout>("forFightWindow");
+		win.load("magic_window.json");
+		connect(win.child<Button>("closeMagicWindow"), closeMagicWindow);
+		loadMagic(allTypes[3].availibleMagic);
+		win.show();
 	}
 
 	bool check_win(ownerType owner)
@@ -3218,12 +3314,12 @@ class MyApp : public App
 		design.child<Layout>("forFightWindow").hide();
 	}
 
-	void attack()
+	void attack(bool archer)
 	{
 		isAttacking = false;
 		auto& unit1 = units.data(attackUnitId).unit;
 		auto& unit2 = units.data(protectUnitId).unit;
-		if (!is_mi_ryadom(units.data(attackUnitId).cords, units.data(protectUnitId).cords))
+		if (!is_mi_ryadom(units.data(attackUnitId).cords, units.data(protectUnitId).cords) && !archer)
 		{
 			isAttacking = true;
 			return;
@@ -3407,7 +3503,7 @@ class MyApp : public App
 				{
 					if (fightTarget == FightTarget::unit && isAttacking)
 					{
-						attack();
+						attack(false);
 					}
 					animStart = false;
 					moveUnitId = -1;
@@ -3602,6 +3698,7 @@ class MyApp : public App
 	FromDesign(Button, quit_button);
 	FromDesign(Button, load_button);
 	FromDesign(Button, Relog);
+	FromDesign(Button, useMagicUnit);
 	FromDesign(Button, newDirection);
 	FromDesign(Label, test_);
 	FromDesign(Selector, selector);
