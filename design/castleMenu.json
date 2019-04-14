@@ -1788,7 +1788,7 @@
                                        "borderWidth" : 1,
                                        "box" : {
                                           "_typeName" : "PixelBox",
-                                          "height" : 300,
+                                          "height" : 150,
                                           "width" : 300
                                        },
                                        "fillColor" : [ 0, 0, 0, 1 ],
@@ -1828,7 +1828,7 @@
                                        "borderWidth" : 1,
                                        "box" : {
                                           "_typeName" : "PixelBox",
-                                          "height" : 300,
+                                          "height" : 150,
                                           "width" : 300
                                        },
                                        "fillColor" : [ 0, 0, 0, 1 ],

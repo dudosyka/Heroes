@@ -56,11 +56,12 @@ class MyApp : public App
 	{
 		int id;
 		int damage;
+		int price;
 		string opisalovo;
 	};
 
 	vector <Magic> AllMagic = {
-		{1, 10, "fireball, damage: 100"},
+		{1, 10, 5, "fireball, damage: 100"},
 	};
 
 	struct unitType
@@ -80,6 +81,7 @@ class MyApp : public App
 		int skill;
 		bool strelyarcher;
 		vector <int> availibleMagic;
+		int mana;
 		vector <Price> price;
 		Enum type;
 		string icon_name;
@@ -99,6 +101,7 @@ class MyApp : public App
 			20,
 			false,
 			{},
+			0,
 			{{Price::gold, 85}},
 			unitType::myaso,
 			"myaso_icon.png",
@@ -106,8 +109,8 @@ class MyApp : public App
 		},
 		{
 			10,
-			4,
-			3,// protect
+			6,
+			4,// protect
 			8,
 			4,
 			9,
@@ -116,6 +119,7 @@ class MyApp : public App
 			10,
 			true,
 			{},
+			0,
 			{{Price::gold, 50}},
 			unitType::archer,
 			"archer_icon.png",
@@ -126,13 +130,14 @@ class MyApp : public App
 			15,
 			17,// protect
 			15,
-			1,
+			7,
 			15,
 			3,
 			0.7,
 			100,
 			false,
 			{},
+			0,
 			{{Price::gold, 260}},
 			unitType::grifon,
 			"griffin_icon.png",
@@ -150,6 +155,7 @@ class MyApp : public App
 			150,
 			true,
 			{1},
+			10,
 			{{Price::gold, 600}},
 			unitType::chuvak,
 			"chuvak_icon.png",
@@ -167,6 +173,7 @@ class MyApp : public App
 			350,
 			false,
 			{},
+			0,
 			{{Price::gold, 1300}},
 			unitType::horserider,
 			"horserider_icon.png",
@@ -184,6 +191,7 @@ class MyApp : public App
 			450,
 			false,
 			{},
+			0,
 			{{Price::gold, 2800}, {Price::crystal, 1}},
 			unitType::angel,
 			"Angel_icon.png",
@@ -466,6 +474,7 @@ class MyApp : public App
 			else
 			{
 				UnitNum++;
+				design.child<TextBox>("unitNum") << UnitNum;
 			}
 		}
 	}
@@ -511,9 +520,18 @@ class MyApp : public App
 	void merge_units(int n, int num, bool fromHero, GameObj castle)
 	{
 		auto merge_window = design.child<Layout>("mergeArmyWindow");
+		if (!fromHero)
+		{
+			merge_window.child<Label>("place") << tr("fromCastle");
+		}
+		else
+		{
+			merge_window.child<Label>("place") << tr("fromHero");
+		}
 		merge_window.show();
 		design.child<Button>("getArmyButton").disable();
 		design.child<Button>("castleBuildings").disable();
+		UnitNum = 0;
 		connect(merge_window.child<TextBox>("unitNum"), change_textbox, n, castle, fromHero);
 		connect(merge_window.child<Button>("more_units"), more_units, n, castle, fromHero);
 		connect(merge_window.child<Button>("min_units"), min_units, n, castle);
@@ -642,12 +660,12 @@ class MyApp : public App
 		player.army.owner = humanplayer;
 		player.owner = humanplayer;
 		player.army = createArmy({
-			{ unitType::myaso, 20 },
-			{ unitType::archer, 50 },
-			{ unitType::grifon, 50 },
-			{ unitType::chuvak, 100 },
-			{ unitType::horserider, 1 },
-			{ unitType::angel, 1000 } },
+			{ unitType::myaso, 100 },
+			{ unitType::archer, 75 },
+			{ unitType::grifon, 30 },
+			{ unitType::chuvak, 10 },
+			{ unitType::horserider, 10 },
+			{ unitType::angel, 0 } },
 			humanplayer
 			);
 		player.army.owner = humanplayer;
@@ -687,6 +705,38 @@ class MyApp : public App
 
 	int normalHeight, normalWidth;
 
+	bool isOpenHeroQuests = false;
+
+	void openHeroQuests()
+	{
+		if (isOpenHeroQuests)
+		{
+			design.child<Layout>("forWindow").hide();
+			design.child<Layout>("forWindow").clear();
+			isOpenHeroQuests = false;
+		}
+		else
+		{
+			isOpenHeroQuests = true;
+			design.child<Layout>("forWindow").show();
+			design.child<Layout>("forWindow").load("quests.json").child<Label>("Quests") << tr("youMustAllCaptured");
+			design.update();
+		}
+	}
+
+	void openSettings()
+	{
+		design.child<Layout>("forWindowStart").show(); 
+		auto s = design.child<Layout>("forWindowStart").load("settings.json");
+		connect(s.child<Button>("closeSettingWindow"), closeSetting);
+	}
+
+	void closeSetting()
+	{
+		design.child<Layout>("forWindowStart").clear();
+		design.child<Layout>("forWindowStart").hide();
+	}
+
 	void load()
 	{
 		connect(Relog, nextStep);
@@ -702,12 +752,15 @@ class MyApp : public App
 
 		connect(useMagicUnit, showMagicWindow);
 
+		connect(heroQuests, openHeroQuests);
+
+		connect(start_button, startGame);
+		connect(quit_button, quitGame);
+		connect(setting_button, openSettings);
+
 		timer.repeat(2);
 
-		selector.select(1);
-
-		normalHeight = field.height();
-		normalWidth = field.width();
+		selector.select(0);
 
 		gold = 0;
 		skill = 0;
@@ -720,11 +773,6 @@ class MyApp : public App
 
 		GOld << "gold: " << gold;
 		SKill << "skill: " << skill;
-
-		selector.select(1);
-
-		connect(start_button, startGame);
-		connect(quit_button, quitGame);
 
 		map<Color, int> colorToTypeGround = {
 			{ Color(165, 0, 255), grassDark },
@@ -845,14 +893,14 @@ class MyApp : public App
 						{ unitType::grifon, 1000 },
 						{ unitType::chuvak, 1000 },
 						{ unitType::horserider, 1000 },
-						{ unitType::angel, 1000 } }, humanplayer);
+						{ unitType::angel, 1000 } }, neutral);
 					rec.data(Rec).protectCastleArmy = createArmy({
 						{ unitType::myaso, 10 },
-						{ unitType::archer, 10 },
-						{ unitType::grifon, 10 },
-						{ unitType::chuvak, 10 },
-						{ unitType::horserider, 10 },
-						{ unitType::angel, 10 } }, humanplayer);
+						{ unitType::archer, 0 },
+						{ unitType::grifon, 0 },
+						{ unitType::chuvak, 0 },
+						{ unitType::horserider, 0 },
+						{ unitType::angel, 0 } }, neutral);
 				}
 				if (recmap[x][y] == sawmill) 
 				{
@@ -1118,6 +1166,9 @@ class MyApp : public App
 	void startGame()
 	{
 		selector.select(1);
+
+		normalHeight = field.height();
+		normalWidth = field.width();
 	}
 
 	void quitGame()
@@ -1175,10 +1226,6 @@ class MyApp : public App
     void process(Input input)
 	{
         using namespace gamebase::InputKey;
-		if (input.justPressed(Escape))
-		{
-			close();
-		}
 		
 		if (isFighting)
 		{
@@ -3105,14 +3152,14 @@ class MyApp : public App
 		int steps = units.data(fight_queue[0].second).unit.type.stepPoint;
 		if (units.data(id).unit.type.strelyarcher)
 		{
-			if (!empty(units.data(id).unit.type.availibleMagic))
+			if (!empty(units.data(id).unit.type.availibleMagic) && units.data(id).unit.type.mana >= AllMagic[0].price)
 			{
 				kastanut_malexa(1);
 				magicAttack();
 			}
 			else
 			{
-				attack(units.data(id2).unit.type.strelyarcher);
+				attack(units.data(id).unit.type.strelyarcher);
 			}
 		}
 		else
@@ -3200,14 +3247,7 @@ class MyApp : public App
 		fight_queue.pop_front();
 		fight_queue.push_back(first);
 		auto first2 = fight_queue[0];
-		if (!empty(units.data(first2.second).unit.type.availibleMagic))
-		{
-			useMagicUnit.show();
-		}
-		else
-		{
-			useMagicUnit.hide();
-		}
+		useMagicUnit.hide();
 		if (getUnitOwner(first2.second) != humanplayer)
 		{
 			IntVec2 pos = units.data(first2.second).cords;
@@ -3218,6 +3258,14 @@ class MyApp : public App
 		}
 		else
 		{
+			if (!empty(units.data(first2.second).unit.type.availibleMagic))
+			{
+				useMagicUnit.show();
+			}
+			else
+			{
+				useMagicUnit.hide();
+			}
 			draw_get_step_fight_zone(first2.second);
 		}
 	}
@@ -3228,9 +3276,23 @@ class MyApp : public App
 
 	void kastanut_malexa(int kast_id)
 	{
-		kastuyu = true;
-		kastId = kast_id; 
-	    closeMagicWindow();
+		if (units.data(fight_queue[0].second).unit.type.mana - AllMagic[kast_id - 1].price >= 0)
+		{
+			units.data(fight_queue[0].second).unit.type.mana -= AllMagic[kast_id - 1].price;
+			kastuyu = true;
+			kastId = kast_id;
+			closeMagicWindow();
+		}
+		else
+		{
+			design.child<Layout>("Warn_window").show();
+			connect(design.child<Layout>("Warn_window").child<Button>("closeWarnMessage"), closeWarn);
+		}
+	}
+
+	void closeWarn()
+	{
+		design.child<Layout>("Warn_window").hide();
 	}
 
 	void loadMagic(vector<int> availibleMagic)
@@ -3383,6 +3445,26 @@ class MyApp : public App
 		return kast_damage * n;
 	}
 
+	bool allCastlesCaptured(ownerType owner)
+	{
+		bool result = true;
+		for (auto Rec : rec.all())
+		{
+			auto data = rec.data(Rec);
+			if (data.owner != owner)
+			{
+				result = false;
+				return result;
+			}
+		}
+		return result;
+	}
+
+	void selectMainMenu()
+	{
+		selector.select(0);
+	}
+
 	void magicAttack()
 	{
 		isAttacking = false;
@@ -3422,6 +3504,38 @@ class MyApp : public App
 					loadfinishstats(getPoteri(startArmy1), getPoteri(startArmy2));
 					window.child<Label>("fightReward") << countfightReward(startArmy2) << tr("skillpoints");
 					skill += countfightReward(startArmy2);
+					if (isCastleFight)
+					{
+						fightCastle.child<Texture>("flag").setColor(255, 0, 0, 255);
+						rec.data(fightCastle).owner = playerLayer.data(playerLayer.get(0)).owner;
+						rec.data(fightCastle).protectCastleArmy = createArmy({
+																{ unitType::myaso, 0 },
+																{ unitType::archer, 0 },
+																{ unitType::grifon, 0 },
+																{ unitType::chuvak, 0 },
+																{ unitType::horserider, 0 },
+																{ unitType::angel, 0 }
+							}, playerLayer.data(playerLayer.get(0)).owner);
+						rec.data(fightCastle).castleArmy = createArmy({
+																{ unitType::myaso, 0 },
+																{ unitType::archer, 0 },
+																{ unitType::grifon, 0 },
+																{ unitType::chuvak, 0 },
+																{ unitType::horserider, 0 },
+																{ unitType::angel, 0 }
+							}, playerLayer.data(playerLayer.get(0)).owner);
+						openCastleMenu(fightCastle);
+						updateHeroCastles();
+						rec.data(fightCastle).heroInCastle = true;
+						
+					}
+					if (allCastlesCaptured(humanplayer))
+					{
+						cout << "Mission complete" << endl;
+						design.child<Layout>("forWindow").clear();
+						auto win = design.child<Layout>("forWindow").load("win.json").child<Button>("MainMenuExit");
+						connect(win, selectMainMenu);
+					}
 					connect(window.child<Button>("closeFinishStats"), selectFight, false);
 				}
 				else
@@ -3432,18 +3546,20 @@ class MyApp : public App
 					window.child<Label>("fightReward") << countfightReward(startArmy2) << tr("skillpoints");
 					connect(window.child<Button>("closeFinishStats"), selectFight, true);
 				}
+				isCastleFight = false;
 				design.child<Layout>("statusBar").show();
 				//selector.select(1);
 				units.clear();
 				zone.clear();
 			}
-			else
-			{
-				target_queue = makeTargetQueue(neutral);
-			}
+			target_queue = makeTargetQueue(neutral);
 		}
 	}
 
+	bool isCastleFight;
+
+	GameObj fightCastle;
+	
 	void attack(bool archer)
 	{
 		isAttacking = false;
@@ -3465,7 +3581,7 @@ class MyApp : public App
 		float damage2 = damage_count(unit2.type.attack, unit1.type.protect, unit2.type.damage, n2);
 		allHp2 -= damage1;
 		unit2.type.hp = allHp2;
-		if (unit2.type.strelyarcher)
+		if (unit2.type.strelyarcher || is_mi_ryadom(units.data(attackUnitId).cords, units.data(protectUnitId).cords))
 		{
 			n1 -= die_count(damage2, unit1.n, unit1.type.hp, unit1.type.lvl);
 			unit1.n = n1;
@@ -3496,6 +3612,37 @@ class MyApp : public App
 					loadMainArmy(playerLayer.data(playerLayer.get(0)).army);
 					window.child<Label>("fightReward") << countfightReward(startArmy2) << tr("skillpoints");
 					skill += countfightReward(startArmy2);
+					if (isCastleFight)
+					{
+						fightCastle.child<Texture>("flag").setColor(255, 0, 0, 255);
+						rec.data(fightCastle).owner = playerLayer.data(playerLayer.get(0)).owner;
+						rec.data(fightCastle).protectCastleArmy = createArmy({
+																{ unitType::myaso, 0 },
+																{ unitType::archer, 0 },
+																{ unitType::grifon, 0 },
+																{ unitType::chuvak, 0 },
+																{ unitType::horserider, 0 },
+																{ unitType::angel, 0 }
+							}, playerLayer.data(playerLayer.get(0)).owner);
+						rec.data(fightCastle).castleArmy = createArmy({
+																{ unitType::myaso, 0 },
+																{ unitType::archer, 0 },
+																{ unitType::grifon, 0 },
+																{ unitType::chuvak, 0 },
+																{ unitType::horserider, 0 },
+																{ unitType::angel, 0 }
+							}, playerLayer.data(playerLayer.get(0)).owner);
+						rec.data(fightCastle).heroInCastle = true;
+						openCastleMenu(fightCastle);
+						updateHeroCastles();
+					}
+					if (allCastlesCaptured(humanplayer))
+					{
+						cout << "Mission complete" << endl;
+						design.child<Layout>("forWindow").clear();
+						auto win = design.child<Layout>("forWindow").load("win.json").child<Button>("MainMenuExit");
+						connect(win, selectMainMenu);
+					}
 					connect(window.child<Button>("closeFinishStats"), selectFight, false);
 				}
 				else
@@ -3507,7 +3654,9 @@ class MyApp : public App
 					connect(window.child<Button>("closeFinishStats"), selectFight, true);
 				}
 				units.clear();
+				isCastleFight = false;
 				design.child<Layout>("statusBar").show();
+				zone.clear();
 			}
 			else
 			{
@@ -3537,6 +3686,37 @@ class MyApp : public App
 					loadfinishstats(getPoteri(startArmy1), getPoteri(startArmy2));
 					window.child<Label>("fightReward") << countfightReward(startArmy2) << tr("skillpoints");
 					skill += countfightReward(startArmy2);
+					if (isCastleFight)
+					{
+						fightCastle.child<Texture>("flag").setColor(255, 0, 0, 255);
+						rec.data(fightCastle).owner = playerLayer.data(playerLayer.get(0)).owner;
+						rec.data(fightCastle).protectCastleArmy = createArmy({
+																{ unitType::myaso, 0 },
+																{ unitType::archer, 0 },
+																{ unitType::grifon, 0 },
+																{ unitType::chuvak, 0 },
+																{ unitType::horserider, 0 },
+																{ unitType::angel, 0 }
+							}, playerLayer.data(playerLayer.get(0)).owner);
+						rec.data(fightCastle).castleArmy = createArmy({
+																{ unitType::myaso, 0 },
+																{ unitType::archer, 0 },
+																{ unitType::grifon, 0 },
+																{ unitType::chuvak, 0 },
+																{ unitType::horserider, 0 },
+																{ unitType::angel, 0 }
+							}, playerLayer.data(playerLayer.get(0)).owner);
+						rec.data(fightCastle).heroInCastle = true;
+						openCastleMenu(fightCastle);
+						updateHeroCastles();
+					}
+					if (allCastlesCaptured(humanplayer))
+					{
+						cout << "Mission complete" << endl;
+						design.child<Layout>("forWindow").clear();
+						auto win = design.child<Layout>("forWindow").load("win.json").child<Button>("MainMenuExit");
+						connect(win, selectMainMenu);
+					}
 					connect(window.child<Button>("closeFinishStats"), selectFight, false);
 				}
 				else
@@ -3549,6 +3729,7 @@ class MyApp : public App
 				}
 				design.child<Layout>("statusBar").show();
 				//selector.select(1);
+				isCastleFight = false;
 				units.clear();
 				zone.clear();
 			}
@@ -3561,7 +3742,7 @@ class MyApp : public App
 
 	void startFight(Army army1, Army army2, int neutralFightId = -1)
 	{
-
+		useMagicUnit.hide();
 		selector.select(3);
 		design.child<Layout>("statusBar").hide();
 		map<Color, int> colorToTypeGround = {
@@ -3749,11 +3930,20 @@ class MyApp : public App
 							if (rec.data(Rec).type == castle || rec.data(Rec).type == castle_entry)
 							{
 								target = Target::none;
-								rec.data(Rec).heroInCastle = true;
-								Rec.child<Texture>("flag").setColor(255, 0, 0, 255);
-								rec.data(Rec).owner = playerLayer.data(playerLayer.get(0)).owner;
-								openCastleMenu(Rec);
-								updateHeroCastles();
+								if (rec.data(Rec).owner == playerLayer.data(playerLayer.get(0)).owner)
+								{
+									Rec.child<Texture>("flag").setColor(255, 0, 0, 255);
+									loadArmyHeroCastle(playerLayer.data(playerLayer.get(0)).army, Rec);
+									rec.data(Rec).heroInCastle = true;
+									openCastleMenu(Rec);
+									updateHeroCastles();
+								}
+								else
+								{
+									isCastleFight = true;
+									fightCastle = Rec;
+									startFight(playerLayer.data(playerLayer.get(0)).army, rec.data(Rec).protectCastleArmy);
+								}
 								//cm.child
 								break;
 							}
@@ -3834,6 +4024,8 @@ class MyApp : public App
 	FromDesign(Button, Relog);
 	FromDesign(Button, useMagicUnit);
 	FromDesign(Button, newDirection);
+	FromDesign(Button, heroQuests);
+	FromDesign(Button, setting_button);
 	FromDesign(Label, test_);
 	FromDesign(Selector, selector);
 	FromDesign(Layout, castle_menu);

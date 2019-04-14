@@ -15,6 +15,14 @@
          "_value" : "Противник"
       },
       {
+         "_key" : "fromCastle",
+         "_value" : "Из города"
+      },
+      {
+         "_key" : "fromHero",
+         "_value" : "В город"
+      },
+      {
          "_key" : "gemov",
          "_value" : "Кристаллов: "
       },
@@ -81,6 +89,10 @@
       {
          "_key" : "you",
          "_value" : "Вы"
+      },
+      {
+         "_key" : "youMustAllCaptured",
+         "_value" : "Вы должны захватить все замки"
       }
    ]
 }

@@ -39,7 +39,7 @@
                "value" : 0
             }
          },
-         "currentID" : 3,
+         "currentID" : 0,
          "objects" : [
             {
                "_key" : 0,
@@ -101,7 +101,7 @@
                                     "outlineWidth" : 1,
                                     "size" : 28
                                  },
-                                 "text" : "Начать игру",
+                                 "text" : "Начать новую игру",
                                  "textColor" : [ 0, 0, 0, 1 ],
                                  "textOutlineColor" : [ 1, 1, 1, 1 ],
                                  "useGradient" : true
@@ -142,6 +142,46 @@
                                     "size" : 28
                                  },
                                  "text" : "Загрузить игру",
+                                 "textColor" : [ 0, 0, 0, 1 ],
+                                 "textOutlineColor" : [ 1, 1, 1, 1 ],
+                                 "useGradient" : true
+                              }
+                           },
+                           {
+                              "_name" : "setting_button",
+                              "_typeName" : "Button",
+                              "position" : {
+                                 "_typeName" : "AligningOffset",
+                                 "horAlign" : 1,
+                                 "horOffset" : {
+                                    "_typeName" : "RelativeValue",
+                                    "type" : 1,
+                                    "value" : 0
+                                 },
+                                 "vertAlign" : 0,
+                                 "vertOffset" : {
+                                    "_typeName" : "RelativeValue",
+                                    "type" : 2,
+                                    "value" : -0.1000000014901161
+                                 }
+                              },
+                              "skin" : {
+                                 "_typeName" : "SimpleRectangleButtonSkin",
+                                 "borderColor" : [ 0, 0, 0, 1 ],
+                                 "borderWidth" : 1,
+                                 "box" : {
+                                    "_typeName" : "PixelBox",
+                                    "height" : 48,
+                                    "width" : 300
+                                 },
+                                 "fillColor" : [ 0.7843137383460999, 0.7843137383460999, 0.7843137383460999, 1 ],
+                                 "font" : {
+                                    "_typeName" : "FontDesc",
+                                    "family" : "Roboto",
+                                    "outlineWidth" : 1,
+                                    "size" : 28
+                                 },
+                                 "text" : "Управление ",
                                  "textColor" : [ 0, 0, 0, 1 ],
                                  "textOutlineColor" : [ 1, 1, 1, 1 ],
                                  "useGradient" : true
@@ -230,6 +270,32 @@
                            }
                         },
                         "skipInvisibleElements" : false
+                     },
+                     {
+                        "_name" : "forWindowStart",
+                        "_typeName" : "CanvasLayout",
+                        "adjustment" : 0,
+                        "box" : {
+                           "_typeName" : "PixelBox",
+                           "height" : 400,
+                           "width" : 900
+                        },
+                        "list" : [],
+                        "position" : {
+                           "_typeName" : "AligningOffset",
+                           "horAlign" : 1,
+                           "horOffset" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 1,
+                              "value" : 0
+                           },
+                           "vertAlign" : 1,
+                           "vertOffset" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 1,
+                              "value" : 0
+                           }
+                        }
                      }
                   ],
                   "position" : {
@@ -6216,20 +6282,68 @@
                      "width" : {
                         "_typeName" : "RelativeValue",
                         "type" : 2,
-                        "value" : 0.1700000017881393
+                        "value" : 0.07999999821186066
                      }
                   },
                   "fillColor" : [ 0.7843137383460999, 0.7843137383460999, 0.7843137383460999, 1 ],
                   "font" : {
                      "_typeName" : "FontDesc",
-                     "bold" : true,
-                     "family" : "Roboto",
-                     "italic" : true,
+                     "family" : "BulgariaModernaV3",
                      "outlineWidth" : 1,
-                     "size" : 55,
-                     "underlined" : true
+                     "size" : 40
                   },
                   "text" : "Меню",
+                  "textColor" : [ 0, 0, 0, 1 ],
+                  "textOutlineColor" : [ 1, 1, 1, 1 ],
+                  "useGradient" : true
+               }
+            },
+            {
+               "_name" : "heroQuests",
+               "_typeName" : "Button",
+               "position" : {
+                  "_typeName" : "AligningOffset",
+                  "horAlign" : 2,
+                  "horOffset" : {
+                     "_typeName" : "RelativeValue",
+                     "type" : 2,
+                     "value" : -0.07999999821186066
+                  },
+                  "vertAlign" : 1,
+                  "vertOffset" : {
+                     "_typeName" : "RelativeValue",
+                     "type" : 1,
+                     "value" : 0
+                  }
+               },
+               "skin" : {
+                  "_typeName" : "SimpleRectangleButtonSkin",
+                  "borderColor" : [ 0, 0, 0, 1 ],
+                  "borderWidth" : 1,
+                  "box" : {
+                     "_typeName" : "RelativeBox",
+                     "height" : {
+                        "_typeName" : "RelativeValue",
+                        "type" : 0,
+                        "value" : 0
+                     },
+                     "offset" : {
+                        "_empty" : true
+                     },
+                     "width" : {
+                        "_typeName" : "RelativeValue",
+                        "type" : 2,
+                        "value" : 0.07999999821186066
+                     }
+                  },
+                  "fillColor" : [ 0.7843137383460999, 0.7843137383460999, 0.7843137383460999, 1 ],
+                  "font" : {
+                     "_typeName" : "FontDesc",
+                     "family" : "BulgariaModernaV3",
+                     "outlineWidth" : 1,
+                     "size" : 40
+                  },
+                  "text" : "Миссия",
                   "textColor" : [ 0, 0, 0, 1 ],
                   "textOutlineColor" : [ 1, 1, 1, 1 ],
                   "useGradient" : true
