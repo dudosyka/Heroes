@@ -1,0 +1,564 @@
+{
+   "_typeName" : "CanvasLayout",
+   "_version" : "VER3",
+   "adjustment" : 0,
+   "box" : {
+      "_typeName" : "PixelBox",
+      "height" : 250,
+      "width" : 450
+   },
+   "list" : [
+      {
+         "_typeName" : "Backgrounded",
+         "background" : {
+            "_typeName" : "StaticTextureRect",
+            "box" : {
+               "_typeName" : "PixelBox",
+               "height" : 350,
+               "width" : 600
+            },
+            "color" : [ 1, 1, 1, 1 ],
+            "imageName" : ".\\orig.png",
+            "position" : {
+               "_typeName" : "AligningOffset",
+               "horAlign" : 1,
+               "horOffset" : {
+                  "_typeName" : "RelativeValue",
+                  "type" : 1,
+                  "value" : 0
+               },
+               "vertAlign" : 1,
+               "vertOffset" : {
+                  "_typeName" : "RelativeValue",
+                  "type" : 1,
+                  "value" : 0
+               }
+            }
+         },
+         "obj" : {
+            "_typeName" : "CanvasLayout",
+            "adjustment" : 0,
+            "box" : {
+               "_typeName" : "PixelBox",
+               "height" : 350,
+               "width" : 600
+            },
+            "list" : [
+               {
+                  "_typeName" : "LinearLayout",
+                  "list" : [
+                     {
+                        "_typeName" : "StaticLabel",
+                        "adjustSize" : true,
+                        "box" : {
+                           "_typeName" : "RelativeBox",
+                           "height" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 0,
+                              "value" : 0
+                           },
+                           "offset" : {
+                              "_empty" : true
+                           },
+                           "width" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 0,
+                              "value" : 0
+                           }
+                        },
+                        "color" : [ 0, 0, 0, 1 ],
+                        "outlineColor" : [ 1, 1, 1, 1 ],
+                        "position" : {
+                           "_typeName" : "AligningOffset",
+                           "horAlign" : 1,
+                           "horOffset" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 1,
+                              "value" : 0
+                           },
+                           "vertAlign" : 0,
+                           "vertOffset" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 1,
+                              "value" : 0
+                           }
+                        },
+                        "properties" : {
+                           "_typeName" : "AlignProperties",
+                           "enableStacking" : false,
+                           "font" : {
+                              "_typeName" : "FontDesc",
+                              "family" : "BulgariaModernaV3",
+                              "size" : 35
+                           },
+                           "horAlign" : 0,
+                           "vertAlign" : 0
+                        },
+                        "text" : "Описание заклинания:"
+                     },
+                     {
+                        "_typeName" : "LinearLayout",
+                        "list" : [
+                           {
+                              "_typeName" : "StaticLabel",
+                              "adjustSize" : true,
+                              "box" : {
+                                 "_typeName" : "RelativeBox",
+                                 "height" : {
+                                    "_typeName" : "RelativeValue",
+                                    "type" : 0,
+                                    "value" : 0
+                                 },
+                                 "offset" : {
+                                    "_empty" : true
+                                 },
+                                 "width" : {
+                                    "_typeName" : "RelativeValue",
+                                    "type" : 0,
+                                    "value" : 0
+                                 }
+                              },
+                              "color" : [ 0, 0, 0, 1 ],
+                              "outlineColor" : [ 1, 1, 1, 1 ],
+                              "position" : {
+                                 "_typeName" : "AligningOffset",
+                                 "horAlign" : 0,
+                                 "horOffset" : {
+                                    "_typeName" : "RelativeValue",
+                                    "type" : 1,
+                                    "value" : 0
+                                 },
+                                 "vertAlign" : 1,
+                                 "vertOffset" : {
+                                    "_typeName" : "RelativeValue",
+                                    "type" : 1,
+                                    "value" : 0
+                                 }
+                              },
+                              "properties" : {
+                                 "_typeName" : "AlignProperties",
+                                 "enableStacking" : false,
+                                 "font" : {
+                                    "_typeName" : "FontDesc",
+                                    "family" : "BulgariaModernaV3",
+                                    "size" : 28
+                                 },
+                                 "horAlign" : 0,
+                                 "vertAlign" : 0
+                              },
+                              "text" : "Название:"
+                           },
+                           {
+                              "_name" : "kastName",
+                              "_typeName" : "StaticLabel",
+                              "adjustSize" : true,
+                              "box" : {
+                                 "_typeName" : "RelativeBox",
+                                 "height" : {
+                                    "_typeName" : "RelativeValue",
+                                    "type" : 0,
+                                    "value" : 0
+                                 },
+                                 "offset" : {
+                                    "_empty" : true
+                                 },
+                                 "width" : {
+                                    "_typeName" : "RelativeValue",
+                                    "type" : 0,
+                                    "value" : 0
+                                 }
+                              },
+                              "color" : [ 0, 0, 0, 1 ],
+                              "outlineColor" : [ 1, 1, 1, 1 ],
+                              "position" : {
+                                 "_typeName" : "AligningOffset",
+                                 "horAlign" : 0,
+                                 "horOffset" : {
+                                    "_typeName" : "RelativeValue",
+                                    "type" : 1,
+                                    "value" : 30
+                                 },
+                                 "vertAlign" : 1,
+                                 "vertOffset" : {
+                                    "_typeName" : "RelativeValue",
+                                    "type" : 1,
+                                    "value" : 0
+                                 }
+                              },
+                              "properties" : {
+                                 "_typeName" : "AlignProperties",
+                                 "enableStacking" : false,
+                                 "font" : {
+                                    "_typeName" : "FontDesc",
+                                    "family" : "BulgariaModernaV3",
+                                    "size" : 28
+                                 },
+                                 "horAlign" : 0,
+                                 "vertAlign" : 0
+                              },
+                              "text" : "fireball"
+                           }
+                        ],
+                        "position" : {
+                           "_typeName" : "AligningOffset",
+                           "horAlign" : 1,
+                           "horOffset" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 1,
+                              "value" : 0
+                           },
+                           "vertAlign" : 0,
+                           "vertOffset" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 1,
+                              "value" : -20
+                           }
+                        },
+                        "skin" : {
+                           "_typeName" : "HorizontalLayoutSkin",
+                           "adjustment" : 1,
+                           "align" : 1,
+                           "box" : {
+                              "_typeName" : "RelativeBox",
+                              "height" : {
+                                 "_typeName" : "RelativeValue",
+                                 "type" : 0,
+                                 "value" : 0
+                              },
+                              "offset" : {
+                                 "_empty" : true
+                              },
+                              "width" : {
+                                 "_typeName" : "RelativeValue",
+                                 "type" : 0,
+                                 "value" : 0
+                              }
+                           },
+                           "padding" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 1,
+                              "value" : 30
+                           }
+                        },
+                        "skipInvisibleElements" : false
+                     },
+                     {
+                        "_typeName" : "LinearLayout",
+                        "list" : [
+                           {
+                              "_typeName" : "StaticLabel",
+                              "adjustSize" : true,
+                              "box" : {
+                                 "_typeName" : "RelativeBox",
+                                 "height" : {
+                                    "_typeName" : "RelativeValue",
+                                    "type" : 0,
+                                    "value" : 0
+                                 },
+                                 "offset" : {
+                                    "_empty" : true
+                                 },
+                                 "width" : {
+                                    "_typeName" : "RelativeValue",
+                                    "type" : 0,
+                                    "value" : 0
+                                 }
+                              },
+                              "color" : [ 0, 0, 0, 1 ],
+                              "outlineColor" : [ 1, 1, 1, 1 ],
+                              "position" : {
+                                 "_typeName" : "AligningOffset",
+                                 "horAlign" : 0,
+                                 "horOffset" : {
+                                    "_typeName" : "RelativeValue",
+                                    "type" : 1,
+                                    "value" : 0
+                                 },
+                                 "vertAlign" : 1,
+                                 "vertOffset" : {
+                                    "_typeName" : "RelativeValue",
+                                    "type" : 1,
+                                    "value" : 0
+                                 }
+                              },
+                              "properties" : {
+                                 "_typeName" : "AlignProperties",
+                                 "enableStacking" : false,
+                                 "font" : {
+                                    "_typeName" : "FontDesc",
+                                    "family" : "BulgariaModernaV3",
+                                    "size" : 28
+                                 },
+                                 "horAlign" : 0,
+                                 "vertAlign" : 0
+                              },
+                              "text" : "Описание:"
+                           },
+                           {
+                              "_name" : "kastOpisalovo",
+                              "_typeName" : "StaticLabel",
+                              "adjustSize" : true,
+                              "box" : {
+                                 "_typeName" : "RelativeBox",
+                                 "height" : {
+                                    "_typeName" : "RelativeValue",
+                                    "type" : 0,
+                                    "value" : 0
+                                 },
+                                 "offset" : {
+                                    "_empty" : true
+                                 },
+                                 "width" : {
+                                    "_typeName" : "RelativeValue",
+                                    "type" : 0,
+                                    "value" : 0
+                                 }
+                              },
+                              "color" : [ 0, 0, 0, 1 ],
+                              "outlineColor" : [ 1, 1, 1, 1 ],
+                              "position" : {
+                                 "_typeName" : "AligningOffset",
+                                 "horAlign" : 0,
+                                 "horOffset" : {
+                                    "_typeName" : "RelativeValue",
+                                    "type" : 1,
+                                    "value" : 30
+                                 },
+                                 "vertAlign" : 1,
+                                 "vertOffset" : {
+                                    "_typeName" : "RelativeValue",
+                                    "type" : 1,
+                                    "value" : 0
+                                 }
+                              },
+                              "properties" : {
+                                 "_typeName" : "AlignProperties",
+                                 "enableStacking" : false,
+                                 "font" : {
+                                    "_typeName" : "FontDesc",
+                                    "family" : "BulgariaModernaV3",
+                                    "size" : 28
+                                 },
+                                 "horAlign" : 0,
+                                 "vertAlign" : 0
+                              },
+                              "text" : "урон 10 ед на юнит"
+                           }
+                        ],
+                        "position" : {
+                           "_typeName" : "AligningOffset",
+                           "horAlign" : 1,
+                           "horOffset" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 1,
+                              "value" : 0
+                           },
+                           "vertAlign" : 0,
+                           "vertOffset" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 1,
+                              "value" : -20
+                           }
+                        },
+                        "skin" : {
+                           "_typeName" : "HorizontalLayoutSkin",
+                           "adjustment" : 1,
+                           "align" : 1,
+                           "box" : {
+                              "_typeName" : "RelativeBox",
+                              "height" : {
+                                 "_typeName" : "RelativeValue",
+                                 "type" : 0,
+                                 "value" : 0
+                              },
+                              "offset" : {
+                                 "_empty" : true
+                              },
+                              "width" : {
+                                 "_typeName" : "RelativeValue",
+                                 "type" : 0,
+                                 "value" : 0
+                              }
+                           },
+                           "padding" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 1,
+                              "value" : 30
+                           }
+                        },
+                        "skipInvisibleElements" : false
+                     },
+                     {
+                        "_name" : "kastanut_button",
+                        "_typeName" : "Button",
+                        "position" : {
+                           "_typeName" : "AligningOffset",
+                           "horAlign" : 1,
+                           "horOffset" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 1,
+                              "value" : 0
+                           },
+                           "vertAlign" : 0,
+                           "vertOffset" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 1,
+                              "value" : -20
+                           }
+                        },
+                        "skin" : {
+                           "_typeName" : "SimpleRectangleButtonSkin",
+                           "borderColor" : [ 0, 0, 0, 1 ],
+                           "borderWidth" : 1,
+                           "box" : {
+                              "_typeName" : "PixelBox",
+                              "height" : 38,
+                              "width" : 180
+                           },
+                           "fillColor" : [ 0.7843137383460999, 0.7843137383460999, 0.7843137383460999, 1 ],
+                           "font" : {
+                              "_typeName" : "FontDesc",
+                              "family" : "BulgariaModernaV3",
+                              "outlineWidth" : 1,
+                              "size" : 28
+                           },
+                           "text" : "Использовать",
+                           "textColor" : [ 0, 0, 0, 1 ],
+                           "textOutlineColor" : [ 1, 1, 1, 1 ],
+                           "useGradient" : true
+                        }
+                     }
+                  ],
+                  "position" : {
+                     "_typeName" : "AligningOffset",
+                     "horAlign" : 1,
+                     "horOffset" : {
+                        "_typeName" : "RelativeValue",
+                        "type" : 1,
+                        "value" : 0
+                     },
+                     "vertAlign" : 1,
+                     "vertOffset" : {
+                        "_typeName" : "RelativeValue",
+                        "type" : 1,
+                        "value" : 0
+                     }
+                  },
+                  "skin" : {
+                     "_typeName" : "VerticalLayoutSkin",
+                     "adjustment" : 1,
+                     "align" : 1,
+                     "box" : {
+                        "_typeName" : "RelativeBox",
+                        "height" : {
+                           "_typeName" : "RelativeValue",
+                           "type" : 0,
+                           "value" : 0
+                        },
+                        "offset" : {
+                           "_empty" : true
+                        },
+                        "width" : {
+                           "_typeName" : "RelativeValue",
+                           "type" : 0,
+                           "value" : 0
+                        }
+                     },
+                     "padding" : {
+                        "_typeName" : "RelativeValue",
+                        "type" : 1,
+                        "value" : -20
+                     }
+                  },
+                  "skipInvisibleElements" : false
+               },
+               {
+                  "_name" : "closeKastanutWindow",
+                  "_typeName" : "Button",
+                  "position" : {
+                     "_typeName" : "AligningOffset",
+                     "horAlign" : 2,
+                     "horOffset" : {
+                        "_typeName" : "RelativeValue",
+                        "type" : 1,
+                        "value" : -80
+                     },
+                     "vertAlign" : 0,
+                     "vertOffset" : {
+                        "_typeName" : "RelativeValue",
+                        "type" : 1,
+                        "value" : -30
+                     }
+                  },
+                  "skin" : {
+                     "_typeName" : "SimpleRectangleButtonSkin",
+                     "borderColor" : [ 0, 0, 0, 1 ],
+                     "borderWidth" : 1,
+                     "box" : {
+                        "_typeName" : "PixelBox",
+                        "height" : 48,
+                        "width" : 48
+                     },
+                     "fillColor" : [ 0.7843137383460999, 0.7843137383460999, 0.7843137383460999, 1 ],
+                     "font" : {
+                        "_typeName" : "FontDesc",
+                        "family" : "BulgariaModernaV3",
+                        "outlineWidth" : 1,
+                        "size" : 28
+                     },
+                     "text" : "Х",
+                     "textColor" : [ 0, 0, 0, 1 ],
+                     "textOutlineColor" : [ 1, 1, 1, 1 ],
+                     "useGradient" : true
+                  }
+               }
+            ],
+            "position" : {
+               "_typeName" : "AligningOffset",
+               "horAlign" : 1,
+               "horOffset" : {
+                  "_typeName" : "RelativeValue",
+                  "type" : 1,
+                  "value" : 0
+               },
+               "vertAlign" : 1,
+               "vertOffset" : {
+                  "_typeName" : "RelativeValue",
+                  "type" : 1,
+                  "value" : 0
+               }
+            }
+         },
+         "position" : {
+            "_typeName" : "AligningOffset",
+            "horAlign" : 1,
+            "horOffset" : {
+               "_typeName" : "RelativeValue",
+               "type" : 1,
+               "value" : 0
+            },
+            "vertAlign" : 1,
+            "vertOffset" : {
+               "_typeName" : "RelativeValue",
+               "type" : 1,
+               "value" : 0
+            }
+         }
+      }
+   ],
+   "position" : {
+      "_typeName" : "AligningOffset",
+      "horAlign" : 1,
+      "horOffset" : {
+         "_typeName" : "RelativeValue",
+         "type" : 1,
+         "value" : 0
+      },
+      "vertAlign" : 1,
+      "vertOffset" : {
+         "_typeName" : "RelativeValue",
+         "type" : 1,
+         "value" : 0
+      }
+   }
+}

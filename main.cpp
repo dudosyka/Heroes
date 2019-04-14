@@ -1,4 +1,6 @@
 #include <gamebase/Gamebase.h>
+#include <iostream>
+#include <string>
 #include <algorithm>
 
 using namespace gamebase;
@@ -57,11 +59,14 @@ class MyApp : public App
 		int id;
 		int damage;
 		int price;
+		string name;
 		string opisalovo;
 	};
 
 	vector <Magic> AllMagic = {
-		{1, 10, 5, "fireball, damage: 100"},
+		{1, 70, 7, "lightning", "damage: 70 per unit"},
+		{2, 50, 4, "fireball", "damage: 50 per unit"},
+		{3, 30, 3, "magic fist", "damage: 30 per unit"},
 	};
 
 	struct unitType
@@ -154,7 +159,7 @@ class MyApp : public App
 			0.6,
 			150,
 			true,
-			{1},
+			{1, 2, 3},
 			10,
 			{{Price::gold, 600}},
 			unitType::chuvak,
@@ -234,7 +239,7 @@ class MyApp : public App
 	{
 		vector <build> magicBranch = {
 
-			{ IsBuild::build, { {Price::gold, 2000}, {Price::ore, 2}, {Price::wood, 2}, {Price::crystal, 2}, {Price::sera, 2} }, "Позволяет вашему герою изучить заклинания первого круга", "Гильдия магии первого уровня", "cityBranches/magic/magic1", 0 },
+			{ IsBuild::build, { {Price::gold, 2000}, {Price::ore, 2}, {Price::wood, 2}, {Price::crystal, 2}, {Price::sera, 2} }, "Позволяет вaшему герою изучить заклинания первого круга", "Гильдия магии первого уровня", "cityBranches/magic/magic1", 0 },
 			{ IsBuild::not_build, { {Price::gold, 3000}, {Price::ore, 3}, {Price::wood, 3}, {Price::crystal, 3}, {Price::sera, 3} }, "Позволяет вашему герою изучить заклинания второго круга", "Гильдия магии второго уровня", "cityBranches/magic/magic2", 0 },
 			{ IsBuild::not_build, { {Price::gold, 4000}, {Price::ore, 4}, {Price::wood, 4}, {Price::crystal, 4}, {Price::sera, 4} }, "Позволяет вашему герою изучить заклинания третьего круга", "Гильдия магии третьего уровня", "cityBranches/magic/magic3", 0 },
 			{ IsBuild::not_build, { {Price::gold, 5000}, {Price::ore, 5}, {Price::wood, 5}, {Price::crystal, 5}, {Price::sera, 5} }, "Позволяет вашему герою изучить заклинания четвертого круга", "Храм Христа спасителя", "cityBranches/magic/magic4", 0 }
@@ -494,8 +499,13 @@ class MyApp : public App
 
 	void change_textbox(int n, GameObj castle, bool fromHero)
 	{
-		design.child<TextBox>("unitNum") >> UnitNum;
-
+		string a;
+		design.child<TextBox>("unitNum") >> a;
+		if (a.length() >= 10)
+		{
+			a.erase(a.begin() + 9, a.end());
+		}
+		UnitNum = stoi(a);
 		if (fromHero)
 		{
 			if (UnitNum > playerLayer.data(playerLayer.get(0)).army.units[n].n)
@@ -514,6 +524,7 @@ class MyApp : public App
 		{
 			UnitNum = 0;
 		}
+		
 		design.child<TextBox>("unitNum") << UnitNum;
 	}
 
@@ -745,6 +756,7 @@ class MyApp : public App
 		connect(select0, changeHeroMenu, stats);
 		connect(select1, changeHeroMenu, arts);
 		connect(select2, changeHeroMenu, army);
+		connect(quitGameButton, quitGame);
 		connect(fight_exit, fightExit, true);
 		fight_exit.hide();
 		connect(newDirection, clearSteps);
@@ -753,6 +765,8 @@ class MyApp : public App
 		connect(useMagicUnit, showMagicWindow);
 
 		connect(heroQuests, openHeroQuests);
+
+		heroQuests.hide();
 
 		connect(start_button, startGame);
 		connect(quit_button, quitGame);
@@ -888,19 +902,32 @@ class MyApp : public App
 					rec.data(Rec).cords = { x - 1, y - 1 };
 					rec.data(Rec).castleArmy.owner = neutral;
 					rec.data(Rec).castleArmy = createArmy({
-						{ unitType::myaso, 1000 },
-						{ unitType::archer, 1000 },
-						{ unitType::grifon, 1000 },
-						{ unitType::chuvak, 1000 },
-						{ unitType::horserider, 1000 },
-						{ unitType::angel, 1000 } }, neutral);
-					rec.data(Rec).protectCastleArmy = createArmy({
-						{ unitType::myaso, 10 },
+						{ unitType::myaso, 0 },
 						{ unitType::archer, 0 },
 						{ unitType::grifon, 0 },
 						{ unitType::chuvak, 0 },
 						{ unitType::horserider, 0 },
 						{ unitType::angel, 0 } }, neutral);
+					if (x > 10)
+					{
+						rec.data(Rec).protectCastleArmy = createArmy({
+							{ unitType::myaso, 500 },
+							{ unitType::archer, 250 },
+							{ unitType::grifon, 100 },
+							{ unitType::chuvak, 50 },
+							{ unitType::horserider, 30 },
+							{ unitType::angel, 10 } }, neutral);
+					}
+					else
+					{
+						rec.data(Rec).protectCastleArmy = createArmy({
+							{ unitType::myaso, 50 },
+							{ unitType::archer, 25 },
+							{ unitType::grifon, 10 },
+							{ unitType::chuvak, 5 },
+							{ unitType::horserider, 3 },
+							{ unitType::angel, 1 } }, neutral);
+					}
 				}
 				if (recmap[x][y] == sawmill) 
 				{
@@ -917,8 +944,6 @@ class MyApp : public App
 			auto& data = neutrals.data(Neutral);
 			realrecmap[data.cords.x][data.cords.y] = fight;
 		}
-
-
 
 		map<Color, int> colorToTypeRock = {
 			{ Color(111, 111, 111), rock },
@@ -1166,7 +1191,7 @@ class MyApp : public App
 	void startGame()
 	{
 		selector.select(1);
-
+		heroQuests.show();
 		normalHeight = field.height();
 		normalWidth = field.width();
 	}
@@ -1262,10 +1287,28 @@ class MyApp : public App
 					auto damage = damage_count(unit1.type.attack, unit2.type.protect, unit1.type.damage, unit1.n);
 					auto die = die_count(damage, unit2.n, unit2.type.hp, lvl2);
 					info.child<Label>("enemy_die") << die;
+					if (kastuyu)
+					{
+						auto dmg = magicDamageCount(AllMagic[kastId - 1].damage, unit1.n);
+						info.child<Layout>("magicDie").show();
+						info.child<Layout>("magicDie").child<Label>("enemy_magic_die") << die_count(dmg, unit2.n, unit2.type.hp, lvl2);
+					}
+					else
+					{
+						info.child<Layout>("magicDie").show();
+						info.child<Layout>("magicDie").child<Label>("enemy_magic_die") << '0';
+					}
 					if (die < unit2.n)
 					{
-						damage = damage_count(unit1.type.attack, unit2.type.protect, unit1.type.damage, unit2.n - die);
-						die = die_count(damage, unit1.n, unit1.type.hp, lvl1);
+						if (!unit1.type.strelyarcher)
+						{
+							damage = damage_count(unit1.type.attack, unit2.type.protect, unit1.type.damage, unit2.n - die);
+							die = die_count(damage, unit1.n, unit1.type.hp, lvl1);
+						}
+						else
+						{
+							die = 0;
+						}
 						info.child<Label>("your_die") << die;
 					}
 					else
@@ -1326,6 +1369,7 @@ class MyApp : public App
 					else
 					{
 						magicAttack();
+						units.data(fight_queue[0].second).unit.type.mana -= AllMagic[kastId - 1].price;
 					}
 				}
 				else
@@ -1336,6 +1380,7 @@ class MyApp : public App
 					}
 					else
 					{
+						units.data(fight_queue[0].second).unit.type.mana -= AllMagic[kastId - 1].price;
 						magicAttack();
 					}
 				}
@@ -3141,6 +3186,26 @@ class MyApp : public App
 
 	deque <IntVec2> enemy_fight_direction;
 
+	int getMagicId(int unitmana)
+	{
+		auto amagic = units.data(fight_queue[0].second).unit.type.availibleMagic;
+		int mana = 1000;
+		int kast_id = -1;
+		for (auto m : amagic)
+		{
+			if (unitmana < AllMagic[m - 1].price)
+			{
+				continue;
+			}
+			if (mana > AllMagic[m - 1].price)
+			{
+				mana = AllMagic[m - 1].price;
+				kast_id = AllMagic[m - 1].id;
+			}
+		}
+		return kast_id;
+	}
+
 	void make_computer_step()
 	{
 		int id = target_queue[0].second; // кого бьём
@@ -3154,7 +3219,7 @@ class MyApp : public App
 		{
 			if (!empty(units.data(id).unit.type.availibleMagic) && units.data(id).unit.type.mana >= AllMagic[0].price)
 			{
-				kastanut_malexa(1);
+				prepare_kastanut_malexa(getMagicId(units.data(id).unit.type.mana), true);
 				magicAttack();
 			}
 			else
@@ -3166,7 +3231,7 @@ class MyApp : public App
 		{
 			if (!empty(units.data(id).unit.type.availibleMagic))
 			{
-				kastanut_malexa(1);
+				prepare_kastanut_malexa(getMagicId(units.data(id).unit.type.mana), true);
 				magicAttack();
 			}
 			else
@@ -3273,15 +3338,41 @@ class MyApp : public App
 	bool kastuyu = false;
 
 	int kastId = -1;
+	
+	void closeKastanutWindow()
+	{
+		design.child<Layout>("useKastWindow").clear();
+		design.child<Layout>("useKastWindow").hide();
+	}
 
-	void kastanut_malexa(int kast_id)
+	void kastanut(int kast_id, bool bot = false)
+	{
+		kastuyu = true;
+		kastId = kast_id;
+		if (bot)
+		{
+			units.data(fight_queue[0].second).unit.type.mana -= AllMagic[kastId - 1].price;
+		}
+		closeMagicWindow();
+	}
+
+	void prepare_kastanut_malexa(int kast_id, bool bot = false)
 	{
 		if (units.data(fight_queue[0].second).unit.type.mana - AllMagic[kast_id - 1].price >= 0)
 		{
-			units.data(fight_queue[0].second).unit.type.mana -= AllMagic[kast_id - 1].price;
-			kastuyu = true;
-			kastId = kast_id;
-			closeMagicWindow();
+			if (bot)
+			{
+				kastanut(kast_id, bot);
+			}
+			else
+			{
+				auto kast = design.child<Layout>("useKastWindow").load("kastanut_window.json");
+				design.child<Layout>("useKastWindow").show();
+				connect(kast.child<Button>("closeKastanutWindow"), closeKastanutWindow);
+				connect(kast.child<Button>("kastanut_button"), kastanut, kast_id);
+				kast.child<Label>("kastName") << AllMagic[kast_id - 1].name;
+				kast.child<Label>("kastOpisalovo") << AllMagic[kast_id - 1].opisalovo;
+			}
 		}
 		else
 		{
@@ -3304,9 +3395,9 @@ class MyApp : public App
 			cout << stroka << endl;
 			auto mag = win.child<Layout>(stroka);
 			auto but = mag.child<Button>("button");
-			but.child<Texture>("icon").setImageName("magic_icons/fireball_icon.png");
+			but.child<Texture>("icon").setImageName("magic_icons/magicIcon"+toString(m)+".png");
 			design.update();
-			connect(but, kastanut_malexa, m);
+			connect(but, prepare_kastanut_malexa, m);
 		}
 		win.show();
 		design.child<Layout>("forFightWindow").show();
@@ -3326,7 +3417,8 @@ class MyApp : public App
 			return;
 		}
 		auto win = design.child<Layout>("forFightWindow");
-		win.load("magic_window.json");
+		auto mwin = win.load("magic_window.json");
+		mwin.child<Label>("countMana") << units.data(fight_queue[0].second).unit.type.mana;
 		connect(win.child<Button>("closeMagicWindow"), closeMagicWindow);
 		loadMagic(units.data(fight_queue[0].second).unit.type.availibleMagic);
 	}
@@ -3527,7 +3619,6 @@ class MyApp : public App
 						openCastleMenu(fightCastle);
 						updateHeroCastles();
 						rec.data(fightCastle).heroInCastle = true;
-						
 					}
 					if (allCastlesCaptured(humanplayer))
 					{
@@ -3740,6 +3831,12 @@ class MyApp : public App
 		}
 	}
 
+	void clearKastClipboard()
+	{
+		kastuyu = false;
+		kastId = -1;
+	}
+
 	void startFight(Army army1, Army army2, int neutralFightId = -1)
 	{
 		useMagicUnit.hide();
@@ -3776,6 +3873,7 @@ class MyApp : public App
 			draw_get_step_fight_zone(fight_queue[0].second);
 		}
 		connect(new_fight_step, next_fight_step);
+		connect(design.child<Button>("clearKastClipboard"), clearKastClipboard);
 		if (neutralFightId != -1)
 		{
 			neutral_fight_id = neutralFightId;
@@ -4022,6 +4120,7 @@ class MyApp : public App
 	FromDesign(Button, quit_button);
 	FromDesign(Button, load_button);
 	FromDesign(Button, Relog);
+	FromDesign(Button, quitGameButton);
 	FromDesign(Button, useMagicUnit);
 	FromDesign(Button, newDirection);
 	FromDesign(Button, heroQuests);

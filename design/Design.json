@@ -39,7 +39,7 @@
                "value" : 0
             }
          },
-         "currentID" : 0,
+         "currentID" : 3,
          "objects" : [
             {
                "_key" : 0,
@@ -2331,6 +2331,46 @@
                                              "textOutlineColor" : [ 1, 1, 1, 1 ],
                                              "useGradient" : true
                                           }
+                                       },
+                                       {
+                                          "_name" : "quitGameButton",
+                                          "_typeName" : "Button",
+                                          "position" : {
+                                             "_typeName" : "AligningOffset",
+                                             "horAlign" : 1,
+                                             "horOffset" : {
+                                                "_typeName" : "RelativeValue",
+                                                "type" : 1,
+                                                "value" : 0
+                                             },
+                                             "vertAlign" : 0,
+                                             "vertOffset" : {
+                                                "_typeName" : "RelativeValue",
+                                                "type" : 2,
+                                                "value" : -0.2000000029802322
+                                             }
+                                          },
+                                          "skin" : {
+                                             "_typeName" : "SimpleRectangleButtonSkin",
+                                             "borderColor" : [ 0, 0, 0, 1 ],
+                                             "borderWidth" : 1,
+                                             "box" : {
+                                                "_typeName" : "PixelBox",
+                                                "height" : 48,
+                                                "width" : 300
+                                             },
+                                             "fillColor" : [ 0.7843137383460999, 0.7843137383460999, 0.7843137383460999, 1 ],
+                                             "font" : {
+                                                "_typeName" : "FontDesc",
+                                                "family" : "Roboto",
+                                                "outlineWidth" : 1,
+                                                "size" : 28
+                                             },
+                                             "text" : "Выйти из игры",
+                                             "textColor" : [ 0, 0, 0, 1 ],
+                                             "textOutlineColor" : [ 1, 1, 1, 1 ],
+                                             "useGradient" : true
+                                          }
                                        }
                                     ],
                                     "position" : {
@@ -4213,8 +4253,8 @@
                                  "_typeName" : "StaticTextureRect",
                                  "box" : {
                                     "_typeName" : "PixelBox",
-                                    "height" : 200,
-                                    "width" : 200
+                                    "height" : 400,
+                                    "width" : 300
                                  },
                                  "color" : [ 1, 1, 1, 1 ],
                                  "imageName" : ".\\orig.png",
@@ -4314,46 +4354,6 @@
                                                 "vertAlign" : 0
                                              },
                                              "text" : " - 10"
-                                          },
-                                          {
-                                             "_name" : "close_fight_stats",
-                                             "_typeName" : "Button",
-                                             "position" : {
-                                                "_typeName" : "AligningOffset",
-                                                "horAlign" : 0,
-                                                "horOffset" : {
-                                                   "_typeName" : "RelativeValue",
-                                                   "type" : 1,
-                                                   "value" : 20
-                                                },
-                                                "vertAlign" : 1,
-                                                "vertOffset" : {
-                                                   "_typeName" : "RelativeValue",
-                                                   "type" : 1,
-                                                   "value" : 0
-                                                }
-                                             },
-                                             "skin" : {
-                                                "_typeName" : "SimpleRectangleButtonSkin",
-                                                "borderColor" : [ 0, 0, 0, 1 ],
-                                                "borderWidth" : 1,
-                                                "box" : {
-                                                   "_typeName" : "PixelBox",
-                                                   "height" : 48,
-                                                   "width" : 48
-                                                },
-                                                "fillColor" : [ 0.7843137383460999, 0.7843137383460999, 0.7843137383460999, 1 ],
-                                                "font" : {
-                                                   "_typeName" : "FontDesc",
-                                                   "family" : "Roboto",
-                                                   "outlineWidth" : 1,
-                                                   "size" : 28
-                                                },
-                                                "text" : "X",
-                                                "textColor" : [ 0, 0, 0, 1 ],
-                                                "textOutlineColor" : [ 1, 1, 1, 1 ],
-                                                "useGradient" : true
-                                             }
                                           }
                                        ],
                                        "position" : {
@@ -4764,6 +4764,170 @@
                                           }
                                        },
                                        "skipInvisibleElements" : false
+                                    },
+                                    {
+                                       "_name" : "magicDie",
+                                       "_typeName" : "LinearLayout",
+                                       "_visible" : false,
+                                       "list" : [
+                                          {
+                                             "_typeName" : "StaticTextureRect",
+                                             "box" : {
+                                                "_typeName" : "PixelBox",
+                                                "height" : 32,
+                                                "width" : 32
+                                             },
+                                             "color" : [ 1, 1, 1, 1 ],
+                                             "imageName" : ".\\magic_death_icon_red.png",
+                                             "position" : {
+                                                "_typeName" : "AligningOffset",
+                                                "horAlign" : 0,
+                                                "horOffset" : {
+                                                   "_typeName" : "RelativeValue",
+                                                   "type" : 1,
+                                                   "value" : 0
+                                                },
+                                                "vertAlign" : 1,
+                                                "vertOffset" : {
+                                                   "_typeName" : "RelativeValue",
+                                                   "type" : 1,
+                                                   "value" : 0
+                                                }
+                                             }
+                                          },
+                                          {
+                                             "_name" : "enemy_magic_die",
+                                             "_typeName" : "StaticLabel",
+                                             "adjustSize" : true,
+                                             "box" : {
+                                                "_typeName" : "RelativeBox",
+                                                "height" : {
+                                                   "_typeName" : "RelativeValue",
+                                                   "type" : 0,
+                                                   "value" : 0
+                                                },
+                                                "offset" : {
+                                                   "_empty" : true
+                                                },
+                                                "width" : {
+                                                   "_typeName" : "RelativeValue",
+                                                   "type" : 0,
+                                                   "value" : 0
+                                                }
+                                             },
+                                             "color" : [ 0, 0, 0, 1 ],
+                                             "outlineColor" : [ 1, 1, 1, 1 ],
+                                             "position" : {
+                                                "_typeName" : "AligningOffset",
+                                                "horAlign" : 0,
+                                                "horOffset" : {
+                                                   "_typeName" : "RelativeValue",
+                                                   "type" : 1,
+                                                   "value" : 0
+                                                },
+                                                "vertAlign" : 1,
+                                                "vertOffset" : {
+                                                   "_typeName" : "RelativeValue",
+                                                   "type" : 1,
+                                                   "value" : 0
+                                                }
+                                             },
+                                             "properties" : {
+                                                "_typeName" : "AlignProperties",
+                                                "enableStacking" : false,
+                                                "font" : {
+                                                   "_typeName" : "FontDesc",
+                                                   "family" : "Roboto",
+                                                   "size" : 28
+                                                },
+                                                "horAlign" : 0,
+                                                "vertAlign" : 0
+                                             },
+                                             "text" : " - 10"
+                                          }
+                                       ],
+                                       "position" : {
+                                          "_typeName" : "AligningOffset",
+                                          "horAlign" : 1,
+                                          "horOffset" : {
+                                             "_typeName" : "RelativeValue",
+                                             "type" : 1,
+                                             "value" : 0
+                                          },
+                                          "vertAlign" : 0,
+                                          "vertOffset" : {
+                                             "_typeName" : "RelativeValue",
+                                             "type" : 1,
+                                             "value" : -10
+                                          }
+                                       },
+                                       "skin" : {
+                                          "_typeName" : "HorizontalLayoutSkin",
+                                          "adjustment" : 1,
+                                          "align" : 1,
+                                          "box" : {
+                                             "_typeName" : "RelativeBox",
+                                             "height" : {
+                                                "_typeName" : "RelativeValue",
+                                                "type" : 0,
+                                                "value" : 0
+                                             },
+                                             "offset" : {
+                                                "_empty" : true
+                                             },
+                                             "width" : {
+                                                "_typeName" : "RelativeValue",
+                                                "type" : 0,
+                                                "value" : 0
+                                             }
+                                          },
+                                          "padding" : {
+                                             "_typeName" : "RelativeValue",
+                                             "type" : 1,
+                                             "value" : 0
+                                          }
+                                       },
+                                       "skipInvisibleElements" : false
+                                    },
+                                    {
+                                       "_name" : "close_fight_stats",
+                                       "_typeName" : "Button",
+                                       "position" : {
+                                          "_typeName" : "AligningOffset",
+                                          "horAlign" : 1,
+                                          "horOffset" : {
+                                             "_typeName" : "RelativeValue",
+                                             "type" : 1,
+                                             "value" : 0
+                                          },
+                                          "vertAlign" : 0,
+                                          "vertOffset" : {
+                                             "_typeName" : "RelativeValue",
+                                             "type" : 1,
+                                             "value" : -10
+                                          }
+                                       },
+                                       "skin" : {
+                                          "_typeName" : "SimpleRectangleButtonSkin",
+                                          "borderColor" : [ 0, 0, 0, 1 ],
+                                          "borderWidth" : 1,
+                                          "box" : {
+                                             "_typeName" : "PixelBox",
+                                             "height" : 48,
+                                             "width" : 140
+                                          },
+                                          "fillColor" : [ 0.7843137383460999, 0.7843137383460999, 0.7843137383460999, 1 ],
+                                          "font" : {
+                                             "_typeName" : "FontDesc",
+                                             "family" : "BulgariaModernaV3",
+                                             "outlineWidth" : 1,
+                                             "size" : 28
+                                          },
+                                          "text" : "Закрыть",
+                                          "textColor" : [ 0, 0, 0, 1 ],
+                                          "textOutlineColor" : [ 1, 1, 1, 1 ],
+                                          "useGradient" : true
+                                       }
                                     }
                                  ],
                                  "position" : {
@@ -4987,6 +5151,41 @@
                            "imageColor" : [ 1, 1, 1, 1 ],
                            "imageHeight" : 50,
                            "imageName" : "magic_icons\\magic.png",
+                           "imageWidth" : 50,
+                           "useGradient" : true
+                        }
+                     },
+                     {
+                        "_name" : "clearKastClipboard",
+                        "_typeName" : "Button",
+                        "position" : {
+                           "_typeName" : "AligningOffset",
+                           "horAlign" : 2,
+                           "horOffset" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 1,
+                              "value" : -100
+                           },
+                           "vertAlign" : 2,
+                           "vertOffset" : {
+                              "_typeName" : "RelativeValue",
+                              "type" : 1,
+                              "value" : 0
+                           }
+                        },
+                        "skin" : {
+                           "_typeName" : "RectangleImageButtonSkin",
+                           "borderColor" : [ 0, 0, 0, 1 ],
+                           "borderWidth" : 1,
+                           "box" : {
+                              "_typeName" : "PixelBox",
+                              "height" : 55,
+                              "width" : 55
+                           },
+                           "fillColor" : [ 1, 1, 0.6549019813537598, 1 ],
+                           "imageColor" : [ 1, 1, 1, 1 ],
+                           "imageHeight" : 50,
+                           "imageName" : "magic_icons\\clearMagic.png",
                            "imageWidth" : 50,
                            "useGradient" : true
                         }
