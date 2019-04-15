@@ -630,9 +630,23 @@ class MyApp : public App
 				}, owner);
 	}
 
+	void roundUpStats()
+	{
+		for (auto nit : units.all())
+		{
+			auto& data = units.data(nit).unit;
+			if (!empty(data.type.availibleMagic))
+			{
+				data.type.mana = allTypes[data.type.lvl - 1].mana;
+			}
+			data.type.hp = data.n * allTypes[data.type.lvl - 1].hp;
+		}
+	}
+
 	void fightExit(bool lose)
 	{
 		isFighting = false;
+		roundUpStats();
 		units.clear();
 		selector.select(1);
 		loadMainArmy(playerLayer.data(playerLayer.get(0)).army);
