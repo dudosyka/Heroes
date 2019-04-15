@@ -646,10 +646,8 @@ class MyApp : public App
 	void fightExit(bool lose)
 	{
 		isFighting = false;
-		roundUpStats();
 		units.clear();
 		selector.select(1);
-		loadMainArmy(playerLayer.data(playerLayer.get(0)).army);
 		design.child<Layout>("statusBar").show();
 		if (lose)
 		{
@@ -920,23 +918,22 @@ class MyApp : public App
 					if (x > 10)
 					{
 						rec.data(Rec).protectCastleArmy = createArmy({
-							{ unitType::myaso, 5 },
-							{ unitType::archer, 2 },
-							{ unitType::grifon, 1 },
-							{ unitType::chuvak, 5 },
-							{ unitType::horserider, 3 },
-							{ unitType::angel, 1 } }, neutral);
-						rec.data(Rec).owner = humanplayer;
+							{ unitType::myaso, 500 },
+							{ unitType::archer, 250 },
+							{ unitType::grifon, 100 },
+							{ unitType::chuvak, 50 },
+							{ unitType::horserider, 30 },
+							{ unitType::angel, 10 } }, neutral);
 					}
 					else
 					{
 						rec.data(Rec).protectCastleArmy = createArmy({
-							{ unitType::myaso, 5 },
-							{ unitType::archer, 5 },
-							{ unitType::grifon, 1 },
-							{ unitType::chuvak, 1 },
-							{ unitType::horserider, 2 },
-							{ unitType::angel, 1 } }, neutral);
+							{ unitType::myaso, 50 },
+							{ unitType::archer, 25 },
+							{ unitType::grifon, 15 },
+							{ unitType::chuvak, 10 },
+							{ unitType::horserider, 5 },
+							{ unitType::angel, 2 } }, neutral);
 					}
 				}
 				if (recmap[x][y] == sawmill)
@@ -1422,7 +1419,7 @@ class MyApp : public App
 					cout << "Mouse on castleMagicBuild1" << endl;
 				}
 			}
-			if (input.justPressed(MouseLeft)/* && !impl::isMouseOn(castle_menu.getImpl().get()) */&& forWindow.empty() && playerLayer.get(0).anim.isEmpty() && !impl::isMouseOn(Relog.getImpl().get()) && !impl::isMouseOn(newDirection.getImpl().get()) && !impl::isMouseOn(heroMenu.getImpl().get()) && !heroMenuOpen)
+			if (input.justPressed(MouseLeft)/* && !impl::isMouseOn(castle_menu.getImpl().get()) */&& forWindow.empty() && playerLayer.get(0).anim.isEmpty() && !impl::isMouseOn(Relog.getImpl().get()) && !impl::isMouseOn(heroQuests.getImpl().get()) && !impl::isMouseOn(newDirection.getImpl().get()) && !impl::isMouseOn(heroMenu.getImpl().get()) && !heroMenuOpen)
 			{
 				if (stepPoints <= 0)
 				{
@@ -3664,6 +3661,7 @@ class MyApp : public App
 				isCastleFight = false;
 				design.child<Layout>("statusBar").show();
 				//selector.select(1);
+				roundUpStats();
 				units.clear();
 				zone.clear();
 			}
@@ -3772,6 +3770,7 @@ class MyApp : public App
 					window.child<Label>("fightReward") << countfightReward(startArmy2) << tr("skillpoints");
 					connect(window.child<Button>("closeFinishStats"), selectFight, true);
 				}
+				roundUpStats();
 				units.clear();
 				isCastleFight = false;
 				design.child<Layout>("statusBar").show();
