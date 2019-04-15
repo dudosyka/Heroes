@@ -1,0 +1,125 @@
+{
+   "_typeName" : "ObjectConstruct",
+   "_version" : "VER3",
+   "animations" : [
+      {
+         "_key" : "play",
+         "_value" : {
+            "_typeName" : "CompositeAnimation",
+            "animations" : [
+               {
+                  "_typeName" : "ParallelAnimation",
+                  "animations" : [
+                     {
+                        "_typeName" : "AdvancedMove",
+                        "changeFunc" : 14,
+                        "coordType" : 1,
+                        "objName" : "",
+                        "parentHeightRelativeCoord" : 0.0,
+                        "parentWidthRelativeCoord" : 0.0,
+                        "period" : 1000,
+                        "pixelCoord" : 50.0,
+                        "relativeMove" : true,
+                        "selfHeightRelativeCoord" : 0.0,
+                        "selfWidthRelativeCoord" : 0.0
+                     },
+                     {
+                        "_typeName" : "ColorChange",
+                        "changeFunc" : 0,
+                        "color" : [ 1.0, 0.0, 0.0, 0.0 ],
+                        "colorType" : 0,
+                        "objName" : "",
+                        "period" : 1500,
+                        "relativeChange" : false
+                     },
+                     {
+                        "_typeName" : "ColorChange",
+                        "changeFunc" : 0,
+                        "color" : [ 0.0, 0.0, 0.0, 0.0 ],
+                        "colorType" : 1,
+                        "objName" : "",
+                        "period" : 1200,
+                        "relativeChange" : false
+                     }
+                  ]
+               },
+               {
+                  "_typeName" : "ActionInAnimation",
+                  "action" : {
+                     "_typeName" : "RemoveAction"
+                  }
+               }
+            ]
+         }
+      }
+   ],
+   "finder" : {
+      "_typeName" : "FindableGeometryElement",
+      "geom" : {
+         "_typeName" : "IdenticGeometry"
+      }
+   },
+   "id" : 0,
+   "position" : {
+      "_typeName" : "PositionElement",
+      "angle" : 0.0,
+      "offset" : [ 0.0, 0.0 ],
+      "scaleX" : 1.0,
+      "scaleY" : 1.0
+   },
+   "selector" : {
+      "_typeName" : "PressableAndClickableElement",
+      "clickTime" : 500
+   },
+   "skin" : {
+      "_typeName" : "StaticLabel",
+      "adjustSize" : true,
+      "box" : {
+         "_typeName" : "RelativeBox",
+         "height" : {
+            "_typeName" : "RelativeValue",
+            "type" : 0,
+            "value" : 0.0
+         },
+         "offset" : {
+            "_empty" : true
+         },
+         "width" : {
+            "_typeName" : "RelativeValue",
+            "type" : 0,
+            "value" : 0.0
+         }
+      },
+      "color" : [ 1.0, 0.0, 0.0, 1.0 ],
+      "outlineColor" : [ 0.0, 0.0, 0.0, 1.0 ],
+      "position" : {
+         "_typeName" : "AligningOffset",
+         "horAlign" : 1,
+         "horOffset" : {
+            "_typeName" : "RelativeValue",
+            "type" : 1,
+            "value" : 0.0
+         },
+         "vertAlign" : 1,
+         "vertOffset" : {
+            "_typeName" : "RelativeValue",
+            "type" : 1,
+            "value" : 0.0
+         }
+      },
+      "properties" : {
+         "_typeName" : "AlignProperties",
+         "enableStacking" : false,
+         "font" : {
+            "_typeName" : "FontDesc",
+            "family" : "Roboto",
+            "outlineWidth" : 3.0,
+            "size" : 60.0
+         },
+         "horAlign" : 0,
+         "vertAlign" : 0
+      },
+      "text" : "-5"
+   },
+   "transitionAnimations" : []
+}
