@@ -15,30 +15,28 @@
                         "changeFunc" : 14,
                         "coordType" : 1,
                         "objName" : "",
-                        "parentHeightRelativeCoord" : 0.0,
-                        "parentWidthRelativeCoord" : 0.0,
-                        "period" : 3000,
-                        "pixelCoord" : 50.0,
+                        "parentHeightRelativeCoord" : 0,
+                        "parentWidthRelativeCoord" : 0,
+                        "period" : 2000,
+                        "pixelCoord" : 50,
                         "relativeMove" : true,
-                        "selfHeightRelativeCoord" : 0.0,
-                        "selfWidthRelativeCoord" : 0.0
+                        "selfHeightRelativeCoord" : 0,
+                        "selfWidthRelativeCoord" : 0
                      },
                      {
                         "_typeName" : "ColorChange",
                         "changeFunc" : 0,
-                        "color" : [ 1.0, 0.0, 0.0, 0.0 ],
-                        "colorType" : 0,
+                        "color" : [ 1, 0, 0, 0 ],
                         "objName" : "",
-                        "period" : 3000,
+                        "period" : 2000,
                         "relativeChange" : false
                      },
                      {
                         "_typeName" : "ColorChange",
                         "changeFunc" : 0,
-                        "color" : [ 0.0, 0.0, 0.0, 0.0 ],
-                        "colorType" : 1,
+                        "color" : [ 0, 0, 0, 0 ],
                         "objName" : "",
-                        "period" : 2000,
+                        "period" : 1200,
                         "relativeChange" : false
                      }
                   ]
@@ -62,10 +60,10 @@
    "id" : 0,
    "position" : {
       "_typeName" : "PositionElement",
-      "angle" : 0.0,
-      "offset" : [ 0.0, 0.0 ],
-      "scaleX" : 1.0,
-      "scaleY" : 1.0
+      "angle" : 0,
+      "offset" : [ 0, 0 ],
+      "scaleX" : 1,
+      "scaleY" : 1
    },
    "selector" : {
       "_typeName" : "PressableAndClickableElement",
@@ -79,7 +77,7 @@
          "height" : {
             "_typeName" : "RelativeValue",
             "type" : 0,
-            "value" : 0.0
+            "value" : 0
          },
          "offset" : {
             "_empty" : true
@@ -87,24 +85,24 @@
          "width" : {
             "_typeName" : "RelativeValue",
             "type" : 0,
-            "value" : 0.0
+            "value" : 0
          }
       },
-      "color" : [ 1.0, 0.0, 0.0, 1.0 ],
-      "outlineColor" : [ 0.0, 0.0, 0.0, 1.0 ],
+      "color" : [ 1, 0, 0, 1 ],
+      "outlineColor" : [ 0, 0, 0, 1 ],
       "position" : {
          "_typeName" : "AligningOffset",
          "horAlign" : 1,
          "horOffset" : {
             "_typeName" : "RelativeValue",
             "type" : 1,
-            "value" : 0.0
+            "value" : 0
          },
          "vertAlign" : 1,
          "vertOffset" : {
             "_typeName" : "RelativeValue",
             "type" : 1,
-            "value" : 0.0
+            "value" : 0
          }
       },
       "properties" : {
@@ -113,8 +111,8 @@
          "font" : {
             "_typeName" : "FontDesc",
             "family" : "Roboto",
-            "outlineWidth" : 3.0,
-            "size" : 40.0
+            "outlineWidth" : 3,
+            "size" : 40
          },
          "horAlign" : 0,
          "vertAlign" : 0

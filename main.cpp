@@ -96,9 +96,9 @@ class MyApp : public App
 	vector<unitType> allTypes = {
 		{
 			4,
-			4,
+			5,
 			8, // protect
-			3,
+			5,
 			4,
 			8,
 			1,
@@ -1270,7 +1270,7 @@ class MyApp : public App
 	{
         using namespace gamebase::InputKey;
 		
-		if (isFighting)
+		if (isFighting && forWindow.empty() && !impl::isMouseOn(design.child<Button>("close_fight_stats").getImpl().get()))
 		{
 			if (!design.child<Layout>("forFightWindow").empty())
 			{
@@ -3321,11 +3321,30 @@ class MyApp : public App
 		return queue;
 	}
 
+	Timer nextStepTimer;
+
 	void next_fight_step()
 	{
 		if (animStart)
 		{
 			return;
+		}
+		step_zone.clear();
+		if (units.data(fight_queue[0].second).unit.type.strelyarcher)
+		{
+			auto zitem = step_zone.load("zone_item.json", pixels_fight(units.data(fight_queue[0].second).cords));
+			zitem.skin<Texture>().setColor(0, 0, 255, 100);
+		}
+		if (!empty(dam_anim_layer))
+		{
+			nextStepTimer.repeat(1);
+			nextStepTimer.start();
+			connect(nextStepTimer, next_fight_step);
+			return;
+		}
+		else
+		{
+			nextStepTimer.stop();
 		}
 		auto first = fight_queue[0];
 		fight_queue.pop_front();
@@ -3699,9 +3718,6 @@ class MyApp : public App
 		int n2 = unit2.n;
 		n2 -= die_count(damage1, unit2.n, unit2.type.hp, unit2.type.lvl);
 		float damage2 = damage_count(unit2.type.attack, unit1.type.protect, unit2.type.damage, n2);
-		dam = dam_anim_layer.load("dam_anim.json", pixels_fight(units.data(attackUnitId).cords));
-		dam.skin<Label>() << (int)damage2;
-		dam.anim.play("play");
 		allHp2 -= damage1;
 		unit2.type.hp = allHp2;
 		if (unit2.type.strelyarcher || is_mi_ryadom(units.data(attackUnitId).cords, units.data(protectUnitId).cords))
@@ -3710,6 +3726,9 @@ class MyApp : public App
 			unit1.n = n1;
 			allHp1 -= damage2;
 			unit1.type.hp = allHp1;
+			dam = dam_anim_layer.load("dam_anim.json", pixels_fight(units.data(attackUnitId).cords));
+			dam.skin<Label>() << (int)damage2;
+			dam.anim.play("play");
 		}
 		unit2.n = n2;
 		renderUnitStats(attackUnitId);
