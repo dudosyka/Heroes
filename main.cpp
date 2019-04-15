@@ -783,14 +783,14 @@ class MyApp : public App
 		timer.repeat(2);
 
 
-		gold = 0;
+		gold = 10000;
 		skill = 0;
 		stepPoints = 4;
 		days = 0;
-		ore = 0;
-		sera = 0;
-		gems = 0;
-		wood = 0;
+		ore = 10;
+		sera = 10;
+		gems = 10;
+		wood = 10;
 
 		GOld << "gold: " << gold;
 		SKill << "skill: " << skill;
@@ -932,8 +932,8 @@ class MyApp : public App
 							{ unitType::archer, 25 },
 							{ unitType::grifon, 15 },
 							{ unitType::chuvak, 10 },
-							{ unitType::horserider, 5 },
-							{ unitType::angel, 2 } }, neutral);
+							{ unitType::horserider, 7 },
+							{ unitType::angel, 5 } }, neutral);
 					}
 				}
 				if (recmap[x][y] == sawmill)
