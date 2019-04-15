@@ -1831,13 +1831,14 @@ class MyApp : public App
 		IntVec2 dir;
 		if (start.x > finish.x)
 		{
-			startOffset = { -1, 0 };
-			dir = { 1, 1 };
+			startOffset = { 1, 0 };
+			dir = { -1, -1 };
 		}
 		if (start.x < finish.x)
 		{
-			startOffset = { 1, 0 };
-			dir = { -1, -1 };
+
+			startOffset = { -1, 0 };
+			dir = { 1, 1 };
 		}
 		if (start.y > finish.y)
 		{
@@ -1849,9 +1850,7 @@ class MyApp : public App
 			startOffset = { 0, -1 };
 			dir = { -1, 1 };
 		}
-		while (true)
-		{
-			/*
+		/*
 
 			if (start.x > finish.x && dmap[finish.x + 1][finish.y] == 2000000001)
 			{
@@ -1873,7 +1872,9 @@ class MyApp : public App
 			{
 
 			}*/
-			IntVec2 cur = { finish.x - startOffset.x * n, finish.y + startOffset.y * n};
+		while (true)
+		{
+			IntVec2 cur = { finish.x + startOffset.x * n, finish.y + startOffset.y * n};
 			for (int i = 0; i < n; i++)
 			{
 				if (isValidPoint(dmap, cur))
@@ -3587,6 +3588,9 @@ class MyApp : public App
 		auto& oneHp2 = allTypes[unit2.type.lvl - 1].hp;
 		auto& allHp2 = unit2.type.hp;
 		auto damage = magicDamageCount(AllMagic[kastId - 1].damage, n1);
+		auto dam = dam_anim_layer.load("dam_anim.json", pixels_fight(units.data(protectUnitId).cords));
+		dam.skin<Label>() << damage;
+		dam.anim.play("play");
 		n2 -= die_count(damage, unit2.n, unit2.type.hp, unit2.type.lvl);
 		allHp2 -= damage;
 		unit2.n = n2;
@@ -3684,6 +3688,9 @@ class MyApp : public App
 			return;
 		}
 		auto damage1 = damage_count(unit1.type.attack, unit2.type.protect, unit1.type.damage, unit1.n);
+		auto dam = dam_anim_layer.load("dam_anim.json", pixels_fight(units.data(protectUnitId).cords));
+		dam.skin<Label>() << (int)damage1;
+		dam.anim.play("play");
 		auto& oneHp1 = allTypes[unit1.type.lvl - 1].hp;
 		auto& oneHp2 = allTypes[unit2.type.lvl - 1].hp;
 		auto& allHp1 = unit1.type.hp;
@@ -3692,6 +3699,9 @@ class MyApp : public App
 		int n2 = unit2.n;
 		n2 -= die_count(damage1, unit2.n, unit2.type.hp, unit2.type.lvl);
 		float damage2 = damage_count(unit2.type.attack, unit1.type.protect, unit2.type.damage, n2);
+		dam = dam_anim_layer.load("dam_anim.json", pixels_fight(units.data(attackUnitId).cords));
+		dam.skin<Label>() << (int)damage2;
+		dam.anim.play("play");
 		allHp2 -= damage1;
 		unit2.type.hp = allHp2;
 		if (unit2.type.strelyarcher || is_mi_ryadom(units.data(attackUnitId).cords, units.data(protectUnitId).cords))
@@ -3926,6 +3936,10 @@ class MyApp : public App
 
     void move()
      {
+		if (selector.selected() == 0)
+		{
+			return;
+		}
 		GOld << " : " << gold;
 		SKill << " : " << skill;
 		Ore << " : " << ore;
@@ -4197,6 +4211,7 @@ class MyApp : public App
 	LayerFromDesign(nishData, nishtyaki);
 	LayerFromDesign(neutralData, neutrals);
 	LayerFromDesign(rockData, rocks);
+	LayerFromDesign(void, dam_anim_layer);
 };
 
 int main(int argc, char** argv)

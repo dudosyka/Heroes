@@ -17,7 +17,7 @@
                         "objName" : "",
                         "parentHeightRelativeCoord" : 0.0,
                         "parentWidthRelativeCoord" : 0.0,
-                        "period" : 1000,
+                        "period" : 3000,
                         "pixelCoord" : 50.0,
                         "relativeMove" : true,
                         "selfHeightRelativeCoord" : 0.0,
@@ -29,7 +29,7 @@
                         "color" : [ 1.0, 0.0, 0.0, 0.0 ],
                         "colorType" : 0,
                         "objName" : "",
-                        "period" : 1500,
+                        "period" : 3000,
                         "relativeChange" : false
                      },
                      {
@@ -38,7 +38,7 @@
                         "color" : [ 0.0, 0.0, 0.0, 0.0 ],
                         "colorType" : 1,
                         "objName" : "",
-                        "period" : 1200,
+                        "period" : 2000,
                         "relativeChange" : false
                      }
                   ]
@@ -114,7 +114,7 @@
             "_typeName" : "FontDesc",
             "family" : "Roboto",
             "outlineWidth" : 3.0,
-            "size" : 60.0
+            "size" : 40.0
          },
          "horAlign" : 0,
          "vertAlign" : 0
