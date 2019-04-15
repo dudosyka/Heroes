@@ -3634,8 +3634,8 @@ class MyApp : public App
 						cout << "Mission complete" << endl;
 						design.child<Layout>("forWindow").clear();
 						design.child<Layout>("forWindow").show();
-						auto win = design.child<Layout>("forWindow").load("win.json");
-						connect(win.child<Button>("MainMenuExit"), selectMainMenu);
+						auto win = design.child<Layout>("forWindow").load("win.json").child<Button>("MainMenuExit");
+						connect(win, selectMainMenu);
 					}
 					connect(window.child<Button>("closeFinishStats"), selectFight, false);
 				}
