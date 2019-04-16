@@ -4,8 +4,8 @@
    "adjustment" : 0,
    "box" : {
       "_typeName" : "PixelBox",
-      "height" : 250,
-      "width" : 450
+      "height" : 400.0,
+      "width" : 700.0
    },
    "list" : [
       {
@@ -14,10 +14,10 @@
             "_typeName" : "StaticTextureRect",
             "box" : {
                "_typeName" : "PixelBox",
-               "height" : 350,
-               "width" : 600
+               "height" : 400.0,
+               "width" : 700.0
             },
-            "color" : [ 1, 1, 1, 1 ],
+            "color" : [ 1.0, 1.0, 1.0, 1.0 ],
             "imageName" : ".\\orig.png",
             "position" : {
                "_typeName" : "AligningOffset",
@@ -25,13 +25,13 @@
                "horOffset" : {
                   "_typeName" : "RelativeValue",
                   "type" : 1,
-                  "value" : 0
+                  "value" : 0.0
                },
                "vertAlign" : 1,
                "vertOffset" : {
                   "_typeName" : "RelativeValue",
                   "type" : 1,
-                  "value" : 0
+                  "value" : 0.0
                }
             }
          },
@@ -40,8 +40,8 @@
             "adjustment" : 0,
             "box" : {
                "_typeName" : "PixelBox",
-               "height" : 350,
-               "width" : 600
+               "height" : 350.0,
+               "width" : 600.0
             },
             "list" : [
                {
@@ -55,7 +55,7 @@
                            "height" : {
                               "_typeName" : "RelativeValue",
                               "type" : 0,
-                              "value" : 0
+                              "value" : 0.0
                            },
                            "offset" : {
                               "_empty" : true
@@ -63,24 +63,24 @@
                            "width" : {
                               "_typeName" : "RelativeValue",
                               "type" : 0,
-                              "value" : 0
+                              "value" : 0.0
                            }
                         },
-                        "color" : [ 0, 0, 0, 1 ],
-                        "outlineColor" : [ 1, 1, 1, 1 ],
+                        "color" : [ 0.0, 0.0, 0.0, 1.0 ],
+                        "outlineColor" : [ 1.0, 1.0, 1.0, 1.0 ],
                         "position" : {
                            "_typeName" : "AligningOffset",
                            "horAlign" : 1,
                            "horOffset" : {
                               "_typeName" : "RelativeValue",
                               "type" : 1,
-                              "value" : 0
+                              "value" : 0.0
                            },
                            "vertAlign" : 0,
                            "vertOffset" : {
                               "_typeName" : "RelativeValue",
                               "type" : 1,
-                              "value" : 0
+                              "value" : 0.0
                            }
                         },
                         "properties" : {
@@ -89,7 +89,7 @@
                            "font" : {
                               "_typeName" : "FontDesc",
                               "family" : "BulgariaModernaV3",
-                              "size" : 35
+                              "size" : 35.0
                            },
                            "horAlign" : 0,
                            "vertAlign" : 0
@@ -107,7 +107,7 @@
                                  "height" : {
                                     "_typeName" : "RelativeValue",
                                     "type" : 0,
-                                    "value" : 0
+                                    "value" : 0.0
                                  },
                                  "offset" : {
                                     "_empty" : true
@@ -115,24 +115,24 @@
                                  "width" : {
                                     "_typeName" : "RelativeValue",
                                     "type" : 0,
-                                    "value" : 0
+                                    "value" : 0.0
                                  }
                               },
-                              "color" : [ 0, 0, 0, 1 ],
-                              "outlineColor" : [ 1, 1, 1, 1 ],
+                              "color" : [ 0.0, 0.0, 0.0, 1.0 ],
+                              "outlineColor" : [ 1.0, 1.0, 1.0, 1.0 ],
                               "position" : {
                                  "_typeName" : "AligningOffset",
                                  "horAlign" : 0,
                                  "horOffset" : {
                                     "_typeName" : "RelativeValue",
                                     "type" : 1,
-                                    "value" : 0
+                                    "value" : 0.0
                                  },
                                  "vertAlign" : 1,
                                  "vertOffset" : {
                                     "_typeName" : "RelativeValue",
                                     "type" : 1,
-                                    "value" : 0
+                                    "value" : 0.0
                                  }
                               },
                               "properties" : {
@@ -141,7 +141,7 @@
                                  "font" : {
                                     "_typeName" : "FontDesc",
                                     "family" : "BulgariaModernaV3",
-                                    "size" : 28
+                                    "size" : 28.0
                                  },
                                  "horAlign" : 0,
                                  "vertAlign" : 0
@@ -157,7 +157,7 @@
                                  "height" : {
                                     "_typeName" : "RelativeValue",
                                     "type" : 0,
-                                    "value" : 0
+                                    "value" : 0.0
                                  },
                                  "offset" : {
                                     "_empty" : true
@@ -165,24 +165,24 @@
                                  "width" : {
                                     "_typeName" : "RelativeValue",
                                     "type" : 0,
-                                    "value" : 0
+                                    "value" : 0.0
                                  }
                               },
-                              "color" : [ 0, 0, 0, 1 ],
-                              "outlineColor" : [ 1, 1, 1, 1 ],
+                              "color" : [ 0.0, 0.0, 0.0, 1.0 ],
+                              "outlineColor" : [ 1.0, 1.0, 1.0, 1.0 ],
                               "position" : {
                                  "_typeName" : "AligningOffset",
                                  "horAlign" : 0,
                                  "horOffset" : {
                                     "_typeName" : "RelativeValue",
                                     "type" : 1,
-                                    "value" : 30
+                                    "value" : 30.0
                                  },
                                  "vertAlign" : 1,
                                  "vertOffset" : {
                                     "_typeName" : "RelativeValue",
                                     "type" : 1,
-                                    "value" : 0
+                                    "value" : 0.0
                                  }
                               },
                               "properties" : {
@@ -191,7 +191,7 @@
                                  "font" : {
                                     "_typeName" : "FontDesc",
                                     "family" : "BulgariaModernaV3",
-                                    "size" : 28
+                                    "size" : 28.0
                                  },
                                  "horAlign" : 0,
                                  "vertAlign" : 0
@@ -205,13 +205,13 @@
                            "horOffset" : {
                               "_typeName" : "RelativeValue",
                               "type" : 1,
-                              "value" : 0
+                              "value" : 0.0
                            },
                            "vertAlign" : 0,
                            "vertOffset" : {
                               "_typeName" : "RelativeValue",
                               "type" : 1,
-                              "value" : -20
+                              "value" : -50.0
                            }
                         },
                         "skin" : {
@@ -223,7 +223,7 @@
                               "height" : {
                                  "_typeName" : "RelativeValue",
                                  "type" : 0,
-                                 "value" : 0
+                                 "value" : 0.0
                               },
                               "offset" : {
                                  "_empty" : true
@@ -231,13 +231,13 @@
                               "width" : {
                                  "_typeName" : "RelativeValue",
                                  "type" : 0,
-                                 "value" : 0
+                                 "value" : 0.0
                               }
                            },
                            "padding" : {
                               "_typeName" : "RelativeValue",
                               "type" : 1,
-                              "value" : 30
+                              "value" : 30.0
                            }
                         },
                         "skipInvisibleElements" : false
@@ -253,7 +253,7 @@
                                  "height" : {
                                     "_typeName" : "RelativeValue",
                                     "type" : 0,
-                                    "value" : 0
+                                    "value" : 0.0
                                  },
                                  "offset" : {
                                     "_empty" : true
@@ -261,24 +261,24 @@
                                  "width" : {
                                     "_typeName" : "RelativeValue",
                                     "type" : 0,
-                                    "value" : 0
+                                    "value" : 0.0
                                  }
                               },
-                              "color" : [ 0, 0, 0, 1 ],
-                              "outlineColor" : [ 1, 1, 1, 1 ],
+                              "color" : [ 0.0, 0.0, 0.0, 1.0 ],
+                              "outlineColor" : [ 1.0, 1.0, 1.0, 1.0 ],
                               "position" : {
                                  "_typeName" : "AligningOffset",
                                  "horAlign" : 0,
                                  "horOffset" : {
                                     "_typeName" : "RelativeValue",
                                     "type" : 1,
-                                    "value" : 0
+                                    "value" : 0.0
                                  },
                                  "vertAlign" : 1,
                                  "vertOffset" : {
                                     "_typeName" : "RelativeValue",
                                     "type" : 1,
-                                    "value" : 0
+                                    "value" : 0.0
                                  }
                               },
                               "properties" : {
@@ -287,7 +287,7 @@
                                  "font" : {
                                     "_typeName" : "FontDesc",
                                     "family" : "BulgariaModernaV3",
-                                    "size" : 28
+                                    "size" : 28.0
                                  },
                                  "horAlign" : 0,
                                  "vertAlign" : 0
@@ -303,41 +303,41 @@
                                  "height" : {
                                     "_typeName" : "RelativeValue",
                                     "type" : 0,
-                                    "value" : 0
+                                    "value" : 0.0
                                  },
                                  "offset" : {
                                     "_empty" : true
                                  },
                                  "width" : {
                                     "_typeName" : "RelativeValue",
-                                    "type" : 0,
-                                    "value" : 0
+                                    "type" : 2,
+                                    "value" : 0.60000002384185791
                                  }
                               },
-                              "color" : [ 0, 0, 0, 1 ],
-                              "outlineColor" : [ 1, 1, 1, 1 ],
+                              "color" : [ 0.0, 0.0, 0.0, 1.0 ],
+                              "outlineColor" : [ 1.0, 1.0, 1.0, 1.0 ],
                               "position" : {
                                  "_typeName" : "AligningOffset",
                                  "horAlign" : 0,
                                  "horOffset" : {
                                     "_typeName" : "RelativeValue",
                                     "type" : 1,
-                                    "value" : 30
+                                    "value" : 30.0
                                  },
                                  "vertAlign" : 1,
                                  "vertOffset" : {
                                     "_typeName" : "RelativeValue",
                                     "type" : 1,
-                                    "value" : 0
+                                    "value" : 0.0
                                  }
                               },
                               "properties" : {
                                  "_typeName" : "AlignProperties",
-                                 "enableStacking" : false,
+                                 "enableStacking" : true,
                                  "font" : {
                                     "_typeName" : "FontDesc",
                                     "family" : "BulgariaModernaV3",
-                                    "size" : 28
+                                    "size" : 28.0
                                  },
                                  "horAlign" : 0,
                                  "vertAlign" : 0
@@ -351,13 +351,13 @@
                            "horOffset" : {
                               "_typeName" : "RelativeValue",
                               "type" : 1,
-                              "value" : 0
+                              "value" : 0.0
                            },
                            "vertAlign" : 0,
                            "vertOffset" : {
                               "_typeName" : "RelativeValue",
                               "type" : 1,
-                              "value" : -20
+                              "value" : -50.0
                            }
                         },
                         "skin" : {
@@ -369,7 +369,7 @@
                               "height" : {
                                  "_typeName" : "RelativeValue",
                                  "type" : 0,
-                                 "value" : 0
+                                 "value" : 0.0
                               },
                               "offset" : {
                                  "_empty" : true
@@ -377,13 +377,13 @@
                               "width" : {
                                  "_typeName" : "RelativeValue",
                                  "type" : 0,
-                                 "value" : 0
+                                 "value" : 0.0
                               }
                            },
                            "padding" : {
                               "_typeName" : "RelativeValue",
                               "type" : 1,
-                              "value" : 30
+                              "value" : 30.0
                            }
                         },
                         "skipInvisibleElements" : false
@@ -397,34 +397,34 @@
                            "horOffset" : {
                               "_typeName" : "RelativeValue",
                               "type" : 1,
-                              "value" : 0
+                              "value" : 0.0
                            },
                            "vertAlign" : 0,
                            "vertOffset" : {
                               "_typeName" : "RelativeValue",
                               "type" : 1,
-                              "value" : -20
+                              "value" : -50.0
                            }
                         },
                         "skin" : {
                            "_typeName" : "SimpleRectangleButtonSkin",
-                           "borderColor" : [ 0, 0, 0, 1 ],
-                           "borderWidth" : 1,
+                           "borderColor" : [ 0.0, 0.0, 0.0, 1.0 ],
+                           "borderWidth" : 1.0,
                            "box" : {
                               "_typeName" : "PixelBox",
-                              "height" : 38,
-                              "width" : 180
+                              "height" : 38.0,
+                              "width" : 180.0
                            },
-                           "fillColor" : [ 0.7843137383460999, 0.7843137383460999, 0.7843137383460999, 1 ],
+                           "fillColor" : [ 0.78431373834609985, 0.78431373834609985, 0.78431373834609985, 1.0 ],
                            "font" : {
                               "_typeName" : "FontDesc",
                               "family" : "BulgariaModernaV3",
-                              "outlineWidth" : 1,
-                              "size" : 28
+                              "outlineWidth" : 1.0,
+                              "size" : 28.0
                            },
                            "text" : "Использовать",
-                           "textColor" : [ 0, 0, 0, 1 ],
-                           "textOutlineColor" : [ 1, 1, 1, 1 ],
+                           "textColor" : [ 0.0, 0.0, 0.0, 1.0 ],
+                           "textOutlineColor" : [ 1.0, 1.0, 1.0, 1.0 ],
                            "useGradient" : true
                         }
                      }
@@ -435,13 +435,13 @@
                      "horOffset" : {
                         "_typeName" : "RelativeValue",
                         "type" : 1,
-                        "value" : 0
+                        "value" : 0.0
                      },
                      "vertAlign" : 1,
                      "vertOffset" : {
                         "_typeName" : "RelativeValue",
                         "type" : 1,
-                        "value" : 0
+                        "value" : 0.0
                      }
                   },
                   "skin" : {
@@ -453,7 +453,7 @@
                         "height" : {
                            "_typeName" : "RelativeValue",
                            "type" : 0,
-                           "value" : 0
+                           "value" : 0.0
                         },
                         "offset" : {
                            "_empty" : true
@@ -461,13 +461,13 @@
                         "width" : {
                            "_typeName" : "RelativeValue",
                            "type" : 0,
-                           "value" : 0
+                           "value" : 0.0
                         }
                      },
                      "padding" : {
                         "_typeName" : "RelativeValue",
                         "type" : 1,
-                        "value" : -20
+                        "value" : -50.0
                      }
                   },
                   "skipInvisibleElements" : false
@@ -481,34 +481,34 @@
                      "horOffset" : {
                         "_typeName" : "RelativeValue",
                         "type" : 1,
-                        "value" : -80
+                        "value" : -80.0
                      },
                      "vertAlign" : 0,
                      "vertOffset" : {
                         "_typeName" : "RelativeValue",
                         "type" : 1,
-                        "value" : -30
+                        "value" : -30.0
                      }
                   },
                   "skin" : {
                      "_typeName" : "SimpleRectangleButtonSkin",
-                     "borderColor" : [ 0, 0, 0, 1 ],
-                     "borderWidth" : 1,
+                     "borderColor" : [ 0.0, 0.0, 0.0, 1.0 ],
+                     "borderWidth" : 1.0,
                      "box" : {
                         "_typeName" : "PixelBox",
-                        "height" : 48,
-                        "width" : 48
+                        "height" : 48.0,
+                        "width" : 48.0
                      },
-                     "fillColor" : [ 0.7843137383460999, 0.7843137383460999, 0.7843137383460999, 1 ],
+                     "fillColor" : [ 0.78431373834609985, 0.78431373834609985, 0.78431373834609985, 1.0 ],
                      "font" : {
                         "_typeName" : "FontDesc",
                         "family" : "BulgariaModernaV3",
-                        "outlineWidth" : 1,
-                        "size" : 28
+                        "outlineWidth" : 1.0,
+                        "size" : 28.0
                      },
                      "text" : "Х",
-                     "textColor" : [ 0, 0, 0, 1 ],
-                     "textOutlineColor" : [ 1, 1, 1, 1 ],
+                     "textColor" : [ 0.0, 0.0, 0.0, 1.0 ],
+                     "textOutlineColor" : [ 1.0, 1.0, 1.0, 1.0 ],
                      "useGradient" : true
                   }
                }
@@ -519,13 +519,13 @@
                "horOffset" : {
                   "_typeName" : "RelativeValue",
                   "type" : 1,
-                  "value" : 0
+                  "value" : 0.0
                },
                "vertAlign" : 1,
                "vertOffset" : {
                   "_typeName" : "RelativeValue",
                   "type" : 1,
-                  "value" : 0
+                  "value" : 0.0
                }
             }
          },
@@ -535,13 +535,13 @@
             "horOffset" : {
                "_typeName" : "RelativeValue",
                "type" : 1,
-               "value" : 0
+               "value" : 0.0
             },
             "vertAlign" : 1,
             "vertOffset" : {
                "_typeName" : "RelativeValue",
                "type" : 1,
-               "value" : 0
+               "value" : 0.0
             }
          }
       }
@@ -552,13 +552,13 @@
       "horOffset" : {
          "_typeName" : "RelativeValue",
          "type" : 1,
-         "value" : 0
+         "value" : 0.0
       },
       "vertAlign" : 1,
       "vertOffset" : {
          "_typeName" : "RelativeValue",
          "type" : 1,
-         "value" : 0
+         "value" : 0.0
       }
    }
 }

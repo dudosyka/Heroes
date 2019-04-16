@@ -544,6 +544,7 @@
                         },
                         "list" : [
                            {
+                              "_name" : "right_game_menu",
                               "_typeName" : "LinearLayout",
                               "list" : [
                                  {

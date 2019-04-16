@@ -54,19 +54,41 @@ class MyApp : public App
 		int n;
 	};
 
+	enum magicType
+	{
+		damage, buff, debuff
+	};
+
+	enum class btype
+	{
+		damage, protect, attack 
+	};
+
+	struct Buff
+	{
+		bool isDeBuff;
+		btype type;
+		int num;
+		int time;
+	};
+
 	struct Magic
 	{
 		int id;
 		int damage;
 		int price;
+		Buff buff;
+		magicType type;
 		string name;
 		string opisalovo;
 	};
 
 	vector <Magic> AllMagic = {
-		{1, 70, 7, "lightning", "damage: 70 per unit"},
-		{2, 50, 4, "fireball", "damage: 50 per unit"},
-		{3, 30, 3, "magic fist", "damage: 30 per unit"},
+		{1, 70, 7, {}, damage, "lightning", "damage: 70 per unit Price: 7 mana"},
+		{2, 50, 4, {}, damage, "fireball", "damage: 50 per unit Price: 4 mana"},
+		{3, 30, 3, {}, damage, "magic fist", "damage: 30 per unit Price: 3 mana"},
+		{4, 0, 5, {false, btype::attack, 5, 5}, buff, "god midth", "buff_god_midth"},
+		{5, 0, 5, {true, btype::protect, 5, 5}, debuff, "nemosh", "debuff_nemosh"},
 	};
 
 	struct unitType
@@ -87,6 +109,8 @@ class MyApp : public App
 		bool strelyarcher;
 		vector <int> availibleMagic;
 		int mana;
+		vector <Buff> buffes;
+		vector <Buff> debuffes;
 		vector <Price> price;
 		Enum type;
 		string icon_name;
@@ -107,6 +131,8 @@ class MyApp : public App
 			false,
 			{},
 			0,
+			{},
+			{},
 			{{Price::gold, 85}},
 			unitType::myaso,
 			"myaso_icon.png",
@@ -125,6 +151,8 @@ class MyApp : public App
 			true,
 			{},
 			0,
+			{},
+			{},
 			{{Price::gold, 50}},
 			unitType::archer,
 			"archer_icon.png",
@@ -143,6 +171,8 @@ class MyApp : public App
 			false,
 			{},
 			0,
+			{},
+			{},
 			{{Price::gold, 260}},
 			unitType::grifon,
 			"griffin_icon.png",
@@ -161,6 +191,8 @@ class MyApp : public App
 			true,
 			{1, 2, 3},
 			10,
+			{},
+			{},
 			{{Price::gold, 600}},
 			unitType::chuvak,
 			"chuvak_icon.png",
@@ -179,6 +211,8 @@ class MyApp : public App
 			false,
 			{},
 			0,
+			{},
+			{},
 			{{Price::gold, 1300}},
 			unitType::horserider,
 			"horserider_icon.png",
@@ -197,6 +231,8 @@ class MyApp : public App
 			false,
 			{},
 			0,
+			{},
+			{},
 			{{Price::gold, 2800}, {Price::crystal, 1}},
 			unitType::angel,
 			"Angel_icon.png",
@@ -730,6 +766,20 @@ class MyApp : public App
 
 	bool isOpenHeroQuests = false;
 
+	int howManyCastlesCaptured(ownerType owner)
+	{
+		int i = 0;
+		for (auto Rec : rec.all())
+		{
+			auto data = rec.data(Rec);
+			if (data.owner == owner && data.type == castle)
+			{
+				i++;
+			}
+		}
+		return i;
+	}
+
 	void openHeroQuests()
 	{
 		if (isOpenHeroQuests)
@@ -742,7 +792,9 @@ class MyApp : public App
 		{
 			isOpenHeroQuests = true;
 			design.child<Layout>("forWindow").show();
-			design.child<Layout>("forWindow").load("quests.json").child<Label>("Quests") << tr("youMustAllCaptured");
+			auto a = design.child<Layout>("forWindow").load("quests.json");
+			a.child<Label>("Quests") << tr("youMustAllCaptured");
+			a.child<Label>("Quests") << tr("allready_captured") << toString(howManyCastlesCaptured(humanplayer)) << "/" << "2";
 			design.update();
 		}
 	}
@@ -771,9 +823,9 @@ class MyApp : public App
 		connect(quitGameButton, quitGame);
 		connect(fight_exit, fightExit, true);
 		fight_exit.hide();
+		design.child<Layout>("statusBar").show();
 		connect(newDirection, clearSteps);
 		connect(timer, hideLabel);
-
 		connect(useMagicUnit, showMagicWindow);
 
 		connect(heroQuests, openHeroQuests);
@@ -986,6 +1038,7 @@ class MyApp : public App
 		connect(setting_button, openSettings);
 		heroQuests.hide();
 		selector.select(0);
+		design.child<Layout>("statusBar").hide();
 	}
 
 	bool isZoomDown = false;
@@ -1266,6 +1319,17 @@ class MyApp : public App
 		info.hide();
 	}
 
+	int getUnitIdByCords(IntVec2 cords)
+	{
+		for (auto nit : units.all())
+		{
+			if (units.data(nit).cords == cords)
+			{
+				return units.get(nit).id();
+			}
+		}
+	}
+
     void process(Input input)
 	{
         using namespace gamebase::InputKey;
@@ -1387,6 +1451,13 @@ class MyApp : public App
 					else
 					{
 						magicAttack();
+						/*if (AllMagic[kastId - 1].type == damage)
+						{
+						}
+						else
+						{
+							useMagicBuff(kastId, getUnitIdByCords(c), AllMagic[kastId - 1].buff.isDeBuff);
+						}*/
 						units.data(fight_queue[0].second).unit.type.mana -= AllMagic[kastId - 1].price;
 					}
 				}
@@ -1398,8 +1469,15 @@ class MyApp : public App
 					}
 					else
 					{
-						units.data(fight_queue[0].second).unit.type.mana -= AllMagic[kastId - 1].price;
 						magicAttack();
+						/*if (AllMagic[kastId - 1].type == damage)
+						{
+						}
+						else
+						{
+							useMagicBuff(kastId, getUnitIdByCords(c), AllMagic[kastId - 1].buff.isDeBuff);
+						}*/
+						units.data(fight_queue[0].second).unit.type.mana -= AllMagic[kastId - 1].price;
 					}
 				}
 				animStart = true;
@@ -1419,7 +1497,7 @@ class MyApp : public App
 					cout << "Mouse on castleMagicBuild1" << endl;
 				}
 			}
-			if (input.justPressed(MouseLeft)/* && !impl::isMouseOn(castle_menu.getImpl().get()) */&& forWindow.empty() && playerLayer.get(0).anim.isEmpty() && !impl::isMouseOn(Relog.getImpl().get()) && !impl::isMouseOn(heroQuests.getImpl().get()) && !impl::isMouseOn(newDirection.getImpl().get()) && !impl::isMouseOn(heroMenu.getImpl().get()) && !heroMenuOpen)
+			if (input.justPressed(MouseLeft)/* &&  */&& !impl::isMouseOn(design.child<Layout>("right_game_menu").getImpl().get()) && forWindow.empty() && playerLayer.get(0).anim.isEmpty() && !impl::isMouseOn(Relog.getImpl().get()) && !impl::isMouseOn(heroQuests.getImpl().get()) && !impl::isMouseOn(newDirection.getImpl().get()) && !impl::isMouseOn(heroMenu.getImpl().get()) && !heroMenuOpen)
 			{
 				if (stepPoints <= 0)
 				{
@@ -1777,6 +1855,22 @@ class MyApp : public App
 		auto type = a.unit.type.strelyarcher;
 
 		auto type2 = a.owner;
+
+		/*if (!empty(a.unit.type.availibleMagic))
+		{
+			for (auto nit : units.all())
+			{
+				auto& data = units.data(nit);
+				if (data.unit.type.type == a.unit.type.type)
+				{
+					if (data.owner == a.owner)
+					{
+						continue;
+					}
+				}
+				zone.insert(data.cords);
+			}
+		}*/
 
 		if (type)
 		{
@@ -3346,6 +3440,35 @@ class MyApp : public App
 		{
 			nextStepTimer.stop();
 		}
+		/*for (auto nit : units.all())
+		{
+			int i = 0;
+			for (auto& b : units.data(nit).unit.type.buffes)
+			{
+				if (b.time <= 0)
+				{
+					units.data(nit).unit.type.buffes.erase(units.data(nit).unit.type.buffes.begin() + i);
+				}
+				else
+				{
+					b.time -= 1;
+				}
+				i++;
+			}
+			i = 0;
+			for (auto& db : units.data(nit).unit.type.debuffes)
+			{
+				if (db.time <= 0)
+				{
+					units.data(nit).unit.type.debuffes.erase(units.data(nit).unit.type.debuffes.begin() + i);
+				}
+				else
+				{
+					db.time -= 1;
+				}
+				i++;
+			}
+		}*/
 		auto first = fight_queue[0];
 		fight_queue.pop_front();
 		fight_queue.push_back(first);
@@ -3381,6 +3504,7 @@ class MyApp : public App
 	{
 		design.child<Layout>("useKastWindow").clear();
 		design.child<Layout>("useKastWindow").hide();
+		useMagicUnit.enable();
 	}
 
 	void kastanut(int kast_id, bool bot = false)
@@ -3392,6 +3516,7 @@ class MyApp : public App
 			units.data(fight_queue[0].second).unit.type.mana -= AllMagic[kastId - 1].price;
 		}
 		closeMagicWindow();
+		useMagicUnit.enable();
 	}
 
 	void prepare_kastanut_malexa(int kast_id, bool bot = false)
@@ -3409,7 +3534,7 @@ class MyApp : public App
 				connect(kast.child<Button>("closeKastanutWindow"), closeKastanutWindow);
 				connect(kast.child<Button>("kastanut_button"), kastanut, kast_id);
 				kast.child<Label>("kastName") << AllMagic[kast_id - 1].name;
-				kast.child<Label>("kastOpisalovo") << AllMagic[kast_id - 1].opisalovo;
+				kast.child<Label>("kastOpisalovo") << tr(AllMagic[kast_id - 1].opisalovo);
 			}
 		}
 		else
@@ -3433,12 +3558,31 @@ class MyApp : public App
 			cout << stroka << endl;
 			auto mag = win.child<Layout>(stroka);
 			auto but = mag.child<Button>("button");
-			but.child<Texture>("icon").setImageName("magic_icons/magicIcon"+toString(m)+".png");
-			design.update();
+			but.child<Texture>("icon").setImageName("./magic_icons/magicIcon"+toString(m)+".png");
 			connect(but, prepare_kastanut_malexa, m);
 		}
 		win.show();
 		design.child<Layout>("forFightWindow").show();
+	}
+
+	bool useBuff = false;
+
+	void useMagicBuff(int kast_id, int unit_id, bool isDeBuff, bool bot = false)
+	{
+		if (bot)
+		{
+			units.data(fight_queue[0].second).unit.type.mana -= AllMagic[kastId - 1].price;
+		}
+		if (isDeBuff)
+		{
+			units.data(unit_id).unit.type.debuffes.push_back(AllMagic[kast_id - 1].buff);
+		}
+		else
+		{
+			units.data(unit_id).unit.type.buffes.push_back(AllMagic[kast_id - 1].buff);
+		}
+		kastuyu = false;
+		useBuff = true;
 	}
 
 	void closeMagicWindow()
@@ -3459,6 +3603,7 @@ class MyApp : public App
 		mwin.child<Label>("countMana") << units.data(fight_queue[0].second).unit.type.mana;
 		connect(win.child<Button>("closeMagicWindow"), closeMagicWindow);
 		loadMagic(units.data(fight_queue[0].second).unit.type.availibleMagic);
+		useMagicUnit.disable();
 	}
 
 	bool check_win(ownerType owner)
@@ -3696,17 +3841,53 @@ class MyApp : public App
 
 	GameObj fightCastle;
 	
+	vector<int> countUnitStats(int id)
+	{
+		auto unit = units.data(id).unit;
+		vector <int> stats = { unit.type.attack, unit.type.protect };
+		for (auto b : unit.type.buffes)
+		{
+			if (b.type == btype::attack)
+			{
+				stats[0] += b.num;
+			}
+			if (b.type == btype::protect)
+			{
+				stats[1] += b.num;
+			}
+		}
+		for (auto b : unit.type.debuffes)
+		{
+			if (b.type == btype::attack)
+			{
+				stats[0] -= b.num;
+			}
+			if (b.type == btype::protect)
+			{
+				stats[1] -= b.num;
+			}
+		}
+		return stats;
+	}
+	
 	void attack(bool archer)
 	{
 		isAttacking = false;
 		auto& unit1 = units.data(attackUnitId).unit;
 		auto& unit2 = units.data(protectUnitId).unit;
+		auto unit1Stats = countUnitStats(attackUnitId);
+		auto unit2Stats = countUnitStats(protectUnitId);
 		if (!is_mi_ryadom(units.data(attackUnitId).cords, units.data(protectUnitId).cords) && !archer)
 		{
 			isAttacking = true;
 			return;
 		}
-		auto damage1 = damage_count(unit1.type.attack, unit2.type.protect, unit1.type.damage, unit1.n);
+		/*if (useBuff)
+		{
+			useBuff = false;
+			return;
+		}*/
+		auto damage1 = damage_count(unit1Stats[0], unit2Stats[1], unit1.type.damage, unit1.n);
 		auto dam = dam_anim_layer.load("dam_anim.json", pixels_fight(units.data(protectUnitId).cords));
 		dam.skin<Label>() << (int)damage1;
 		dam.anim.play("play");
@@ -3717,7 +3898,7 @@ class MyApp : public App
 		int n1 = unit1.n;
 		int n2 = unit2.n;
 		n2 -= die_count(damage1, unit2.n, unit2.type.hp, unit2.type.lvl);
-		float damage2 = damage_count(unit2.type.attack, unit1.type.protect, unit2.type.damage, n2);
+		float damage2 = damage_count(unit2Stats[0], unit1Stats[1], unit2.type.damage, n2);
 		allHp2 -= damage1;
 		unit2.type.hp = allHp2;
 		if (unit2.type.strelyarcher || is_mi_ryadom(units.data(attackUnitId).cords, units.data(protectUnitId).cords))
@@ -3899,6 +4080,7 @@ class MyApp : public App
 	{
 		useMagicUnit.hide();
 		selector.select(3);
+		step_zone.clear();
 		design.child<Layout>("statusBar").hide();
 		map<Color, int> colorToTypeGround = {
 			{ Color(165, 0, 255), grassDark },

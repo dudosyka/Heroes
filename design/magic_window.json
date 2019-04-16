@@ -8,7 +8,7 @@
       "height" : {
          "_typeName" : "RelativeValue",
          "type" : 0,
-         "value" : 0
+         "value" : 0.0
       },
       "offset" : {
          "_empty" : true
@@ -16,7 +16,7 @@
       "width" : {
          "_typeName" : "RelativeValue",
          "type" : 0,
-         "value" : 0
+         "value" : 0.0
       }
    },
    "list" : [
@@ -26,10 +26,10 @@
             "_typeName" : "StaticTextureRect",
             "box" : {
                "_typeName" : "PixelBox",
-               "height" : 500,
-               "width" : 900
+               "height" : 500.0,
+               "width" : 900.0
             },
-            "color" : [ 1, 1, 1, 1 ],
+            "color" : [ 1.0, 1.0, 1.0, 1.0 ],
             "imageName" : ".\\orig.png",
             "position" : {
                "_typeName" : "AligningOffset",
@@ -37,13 +37,13 @@
                "horOffset" : {
                   "_typeName" : "RelativeValue",
                   "type" : 1,
-                  "value" : 0
+                  "value" : 0.0
                },
                "vertAlign" : 1,
                "vertOffset" : {
                   "_typeName" : "RelativeValue",
                   "type" : 1,
-                  "value" : 0
+                  "value" : 0.0
                }
             }
          },
@@ -52,8 +52,8 @@
             "adjustment" : 0,
             "box" : {
                "_typeName" : "PixelBox",
-               "height" : 500,
-               "width" : 700
+               "height" : 500.0,
+               "width" : 700.0
             },
             "list" : [
                {
@@ -67,7 +67,7 @@
                            "height" : {
                               "_typeName" : "RelativeValue",
                               "type" : 0,
-                              "value" : 0
+                              "value" : 0.0
                            },
                            "offset" : {
                               "_empty" : true
@@ -75,24 +75,24 @@
                            "width" : {
                               "_typeName" : "RelativeValue",
                               "type" : 0,
-                              "value" : 0
+                              "value" : 0.0
                            }
                         },
-                        "color" : [ 0, 0, 0, 1 ],
-                        "outlineColor" : [ 0, 0, 0, 1 ],
+                        "color" : [ 0.0, 0.0, 0.0, 1.0 ],
+                        "outlineColor" : [ 0.0, 0.0, 0.0, 1.0 ],
                         "position" : {
                            "_typeName" : "AligningOffset",
                            "horAlign" : 1,
                            "horOffset" : {
                               "_typeName" : "RelativeValue",
                               "type" : 1,
-                              "value" : 0
+                              "value" : 0.0
                            },
                            "vertAlign" : 0,
                            "vertOffset" : {
                               "_typeName" : "RelativeValue",
                               "type" : 1,
-                              "value" : 0
+                              "value" : 0.0
                            }
                         },
                         "properties" : {
@@ -101,7 +101,7 @@
                            "font" : {
                               "_typeName" : "FontDesc",
                               "family" : "BulgariaModernaV3",
-                              "size" : 55
+                              "size" : 55.0
                            },
                            "horAlign" : 0,
                            "vertAlign" : 0
@@ -117,8 +117,8 @@
                               "adjustment" : 0,
                               "box" : {
                                  "_typeName" : "PixelBox",
-                                 "height" : 100,
-                                 "width" : 100
+                                 "height" : 100.0,
+                                 "width" : 100.0
                               },
                               "list" : [
                                  {
@@ -130,25 +130,25 @@
                                        "horOffset" : {
                                           "_typeName" : "RelativeValue",
                                           "type" : 1,
-                                          "value" : 0
+                                          "value" : 0.0
                                        },
                                        "vertAlign" : 1,
                                        "vertOffset" : {
                                           "_typeName" : "RelativeValue",
                                           "type" : 1,
-                                          "value" : 0
+                                          "value" : 0.0
                                        }
                                     },
                                     "skin" : {
                                        "_typeName" : "RectangleImageButtonSkin",
-                                       "borderColor" : [ 0, 0, 0, 1 ],
-                                       "borderWidth" : 1,
+                                       "borderColor" : [ 0.0, 0.0, 0.0, 1.0 ],
+                                       "borderWidth" : 1.0,
                                        "box" : {
                                           "_typeName" : "RelativeBox",
                                           "height" : {
                                              "_typeName" : "RelativeValue",
                                              "type" : 0,
-                                             "value" : 0
+                                             "value" : 0.0
                                           },
                                           "offset" : {
                                              "_empty" : true
@@ -156,14 +156,14 @@
                                           "width" : {
                                              "_typeName" : "RelativeValue",
                                              "type" : 0,
-                                             "value" : 0
+                                             "value" : 0.0
                                           }
                                        },
-                                       "fillColor" : [ 0.7843137383460999, 0.7843137383460999, 0.7843137383460999, 1 ],
-                                       "imageColor" : [ 1, 1, 1, 1 ],
-                                       "imageHeight" : 100,
+                                       "fillColor" : [ 0.78431373834609985, 0.78431373834609985, 0.78431373834609985, 1.0 ],
+                                       "imageColor" : [ 1.0, 1.0, 1.0, 1.0 ],
+                                       "imageHeight" : 100.0,
                                        "imageName" : "magic_icons\\lighting_strike_gray.png",
-                                       "imageWidth" : 100,
+                                       "imageWidth" : 100.0,
                                        "useGradient" : true
                                     }
                                  }
@@ -174,13 +174,13 @@
                                  "horOffset" : {
                                     "_typeName" : "RelativeValue",
                                     "type" : 1,
-                                    "value" : 0
+                                    "value" : 0.0
                                  },
                                  "vertAlign" : 1,
                                  "vertOffset" : {
                                     "_typeName" : "RelativeValue",
                                     "type" : 1,
-                                    "value" : 0
+                                    "value" : 0.0
                                  }
                               }
                            },
@@ -190,8 +190,8 @@
                               "adjustment" : 0,
                               "box" : {
                                  "_typeName" : "PixelBox",
-                                 "height" : 100,
-                                 "width" : 100
+                                 "height" : 100.0,
+                                 "width" : 100.0
                               },
                               "list" : [
                                  {
@@ -203,25 +203,25 @@
                                        "horOffset" : {
                                           "_typeName" : "RelativeValue",
                                           "type" : 1,
-                                          "value" : 0
+                                          "value" : 0.0
                                        },
                                        "vertAlign" : 1,
                                        "vertOffset" : {
                                           "_typeName" : "RelativeValue",
                                           "type" : 1,
-                                          "value" : 0
+                                          "value" : 0.0
                                        }
                                     },
                                     "skin" : {
                                        "_typeName" : "RectangleImageButtonSkin",
-                                       "borderColor" : [ 0, 0, 0, 1 ],
-                                       "borderWidth" : 1,
+                                       "borderColor" : [ 0.0, 0.0, 0.0, 1.0 ],
+                                       "borderWidth" : 1.0,
                                        "box" : {
                                           "_typeName" : "RelativeBox",
                                           "height" : {
                                              "_typeName" : "RelativeValue",
                                              "type" : 0,
-                                             "value" : 0
+                                             "value" : 0.0
                                           },
                                           "offset" : {
                                              "_empty" : true
@@ -229,14 +229,14 @@
                                           "width" : {
                                              "_typeName" : "RelativeValue",
                                              "type" : 0,
-                                             "value" : 0
+                                             "value" : 0.0
                                           }
                                        },
-                                       "fillColor" : [ 0.7843137383460999, 0.7843137383460999, 0.7843137383460999, 1 ],
-                                       "imageColor" : [ 1, 1, 1, 1 ],
-                                       "imageHeight" : 100,
+                                       "fillColor" : [ 0.78431373834609985, 0.78431373834609985, 0.78431373834609985, 1.0 ],
+                                       "imageColor" : [ 1.0, 1.0, 1.0, 1.0 ],
+                                       "imageHeight" : 100.0,
                                        "imageName" : "magic_icons\\fireball_icon_gray.png",
-                                       "imageWidth" : 100,
+                                       "imageWidth" : 100.0,
                                        "useGradient" : true
                                     }
                                  }
@@ -247,13 +247,13 @@
                                  "horOffset" : {
                                     "_typeName" : "RelativeValue",
                                     "type" : 1,
-                                    "value" : 10
+                                    "value" : 10.0
                                  },
                                  "vertAlign" : 1,
                                  "vertOffset" : {
                                     "_typeName" : "RelativeValue",
                                     "type" : 1,
-                                    "value" : 0
+                                    "value" : 0.0
                                  }
                               }
                            },
@@ -263,8 +263,8 @@
                               "adjustment" : 0,
                               "box" : {
                                  "_typeName" : "PixelBox",
-                                 "height" : 100,
-                                 "width" : 100
+                                 "height" : 100.0,
+                                 "width" : 100.0
                               },
                               "list" : [
                                  {
@@ -276,25 +276,25 @@
                                        "horOffset" : {
                                           "_typeName" : "RelativeValue",
                                           "type" : 1,
-                                          "value" : 0
+                                          "value" : 0.0
                                        },
                                        "vertAlign" : 1,
                                        "vertOffset" : {
                                           "_typeName" : "RelativeValue",
                                           "type" : 1,
-                                          "value" : 0
+                                          "value" : 0.0
                                        }
                                     },
                                     "skin" : {
                                        "_typeName" : "RectangleImageButtonSkin",
-                                       "borderColor" : [ 0, 0, 0, 1 ],
-                                       "borderWidth" : 1,
+                                       "borderColor" : [ 0.0, 0.0, 0.0, 1.0 ],
+                                       "borderWidth" : 1.0,
                                        "box" : {
                                           "_typeName" : "RelativeBox",
                                           "height" : {
                                              "_typeName" : "RelativeValue",
                                              "type" : 0,
-                                             "value" : 0
+                                             "value" : 0.0
                                           },
                                           "offset" : {
                                              "_empty" : true
@@ -302,14 +302,14 @@
                                           "width" : {
                                              "_typeName" : "RelativeValue",
                                              "type" : 0,
-                                             "value" : 0
+                                             "value" : 0.0
                                           }
                                        },
-                                       "fillColor" : [ 0.7843137383460999, 0.7843137383460999, 0.7843137383460999, 1 ],
-                                       "imageColor" : [ 1, 1, 1, 1 ],
-                                       "imageHeight" : 100,
+                                       "fillColor" : [ 0.78431373834609985, 0.78431373834609985, 0.78431373834609985, 1.0 ],
+                                       "imageColor" : [ 1.0, 1.0, 1.0, 1.0 ],
+                                       "imageHeight" : 100.0,
                                        "imageName" : "magic_icons\\magic_fist_gray.png",
-                                       "imageWidth" : 100,
+                                       "imageWidth" : 100.0,
                                        "useGradient" : true
                                     }
                                  }
@@ -320,13 +320,159 @@
                                  "horOffset" : {
                                     "_typeName" : "RelativeValue",
                                     "type" : 1,
-                                    "value" : 10
+                                    "value" : 10.0
                                  },
                                  "vertAlign" : 1,
                                  "vertOffset" : {
                                     "_typeName" : "RelativeValue",
                                     "type" : 1,
-                                    "value" : 0
+                                    "value" : 0.0
+                                 }
+                              }
+                           },
+                           {
+                              "_name" : "magicIcon4",
+                              "_typeName" : "CanvasLayout",
+                              "adjustment" : 0,
+                              "box" : {
+                                 "_typeName" : "PixelBox",
+                                 "height" : 100.0,
+                                 "width" : 100.0
+                              },
+                              "list" : [
+                                 {
+                                    "_name" : "button",
+                                    "_typeName" : "Button",
+                                    "position" : {
+                                       "_typeName" : "AligningOffset",
+                                       "horAlign" : 1,
+                                       "horOffset" : {
+                                          "_typeName" : "RelativeValue",
+                                          "type" : 1,
+                                          "value" : 0.0
+                                       },
+                                       "vertAlign" : 1,
+                                       "vertOffset" : {
+                                          "_typeName" : "RelativeValue",
+                                          "type" : 1,
+                                          "value" : 0.0
+                                       }
+                                    },
+                                    "skin" : {
+                                       "_typeName" : "RectangleImageButtonSkin",
+                                       "borderColor" : [ 0.0, 0.0, 0.0, 1.0 ],
+                                       "borderWidth" : 1.0,
+                                       "box" : {
+                                          "_typeName" : "RelativeBox",
+                                          "height" : {
+                                             "_typeName" : "RelativeValue",
+                                             "type" : 0,
+                                             "value" : 0.0
+                                          },
+                                          "offset" : {
+                                             "_empty" : true
+                                          },
+                                          "width" : {
+                                             "_typeName" : "RelativeValue",
+                                             "type" : 0,
+                                             "value" : 0.0
+                                          }
+                                       },
+                                       "fillColor" : [ 0.78431373834609985, 0.78431373834609985, 0.78431373834609985, 1.0 ],
+                                       "imageColor" : [ 1.0, 1.0, 1.0, 1.0 ],
+                                       "imageHeight" : 100.0,
+                                       "imageName" : "magic_icons\\god_midth_gray_icon.png",
+                                       "imageWidth" : 100.0,
+                                       "useGradient" : true
+                                    }
+                                 }
+                              ],
+                              "position" : {
+                                 "_typeName" : "AligningOffset",
+                                 "horAlign" : 0,
+                                 "horOffset" : {
+                                    "_typeName" : "RelativeValue",
+                                    "type" : 1,
+                                    "value" : 10.0
+                                 },
+                                 "vertAlign" : 1,
+                                 "vertOffset" : {
+                                    "_typeName" : "RelativeValue",
+                                    "type" : 1,
+                                    "value" : 0.0
+                                 }
+                              }
+                           },
+                           {
+                              "_name" : "magicIcon5",
+                              "_typeName" : "CanvasLayout",
+                              "adjustment" : 0,
+                              "box" : {
+                                 "_typeName" : "PixelBox",
+                                 "height" : 100.0,
+                                 "width" : 100.0
+                              },
+                              "list" : [
+                                 {
+                                    "_name" : "button",
+                                    "_typeName" : "Button",
+                                    "position" : {
+                                       "_typeName" : "AligningOffset",
+                                       "horAlign" : 1,
+                                       "horOffset" : {
+                                          "_typeName" : "RelativeValue",
+                                          "type" : 1,
+                                          "value" : 0.0
+                                       },
+                                       "vertAlign" : 1,
+                                       "vertOffset" : {
+                                          "_typeName" : "RelativeValue",
+                                          "type" : 1,
+                                          "value" : 0.0
+                                       }
+                                    },
+                                    "skin" : {
+                                       "_typeName" : "RectangleImageButtonSkin",
+                                       "borderColor" : [ 0.0, 0.0, 0.0, 1.0 ],
+                                       "borderWidth" : 1.0,
+                                       "box" : {
+                                          "_typeName" : "RelativeBox",
+                                          "height" : {
+                                             "_typeName" : "RelativeValue",
+                                             "type" : 0,
+                                             "value" : 0.0
+                                          },
+                                          "offset" : {
+                                             "_empty" : true
+                                          },
+                                          "width" : {
+                                             "_typeName" : "RelativeValue",
+                                             "type" : 0,
+                                             "value" : 0.0
+                                          }
+                                       },
+                                       "fillColor" : [ 0.78431373834609985, 0.78431373834609985, 0.78431373834609985, 1.0 ],
+                                       "imageColor" : [ 1.0, 1.0, 1.0, 1.0 ],
+                                       "imageHeight" : 100.0,
+                                       "imageName" : "magic_icons\\nemosh_gray_icon.png",
+                                       "imageWidth" : 100.0,
+                                       "useGradient" : true
+                                    }
+                                 }
+                              ],
+                              "position" : {
+                                 "_typeName" : "AligningOffset",
+                                 "horAlign" : 0,
+                                 "horOffset" : {
+                                    "_typeName" : "RelativeValue",
+                                    "type" : 1,
+                                    "value" : 10.0
+                                 },
+                                 "vertAlign" : 1,
+                                 "vertOffset" : {
+                                    "_typeName" : "RelativeValue",
+                                    "type" : 1,
+                                    "value" : 0.0
                                  }
                               }
                            }
@@ -337,13 +483,13 @@
                            "horOffset" : {
                               "_typeName" : "RelativeValue",
                               "type" : 1,
-                              "value" : 0
+                              "value" : 0.0
                            },
                            "vertAlign" : 0,
                            "vertOffset" : {
                               "_typeName" : "RelativeValue",
                               "type" : 1,
-                              "value" : -10
+                              "value" : -10.0
                            }
                         },
                         "skin" : {
@@ -352,13 +498,13 @@
                            "align" : 1,
                            "box" : {
                               "_typeName" : "PixelBox",
-                              "height" : 75,
-                              "width" : 500
+                              "height" : 75.0,
+                              "width" : 500.0
                            },
                            "padding" : {
                               "_typeName" : "RelativeValue",
                               "type" : 1,
-                              "value" : 10
+                              "value" : 10.0
                            }
                         },
                         "skipInvisibleElements" : false
@@ -374,7 +520,7 @@
                                  "height" : {
                                     "_typeName" : "RelativeValue",
                                     "type" : 0,
-                                    "value" : 0
+                                    "value" : 0.0
                                  },
                                  "offset" : {
                                     "_empty" : true
@@ -382,24 +528,24 @@
                                  "width" : {
                                     "_typeName" : "RelativeValue",
                                     "type" : 0,
-                                    "value" : 0
+                                    "value" : 0.0
                                  }
                               },
-                              "color" : [ 0, 0, 0, 1 ],
-                              "outlineColor" : [ 1, 1, 1, 1 ],
+                              "color" : [ 0.0, 0.0, 0.0, 1.0 ],
+                              "outlineColor" : [ 1.0, 1.0, 1.0, 1.0 ],
                               "position" : {
                                  "_typeName" : "AligningOffset",
                                  "horAlign" : 0,
                                  "horOffset" : {
                                     "_typeName" : "RelativeValue",
                                     "type" : 1,
-                                    "value" : 0
+                                    "value" : 0.0
                                  },
                                  "vertAlign" : 1,
                                  "vertOffset" : {
                                     "_typeName" : "RelativeValue",
                                     "type" : 1,
-                                    "value" : 0
+                                    "value" : 0.0
                                  }
                               },
                               "properties" : {
@@ -408,7 +554,7 @@
                                  "font" : {
                                     "_typeName" : "FontDesc",
                                     "family" : "BulgariaModernaV3",
-                                    "size" : 30
+                                    "size" : 30.0
                                  },
                                  "horAlign" : 0,
                                  "vertAlign" : 0
@@ -424,7 +570,7 @@
                                  "height" : {
                                     "_typeName" : "RelativeValue",
                                     "type" : 0,
-                                    "value" : 0
+                                    "value" : 0.0
                                  },
                                  "offset" : {
                                     "_empty" : true
@@ -432,24 +578,24 @@
                                  "width" : {
                                     "_typeName" : "RelativeValue",
                                     "type" : 0,
-                                    "value" : 0
+                                    "value" : 0.0
                                  }
                               },
-                              "color" : [ 0, 0, 0, 1 ],
-                              "outlineColor" : [ 1, 1, 1, 1 ],
+                              "color" : [ 0.0, 0.0, 0.0, 1.0 ],
+                              "outlineColor" : [ 1.0, 1.0, 1.0, 1.0 ],
                               "position" : {
                                  "_typeName" : "AligningOffset",
                                  "horAlign" : 0,
                                  "horOffset" : {
                                     "_typeName" : "RelativeValue",
                                     "type" : 1,
-                                    "value" : 0
+                                    "value" : 0.0
                                  },
                                  "vertAlign" : 1,
                                  "vertOffset" : {
                                     "_typeName" : "RelativeValue",
                                     "type" : 1,
-                                    "value" : 0
+                                    "value" : 0.0
                                  }
                               },
                               "properties" : {
@@ -458,7 +604,7 @@
                                  "font" : {
                                     "_typeName" : "FontDesc",
                                     "family" : "BulgariaModernaV3",
-                                    "size" : 30
+                                    "size" : 30.0
                                  },
                                  "horAlign" : 0,
                                  "vertAlign" : 0
@@ -472,13 +618,13 @@
                            "horOffset" : {
                               "_typeName" : "RelativeValue",
                               "type" : 1,
-                              "value" : 0
+                              "value" : 0.0
                            },
                            "vertAlign" : 0,
                            "vertOffset" : {
                               "_typeName" : "RelativeValue",
                               "type" : 1,
-                              "value" : -10
+                              "value" : -10.0
                            }
                         },
                         "skin" : {
@@ -490,7 +636,7 @@
                               "height" : {
                                  "_typeName" : "RelativeValue",
                                  "type" : 0,
-                                 "value" : 0
+                                 "value" : 0.0
                               },
                               "offset" : {
                                  "_empty" : true
@@ -498,1547 +644,13 @@
                               "width" : {
                                  "_typeName" : "RelativeValue",
                                  "type" : 0,
-                                 "value" : 0
+                                 "value" : 0.0
                               }
                            },
                            "padding" : {
                               "_typeName" : "RelativeValue",
                               "type" : 1,
-                              "value" : 0
-                           }
-                        },
-                        "skipInvisibleElements" : false
-                     },
-                     {
-                        "_typeName" : "LinearLayout",
-                        "_visible" : false,
-                        "list" : [
-                           {
-                              "_name" : "magicIcon21",
-                              "_typeName" : "CanvasLayout",
-                              "adjustment" : 0,
-                              "box" : {
-                                 "_typeName" : "PixelBox",
-                                 "height" : 50,
-                                 "width" : 50
-                              },
-                              "list" : [
-                                 {
-                                    "_name" : "button",
-                                    "_typeName" : "Button",
-                                    "position" : {
-                                       "_typeName" : "AligningOffset",
-                                       "horAlign" : 1,
-                                       "horOffset" : {
-                                          "_typeName" : "RelativeValue",
-                                          "type" : 1,
-                                          "value" : 0
-                                       },
-                                       "vertAlign" : 1,
-                                       "vertOffset" : {
-                                          "_typeName" : "RelativeValue",
-                                          "type" : 1,
-                                          "value" : 0
-                                       }
-                                    },
-                                    "skin" : {
-                                       "_typeName" : "RectangleImageButtonSkin",
-                                       "borderColor" : [ 0, 0, 0, 1 ],
-                                       "borderWidth" : 1,
-                                       "box" : {
-                                          "_typeName" : "RelativeBox",
-                                          "height" : {
-                                             "_typeName" : "RelativeValue",
-                                             "type" : 0,
-                                             "value" : 0
-                                          },
-                                          "offset" : {
-                                             "_empty" : true
-                                          },
-                                          "width" : {
-                                             "_typeName" : "RelativeValue",
-                                             "type" : 0,
-                                             "value" : 0
-                                          }
-                                       },
-                                       "fillColor" : [ 0.7843137383460999, 0.7843137383460999, 0.7843137383460999, 1 ],
-                                       "imageColor" : [ 1, 1, 1, 1 ],
-                                       "imageHeight" : 50,
-                                       "imageName" : "magic_icons\\fireball_icon.png",
-                                       "imageWidth" : 50,
-                                       "useGradient" : true
-                                    }
-                                 }
-                              ],
-                              "position" : {
-                                 "_typeName" : "AligningOffset",
-                                 "horAlign" : 0,
-                                 "horOffset" : {
-                                    "_typeName" : "RelativeValue",
-                                    "type" : 1,
-                                    "value" : 0
-                                 },
-                                 "vertAlign" : 1,
-                                 "vertOffset" : {
-                                    "_typeName" : "RelativeValue",
-                                    "type" : 1,
-                                    "value" : 0
-                                 }
-                              }
-                           },
-                           {
-                              "_name" : "magicIcon22",
-                              "_typeName" : "CanvasLayout",
-                              "adjustment" : 0,
-                              "box" : {
-                                 "_typeName" : "PixelBox",
-                                 "height" : 50,
-                                 "width" : 50
-                              },
-                              "list" : [
-                                 {
-                                    "_name" : "button",
-                                    "_typeName" : "Button",
-                                    "position" : {
-                                       "_typeName" : "AligningOffset",
-                                       "horAlign" : 1,
-                                       "horOffset" : {
-                                          "_typeName" : "RelativeValue",
-                                          "type" : 1,
-                                          "value" : 0
-                                       },
-                                       "vertAlign" : 1,
-                                       "vertOffset" : {
-                                          "_typeName" : "RelativeValue",
-                                          "type" : 1,
-                                          "value" : 0
-                                       }
-                                    },
-                                    "skin" : {
-                                       "_typeName" : "RectangleImageButtonSkin",
-                                       "borderColor" : [ 0, 0, 0, 1 ],
-                                       "borderWidth" : 1,
-                                       "box" : {
-                                          "_typeName" : "RelativeBox",
-                                          "height" : {
-                                             "_typeName" : "RelativeValue",
-                                             "type" : 0,
-                                             "value" : 0
-                                          },
-                                          "offset" : {
-                                             "_empty" : true
-                                          },
-                                          "width" : {
-                                             "_typeName" : "RelativeValue",
-                                             "type" : 0,
-                                             "value" : 0
-                                          }
-                                       },
-                                       "fillColor" : [ 0.7843137383460999, 0.7843137383460999, 0.7843137383460999, 1 ],
-                                       "imageColor" : [ 1, 1, 1, 1 ],
-                                       "imageHeight" : 50,
-                                       "imageName" : "magic_icons\\fireball_icon.png",
-                                       "imageWidth" : 50,
-                                       "useGradient" : true
-                                    }
-                                 }
-                              ],
-                              "position" : {
-                                 "_typeName" : "AligningOffset",
-                                 "horAlign" : 0,
-                                 "horOffset" : {
-                                    "_typeName" : "RelativeValue",
-                                    "type" : 1,
-                                    "value" : 10
-                                 },
-                                 "vertAlign" : 1,
-                                 "vertOffset" : {
-                                    "_typeName" : "RelativeValue",
-                                    "type" : 1,
-                                    "value" : 0
-                                 }
-                              }
-                           },
-                           {
-                              "_name" : "magicIcon23",
-                              "_typeName" : "CanvasLayout",
-                              "adjustment" : 0,
-                              "box" : {
-                                 "_typeName" : "PixelBox",
-                                 "height" : 50,
-                                 "width" : 50
-                              },
-                              "list" : [
-                                 {
-                                    "_name" : "button",
-                                    "_typeName" : "Button",
-                                    "position" : {
-                                       "_typeName" : "AligningOffset",
-                                       "horAlign" : 1,
-                                       "horOffset" : {
-                                          "_typeName" : "RelativeValue",
-                                          "type" : 1,
-                                          "value" : 0
-                                       },
-                                       "vertAlign" : 1,
-                                       "vertOffset" : {
-                                          "_typeName" : "RelativeValue",
-                                          "type" : 1,
-                                          "value" : 0
-                                       }
-                                    },
-                                    "skin" : {
-                                       "_typeName" : "RectangleImageButtonSkin",
-                                       "borderColor" : [ 0, 0, 0, 1 ],
-                                       "borderWidth" : 1,
-                                       "box" : {
-                                          "_typeName" : "RelativeBox",
-                                          "height" : {
-                                             "_typeName" : "RelativeValue",
-                                             "type" : 0,
-                                             "value" : 0
-                                          },
-                                          "offset" : {
-                                             "_empty" : true
-                                          },
-                                          "width" : {
-                                             "_typeName" : "RelativeValue",
-                                             "type" : 0,
-                                             "value" : 0
-                                          }
-                                       },
-                                       "fillColor" : [ 0.7843137383460999, 0.7843137383460999, 0.7843137383460999, 1 ],
-                                       "imageColor" : [ 1, 1, 1, 1 ],
-                                       "imageHeight" : 50,
-                                       "imageName" : "magic_icons\\fireball_icon.png",
-                                       "imageWidth" : 50,
-                                       "useGradient" : true
-                                    }
-                                 }
-                              ],
-                              "position" : {
-                                 "_typeName" : "AligningOffset",
-                                 "horAlign" : 0,
-                                 "horOffset" : {
-                                    "_typeName" : "RelativeValue",
-                                    "type" : 1,
-                                    "value" : 10
-                                 },
-                                 "vertAlign" : 1,
-                                 "vertOffset" : {
-                                    "_typeName" : "RelativeValue",
-                                    "type" : 1,
-                                    "value" : 0
-                                 }
-                              }
-                           },
-                           {
-                              "_name" : "magicIcon4",
-                              "_typeName" : "CanvasLayout",
-                              "adjustment" : 0,
-                              "box" : {
-                                 "_typeName" : "PixelBox",
-                                 "height" : 50,
-                                 "width" : 50
-                              },
-                              "list" : [
-                                 {
-                                    "_name" : "button",
-                                    "_typeName" : "Button",
-                                    "position" : {
-                                       "_typeName" : "AligningOffset",
-                                       "horAlign" : 1,
-                                       "horOffset" : {
-                                          "_typeName" : "RelativeValue",
-                                          "type" : 1,
-                                          "value" : 0
-                                       },
-                                       "vertAlign" : 1,
-                                       "vertOffset" : {
-                                          "_typeName" : "RelativeValue",
-                                          "type" : 1,
-                                          "value" : 0
-                                       }
-                                    },
-                                    "skin" : {
-                                       "_typeName" : "RectangleImageButtonSkin",
-                                       "borderColor" : [ 0, 0, 0, 1 ],
-                                       "borderWidth" : 1,
-                                       "box" : {
-                                          "_typeName" : "RelativeBox",
-                                          "height" : {
-                                             "_typeName" : "RelativeValue",
-                                             "type" : 0,
-                                             "value" : 0
-                                          },
-                                          "offset" : {
-                                             "_empty" : true
-                                          },
-                                          "width" : {
-                                             "_typeName" : "RelativeValue",
-                                             "type" : 0,
-                                             "value" : 0
-                                          }
-                                       },
-                                       "fillColor" : [ 0.7843137383460999, 0.7843137383460999, 0.7843137383460999, 1 ],
-                                       "imageColor" : [ 1, 1, 1, 1 ],
-                                       "imageHeight" : 50,
-                                       "imageName" : "magic_icons\\fireball_icon.png",
-                                       "imageWidth" : 50,
-                                       "useGradient" : true
-                                    }
-                                 }
-                              ],
-                              "position" : {
-                                 "_typeName" : "AligningOffset",
-                                 "horAlign" : 0,
-                                 "horOffset" : {
-                                    "_typeName" : "RelativeValue",
-                                    "type" : 1,
-                                    "value" : 10
-                                 },
-                                 "vertAlign" : 1,
-                                 "vertOffset" : {
-                                    "_typeName" : "RelativeValue",
-                                    "type" : 1,
-                                    "value" : 0
-                                 }
-                              }
-                           },
-                           {
-                              "_name" : "magicIcon5",
-                              "_typeName" : "CanvasLayout",
-                              "adjustment" : 0,
-                              "box" : {
-                                 "_typeName" : "PixelBox",
-                                 "height" : 50,
-                                 "width" : 50
-                              },
-                              "list" : [
-                                 {
-                                    "_name" : "button",
-                                    "_typeName" : "Button",
-                                    "position" : {
-                                       "_typeName" : "AligningOffset",
-                                       "horAlign" : 1,
-                                       "horOffset" : {
-                                          "_typeName" : "RelativeValue",
-                                          "type" : 1,
-                                          "value" : 0
-                                       },
-                                       "vertAlign" : 1,
-                                       "vertOffset" : {
-                                          "_typeName" : "RelativeValue",
-                                          "type" : 1,
-                                          "value" : 0
-                                       }
-                                    },
-                                    "skin" : {
-                                       "_typeName" : "RectangleImageButtonSkin",
-                                       "borderColor" : [ 0, 0, 0, 1 ],
-                                       "borderWidth" : 1,
-                                       "box" : {
-                                          "_typeName" : "RelativeBox",
-                                          "height" : {
-                                             "_typeName" : "RelativeValue",
-                                             "type" : 0,
-                                             "value" : 0
-                                          },
-                                          "offset" : {
-                                             "_empty" : true
-                                          },
-                                          "width" : {
-                                             "_typeName" : "RelativeValue",
-                                             "type" : 0,
-                                             "value" : 0
-                                          }
-                                       },
-                                       "fillColor" : [ 0.7843137383460999, 0.7843137383460999, 0.7843137383460999, 1 ],
-                                       "imageColor" : [ 1, 1, 1, 1 ],
-                                       "imageHeight" : 50,
-                                       "imageName" : "magic_icons\\fireball_icon.png",
-                                       "imageWidth" : 50,
-                                       "useGradient" : true
-                                    }
-                                 }
-                              ],
-                              "position" : {
-                                 "_typeName" : "AligningOffset",
-                                 "horAlign" : 0,
-                                 "horOffset" : {
-                                    "_typeName" : "RelativeValue",
-                                    "type" : 1,
-                                    "value" : 10
-                                 },
-                                 "vertAlign" : 1,
-                                 "vertOffset" : {
-                                    "_typeName" : "RelativeValue",
-                                    "type" : 1,
-                                    "value" : 0
-                                 }
-                              }
-                           },
-                           {
-                              "_name" : "magicIcon6",
-                              "_typeName" : "CanvasLayout",
-                              "adjustment" : 0,
-                              "box" : {
-                                 "_typeName" : "PixelBox",
-                                 "height" : 50,
-                                 "width" : 50
-                              },
-                              "list" : [
-                                 {
-                                    "_name" : "button",
-                                    "_typeName" : "Button",
-                                    "position" : {
-                                       "_typeName" : "AligningOffset",
-                                       "horAlign" : 1,
-                                       "horOffset" : {
-                                          "_typeName" : "RelativeValue",
-                                          "type" : 1,
-                                          "value" : 0
-                                       },
-                                       "vertAlign" : 1,
-                                       "vertOffset" : {
-                                          "_typeName" : "RelativeValue",
-                                          "type" : 1,
-                                          "value" : 0
-                                       }
-                                    },
-                                    "skin" : {
-                                       "_typeName" : "RectangleImageButtonSkin",
-                                       "borderColor" : [ 0, 0, 0, 1 ],
-                                       "borderWidth" : 1,
-                                       "box" : {
-                                          "_typeName" : "RelativeBox",
-                                          "height" : {
-                                             "_typeName" : "RelativeValue",
-                                             "type" : 0,
-                                             "value" : 0
-                                          },
-                                          "offset" : {
-                                             "_empty" : true
-                                          },
-                                          "width" : {
-                                             "_typeName" : "RelativeValue",
-                                             "type" : 0,
-                                             "value" : 0
-                                          }
-                                       },
-                                       "fillColor" : [ 0.7843137383460999, 0.7843137383460999, 0.7843137383460999, 1 ],
-                                       "imageColor" : [ 1, 1, 1, 1 ],
-                                       "imageHeight" : 50,
-                                       "imageName" : "magic_icons\\fireball_icon.png",
-                                       "imageWidth" : 50,
-                                       "useGradient" : true
-                                    }
-                                 }
-                              ],
-                              "position" : {
-                                 "_typeName" : "AligningOffset",
-                                 "horAlign" : 0,
-                                 "horOffset" : {
-                                    "_typeName" : "RelativeValue",
-                                    "type" : 1,
-                                    "value" : 10
-                                 },
-                                 "vertAlign" : 1,
-                                 "vertOffset" : {
-                                    "_typeName" : "RelativeValue",
-                                    "type" : 1,
-                                    "value" : 0
-                                 }
-                              }
-                           },
-                           {
-                              "_name" : "magicIcon7",
-                              "_typeName" : "CanvasLayout",
-                              "adjustment" : 0,
-                              "box" : {
-                                 "_typeName" : "PixelBox",
-                                 "height" : 50,
-                                 "width" : 50
-                              },
-                              "list" : [
-                                 {
-                                    "_name" : "button",
-                                    "_typeName" : "Button",
-                                    "position" : {
-                                       "_typeName" : "AligningOffset",
-                                       "horAlign" : 1,
-                                       "horOffset" : {
-                                          "_typeName" : "RelativeValue",
-                                          "type" : 1,
-                                          "value" : 0
-                                       },
-                                       "vertAlign" : 1,
-                                       "vertOffset" : {
-                                          "_typeName" : "RelativeValue",
-                                          "type" : 1,
-                                          "value" : 0
-                                       }
-                                    },
-                                    "skin" : {
-                                       "_typeName" : "RectangleImageButtonSkin",
-                                       "borderColor" : [ 0, 0, 0, 1 ],
-                                       "borderWidth" : 1,
-                                       "box" : {
-                                          "_typeName" : "RelativeBox",
-                                          "height" : {
-                                             "_typeName" : "RelativeValue",
-                                             "type" : 0,
-                                             "value" : 0
-                                          },
-                                          "offset" : {
-                                             "_empty" : true
-                                          },
-                                          "width" : {
-                                             "_typeName" : "RelativeValue",
-                                             "type" : 0,
-                                             "value" : 0
-                                          }
-                                       },
-                                       "fillColor" : [ 0.7843137383460999, 0.7843137383460999, 0.7843137383460999, 1 ],
-                                       "imageColor" : [ 1, 1, 1, 1 ],
-                                       "imageHeight" : 50,
-                                       "imageName" : "magic_icons\\fireball_icon.png",
-                                       "imageWidth" : 50,
-                                       "useGradient" : true
-                                    }
-                                 }
-                              ],
-                              "position" : {
-                                 "_typeName" : "AligningOffset",
-                                 "horAlign" : 0,
-                                 "horOffset" : {
-                                    "_typeName" : "RelativeValue",
-                                    "type" : 1,
-                                    "value" : 10
-                                 },
-                                 "vertAlign" : 1,
-                                 "vertOffset" : {
-                                    "_typeName" : "RelativeValue",
-                                    "type" : 1,
-                                    "value" : 0
-                                 }
-                              }
-                           },
-                           {
-                              "_name" : "magicIcon8",
-                              "_typeName" : "CanvasLayout",
-                              "adjustment" : 0,
-                              "box" : {
-                                 "_typeName" : "PixelBox",
-                                 "height" : 50,
-                                 "width" : 50
-                              },
-                              "list" : [
-                                 {
-                                    "_name" : "button",
-                                    "_typeName" : "Button",
-                                    "position" : {
-                                       "_typeName" : "AligningOffset",
-                                       "horAlign" : 1,
-                                       "horOffset" : {
-                                          "_typeName" : "RelativeValue",
-                                          "type" : 1,
-                                          "value" : 0
-                                       },
-                                       "vertAlign" : 1,
-                                       "vertOffset" : {
-                                          "_typeName" : "RelativeValue",
-                                          "type" : 1,
-                                          "value" : 0
-                                       }
-                                    },
-                                    "skin" : {
-                                       "_typeName" : "RectangleImageButtonSkin",
-                                       "borderColor" : [ 0, 0, 0, 1 ],
-                                       "borderWidth" : 1,
-                                       "box" : {
-                                          "_typeName" : "RelativeBox",
-                                          "height" : {
-                                             "_typeName" : "RelativeValue",
-                                             "type" : 0,
-                                             "value" : 0
-                                          },
-                                          "offset" : {
-                                             "_empty" : true
-                                          },
-                                          "width" : {
-                                             "_typeName" : "RelativeValue",
-                                             "type" : 0,
-                                             "value" : 0
-                                          }
-                                       },
-                                       "fillColor" : [ 0.7843137383460999, 0.7843137383460999, 0.7843137383460999, 1 ],
-                                       "imageColor" : [ 1, 1, 1, 1 ],
-                                       "imageHeight" : 50,
-                                       "imageName" : "magic_icons\\fireball_icon.png",
-                                       "imageWidth" : 50,
-                                       "useGradient" : true
-                                    }
-                                 }
-                              ],
-                              "position" : {
-                                 "_typeName" : "AligningOffset",
-                                 "horAlign" : 0,
-                                 "horOffset" : {
-                                    "_typeName" : "RelativeValue",
-                                    "type" : 1,
-                                    "value" : 10
-                                 },
-                                 "vertAlign" : 1,
-                                 "vertOffset" : {
-                                    "_typeName" : "RelativeValue",
-                                    "type" : 1,
-                                    "value" : 0
-                                 }
-                              }
-                           },
-                           {
-                              "_name" : "magicIcon9",
-                              "_typeName" : "CanvasLayout",
-                              "adjustment" : 0,
-                              "box" : {
-                                 "_typeName" : "PixelBox",
-                                 "height" : 50,
-                                 "width" : 50
-                              },
-                              "list" : [
-                                 {
-                                    "_name" : "button",
-                                    "_typeName" : "Button",
-                                    "position" : {
-                                       "_typeName" : "AligningOffset",
-                                       "horAlign" : 1,
-                                       "horOffset" : {
-                                          "_typeName" : "RelativeValue",
-                                          "type" : 1,
-                                          "value" : 0
-                                       },
-                                       "vertAlign" : 1,
-                                       "vertOffset" : {
-                                          "_typeName" : "RelativeValue",
-                                          "type" : 1,
-                                          "value" : 0
-                                       }
-                                    },
-                                    "skin" : {
-                                       "_typeName" : "RectangleImageButtonSkin",
-                                       "borderColor" : [ 0, 0, 0, 1 ],
-                                       "borderWidth" : 1,
-                                       "box" : {
-                                          "_typeName" : "RelativeBox",
-                                          "height" : {
-                                             "_typeName" : "RelativeValue",
-                                             "type" : 0,
-                                             "value" : 0
-                                          },
-                                          "offset" : {
-                                             "_empty" : true
-                                          },
-                                          "width" : {
-                                             "_typeName" : "RelativeValue",
-                                             "type" : 0,
-                                             "value" : 0
-                                          }
-                                       },
-                                       "fillColor" : [ 0.7843137383460999, 0.7843137383460999, 0.7843137383460999, 1 ],
-                                       "imageColor" : [ 1, 1, 1, 1 ],
-                                       "imageHeight" : 50,
-                                       "imageName" : "magic_icons\\fireball_icon.png",
-                                       "imageWidth" : 50,
-                                       "useGradient" : true
-                                    }
-                                 }
-                              ],
-                              "position" : {
-                                 "_typeName" : "AligningOffset",
-                                 "horAlign" : 0,
-                                 "horOffset" : {
-                                    "_typeName" : "RelativeValue",
-                                    "type" : 1,
-                                    "value" : 10
-                                 },
-                                 "vertAlign" : 1,
-                                 "vertOffset" : {
-                                    "_typeName" : "RelativeValue",
-                                    "type" : 1,
-                                    "value" : 0
-                                 }
-                              }
-                           },
-                           {
-                              "_name" : "magicIcon10",
-                              "_typeName" : "CanvasLayout",
-                              "adjustment" : 0,
-                              "box" : {
-                                 "_typeName" : "PixelBox",
-                                 "height" : 50,
-                                 "width" : 50
-                              },
-                              "list" : [
-                                 {
-                                    "_name" : "button",
-                                    "_typeName" : "Button",
-                                    "position" : {
-                                       "_typeName" : "AligningOffset",
-                                       "horAlign" : 1,
-                                       "horOffset" : {
-                                          "_typeName" : "RelativeValue",
-                                          "type" : 1,
-                                          "value" : 0
-                                       },
-                                       "vertAlign" : 1,
-                                       "vertOffset" : {
-                                          "_typeName" : "RelativeValue",
-                                          "type" : 1,
-                                          "value" : 0
-                                       }
-                                    },
-                                    "skin" : {
-                                       "_typeName" : "RectangleImageButtonSkin",
-                                       "borderColor" : [ 0, 0, 0, 1 ],
-                                       "borderWidth" : 1,
-                                       "box" : {
-                                          "_typeName" : "RelativeBox",
-                                          "height" : {
-                                             "_typeName" : "RelativeValue",
-                                             "type" : 0,
-                                             "value" : 0
-                                          },
-                                          "offset" : {
-                                             "_empty" : true
-                                          },
-                                          "width" : {
-                                             "_typeName" : "RelativeValue",
-                                             "type" : 0,
-                                             "value" : 0
-                                          }
-                                       },
-                                       "fillColor" : [ 0.7843137383460999, 0.7843137383460999, 0.7843137383460999, 1 ],
-                                       "imageColor" : [ 1, 1, 1, 1 ],
-                                       "imageHeight" : 50,
-                                       "imageName" : "magic_icons\\fireball_icon.png",
-                                       "imageWidth" : 50,
-                                       "useGradient" : true
-                                    }
-                                 }
-                              ],
-                              "position" : {
-                                 "_typeName" : "AligningOffset",
-                                 "horAlign" : 0,
-                                 "horOffset" : {
-                                    "_typeName" : "RelativeValue",
-                                    "type" : 1,
-                                    "value" : 10
-                                 },
-                                 "vertAlign" : 1,
-                                 "vertOffset" : {
-                                    "_typeName" : "RelativeValue",
-                                    "type" : 1,
-                                    "value" : 0
-                                 }
-                              }
-                           }
-                        ],
-                        "position" : {
-                           "_typeName" : "AligningOffset",
-                           "horAlign" : 1,
-                           "horOffset" : {
-                              "_typeName" : "RelativeValue",
-                              "type" : 1,
-                              "value" : 0
-                           },
-                           "vertAlign" : 0,
-                           "vertOffset" : {
-                              "_typeName" : "RelativeValue",
-                              "type" : 1,
-                              "value" : -10
-                           }
-                        },
-                        "skin" : {
-                           "_typeName" : "HorizontalLayoutSkin",
-                           "adjustment" : 1,
-                           "align" : 1,
-                           "box" : {
-                              "_typeName" : "PixelBox",
-                              "height" : 75,
-                              "width" : 680
-                           },
-                           "padding" : {
-                              "_typeName" : "RelativeValue",
-                              "type" : 1,
-                              "value" : 10
-                           }
-                        },
-                        "skipInvisibleElements" : false
-                     },
-                     {
-                        "_typeName" : "LinearLayout",
-                        "_visible" : false,
-                        "list" : [
-                           {
-                              "_name" : "magicIcon31",
-                              "_typeName" : "CanvasLayout",
-                              "adjustment" : 0,
-                              "box" : {
-                                 "_typeName" : "PixelBox",
-                                 "height" : 50,
-                                 "width" : 50
-                              },
-                              "list" : [
-                                 {
-                                    "_name" : "button",
-                                    "_typeName" : "Button",
-                                    "position" : {
-                                       "_typeName" : "AligningOffset",
-                                       "horAlign" : 1,
-                                       "horOffset" : {
-                                          "_typeName" : "RelativeValue",
-                                          "type" : 1,
-                                          "value" : 0
-                                       },
-                                       "vertAlign" : 1,
-                                       "vertOffset" : {
-                                          "_typeName" : "RelativeValue",
-                                          "type" : 1,
-                                          "value" : 0
-                                       }
-                                    },
-                                    "skin" : {
-                                       "_typeName" : "RectangleImageButtonSkin",
-                                       "borderColor" : [ 0, 0, 0, 1 ],
-                                       "borderWidth" : 1,
-                                       "box" : {
-                                          "_typeName" : "RelativeBox",
-                                          "height" : {
-                                             "_typeName" : "RelativeValue",
-                                             "type" : 0,
-                                             "value" : 0
-                                          },
-                                          "offset" : {
-                                             "_empty" : true
-                                          },
-                                          "width" : {
-                                             "_typeName" : "RelativeValue",
-                                             "type" : 0,
-                                             "value" : 0
-                                          }
-                                       },
-                                       "fillColor" : [ 0.7843137383460999, 0.7843137383460999, 0.7843137383460999, 1 ],
-                                       "imageColor" : [ 1, 1, 1, 1 ],
-                                       "imageHeight" : 50,
-                                       "imageName" : "magic_icons\\fireball_icon.png",
-                                       "imageWidth" : 50,
-                                       "useGradient" : true
-                                    }
-                                 }
-                              ],
-                              "position" : {
-                                 "_typeName" : "AligningOffset",
-                                 "horAlign" : 0,
-                                 "horOffset" : {
-                                    "_typeName" : "RelativeValue",
-                                    "type" : 1,
-                                    "value" : 0
-                                 },
-                                 "vertAlign" : 1,
-                                 "vertOffset" : {
-                                    "_typeName" : "RelativeValue",
-                                    "type" : 1,
-                                    "value" : 0
-                                 }
-                              }
-                           },
-                           {
-                              "_name" : "magicIcon32",
-                              "_typeName" : "CanvasLayout",
-                              "adjustment" : 0,
-                              "box" : {
-                                 "_typeName" : "PixelBox",
-                                 "height" : 50,
-                                 "width" : 50
-                              },
-                              "list" : [
-                                 {
-                                    "_name" : "button",
-                                    "_typeName" : "Button",
-                                    "position" : {
-                                       "_typeName" : "AligningOffset",
-                                       "horAlign" : 1,
-                                       "horOffset" : {
-                                          "_typeName" : "RelativeValue",
-                                          "type" : 1,
-                                          "value" : 0
-                                       },
-                                       "vertAlign" : 1,
-                                       "vertOffset" : {
-                                          "_typeName" : "RelativeValue",
-                                          "type" : 1,
-                                          "value" : 0
-                                       }
-                                    },
-                                    "skin" : {
-                                       "_typeName" : "RectangleImageButtonSkin",
-                                       "borderColor" : [ 0, 0, 0, 1 ],
-                                       "borderWidth" : 1,
-                                       "box" : {
-                                          "_typeName" : "RelativeBox",
-                                          "height" : {
-                                             "_typeName" : "RelativeValue",
-                                             "type" : 0,
-                                             "value" : 0
-                                          },
-                                          "offset" : {
-                                             "_empty" : true
-                                          },
-                                          "width" : {
-                                             "_typeName" : "RelativeValue",
-                                             "type" : 0,
-                                             "value" : 0
-                                          }
-                                       },
-                                       "fillColor" : [ 0.7843137383460999, 0.7843137383460999, 0.7843137383460999, 1 ],
-                                       "imageColor" : [ 1, 1, 1, 1 ],
-                                       "imageHeight" : 50,
-                                       "imageName" : "magic_icons\\fireball_icon.png",
-                                       "imageWidth" : 50,
-                                       "useGradient" : true
-                                    }
-                                 }
-                              ],
-                              "position" : {
-                                 "_typeName" : "AligningOffset",
-                                 "horAlign" : 0,
-                                 "horOffset" : {
-                                    "_typeName" : "RelativeValue",
-                                    "type" : 1,
-                                    "value" : 10
-                                 },
-                                 "vertAlign" : 1,
-                                 "vertOffset" : {
-                                    "_typeName" : "RelativeValue",
-                                    "type" : 1,
-                                    "value" : 0
-                                 }
-                              }
-                           },
-                           {
-                              "_name" : "magicIcon33",
-                              "_typeName" : "CanvasLayout",
-                              "adjustment" : 0,
-                              "box" : {
-                                 "_typeName" : "PixelBox",
-                                 "height" : 50,
-                                 "width" : 50
-                              },
-                              "list" : [
-                                 {
-                                    "_name" : "button",
-                                    "_typeName" : "Button",
-                                    "position" : {
-                                       "_typeName" : "AligningOffset",
-                                       "horAlign" : 1,
-                                       "horOffset" : {
-                                          "_typeName" : "RelativeValue",
-                                          "type" : 1,
-                                          "value" : 0
-                                       },
-                                       "vertAlign" : 1,
-                                       "vertOffset" : {
-                                          "_typeName" : "RelativeValue",
-                                          "type" : 1,
-                                          "value" : 0
-                                       }
-                                    },
-                                    "skin" : {
-                                       "_typeName" : "RectangleImageButtonSkin",
-                                       "borderColor" : [ 0, 0, 0, 1 ],
-                                       "borderWidth" : 1,
-                                       "box" : {
-                                          "_typeName" : "RelativeBox",
-                                          "height" : {
-                                             "_typeName" : "RelativeValue",
-                                             "type" : 0,
-                                             "value" : 0
-                                          },
-                                          "offset" : {
-                                             "_empty" : true
-                                          },
-                                          "width" : {
-                                             "_typeName" : "RelativeValue",
-                                             "type" : 0,
-                                             "value" : 0
-                                          }
-                                       },
-                                       "fillColor" : [ 0.7843137383460999, 0.7843137383460999, 0.7843137383460999, 1 ],
-                                       "imageColor" : [ 1, 1, 1, 1 ],
-                                       "imageHeight" : 50,
-                                       "imageName" : "magic_icons\\fireball_icon.png",
-                                       "imageWidth" : 50,
-                                       "useGradient" : true
-                                    }
-                                 }
-                              ],
-                              "position" : {
-                                 "_typeName" : "AligningOffset",
-                                 "horAlign" : 0,
-                                 "horOffset" : {
-                                    "_typeName" : "RelativeValue",
-                                    "type" : 1,
-                                    "value" : 10
-                                 },
-                                 "vertAlign" : 1,
-                                 "vertOffset" : {
-                                    "_typeName" : "RelativeValue",
-                                    "type" : 1,
-                                    "value" : 0
-                                 }
-                              }
-                           },
-                           {
-                              "_name" : "magicIcon4",
-                              "_typeName" : "CanvasLayout",
-                              "adjustment" : 0,
-                              "box" : {
-                                 "_typeName" : "PixelBox",
-                                 "height" : 50,
-                                 "width" : 50
-                              },
-                              "list" : [
-                                 {
-                                    "_name" : "button",
-                                    "_typeName" : "Button",
-                                    "position" : {
-                                       "_typeName" : "AligningOffset",
-                                       "horAlign" : 1,
-                                       "horOffset" : {
-                                          "_typeName" : "RelativeValue",
-                                          "type" : 1,
-                                          "value" : 0
-                                       },
-                                       "vertAlign" : 1,
-                                       "vertOffset" : {
-                                          "_typeName" : "RelativeValue",
-                                          "type" : 1,
-                                          "value" : 0
-                                       }
-                                    },
-                                    "skin" : {
-                                       "_typeName" : "RectangleImageButtonSkin",
-                                       "borderColor" : [ 0, 0, 0, 1 ],
-                                       "borderWidth" : 1,
-                                       "box" : {
-                                          "_typeName" : "RelativeBox",
-                                          "height" : {
-                                             "_typeName" : "RelativeValue",
-                                             "type" : 0,
-                                             "value" : 0
-                                          },
-                                          "offset" : {
-                                             "_empty" : true
-                                          },
-                                          "width" : {
-                                             "_typeName" : "RelativeValue",
-                                             "type" : 0,
-                                             "value" : 0
-                                          }
-                                       },
-                                       "fillColor" : [ 0.7843137383460999, 0.7843137383460999, 0.7843137383460999, 1 ],
-                                       "imageColor" : [ 1, 1, 1, 1 ],
-                                       "imageHeight" : 50,
-                                       "imageName" : "magic_icons\\fireball_icon.png",
-                                       "imageWidth" : 50,
-                                       "useGradient" : true
-                                    }
-                                 }
-                              ],
-                              "position" : {
-                                 "_typeName" : "AligningOffset",
-                                 "horAlign" : 0,
-                                 "horOffset" : {
-                                    "_typeName" : "RelativeValue",
-                                    "type" : 1,
-                                    "value" : 10
-                                 },
-                                 "vertAlign" : 1,
-                                 "vertOffset" : {
-                                    "_typeName" : "RelativeValue",
-                                    "type" : 1,
-                                    "value" : 0
-                                 }
-                              }
-                           },
-                           {
-                              "_name" : "magicIcon5",
-                              "_typeName" : "CanvasLayout",
-                              "adjustment" : 0,
-                              "box" : {
-                                 "_typeName" : "PixelBox",
-                                 "height" : 50,
-                                 "width" : 50
-                              },
-                              "list" : [
-                                 {
-                                    "_name" : "button",
-                                    "_typeName" : "Button",
-                                    "position" : {
-                                       "_typeName" : "AligningOffset",
-                                       "horAlign" : 1,
-                                       "horOffset" : {
-                                          "_typeName" : "RelativeValue",
-                                          "type" : 1,
-                                          "value" : 0
-                                       },
-                                       "vertAlign" : 1,
-                                       "vertOffset" : {
-                                          "_typeName" : "RelativeValue",
-                                          "type" : 1,
-                                          "value" : 0
-                                       }
-                                    },
-                                    "skin" : {
-                                       "_typeName" : "RectangleImageButtonSkin",
-                                       "borderColor" : [ 0, 0, 0, 1 ],
-                                       "borderWidth" : 1,
-                                       "box" : {
-                                          "_typeName" : "RelativeBox",
-                                          "height" : {
-                                             "_typeName" : "RelativeValue",
-                                             "type" : 0,
-                                             "value" : 0
-                                          },
-                                          "offset" : {
-                                             "_empty" : true
-                                          },
-                                          "width" : {
-                                             "_typeName" : "RelativeValue",
-                                             "type" : 0,
-                                             "value" : 0
-                                          }
-                                       },
-                                       "fillColor" : [ 0.7843137383460999, 0.7843137383460999, 0.7843137383460999, 1 ],
-                                       "imageColor" : [ 1, 1, 1, 1 ],
-                                       "imageHeight" : 50,
-                                       "imageName" : "magic_icons\\fireball_icon.png",
-                                       "imageWidth" : 50,
-                                       "useGradient" : true
-                                    }
-                                 }
-                              ],
-                              "position" : {
-                                 "_typeName" : "AligningOffset",
-                                 "horAlign" : 0,
-                                 "horOffset" : {
-                                    "_typeName" : "RelativeValue",
-                                    "type" : 1,
-                                    "value" : 10
-                                 },
-                                 "vertAlign" : 1,
-                                 "vertOffset" : {
-                                    "_typeName" : "RelativeValue",
-                                    "type" : 1,
-                                    "value" : 0
-                                 }
-                              }
-                           },
-                           {
-                              "_name" : "magicIcon6",
-                              "_typeName" : "CanvasLayout",
-                              "adjustment" : 0,
-                              "box" : {
-                                 "_typeName" : "PixelBox",
-                                 "height" : 50,
-                                 "width" : 50
-                              },
-                              "list" : [
-                                 {
-                                    "_name" : "button",
-                                    "_typeName" : "Button",
-                                    "position" : {
-                                       "_typeName" : "AligningOffset",
-                                       "horAlign" : 1,
-                                       "horOffset" : {
-                                          "_typeName" : "RelativeValue",
-                                          "type" : 1,
-                                          "value" : 0
-                                       },
-                                       "vertAlign" : 1,
-                                       "vertOffset" : {
-                                          "_typeName" : "RelativeValue",
-                                          "type" : 1,
-                                          "value" : 0
-                                       }
-                                    },
-                                    "skin" : {
-                                       "_typeName" : "RectangleImageButtonSkin",
-                                       "borderColor" : [ 0, 0, 0, 1 ],
-                                       "borderWidth" : 1,
-                                       "box" : {
-                                          "_typeName" : "RelativeBox",
-                                          "height" : {
-                                             "_typeName" : "RelativeValue",
-                                             "type" : 0,
-                                             "value" : 0
-                                          },
-                                          "offset" : {
-                                             "_empty" : true
-                                          },
-                                          "width" : {
-                                             "_typeName" : "RelativeValue",
-                                             "type" : 0,
-                                             "value" : 0
-                                          }
-                                       },
-                                       "fillColor" : [ 0.7843137383460999, 0.7843137383460999, 0.7843137383460999, 1 ],
-                                       "imageColor" : [ 1, 1, 1, 1 ],
-                                       "imageHeight" : 50,
-                                       "imageName" : "magic_icons\\fireball_icon.png",
-                                       "imageWidth" : 50,
-                                       "useGradient" : true
-                                    }
-                                 }
-                              ],
-                              "position" : {
-                                 "_typeName" : "AligningOffset",
-                                 "horAlign" : 0,
-                                 "horOffset" : {
-                                    "_typeName" : "RelativeValue",
-                                    "type" : 1,
-                                    "value" : 10
-                                 },
-                                 "vertAlign" : 1,
-                                 "vertOffset" : {
-                                    "_typeName" : "RelativeValue",
-                                    "type" : 1,
-                                    "value" : 0
-                                 }
-                              }
-                           },
-                           {
-                              "_name" : "magicIcon7",
-                              "_typeName" : "CanvasLayout",
-                              "adjustment" : 0,
-                              "box" : {
-                                 "_typeName" : "PixelBox",
-                                 "height" : 50,
-                                 "width" : 50
-                              },
-                              "list" : [
-                                 {
-                                    "_name" : "button",
-                                    "_typeName" : "Button",
-                                    "position" : {
-                                       "_typeName" : "AligningOffset",
-                                       "horAlign" : 1,
-                                       "horOffset" : {
-                                          "_typeName" : "RelativeValue",
-                                          "type" : 1,
-                                          "value" : 0
-                                       },
-                                       "vertAlign" : 1,
-                                       "vertOffset" : {
-                                          "_typeName" : "RelativeValue",
-                                          "type" : 1,
-                                          "value" : 0
-                                       }
-                                    },
-                                    "skin" : {
-                                       "_typeName" : "RectangleImageButtonSkin",
-                                       "borderColor" : [ 0, 0, 0, 1 ],
-                                       "borderWidth" : 1,
-                                       "box" : {
-                                          "_typeName" : "RelativeBox",
-                                          "height" : {
-                                             "_typeName" : "RelativeValue",
-                                             "type" : 0,
-                                             "value" : 0
-                                          },
-                                          "offset" : {
-                                             "_empty" : true
-                                          },
-                                          "width" : {
-                                             "_typeName" : "RelativeValue",
-                                             "type" : 0,
-                                             "value" : 0
-                                          }
-                                       },
-                                       "fillColor" : [ 0.7843137383460999, 0.7843137383460999, 0.7843137383460999, 1 ],
-                                       "imageColor" : [ 1, 1, 1, 1 ],
-                                       "imageHeight" : 50,
-                                       "imageName" : "magic_icons\\fireball_icon.png",
-                                       "imageWidth" : 50,
-                                       "useGradient" : true
-                                    }
-                                 }
-                              ],
-                              "position" : {
-                                 "_typeName" : "AligningOffset",
-                                 "horAlign" : 0,
-                                 "horOffset" : {
-                                    "_typeName" : "RelativeValue",
-                                    "type" : 1,
-                                    "value" : 10
-                                 },
-                                 "vertAlign" : 1,
-                                 "vertOffset" : {
-                                    "_typeName" : "RelativeValue",
-                                    "type" : 1,
-                                    "value" : 0
-                                 }
-                              }
-                           },
-                           {
-                              "_name" : "magicIcon8",
-                              "_typeName" : "CanvasLayout",
-                              "adjustment" : 0,
-                              "box" : {
-                                 "_typeName" : "PixelBox",
-                                 "height" : 50,
-                                 "width" : 50
-                              },
-                              "list" : [
-                                 {
-                                    "_name" : "button",
-                                    "_typeName" : "Button",
-                                    "position" : {
-                                       "_typeName" : "AligningOffset",
-                                       "horAlign" : 1,
-                                       "horOffset" : {
-                                          "_typeName" : "RelativeValue",
-                                          "type" : 1,
-                                          "value" : 0
-                                       },
-                                       "vertAlign" : 1,
-                                       "vertOffset" : {
-                                          "_typeName" : "RelativeValue",
-                                          "type" : 1,
-                                          "value" : 0
-                                       }
-                                    },
-                                    "skin" : {
-                                       "_typeName" : "RectangleImageButtonSkin",
-                                       "borderColor" : [ 0, 0, 0, 1 ],
-                                       "borderWidth" : 1,
-                                       "box" : {
-                                          "_typeName" : "RelativeBox",
-                                          "height" : {
-                                             "_typeName" : "RelativeValue",
-                                             "type" : 0,
-                                             "value" : 0
-                                          },
-                                          "offset" : {
-                                             "_empty" : true
-                                          },
-                                          "width" : {
-                                             "_typeName" : "RelativeValue",
-                                             "type" : 0,
-                                             "value" : 0
-                                          }
-                                       },
-                                       "fillColor" : [ 0.7843137383460999, 0.7843137383460999, 0.7843137383460999, 1 ],
-                                       "imageColor" : [ 1, 1, 1, 1 ],
-                                       "imageHeight" : 50,
-                                       "imageName" : "magic_icons\\fireball_icon.png",
-                                       "imageWidth" : 50,
-                                       "useGradient" : true
-                                    }
-                                 }
-                              ],
-                              "position" : {
-                                 "_typeName" : "AligningOffset",
-                                 "horAlign" : 0,
-                                 "horOffset" : {
-                                    "_typeName" : "RelativeValue",
-                                    "type" : 1,
-                                    "value" : 10
-                                 },
-                                 "vertAlign" : 1,
-                                 "vertOffset" : {
-                                    "_typeName" : "RelativeValue",
-                                    "type" : 1,
-                                    "value" : 0
-                                 }
-                              }
-                           },
-                           {
-                              "_name" : "magicIcon9",
-                              "_typeName" : "CanvasLayout",
-                              "adjustment" : 0,
-                              "box" : {
-                                 "_typeName" : "PixelBox",
-                                 "height" : 50,
-                                 "width" : 50
-                              },
-                              "list" : [
-                                 {
-                                    "_name" : "button",
-                                    "_typeName" : "Button",
-                                    "position" : {
-                                       "_typeName" : "AligningOffset",
-                                       "horAlign" : 1,
-                                       "horOffset" : {
-                                          "_typeName" : "RelativeValue",
-                                          "type" : 1,
-                                          "value" : 0
-                                       },
-                                       "vertAlign" : 1,
-                                       "vertOffset" : {
-                                          "_typeName" : "RelativeValue",
-                                          "type" : 1,
-                                          "value" : 0
-                                       }
-                                    },
-                                    "skin" : {
-                                       "_typeName" : "RectangleImageButtonSkin",
-                                       "borderColor" : [ 0, 0, 0, 1 ],
-                                       "borderWidth" : 1,
-                                       "box" : {
-                                          "_typeName" : "RelativeBox",
-                                          "height" : {
-                                             "_typeName" : "RelativeValue",
-                                             "type" : 0,
-                                             "value" : 0
-                                          },
-                                          "offset" : {
-                                             "_empty" : true
-                                          },
-                                          "width" : {
-                                             "_typeName" : "RelativeValue",
-                                             "type" : 0,
-                                             "value" : 0
-                                          }
-                                       },
-                                       "fillColor" : [ 0.7843137383460999, 0.7843137383460999, 0.7843137383460999, 1 ],
-                                       "imageColor" : [ 1, 1, 1, 1 ],
-                                       "imageHeight" : 50,
-                                       "imageName" : "magic_icons\\fireball_icon.png",
-                                       "imageWidth" : 50,
-                                       "useGradient" : true
-                                    }
-                                 }
-                              ],
-                              "position" : {
-                                 "_typeName" : "AligningOffset",
-                                 "horAlign" : 0,
-                                 "horOffset" : {
-                                    "_typeName" : "RelativeValue",
-                                    "type" : 1,
-                                    "value" : 10
-                                 },
-                                 "vertAlign" : 1,
-                                 "vertOffset" : {
-                                    "_typeName" : "RelativeValue",
-                                    "type" : 1,
-                                    "value" : 0
-                                 }
-                              }
-                           },
-                           {
-                              "_name" : "magicIcon10",
-                              "_typeName" : "CanvasLayout",
-                              "adjustment" : 0,
-                              "box" : {
-                                 "_typeName" : "PixelBox",
-                                 "height" : 50,
-                                 "width" : 50
-                              },
-                              "list" : [
-                                 {
-                                    "_name" : "button",
-                                    "_typeName" : "Button",
-                                    "position" : {
-                                       "_typeName" : "AligningOffset",
-                                       "horAlign" : 1,
-                                       "horOffset" : {
-                                          "_typeName" : "RelativeValue",
-                                          "type" : 1,
-                                          "value" : 0
-                                       },
-                                       "vertAlign" : 1,
-                                       "vertOffset" : {
-                                          "_typeName" : "RelativeValue",
-                                          "type" : 1,
-                                          "value" : 0
-                                       }
-                                    },
-                                    "skin" : {
-                                       "_typeName" : "RectangleImageButtonSkin",
-                                       "borderColor" : [ 0, 0, 0, 1 ],
-                                       "borderWidth" : 1,
-                                       "box" : {
-                                          "_typeName" : "RelativeBox",
-                                          "height" : {
-                                             "_typeName" : "RelativeValue",
-                                             "type" : 0,
-                                             "value" : 0
-                                          },
-                                          "offset" : {
-                                             "_empty" : true
-                                          },
-                                          "width" : {
-                                             "_typeName" : "RelativeValue",
-                                             "type" : 0,
-                                             "value" : 0
-                                          }
-                                       },
-                                       "fillColor" : [ 0.7843137383460999, 0.7843137383460999, 0.7843137383460999, 1 ],
-                                       "imageColor" : [ 1, 1, 1, 1 ],
-                                       "imageHeight" : 50,
-                                       "imageName" : "magic_icons\\fireball_icon.png",
-                                       "imageWidth" : 50,
-                                       "useGradient" : true
-                                    }
-                                 }
-                              ],
-                              "position" : {
-                                 "_typeName" : "AligningOffset",
-                                 "horAlign" : 0,
-                                 "horOffset" : {
-                                    "_typeName" : "RelativeValue",
-                                    "type" : 1,
-                                    "value" : 10
-                                 },
-                                 "vertAlign" : 1,
-                                 "vertOffset" : {
-                                    "_typeName" : "RelativeValue",
-                                    "type" : 1,
-                                    "value" : 0
-                                 }
-                              }
-                           }
-                        ],
-                        "position" : {
-                           "_typeName" : "AligningOffset",
-                           "horAlign" : 1,
-                           "horOffset" : {
-                              "_typeName" : "RelativeValue",
-                              "type" : 1,
-                              "value" : 0
-                           },
-                           "vertAlign" : 0,
-                           "vertOffset" : {
-                              "_typeName" : "RelativeValue",
-                              "type" : 1,
-                              "value" : -10
-                           }
-                        },
-                        "skin" : {
-                           "_typeName" : "HorizontalLayoutSkin",
-                           "adjustment" : 1,
-                           "align" : 1,
-                           "box" : {
-                              "_typeName" : "PixelBox",
-                              "height" : 75,
-                              "width" : 680
-                           },
-                           "padding" : {
-                              "_typeName" : "RelativeValue",
-                              "type" : 1,
-                              "value" : 10
+                              "value" : 0.0
                            }
                         },
                         "skipInvisibleElements" : false
@@ -2050,13 +662,13 @@
                      "horOffset" : {
                         "_typeName" : "RelativeValue",
                         "type" : 1,
-                        "value" : 0
+                        "value" : 0.0
                      },
                      "vertAlign" : 1,
                      "vertOffset" : {
                         "_typeName" : "RelativeValue",
                         "type" : 1,
-                        "value" : 0
+                        "value" : 0.0
                      }
                   },
                   "skin" : {
@@ -2068,7 +680,7 @@
                         "height" : {
                            "_typeName" : "RelativeValue",
                            "type" : 0,
-                           "value" : 0
+                           "value" : 0.0
                         },
                         "offset" : {
                            "_empty" : true
@@ -2076,13 +688,13 @@
                         "width" : {
                            "_typeName" : "RelativeValue",
                            "type" : 0,
-                           "value" : 0
+                           "value" : 0.0
                         }
                      },
                      "padding" : {
                         "_typeName" : "RelativeValue",
                         "type" : 1,
-                        "value" : -10
+                        "value" : -10.0
                      }
                   },
                   "skipInvisibleElements" : false
@@ -2096,34 +708,34 @@
                      "horOffset" : {
                         "_typeName" : "RelativeValue",
                         "type" : 1,
-                        "value" : -30
+                        "value" : -30.0
                      },
                      "vertAlign" : 0,
                      "vertOffset" : {
                         "_typeName" : "RelativeValue",
                         "type" : 1,
-                        "value" : -30
+                        "value" : -30.0
                      }
                   },
                   "skin" : {
                      "_typeName" : "SimpleRectangleButtonSkin",
-                     "borderColor" : [ 0, 0, 0, 1 ],
-                     "borderWidth" : 1,
+                     "borderColor" : [ 0.0, 0.0, 0.0, 1.0 ],
+                     "borderWidth" : 1.0,
                      "box" : {
                         "_typeName" : "PixelBox",
-                        "height" : 48,
-                        "width" : 48
+                        "height" : 48.0,
+                        "width" : 48.0
                      },
-                     "fillColor" : [ 0.7843137383460999, 0.7843137383460999, 0.7843137383460999, 1 ],
+                     "fillColor" : [ 0.78431373834609985, 0.78431373834609985, 0.78431373834609985, 1.0 ],
                      "font" : {
                         "_typeName" : "FontDesc",
                         "family" : "BulgariaModernaV3",
-                        "outlineWidth" : 1,
-                        "size" : 40
+                        "outlineWidth" : 1.0,
+                        "size" : 40.0
                      },
                      "text" : "X",
-                     "textColor" : [ 0, 0, 0, 1 ],
-                     "textOutlineColor" : [ 1, 1, 1, 1 ],
+                     "textColor" : [ 0.0, 0.0, 0.0, 1.0 ],
+                     "textOutlineColor" : [ 1.0, 1.0, 1.0, 1.0 ],
                      "useGradient" : true
                   }
                },
@@ -2134,8 +746,8 @@
                   "adjustment" : 0,
                   "box" : {
                      "_typeName" : "PixelBox",
-                     "height" : 200,
-                     "width" : 400
+                     "height" : 200.0,
+                     "width" : 400.0
                   },
                   "list" : [
                      {
@@ -2145,7 +757,7 @@
                            "height" : {
                               "_typeName" : "RelativeValue",
                               "type" : 0,
-                              "value" : 0
+                              "value" : 0.0
                            },
                            "offset" : {
                               "_empty" : true
@@ -2153,23 +765,23 @@
                            "width" : {
                               "_typeName" : "RelativeValue",
                               "type" : 0,
-                              "value" : 0
+                              "value" : 0.0
                            }
                         },
-                        "color" : [ 0, 0, 0, 1 ],
+                        "color" : [ 0.0, 0.0, 0.0, 1.0 ],
                         "position" : {
                            "_typeName" : "AligningOffset",
                            "horAlign" : 1,
                            "horOffset" : {
                               "_typeName" : "RelativeValue",
                               "type" : 1,
-                              "value" : 0
+                              "value" : 0.0
                            },
                            "vertAlign" : 1,
                            "vertOffset" : {
                               "_typeName" : "RelativeValue",
                               "type" : 1,
-                              "value" : 0
+                              "value" : 0.0
                            }
                         }
                      },
@@ -2180,7 +792,7 @@
                            "height" : {
                               "_typeName" : "RelativeValue",
                               "type" : 3,
-                              "value" : 2
+                              "value" : 2.0
                            },
                            "offset" : {
                               "_empty" : true
@@ -2188,23 +800,23 @@
                            "width" : {
                               "_typeName" : "RelativeValue",
                               "type" : 3,
-                              "value" : 2
+                              "value" : 2.0
                            }
                         },
-                        "color" : [ 1, 1, 1, 1 ],
+                        "color" : [ 1.0, 1.0, 1.0, 1.0 ],
                         "position" : {
                            "_typeName" : "AligningOffset",
                            "horAlign" : 1,
                            "horOffset" : {
                               "_typeName" : "RelativeValue",
                               "type" : 1,
-                              "value" : 0
+                              "value" : 0.0
                            },
                            "vertAlign" : 1,
                            "vertOffset" : {
                               "_typeName" : "RelativeValue",
                               "type" : 1,
-                              "value" : 0
+                              "value" : 0.0
                            }
                         }
                      },
@@ -2219,7 +831,7 @@
                                  "height" : {
                                     "_typeName" : "RelativeValue",
                                     "type" : 0,
-                                    "value" : 0
+                                    "value" : 0.0
                                  },
                                  "offset" : {
                                     "_empty" : true
@@ -2227,24 +839,24 @@
                                  "width" : {
                                     "_typeName" : "RelativeValue",
                                     "type" : 0,
-                                    "value" : 0
+                                    "value" : 0.0
                                  }
                               },
-                              "color" : [ 1, 1, 1, 1 ],
-                              "outlineColor" : [ 1, 0, 0, 1 ],
+                              "color" : [ 1.0, 1.0, 1.0, 1.0 ],
+                              "outlineColor" : [ 1.0, 0.0, 0.0, 1.0 ],
                               "position" : {
                                  "_typeName" : "AligningOffset",
                                  "horAlign" : 1,
                                  "horOffset" : {
                                     "_typeName" : "RelativeValue",
                                     "type" : 1,
-                                    "value" : 0
+                                    "value" : 0.0
                                  },
                                  "vertAlign" : 0,
                                  "vertOffset" : {
                                     "_typeName" : "RelativeValue",
                                     "type" : 1,
-                                    "value" : 0
+                                    "value" : 0.0
                                  }
                               },
                               "properties" : {
@@ -2253,8 +865,8 @@
                                  "font" : {
                                     "_typeName" : "FontDesc",
                                     "family" : "Roboto",
-                                    "outlineWidth" : 3,
-                                    "size" : 28
+                                    "outlineWidth" : 3.0,
+                                    "size" : 28.0
                                  },
                                  "horAlign" : 0,
                                  "vertAlign" : 0
@@ -2268,13 +880,13 @@
                            "horOffset" : {
                               "_typeName" : "RelativeValue",
                               "type" : 1,
-                              "value" : 0
+                              "value" : 0.0
                            },
                            "vertAlign" : 1,
                            "vertOffset" : {
                               "_typeName" : "RelativeValue",
                               "type" : 1,
-                              "value" : 0
+                              "value" : 0.0
                            }
                         },
                         "skin" : {
@@ -2286,7 +898,7 @@
                               "height" : {
                                  "_typeName" : "RelativeValue",
                                  "type" : 0,
-                                 "value" : 0
+                                 "value" : 0.0
                               },
                               "offset" : {
                                  "_empty" : true
@@ -2294,13 +906,13 @@
                               "width" : {
                                  "_typeName" : "RelativeValue",
                                  "type" : 0,
-                                 "value" : 0
+                                 "value" : 0.0
                               }
                            },
                            "padding" : {
                               "_typeName" : "RelativeValue",
                               "type" : 1,
-                              "value" : -30
+                              "value" : -30.0
                            }
                         },
                         "skipInvisibleElements" : false
@@ -2314,34 +926,34 @@
                            "horOffset" : {
                               "_typeName" : "RelativeValue",
                               "type" : 1,
-                              "value" : -10
+                              "value" : -10.0
                            },
                            "vertAlign" : 0,
                            "vertOffset" : {
                               "_typeName" : "RelativeValue",
                               "type" : 1,
-                              "value" : -10
+                              "value" : -10.0
                            }
                         },
                         "skin" : {
                            "_typeName" : "SimpleRectangleButtonSkin",
-                           "borderColor" : [ 0, 0, 0, 1 ],
-                           "borderWidth" : 1,
+                           "borderColor" : [ 0.0, 0.0, 0.0, 1.0 ],
+                           "borderWidth" : 1.0,
                            "box" : {
                               "_typeName" : "PixelBox",
-                              "height" : 48,
-                              "width" : 48
+                              "height" : 48.0,
+                              "width" : 48.0
                            },
-                           "fillColor" : [ 1, 1, 1, 1 ],
+                           "fillColor" : [ 1.0, 1.0, 1.0, 1.0 ],
                            "font" : {
                               "_typeName" : "FontDesc",
                               "family" : "Roboto",
-                              "outlineWidth" : 1,
-                              "size" : 28
+                              "outlineWidth" : 1.0,
+                              "size" : 28.0
                            },
                            "text" : "X",
-                           "textColor" : [ 0, 0, 0, 1 ],
-                           "textOutlineColor" : [ 1, 1, 1, 1 ],
+                           "textColor" : [ 0.0, 0.0, 0.0, 1.0 ],
+                           "textOutlineColor" : [ 1.0, 1.0, 1.0, 1.0 ],
                            "useGradient" : true
                         }
                      }
@@ -2352,13 +964,13 @@
                      "horOffset" : {
                         "_typeName" : "RelativeValue",
                         "type" : 1,
-                        "value" : 0
+                        "value" : 0.0
                      },
                      "vertAlign" : 1,
                      "vertOffset" : {
                         "_typeName" : "RelativeValue",
                         "type" : 1,
-                        "value" : 0
+                        "value" : 0.0
                      }
                   }
                },
@@ -2371,7 +983,7 @@
                      "height" : {
                         "_typeName" : "RelativeValue",
                         "type" : 0,
-                        "value" : 0
+                        "value" : 0.0
                      },
                      "offset" : {
                         "_empty" : true
@@ -2379,7 +991,7 @@
                      "width" : {
                         "_typeName" : "RelativeValue",
                         "type" : 0,
-                        "value" : 0
+                        "value" : 0.0
                      }
                   },
                   "list" : [],
@@ -2389,13 +1001,13 @@
                      "horOffset" : {
                         "_typeName" : "RelativeValue",
                         "type" : 1,
-                        "value" : 0
+                        "value" : 0.0
                      },
                      "vertAlign" : 1,
                      "vertOffset" : {
                         "_typeName" : "RelativeValue",
                         "type" : 1,
-                        "value" : 0
+                        "value" : 0.0
                      }
                   }
                }
@@ -2406,13 +1018,13 @@
                "horOffset" : {
                   "_typeName" : "RelativeValue",
                   "type" : 1,
-                  "value" : 0
+                  "value" : 0.0
                },
                "vertAlign" : 1,
                "vertOffset" : {
                   "_typeName" : "RelativeValue",
                   "type" : 1,
-                  "value" : 0
+                  "value" : 0.0
                }
             }
          },
@@ -2422,13 +1034,13 @@
             "horOffset" : {
                "_typeName" : "RelativeValue",
                "type" : 1,
-               "value" : 0
+               "value" : 0.0
             },
             "vertAlign" : 1,
             "vertOffset" : {
                "_typeName" : "RelativeValue",
                "type" : 1,
-               "value" : 0
+               "value" : 0.0
             }
          }
       }
@@ -2439,13 +1051,13 @@
       "horOffset" : {
          "_typeName" : "RelativeValue",
          "type" : 1,
-         "value" : 0
+         "value" : 0.0
       },
       "vertAlign" : 1,
       "vertOffset" : {
          "_typeName" : "RelativeValue",
          "type" : 1,
-         "value" : 0
+         "value" : 0.0
       }
    }
 }
