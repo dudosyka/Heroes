@@ -981,11 +981,11 @@ class MyApp : public App
 					{
 						rec.data(Rec).protectCastleArmy = createArmy({
 							{ unitType::myaso, 50 },
-							{ unitType::archer, 25 },
-							{ unitType::grifon, 15 },
-							{ unitType::chuvak, 10 },
-							{ unitType::horserider, 7 },
-							{ unitType::angel, 5 } }, neutral);
+							{ unitType::archer, 0 },
+							{ unitType::grifon, 0 },
+							{ unitType::chuvak, 0 },
+							{ unitType::horserider, 0 },
+							{ unitType::angel, 0 } }, neutral);
 					}
 				}
 				if (recmap[x][y] == sawmill)
@@ -1105,7 +1105,6 @@ class MyApp : public App
 	} //edwaeawduhwaduwhahdauwhdiwauhduhiwahuhdwuahdhwhauhdiuhiwuahidhwuahduhwuahdhwuahudwhduhwudhwuhdhwduhwhwuhduwhduhwhdhdwudhwuhduwhduhdiuwhduwhduwdhwhdwdwdwdhuwhdwhdhwdwhudwhuhegfteffdtefdfertwrwtrwtdrtwddfgsfdgsdfgsdgsd
 	
 	void updateHeroCastles() {
-
 		design.child<Layout>("castle_menu").clear();
 		for (auto Build : rec.all())
 		{
@@ -1497,7 +1496,8 @@ class MyApp : public App
 					cout << "Mouse on castleMagicBuild1" << endl;
 				}
 			}
-			if (input.justPressed(MouseLeft)/* &&  */&& !impl::isMouseOn(design.child<Layout>("right_game_menu").getImpl().get()) && forWindow.empty() && playerLayer.get(0).anim.isEmpty() && !impl::isMouseOn(Relog.getImpl().get()) && !impl::isMouseOn(heroQuests.getImpl().get()) && !impl::isMouseOn(newDirection.getImpl().get()) && !impl::isMouseOn(heroMenu.getImpl().get()) && !heroMenuOpen)
+			
+			if (input.justPressed(MouseLeft)/* &&  && !impl::isMouseOn(design.child<Layout>("castle_menu").child<Button>("castle_icon").getImpl().get())*/ && forWindow.empty() && playerLayer.get(0).anim.isEmpty() && !impl::isMouseOn(Relog.getImpl().get()) && !impl::isMouseOn(heroQuests.getImpl().get()) && !impl::isMouseOn(newDirection.getImpl().get()) && !impl::isMouseOn(heroMenu.getImpl().get()) && !heroMenuOpen)
 			{
 				if (stepPoints <= 0)
 				{
@@ -4275,7 +4275,6 @@ class MyApp : public App
 								if (rec.data(Rec).owner == playerLayer.data(playerLayer.get(0)).owner)
 								{
 									Rec.child<Texture>("flag").setColor(255, 0, 0, 255);
-									loadArmyHeroCastle(playerLayer.data(playerLayer.get(0)).army, Rec);
 									rec.data(Rec).heroInCastle = true;
 									openCastleMenu(Rec);
 									updateHeroCastles();
