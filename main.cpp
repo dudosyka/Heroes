@@ -82,6 +82,8 @@ class MyApp : public App
 		string name;
 		string opisalovo;
 	};
+	    
+
 
 	vector <Magic> AllMagic = {
 		{1, 70, 7, {}, damage, "lightning", "damage: 70 per unit Price: 7 mana"},
@@ -189,7 +191,7 @@ class MyApp : public App
 			0.6,
 			150,
 			true,
-			{1, 2, 3},
+			{/*1, 2, 3,*/ 4, 5},
 			10,
 			{},
 			{},
@@ -1324,7 +1326,7 @@ class MyApp : public App
 		{
 			if (units.data(nit).cords == cords)
 			{
-				return units.get(nit).id();
+				return nit.id();
 			}
 		}
 	}
@@ -1363,9 +1365,11 @@ class MyApp : public App
 					int lvl2 = unit2.type.lvl;
 					auto info = design.child<Layout>("fight_unit_stats");
 					info.show();
-					info.child<Label>("attack") << unit2.type.attack;
-					info.child<Label>("protect") << unit2.type.protect;
-					auto damage = damage_count(unit1.type.attack, unit2.type.protect, unit1.type.damage, unit1.n);
+					auto stats = countUnitStats(fight_field_map[c.x][c.y]);
+					//jutrtro0okroiifewfiojwfkoprewfpokkopfepwokopkefkopefkopwdkpoefwkpofekpofekpwefkpowefkpoefwkpowefkopefwpkoekpowefkopewfkopewfpokewfkpoewfkopewfkopewfkopefwkpewkopewfkpoewfkpowefkopekopekopekpoewfkopwefkpofewkopewfkopfewkopefkoefkopekopwefkopwefokpwefkopewfopkwefokpwefkopefwkopefwkopwefkopewfkopekopekopewkopfeefkpofkopewkfopewkfopewkfewopkpkowekopfkowekofepowekfoewkfefpkopwekfokwofpkeowkfweofkewofoew
+					info.child<Label>("attack") << stats[0];
+					info.child<Label>("protect") << stats[1];
+					auto damage = damage_count(stats[0], stats[1], unit1.type.damage, unit1.n);
 					auto die = die_count(damage, unit2.n, unit2.type.hp, lvl2);
 					info.child<Label>("enemy_die") << die;
 					if (kastuyu)
@@ -1449,14 +1453,14 @@ class MyApp : public App
 					}
 					else
 					{
-						magicAttack();
-						/*if (AllMagic[kastId - 1].type == damage)
+						if (AllMagic[kastId - 1].type == damage)
 						{
+							magicAttack();
 						}
 						else
 						{
 							useMagicBuff(kastId, getUnitIdByCords(c), AllMagic[kastId - 1].buff.isDeBuff);
-						}*/
+						}
 						units.data(fight_queue[0].second).unit.type.mana -= AllMagic[kastId - 1].price;
 					}
 				}
@@ -1468,14 +1472,15 @@ class MyApp : public App
 					}
 					else
 					{
-						magicAttack();
-						/*if (AllMagic[kastId - 1].type == damage)
+						
+						if (AllMagic[kastId - 1].type == damage)
 						{
+							magicAttack();
 						}
 						else
 						{
 							useMagicBuff(kastId, getUnitIdByCords(c), AllMagic[kastId - 1].buff.isDeBuff);
-						}*/
+						}
 						units.data(fight_queue[0].second).unit.type.mana -= AllMagic[kastId - 1].price;
 					}
 				}
@@ -3333,7 +3338,17 @@ class MyApp : public App
 			if (!empty(units.data(id).unit.type.availibleMagic) && units.data(id).unit.type.mana >= AllMagic[0].price)
 			{
 				prepare_kastanut_malexa(getMagicId(units.data(id).unit.type.mana), true);
-				magicAttack();
+				if (kastuyu)
+				{
+					if (AllMagic[kastId - 1].buff.type != btype::damage)
+					{
+						useMagicBuff(kastId, fight_queue[0].second, AllMagic[kastId - 1].buff.isDeBuff, true);
+					}
+					else
+					{
+						magicAttack();
+					}
+				}
 			}
 			else
 			{
@@ -3345,7 +3360,17 @@ class MyApp : public App
 			if (!empty(units.data(id).unit.type.availibleMagic))
 			{
 				prepare_kastanut_malexa(getMagicId(units.data(id).unit.type.mana), true);
-				magicAttack();
+				if (kastuyu)
+				{
+					if (AllMagic[kastId - 1].buff.type != btype::damage)
+					{
+						useMagicBuff(kastId, fight_queue[0].second, AllMagic[kastId - 1].buff.isDeBuff, true);
+					}
+					else
+					{
+						magicAttack();
+					}
+				}
 			}
 			else
 			{
@@ -3440,7 +3465,7 @@ class MyApp : public App
 		{
 			nextStepTimer.stop();
 		}
-		/*for (auto nit : units.all())
+		for (auto nit : units.all())
 		{
 			int i = 0;
 			for (auto& b : units.data(nit).unit.type.buffes)
@@ -3468,7 +3493,7 @@ class MyApp : public App
 				}
 				i++;
 			}
-		}*/
+		}
 		auto first = fight_queue[0];
 		fight_queue.pop_front();
 		fight_queue.push_back(first);
