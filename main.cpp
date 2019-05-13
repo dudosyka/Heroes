@@ -83,8 +83,6 @@ class MyApp : public App
 		string opisalovo;
 	};
 	    
-
-
 	vector <Magic> AllMagic = {
 		{1, 70, 7, {}, damage, "lightning", "damage: 70 per unit Price: 7 mana"},
 		{2, 50, 4, {}, damage, "fireball", "damage: 50 per unit Price: 4 mana"},
@@ -1788,7 +1786,49 @@ class MyApp : public App
 		return data;
 	}
 
-	set <IntVec2> get_fight_zone(IntVec2 start, int step)
+	set<IntVec2> magic_zone;
+
+	/*
+
+	void get_magic_zone(unitsData unit)
+	{
+		step_zone.hide();
+		magic_fight_zone.show();
+		auto owner = unit.owner;
+		for (auto a_main : units.all())
+		{
+			auto unit2 = units.data(a_main);
+			if (owner == unit2.owner) magic_zone.insert(unit2.cords);
+		}
+		draw_magic_fight_zone();
+	}
+
+	void draw_magic_fight_zone()
+	{
+		for (auto zitem : zone)
+		{
+			auto item = magic_fight_zone.load("zone_item.json", zitem.x * cellsize, zitem.y * cellsize);
+		}
+	}
+	*/
+	/*
+	[
+		{
+			"id" : 1,
+			"paramet_nomer_dwa" : "znachenie_parametra_nomer_dwa"
+		},
+		{
+		"id" : 2,
+		},
+		{
+		"id" : 3,
+		},
+		{
+		"id" : 4,
+		}
+	]*/
+
+	set <IntVec2> get_fight_zone(IntVec2 start, int step, bool isBuff)
 	{
 		GameMap dmap;
 		deque <IntVec2> queue;
@@ -1859,32 +1899,40 @@ class MyApp : public App
 
 		auto type = a.unit.type.strelyarcher;
 
-		auto type2 = a.owner;
-
-		/*if (!empty(a.unit.type.availibleMagic))
+		auto attack_owner = a.owner;
+		if (isBuff)
 		{
-			for (auto nit : units.all())
+			if (!empty(a.unit.type.availibleMagic))
 			{
-				auto& data = units.data(nit);
-				if (data.unit.type.type == a.unit.type.type)
+				for (auto nit : units.all())
 				{
-					if (data.owner == a.owner)
+					auto& data = units.data(nit);
+					if (data.unit.type.type == a.unit.type.type)
+					{
+						if (data.owner == a.owner)
+						{
+							continue;
+						}
+					}
+					if (data.owner != a.owner)
 					{
 						continue;
 					}
-				}
-				zone.insert(data.cords);
-			}
-		}*/
-
-		if (type)
-		{
-			for (auto nit : units.all())
-			{
-				auto& data = units.data(nit);
-				if (data.owner != type2)
-				{
 					zone.insert(data.cords);
+				}
+			}
+		}
+		else
+		{
+			if (type)
+			{
+				for (auto nit : units.all())
+				{
+					auto& data = units.data(nit);
+					if (data.owner != attack_owner)
+					{
+						zone.insert(data.cords);
+					}
 				}
 			}
 		}
@@ -2175,6 +2223,8 @@ class MyApp : public App
 		}
 		design.update();
 	}
+
+
 
 	bool heroStay(GameObj hero)
 	{
@@ -3258,6 +3308,10 @@ class MyApp : public App
 		}
 	}
 
+
+
+
+
 	deque <pair <int, int>> fight_queue; //fewkolfewoiewfhiwefiuhfewhufiuewfuhewihuerihufrcdiuhreihuihureihurfiuhrfiuhfrihurfikhufvikhu
 
 	deque <pair <int, int>> make_fight_queue ()
@@ -3284,11 +3338,14 @@ class MyApp : public App
 		units.get(id).child<Label>("fightUnitNum") << units.data(id).unit.n;
 	}
 
-	void draw_get_step_fight_zone(int id)
+	void draw_get_step_fight_zone(int id, bool isBuff = false)
 	{
+		step_zone.show();
+		magic_fight_zone.hide();
 		IntVec2 pos = units.data(id).cords;
 		int step = units.data(id).unit.type.stepPoint;
-		zone = get_fight_zone(pos, step);
+		auto owner = units.data(id).owner;
+		zone = get_fight_zone(pos, step, isBuff);
 		step_zone.clear();
 		auto a = step_zone.load("zone_item.json", pos.x * cellsize, pos.y * cellsize);
 		a.skin<Texture>().setColor(0, 0, 255, 100);
@@ -3503,7 +3560,7 @@ class MyApp : public App
 		{
 			IntVec2 pos = units.data(first2.second).cords;
 			int step = units.data(first2.second).unit.type.stepPoint;
-			zone = get_fight_zone(pos, step);
+			zone = get_fight_zone(pos, step, false);
 			step_zone.clear();
 			make_computer_step();
 		}
@@ -3530,6 +3587,7 @@ class MyApp : public App
 		design.child<Layout>("useKastWindow").clear();
 		design.child<Layout>("useKastWindow").hide();
 		useMagicUnit.enable();
+		draw_get_step_fight_zone(fight_queue[0].second);
 	}
 
 	void kastanut(int kast_id, bool bot = false)
@@ -3539,6 +3597,10 @@ class MyApp : public App
 		if (bot)
 		{
 			units.data(fight_queue[0].second).unit.type.mana -= AllMagic[kastId - 1].price;
+		}
+		if (AllMagic[kast_id - 1].type == buff)
+		{
+			draw_get_step_fight_zone(fight_queue[0].second, true);
 		}
 		closeMagicWindow();
 		useMagicUnit.enable();
@@ -3902,7 +3964,7 @@ class MyApp : public App
 		auto& unit2 = units.data(protectUnitId).unit;
 		auto unit1Stats = countUnitStats(attackUnitId);
 		auto unit2Stats = countUnitStats(protectUnitId);
-		if (!is_mi_ryadom(units.data(attackUnitId).cords, units.data(protectUnitId).cords) && !archer)
+		if (!is_mi_ryadom(units.data(attackUnitId).cords, units.data(protectUnitId).cords) && !archer && !kastuyu && useBuff)
 		{
 			isAttacking = true;
 			return;
@@ -4427,6 +4489,7 @@ class MyApp : public App
 	LayerFromDesign(groundData, ground);
 	LayerFromDesign(void, fight_ground);
 	LayerFromDesign(void, step_zone);
+	LayerFromDesign(void, magic_fight_zone);
 	LayerFromDesign(void, forest);
 	LayerFromDesign(eggData, SuperMegaPuperStepEgg);
 

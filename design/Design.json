@@ -4158,6 +4158,18 @@
                               }
                            },
                            {
+                              "_name" : "magic_fight_zone",
+                              "_typeName" : "Layer",
+                              "index" : {
+                                 "_typeName" : "FlatIndex",
+                                 "keyType" : 2
+                              },
+                              "list" : [],
+                              "order" : {
+                                 "_typeName" : "SortByIDOrder"
+                              }
+                           },
+                           {
                               "_name" : "units",
                               "_typeName" : "Layer",
                               "index" : {
