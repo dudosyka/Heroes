@@ -189,7 +189,7 @@ class MyApp : public App
 			0.6,
 			150,
 			true,
-			{/*1, 2, 3,*/ 4, 5},
+			{1, 2, 3, 4, 5},
 			10,
 			{},
 			{},
@@ -684,7 +684,7 @@ class MyApp : public App
 		isFighting = false;
 		units.clear();
 		selector.select(1);
-		design.child<Layout>("statusBar").show();
+		design.child<Layout>("statusBar").show(); 
 		if (lose)
 		{
 			clearArmy(playerLayer.data(playerLayer.get(0)).army, humanplayer);
@@ -710,8 +710,10 @@ class MyApp : public App
 				setStartPlayerPos(false);
 			}
 		}
+		loadMainArmy(playerLayer.data(0).army);
+		updateHeroCastles();
 	}
-
+	//fdaefsefsefesfesfesfeseseffsefesfesfsefsefesfsefesfesfsefsefsefsefesfefesfsefse
 	void initializePlayer(int x,int y)
 	{
 		playerLayer.load("Heroes.json", x * 150, y * 150);
@@ -3957,6 +3959,26 @@ class MyApp : public App
 		return stats;
 	}
 	
+	void fullMana()
+	{
+		for (auto unit : units.all())
+		{
+			if (!empty(units.data(unit).unit.type.availibleMagic))
+			{
+				units.data(unit).unit.type.mana = allTypes[units.data(unit).unit.type.lvl - 1].mana;
+			}
+		}
+	}
+
+	void clearBuffes()
+	{
+		for (auto unit : units.all())
+		{
+			units.data(unit).unit.type.buffes.clear();
+			units.data(unit).unit.type.debuffes.clear();
+		}
+	}
+
 	void attack(bool archer)
 	{
 		isAttacking = false;
@@ -4009,6 +4031,8 @@ class MyApp : public App
 			moveUnitId = -1;
 			if (check_win(humanplayer) || check_win(neutral))
 			{
+				clearBuffes();
+				fullMana();
 				auto forwindow = design.child<Layout>("forFightWindow");
 				forwindow.show();
 				auto window = forwindow.load("finishFight.json");
@@ -4072,6 +4096,7 @@ class MyApp : public App
 				isCastleFight = false;
 				design.child<Layout>("statusBar").show();
 				zone.clear();
+				updateHeroCastles();
 			}
 			else
 			{
@@ -4087,6 +4112,8 @@ class MyApp : public App
 
 			if (check_win(humanplayer) || check_win(neutral))
 			{
+				clearBuffes();
+				fullMana();
 				auto forwindow = design.child<Layout>("forFightWindow");
 				forwindow.show();
 				auto window = forwindow.load("finishFight.json");
@@ -4149,6 +4176,7 @@ class MyApp : public App
 				isCastleFight = false;
 				units.clear();
 				zone.clear();
+				updateHeroCastles();
 			}
 			else
 			{
